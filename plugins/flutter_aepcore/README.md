@@ -25,7 +25,7 @@ After you have installed Core, you can install additional AEP Flutter extensions
 | Extension    | Package                                            |
 | ------------ | ------------------------------------------------------------ |
 | Analytics    | [![pub package](https://img.shields.io/pub/v/flutter_aepanalytics.svg)](https://pub.dartlang.org/packages/flutter_aepanalytics) |
-| Assurance | [![pub package](https://img.shields.io/pub/v/flutter_assurance.svg)](https://pub.dartlang.org/packages/flutter_assurance) |
+| Assurance | [![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepassurance) |
 
 ## Tests
 
