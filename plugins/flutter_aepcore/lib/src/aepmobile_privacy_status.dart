@@ -10,30 +10,30 @@ governing permissions and limitations under the License.
 */
 
 // This class is used to set the privacy status
-enum AEPPrivacyStatus { opt_in, opt_out, unknown }
+enum PrivacyStatus { opt_in, opt_out, unknown }
 
-extension AEPPrivacyStatusExt on AEPPrivacyStatus {
+extension AEPPrivacyStatusExt on PrivacyStatus {
   String get value {
     switch (this) {
-      case AEPPrivacyStatus.opt_in:
+      case PrivacyStatus.opt_in:
         return 'AEP_PRIVACY_STATUS_OPT_IN';
-      case AEPPrivacyStatus.opt_out:
+      case PrivacyStatus.opt_out:
         return 'AEP_PRIVACY_STATUS_OPT_OUT';
-      case AEPPrivacyStatus.unknown:
+      case PrivacyStatus.unknown:
         return 'AEP_PRIVACY_STATUS_UNKNOWN';
     }
   }
 }
 
 extension AEPPrivacyStatusValueExt on String {
-  AEPPrivacyStatus get toAEPPrivacyStatus {
+  PrivacyStatus get toAEPPrivacyStatus {
     switch (this) {
       case 'AEP_PRIVACY_STATUS_OPT_IN':
-        return AEPPrivacyStatus.opt_in;
+        return PrivacyStatus.opt_in;
       case 'AEP_PRIVACY_STATUS_OPT_OUT':
-        return AEPPrivacyStatus.opt_out;
+        return PrivacyStatus.opt_out;
       case 'AEP_PRIVACY_STATUS_UNKNOWN':
-        return AEPPrivacyStatus.unknown;
+        return PrivacyStatus.unknown;
     }
     throw Exception('Invalid AEPPrivacyStatus value: $this');
   }

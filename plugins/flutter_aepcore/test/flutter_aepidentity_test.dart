@@ -31,7 +31,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPIdentity.extensionVersion;
+      await Identity.extensionVersion;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -42,7 +42,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await FlutterAEPIdentity.extensionVersion, testVersion);
+      expect(await Identity.extensionVersion, testVersion);
     });
   });
 
@@ -59,7 +59,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPIdentity.appendToUrl(inputUrl);
+      await Identity.appendToUrl(inputUrl);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -70,7 +70,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await FlutterAEPIdentity.appendToUrl(inputUrl), expectedUrl);
+      expect(await Identity.appendToUrl(inputUrl), expectedUrl);
     });
   });
 
@@ -97,7 +97,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPIdentity.identifiers;
+      await Identity.identifiers;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -108,9 +108,9 @@ void main() {
     });
 
     test('returns correct result', () async {
-      List<AEPMobileVisitorId> ids = await FlutterAEPIdentity.identifiers;
-      expect(ids[0].idOrigin, AEPMobileVisitorId(testIdOne).idOrigin);
-      expect(ids[1].idOrigin, AEPMobileVisitorId(testIdTwo).idOrigin);
+      List<Identifiable> ids = await Identity.identifiers;
+      expect(ids[0].idOrigin, Identifiable(testIdOne).idOrigin);
+      expect(ids[1].idOrigin, Identifiable(testIdTwo).idOrigin);
     });
   });
 
@@ -126,7 +126,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPIdentity.experienceCloudId;
+      await Identity.experienceCloudId;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -137,15 +137,15 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await FlutterAEPIdentity.experienceCloudId, testMcId);
+      expect(await Identity.experienceCloudId, testMcId);
     });
   });
 
   group('syncIdentifier', () {
     final String testIdType = "testType";
     final String testId = "testId";
-    final AEPMobileVisitorAuthState testState =
-        AEPMobileVisitorAuthState.unknown;
+    final MobileVisitorAuthenticationState testState =
+        MobileVisitorAuthenticationState.unknown;
 
     final List<MethodCall> log = <MethodCall>[];
 
@@ -157,7 +157,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPIdentity.syncIdentifier(testIdType, testId, testState);
+      await Identity.syncIdentifier(testIdType, testId, testState);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -189,7 +189,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPIdentity.syncIdentifiers(testIds);
+      await Identity.syncIdentifiers(testIds);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -206,8 +206,8 @@ void main() {
       "idType2": "idValue2",
       "idType3": "idValue3"
     };
-    final AEPMobileVisitorAuthState testState =
-        AEPMobileVisitorAuthState.logged_out;
+    final MobileVisitorAuthenticationState testState =
+        MobileVisitorAuthenticationState.logged_out;
 
     final List<MethodCall> log = <MethodCall>[];
 
@@ -219,7 +219,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPIdentity.syncIdentifiersWithAuthState(testIds, testState);
+      await Identity.syncIdentifiersWithAuthState(testIds, testState);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -242,7 +242,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPIdentity.urlVariables;
+      await Identity.urlVariables;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -253,7 +253,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await FlutterAEPIdentity.urlVariables, expectedVariables);
+      expect(await Identity.urlVariables, expectedVariables);
     });
   });
 }

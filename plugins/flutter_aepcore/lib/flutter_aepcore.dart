@@ -17,7 +17,7 @@ import 'package:flutter_aepcore/src/aepmobile_logging_level.dart';
 import 'package:flutter_aepcore/src/aepmobile_privacy_status.dart';
 
 /// Adobe Experience Platform Core API.
-class FlutterAEPCore {
+class MobileCore {
   static const MethodChannel _channel = const MethodChannel('flutter_aepcore');
 
   /// Gets the current Core extension version.
@@ -57,23 +57,23 @@ class FlutterAEPCore {
       _channel.invokeMethod<void>('setAdvertisingIdentifier', aid);
 
   ///  Called by the extension public API to dispatch an event for other extensions or the internal SDK to consume. Any events dispatched by this call will not be processed until after `start` has been called.
-  static Future<bool> dispatchEvent(AEPEvent event) => _channel
+  static Future<bool> dispatchEvent(Event event) => _channel
       .invokeMethod<bool>('dispatchEvent', event.data)
       .then((value) => value!);
 
   /// You should use this method when the Event being passed is a request and you expect an event in response. Any events dispatched by this call will not be processed until after `start` has been called.
-  static Future<AEPEvent> dispatchEventWithResponseCallback(
-    AEPEvent event,
+  static Future<Event> dispatchEventWithResponseCallback(
+    Event event,
   ) =>
       _channel
           .invokeMethod<Map<dynamic, dynamic>>(
               'dispatchEventWithResponseCallback', event.data)
-          .then((value) => AEPEvent(value!));
+          .then((value) => Event(value!));
 
   /// Dispatches a response event for a paired event that was sent to dispatchEventWithResponseCallback or received by an extension listener hear method.
   static Future<bool> dispatchResponseEvent(
-    AEPEvent responseEvent,
-    AEPEvent requestEvent,
+    Event responseEvent,
+    Event requestEvent,
   ) =>
       _channel.invokeMethod<bool>(
         'dispatchResponseEvent',
@@ -90,20 +90,20 @@ class FlutterAEPCore {
       _channel.invokeMethod<String>('getSdkIdentities').then((value) => value!);
 
   /// Get the current Adobe Mobile Privacy Status
-  static Future<AEPPrivacyStatus> get privacyStatus => _channel
+  static Future<PrivacyStatus> get privacyStatus => _channel
       .invokeMethod<String>('getPrivacyStatus')
       .then((value) => value!.toAEPPrivacyStatus);
 
   /// Set the logging level of the SDK
   ///
   /// @param {AEPLogLevel} mode AEPLogLevel to be used by the SDK
-  static Future<void> setLogLevel(AEPLogLevel mode) =>
+  static Future<void> setLogLevel(LogLevel mode) =>
       _channel.invokeMethod('setLogLevel', mode.value);
 
   /// Set the Adobe Mobile Privacy status
   ///
   /// @param {AEPMobilePrivacyStatus} privacyStatus AEPMobilePrivacyStatus to be set to the SDK
-  static Future<void> setPrivacyStatus(AEPPrivacyStatus privacyStatus) =>
+  static Future<void> setPrivacyStatus(PrivacyStatus privacyStatus) =>
       _channel.invokeMethod('setPrivacyStatus', privacyStatus.value);
 
   /// Update specific configuration parameters

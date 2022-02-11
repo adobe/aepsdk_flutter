@@ -14,7 +14,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 /// Adobe Experience Platform Lifecycle API.
-class FlutterAEPLifecycle {
+class Lifecycle {
   static const MethodChannel _channel =
       const MethodChannel('flutter_aeplifecycle');
 

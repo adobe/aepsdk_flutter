@@ -13,7 +13,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 /// Adobe Experience Platform Assurance API.
-class FlutterAEPAssurance {
+class Assurance {
   static const MethodChannel _channel = const MethodChannel('flutter_aepassurance');
 
   /// Gets the current AEPAssurance extension version.

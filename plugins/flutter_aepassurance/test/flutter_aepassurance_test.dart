@@ -30,7 +30,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPAssurance.extensionVersion;
+      await Assurance.extensionVersion;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -41,7 +41,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await FlutterAEPAssurance.extensionVersion, testVersion);
+      expect(await Assurance.extensionVersion, testVersion);
     });
   });
 
@@ -57,7 +57,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPAssurance.startSession(testUrl);
+      await Assurance.startSession(testUrl);
 
       expect(log, <Matcher>[
         isMethodCall(

@@ -11,42 +11,42 @@ governing permissions and limitations under the License.
 
 /// This is used to indicate the authentication state for the current AEPMobileVisitorId
 ///
-enum AEPMobileVisitorAuthState { authenticated, logged_out, unknown }
+enum MobileVisitorAuthenticationState { authenticated, logged_out, unknown }
 
 extension AEPMobileVisitorAuthStateExt
-    on AEPMobileVisitorAuthState {
+    on MobileVisitorAuthenticationState {
   String get value {
     switch (this) {
-      case AEPMobileVisitorAuthState.logged_out:
+      case MobileVisitorAuthenticationState.logged_out:
         return 'AEP_VISITOR_AUTH_STATE_LOGGED_OUT';
-      case AEPMobileVisitorAuthState.authenticated:
+      case MobileVisitorAuthenticationState.authenticated:
         return 'AEP_VISITOR_AUTH_STATE_AUTHENTICATED';
-      case AEPMobileVisitorAuthState.unknown:
+      case MobileVisitorAuthenticationState.unknown:
         return 'AEP_VISITOR_AUTH_STATE_UNKNOWN';
     }
   }
 }
 
 extension AEPMobileVisitorAuthStateValueExt on String {
-  AEPMobileVisitorAuthState
+  MobileVisitorAuthenticationState
       get toAEPMobileVisitorAuthState {
     switch (this) {
       case 'AEP_VISITOR_AUTH_STATE_AUTHENTICATED':
-        return AEPMobileVisitorAuthState.authenticated;
+        return MobileVisitorAuthenticationState.authenticated;
       case 'AEP_VISITOR_AUTH_STATE_LOGGED_OUT':
-        return AEPMobileVisitorAuthState.logged_out;
+        return MobileVisitorAuthenticationState.logged_out;
       case 'AEP_VISITOR_AUTH_STATE_UNKNOWN':
-        return AEPMobileVisitorAuthState.unknown;
+        return MobileVisitorAuthenticationState.unknown;
     }
     throw Exception('Invalid AEPMobileVisitorAuthenticationState value: $this');
   }
 }
 
 /// This is an identifier to be used with the Experience Cloud Visitor ID Service and it contains the origin, the identifier type, the identifier,, and the authentication state of the visitor ID.
-class AEPMobileVisitorId {
+class Identifiable {
   final Map<dynamic, dynamic> _data;
 
-  AEPMobileVisitorId(this._data);
+  Identifiable(this._data);
 
   String get idOrigin => _data['idOrigin'];
 
@@ -54,7 +54,7 @@ class AEPMobileVisitorId {
 
   String get identifier => _data['identifier'];
 
-  AEPMobileVisitorAuthState get authenticationState =>
+  MobileVisitorAuthenticationState get authenticationState =>
       (_data['authenticationState'] as String)
           .toAEPMobileVisitorAuthState;
 

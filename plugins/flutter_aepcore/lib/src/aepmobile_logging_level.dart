@@ -11,34 +11,34 @@ governing permissions and limitations under the License.
 
 // This class is used to set the log level
 
-enum AEPLogLevel { error, warning, debug, trace }
+enum LogLevel { error, warning, debug, trace }
 
-extension AEPLogLevelExt on AEPLogLevel {
+extension AEPLogLevelExt on LogLevel {
   String get value {
     switch (this) {
-      case AEPLogLevel.error:
+      case LogLevel.error:
         return 'AEP_LOG_LEVEL_ERROR';
-      case AEPLogLevel.warning:
+      case LogLevel.warning:
         return 'AEP_LOG_LEVEL_WARNING';
-      case AEPLogLevel.debug:
+      case LogLevel.debug:
         return 'AEP_LOG_LEVEL_DEBUG';
-      case AEPLogLevel.trace:
+      case LogLevel.trace:
         return 'AEP_LOG_LEVEL_VERBOSE';
     }
   }
 }
 
 extension AEPLogLevelValueExt on String {
-  AEPLogLevel get toAEPLogLevel {
+  LogLevel get toAEPLogLevel {
     switch (this) {
       case 'AEP_LOG_LEVEL_ERROR':
-        return AEPLogLevel.error;
+        return LogLevel.error;
       case 'AEP_LOG_LEVEL_WARNING':
-        return AEPLogLevel.warning;
+        return LogLevel.warning;
       case 'AEP_LOG_LEVEL_DEBUG':
-        return AEPLogLevel.debug;
+        return LogLevel.debug;
       case 'AEP_LOG_LEVEL_VERBOSE':
-        return AEPLogLevel.trace;
+        return LogLevel.trace;
     }
     throw Exception('Invalid AEPLogLevel value: $this');
   }

@@ -10,10 +10,10 @@ governing permissions and limitations under the License.
 */
 
 /// The AEPEvent class contains the event that is used by the Event Hub.
-class AEPEvent {
-  AEPEvent(this.data);
+class Event {
+  Event(this.data);
 
-  AEPEvent.createEvent(
+  Event.createEvent(
     final String eventName,
     final String eventType,
     final String eventSource,

@@ -15,7 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/src/aepmobile_visitor_id.dart';
 
 /// Adobe Experience Platform Identity API.
-class FlutterAEPIdentity {
+class Identity {
   static const MethodChannel _channel =
       const MethodChannel('flutter_aepidentity');
 
@@ -28,12 +28,12 @@ class FlutterAEPIdentity {
       _channel.invokeMethod<String>('appendToUrl', url).then((value) => value!);
 
   /// Returns all customer identifiers that were previously synced with the Adobe Experience Cloud.
-  static Future<List<AEPMobileVisitorId>> get identifiers => _channel
+  static Future<List<Identifiable>> get identifiers => _channel
       .invokeListMethod<dynamic>(
         'getIdentifiers',
       )
       .then((value) => (value ?? [])
-          .map<AEPMobileVisitorId>((data) => AEPMobileVisitorId(data))
+          .map<Identifiable>((data) => Identifiable(data))
           .toList());
 
   /// Returns the Experience Cloud ID.
@@ -45,7 +45,7 @@ class FlutterAEPIdentity {
   static Future<void> syncIdentifier(
     String identifierType,
     String identifier,
-    AEPMobileVisitorAuthState authState,
+    MobileVisitorAuthenticationState authState,
   ) =>
       _channel.invokeMethod<void>('syncIdentifier', {
         'identifierType': identifierType,
@@ -60,7 +60,7 @@ class FlutterAEPIdentity {
   /// Updates the given customer IDs with the Adobe Experience Cloud ID Service.
   static Future<void> syncIdentifiersWithAuthState(
     Map<String, String> identifiers,
-    AEPMobileVisitorAuthState authState,
+    MobileVisitorAuthenticationState authState,
   ) =>
       _channel.invokeMethod<void>(
         'syncIdentifiersWithAuthState',

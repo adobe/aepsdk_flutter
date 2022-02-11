@@ -33,7 +33,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.extensionVersion;
+      await MobileCore.extensionVersion;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -44,7 +44,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await FlutterAEPCore.extensionVersion, testVersion);
+      expect(await MobileCore.extensionVersion, testVersion);
     });
   });
 
@@ -63,7 +63,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.trackAction(testAction, data: testContextData);
+      await MobileCore.trackAction(testAction, data: testContextData);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -93,7 +93,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.trackState(testState, data: testContextData);
+      await MobileCore.trackState(testState, data: testContextData);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -120,7 +120,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.setAdvertisingIdentifier(testAdId);
+      await MobileCore.setAdvertisingIdentifier(testAdId);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -138,8 +138,8 @@ void main() {
       "eventSource": "testEventSource",
       "eventData": {"eventDataKey": "eventDataValue"}
     };
-    final AEPEvent expectedEvent =
-        AEPEvent(eventConstructorData);
+    final Event expectedEvent =
+        Event(eventConstructorData);
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
@@ -150,7 +150,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.dispatchEvent(expectedEvent);
+      await MobileCore.dispatchEvent(expectedEvent);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -161,7 +161,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await FlutterAEPCore.dispatchEvent(expectedEvent), true);
+      expect(await MobileCore.dispatchEvent(expectedEvent), true);
     });
   });
 
@@ -172,9 +172,9 @@ void main() {
       "eventSource": "testEventSource",
       "eventData": {"eventDataKey": "eventDataValue"}
     };
-    final AEPEvent expectedEvent =
-        AEPEvent(eventConstructorData);
-    final AEPEvent returnedEvent = AEPEvent({
+    final Event expectedEvent =
+        Event(eventConstructorData);
+    final Event returnedEvent = Event({
       "eventName": "testrequestEvent",
       "eventType": "testrequestEvent",
       "eventSource": "testEventSource",
@@ -191,7 +191,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.dispatchEventWithResponseCallback(expectedEvent);
+      await MobileCore.dispatchEventWithResponseCallback(expectedEvent);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -203,7 +203,7 @@ void main() {
 
     test('returns correct result', () async {
       final actualEvent =
-          await FlutterAEPCore.dispatchEventWithResponseCallback(expectedEvent);
+          await MobileCore.dispatchEventWithResponseCallback(expectedEvent);
       expect(actualEvent.eventName, returnedEvent.eventName);
     });
   });
@@ -220,7 +220,7 @@ void main() {
       "eventData": eventData
     };
 
-    final AEPEvent event = AEPEvent.createEvent(
+    final Event event = Event.createEvent(
         eventName, eventType, eventSource, eventData);
 
     test('returns correct result', () async {
@@ -244,7 +244,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.sdkIdentities;
+      await MobileCore.sdkIdentities;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -255,7 +255,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      String? sdkIdentitiesResult = await FlutterAEPCore.sdkIdentities;
+      String? sdkIdentitiesResult = await MobileCore.sdkIdentities;
       expect(sdkIdentitiesResult, testSdkIdentities);
     });
   });
@@ -266,12 +266,12 @@ void main() {
     setUp(() {
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
         log.add(methodCall);
-        return AEPPrivacyStatus.opt_in.value;
+        return PrivacyStatus.opt_in.value;
       });
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.privacyStatus;
+      await MobileCore.privacyStatus;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -282,13 +282,13 @@ void main() {
     });
 
     test('returns correct result', () async {
-      AEPPrivacyStatus privacyStatus = await FlutterAEPCore.privacyStatus;
-      expect(privacyStatus.value, AEPPrivacyStatus.opt_in.value);
+      PrivacyStatus privacyStatus = await MobileCore.privacyStatus;
+      expect(privacyStatus.value, PrivacyStatus.opt_in.value);
     });
   });
 
   group('setLogLevel', () {
-    final AEPLogLevel logLevel = AEPLogLevel.error;
+    final LogLevel logLevel = LogLevel.error;
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
@@ -299,7 +299,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.setLogLevel(logLevel);
+      await MobileCore.setLogLevel(logLevel);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -311,7 +311,7 @@ void main() {
   });
 
   group('setPrivacyStatus', () {
-    final AEPPrivacyStatus privacyStatus = AEPPrivacyStatus.opt_in;
+    final PrivacyStatus privacyStatus = PrivacyStatus.opt_in;
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
@@ -322,7 +322,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.setPrivacyStatus(privacyStatus);
+      await MobileCore.setPrivacyStatus(privacyStatus);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -345,7 +345,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.updateConfiguration(testConfig);
+      await MobileCore.updateConfiguration(testConfig);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -367,7 +367,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPCore.clearUpdatedConfiguration();
+      await MobileCore.clearUpdatedConfiguration();
 
       expect(log, <Matcher>[
         isMethodCall('clearUpdatedConfiguration', arguments: null),

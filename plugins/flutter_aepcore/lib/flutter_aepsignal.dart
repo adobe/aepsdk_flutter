@@ -14,7 +14,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 /// Adobe Experience Platform Signal API.
-class FlutterAEPSignal {
+class Signal {
   static const MethodChannel _channel =
       const MethodChannel('flutter_aepsignal');
 

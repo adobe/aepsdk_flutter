@@ -30,7 +30,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await FlutterAEPLifecycle.extensionVersion;
+      await Lifecycle.extensionVersion;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -41,7 +41,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await FlutterAEPLifecycle.extensionVersion, testVersion);
+      expect(await Lifecycle.extensionVersion, testVersion);
     });
   });
 }
