@@ -8,6 +8,7 @@ import 'package:flutter_aepcore/flutter_aepcore_data.dart';
 import 'package:flutter_aepcore/flutter_aepidentity.dart';
 import 'package:flutter_aepcore/flutter_aeplifecycle.dart';
 import 'package:flutter_aepcore/flutter_aepsignal.dart';
+import 'package:flutter_aepassurance/flutter_aepassurance.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,12 +22,14 @@ class _MyAppState extends State<MyApp> {
   String _identityVersion = 'Unknown';
   String _lifecycleVersion = 'Unknown';
   String _signalVersion = 'Unknown';
+  String _assuranceVersion = 'Unknown';
   String _appendToUrlResult = "";
   String _experienceCloudId = "";
   String _getUrlVariablesResult = "";
   String _getIdentifiersResult = "";
   String _sdkIdentities = "";
   String _privacyStatus = "";
+  String _urlText = '';
 
   @override
   void initState() {
@@ -36,13 +39,18 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    late String coreVersion, lifecycleVersion, signalVersion, identityVersion;
+    late String coreVersion,
+        lifecycleVersion,
+        signalVersion,
+        identityVersion,
+        assuranceVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      coreVersion = await FlutterAEPCore.extensionVersion;
-      identityVersion = await FlutterAEPIdentity.extensionVersion;
-      lifecycleVersion = await FlutterAEPLifecycle.extensionVersion;
-      signalVersion = await FlutterAEPSignal.extensionVersion;
+      coreVersion = await MobileCore.extensionVersion;
+      identityVersion = await Identity.extensionVersion;
+      lifecycleVersion = await Lifecycle.extensionVersion;
+      signalVersion = await Signal.extensionVersion;
+      assuranceVersion = await Assurance.extensionVersion;
     } on PlatformException {
       log("Failed to get extension versions");
     }
@@ -57,6 +65,7 @@ class _MyAppState extends State<MyApp> {
       _identityVersion = identityVersion;
       _lifecycleVersion = lifecycleVersion;
       _signalVersion = signalVersion;
+      _assuranceVersion = assuranceVersion;
     });
   }
 
@@ -64,7 +73,7 @@ class _MyAppState extends State<MyApp> {
     String result = "";
 
     try {
-      result = await FlutterAEPIdentity.appendToUrl("www.myUrl.com");
+      result = await Identity.appendToUrl("www.myUrl.com");
     } on PlatformException {
       log("Failed to append URL");
     }
@@ -79,7 +88,7 @@ class _MyAppState extends State<MyApp> {
     String result = "";
 
     try {
-      result = await FlutterAEPIdentity.experienceCloudId;
+      result = await Identity.experienceCloudId;
     } on PlatformException {
       log("Failed to get experienceCloudId");
     }
@@ -91,7 +100,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> syncIdentifiers() async {
-    FlutterAEPIdentity.syncIdentifiers({
+    Identity.syncIdentifiers({
       "idType1": "idValue1",
       "idType2": "idValue2",
       "idType3": "idValue3",
@@ -99,21 +108,21 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> syncIdentifiersWithAuthState() async {
-    FlutterAEPIdentity.syncIdentifiersWithAuthState(
+    Identity.syncIdentifiersWithAuthState(
       {
         "idType1": "idValue1",
         "idType2": "idValue2",
         "idType3": "idValue3",
       },
-      AEPMobileVisitorAuthState.authenticated,
+      MobileVisitorAuthenticationState.authenticated,
     );
   }
 
   Future<void> syncIdentifier() async {
-    FlutterAEPIdentity.syncIdentifier(
+    Identity.syncIdentifier(
       "idType1",
       "idValue1",
-      AEPMobileVisitorAuthState.authenticated,
+      MobileVisitorAuthenticationState.authenticated,
     );
   }
 
@@ -121,7 +130,7 @@ class _MyAppState extends State<MyApp> {
     String result = "";
 
     try {
-      result = await FlutterAEPIdentity.urlVariables;
+      result = await Identity.urlVariables;
     } on PlatformException {
       log("Failed to get url variables");
     }
@@ -136,7 +145,7 @@ class _MyAppState extends State<MyApp> {
     String result = "";
 
     try {
-      result = await FlutterAEPCore.sdkIdentities;
+      result = await MobileCore.sdkIdentities;
     } on PlatformException {
       log("Failed to get sdk identities");
     }
@@ -148,10 +157,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getPrivacyStatus() async {
-    late AEPPrivacyStatus result;
+    late PrivacyStatus result;
 
     try {
-      result = await FlutterAEPCore.privacyStatus;
+      result = await MobileCore.privacyStatus;
     } on PlatformException {
       log("Failed to get privacy status");
     }
@@ -163,10 +172,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getIdentifiers() async {
-    late List<AEPMobileVisitorId> result;
+    late List<Identifiable> result;
 
     try {
-      result = await FlutterAEPIdentity.identifiers;
+      result = await Identity.identifiers;
     } on PlatformException {
       log("Failed to get identifiers");
     }
@@ -178,52 +187,52 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> setAdvertisingIdentifier() async {
-    FlutterAEPCore.setAdvertisingIdentifier("ad-id");
+    MobileCore.setAdvertisingIdentifier("ad-id");
   }
 
   Future<void> dispatchEvent() async {
-    final AEPEvent event = AEPEvent({
+    final Event event = Event({
       "eventName": "testEventName",
       "eventType": "testEventType",
       "eventSource": "testEventSource",
       "eventData": {"eventDataKey": "eventDataValue"}
     });
     try {
-      await FlutterAEPCore.dispatchEvent(event);
+      await MobileCore.dispatchEvent(event);
     } on PlatformException catch (e) {
       log("Failed to dispatch event '${e.message}''");
     }
   }
 
   Future<void> dispatchEventWithResponseCallback() async {
-    final AEPEvent event = AEPEvent({
+    final Event event = Event({
       "eventName": "testEventName",
       "eventType": "testEventType",
       "eventSource": "testEventSource",
       "eventData": {"eventDataKey": "eventDataValue"}
     });
     try {
-      await FlutterAEPCore.dispatchEventWithResponseCallback(event);
+      await MobileCore.dispatchEventWithResponseCallback(event);
     } on PlatformException catch (e) {
       log("Failed to dispatch event '${e.message}''");
     }
   }
 
   Future<void> dispatchResponseEvent() async {
-    final AEPEvent responseEvent = AEPEvent({
+    final Event responseEvent = Event({
       "eventName": "testresponseEvent",
       "eventType": "testresponseEvent",
       "eventSource": "testEventSource",
       "eventData": {"eventDataKey": "eventDataValue"}
     });
-    final AEPEvent requestEvent = AEPEvent({
+    final Event requestEvent = Event({
       "eventName": "testrequestEvent",
       "eventType": "testrequestEvent",
       "eventSource": "testEventSource",
       "eventData": {"eventDataKey": "eventDataValue"}
     });
     try {
-      await FlutterAEPCore.dispatchResponseEvent(responseEvent, requestEvent);
+      await MobileCore.dispatchResponseEvent(responseEvent, requestEvent);
     } on PlatformException catch (e) {
       log("Failed to dispatch events '${e.message}''");
     }
@@ -252,16 +261,13 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
-            tabs: [
-              Text('Core'),
-              Text('Identity'),
-            ],
+            tabs: [Text('Core'), Text('Identity'), Text('Assurance')],
           ),
-          title: Text('Flutter AEPCore'),
+          title: Text('Flutter AEP SDK'),
         ),
         body: TabBarView(
           children: [
@@ -279,23 +285,26 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => getSdkIdentities(),
                 ),
                 ElevatedButton(
+                  child: Text("FlutterAEPCore.sdkIdentities"),
+                  onPressed: () => getSdkIdentities(),
+                ),
+                ElevatedButton(
                   child: Text("FlutterAEPCore.privacyStatus"),
                   onPressed: () => getPrivacyStatus(),
                 ),
                 ElevatedButton(
                   child: Text("FlutterAEPCore.setLogLevel"),
-                  onPressed: () =>
-                      FlutterAEPCore.setLogLevel(AEPLogLevel.error),
+                  onPressed: () => MobileCore.setLogLevel(LogLevel.error),
                 ),
                 ElevatedButton(
                   child: Text("FlutterAEPCore.setPrivacyStatus(...)"),
                   onPressed: () =>
-                      FlutterAEPCore.setPrivacyStatus(AEPPrivacyStatus.opt_in),
+                      MobileCore.setPrivacyStatus(PrivacyStatus.opt_in),
                 ),
                 ElevatedButton(
                   child: Text("FlutterAEPCore.updateConfiguration(...)"),
                   onPressed: () =>
-                      FlutterAEPCore.updateConfiguration({"key": "value"}),
+                      MobileCore.updateConfiguration({"key": "value"}),
                 ),
                 ElevatedButton(
                   child: Text("FlutterAEPCore.setAdvertisingIdentifier(...)"),
@@ -356,6 +365,34 @@ class _MyAppState extends State<MyApp> {
                 ),
               ]),
             ),
+            Center(
+              child: ListView(shrinkWrap: true, children: <Widget>[
+                Text('AEPAssurance version = $_assuranceVersion\n'),
+                ElevatedButton(
+                  child: Text("ACPCore.trackState(...)"),
+                  onPressed: () => MobileCore.trackState("myState",
+                      data: {"key1": "value1"}),
+                ),
+                ElevatedButton(
+                  child: Text("ACPCore.trackAction(...)"),
+                  onPressed: () => MobileCore.trackAction("myAction",
+                      data: {"key1": "value1"}),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                      border: new OutlineInputBorder(
+                          borderSide: new BorderSide(color: Colors.teal)),
+                      hintText: 'Enter a assurance session url'),
+                  onChanged: (text) {
+                    _urlText = text;
+                  },
+                ),
+                ElevatedButton(
+                  child: Text("AEPAssurance.startSession(...)"),
+                  onPressed: () => Assurance.startSession(_urlText),
+                ),
+              ]),
+            )
           ],
         ),
       ),

@@ -18,7 +18,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_aepcore: ">= 1.0.0"
+  flutter_aepcore:
+    path: ../plugins/flutter_aepcore/
 
   flutter_aepassurance:
     path: ../plugins/flutter_aepassurance/

@@ -62,10 +62,17 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_aepassurance:
+    dependency: "direct dev"
+    description:
+      path: "../plugins/flutter_aepassurance"
+      relative: true
+    source: path
+    version: "1.0.0"
   flutter_aepcore:
     dependency: "direct dev"
     description:
-      path: ".."
+      path: "../plugins/flutter_aepcore"
       relative: true
     source: path
     version: "1.0.0"
