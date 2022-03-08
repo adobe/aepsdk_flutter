@@ -22,7 +22,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-/** FlutterAssurancePlugin */
+/** FlutterAEPAssurancePlugin */
 public class FlutterAEPAssurancePlugin implements FlutterPlugin, MethodCallHandler {
 
   private static final String TAG = "FlutterAEPAssurancePlugin";
@@ -32,7 +32,7 @@ public class FlutterAEPAssurancePlugin implements FlutterPlugin, MethodCallHandl
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
     channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepassurance");
-    channel.setMethodCallHandler(new FlutterAssurancePlugin());
+    channel.setMethodCallHandler(new FlutterAEPAssurancePlugin());
   }
 
   @Override

@@ -1,16 +1,10 @@
-package com.adobe.marketing.mobile.flutter.flutter_aepcore_example;
+package com.adobe.marketing.mobile.flutter.flutter_aepsdk_example;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.adobe.marketing.mobile.Identity;
-import com.adobe.marketing.mobile.InvalidInitException;
-import com.adobe.marketing.mobile.Lifecycle;
-import com.adobe.marketing.mobile.LoggingMode;
-import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.Signal;
-import com.adobe.marketing.mobile.WrapperType;
+import com.adobe.marketing.mobile.*;
 
 import io.flutter.app.FlutterApplication;
 
@@ -28,6 +22,7 @@ public class MyApplication extends FlutterApplication {
             Identity.registerExtension();
             Lifecycle.registerExtension();
             Signal.registerExtension();
+            Assurance.registerExtension();
             MobileCore.start(o -> MobileCore.configureWithAppID("yourAppId"));
         } catch (InvalidInitException e) {
             Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));

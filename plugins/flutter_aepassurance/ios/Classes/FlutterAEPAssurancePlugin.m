@@ -18,7 +18,7 @@ governing permissions and limitations under the License.
   FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"flutter_aepassurance"
             binaryMessenger:[registrar messenger]];
-  FlutterAssurancePlugin* instance = [[FlutterAssurancePlugin alloc] init];
+  FlutterAEPAssurancePlugin* instance = [[FlutterAEPAssurancePlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 
