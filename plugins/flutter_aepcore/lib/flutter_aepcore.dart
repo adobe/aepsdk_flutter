@@ -57,7 +57,7 @@ class MobileCore {
       _channel.invokeMethod<void>('setAdvertisingIdentifier', aid);
 
   ///  Called by the extension public API to dispatch an event for other extensions or the internal SDK to consume. Any events dispatched by this call will not be processed until after `start` has been called.
-  static Future<bool> dispatchEvent(Event event) => _channel
+  static Future<bool> dispatch(Event event) => _channel
       .invokeMethod<bool>('dispatchEvent', event.data)
       .then((value) => value!);
 
@@ -69,19 +69,6 @@ class MobileCore {
           .invokeMethod<Map<dynamic, dynamic>>(
               'dispatchEventWithResponseCallback', event.data)
           .then((value) => Event(value!));
-
-  /// Dispatches a response event for a paired event that was sent to dispatchEventWithResponseCallback or received by an extension listener hear method.
-  static Future<bool> dispatchResponseEvent(
-    Event responseEvent,
-    Event requestEvent,
-  ) =>
-      _channel.invokeMethod<bool>(
-        'dispatchResponseEvent',
-        {
-          "responseEvent": responseEvent.data,
-          "requestEvent": requestEvent.data
-        },
-      ).then((value) => value!);
 
   /// Calls the provided callback with a JSON string containing all of the user's identities known by the SDK
   ///
@@ -119,5 +106,6 @@ class MobileCore {
 
   /// Clears the changes made by `updateConfigurationWith(configDict:)` and `setPrivacyStatus(_:)` to the initial configuration
   /// provided by either `configureWith(appId:)` or `configureWith(filePath:)`
-  static Future<void> clearUpdatedConfiguration() => _channel.invokeMethod('clearUpdatedConfiguration');
+  static Future<void> clearUpdatedConfiguration() =>
+      _channel.invokeMethod('clearUpdatedConfiguration');
 }

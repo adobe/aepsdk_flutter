@@ -198,7 +198,7 @@ class _MyAppState extends State<MyApp> {
       "eventData": {"eventDataKey": "eventDataValue"}
     });
     try {
-      await MobileCore.dispatchEvent(event);
+      await MobileCore.dispatch(event);
     } on PlatformException catch (e) {
       log("Failed to dispatch event '${e.message}''");
     }
@@ -215,26 +215,6 @@ class _MyAppState extends State<MyApp> {
       await MobileCore.dispatchEventWithResponseCallback(event);
     } on PlatformException catch (e) {
       log("Failed to dispatch event '${e.message}''");
-    }
-  }
-
-  Future<void> dispatchResponseEvent() async {
-    final Event responseEvent = Event({
-      "eventName": "testresponseEvent",
-      "eventType": "testresponseEvent",
-      "eventSource": "testEventSource",
-      "eventData": {"eventDataKey": "eventDataValue"}
-    });
-    final Event requestEvent = Event({
-      "eventName": "testrequestEvent",
-      "eventType": "testrequestEvent",
-      "eventSource": "testEventSource",
-      "eventData": {"eventDataKey": "eventDataValue"}
-    });
-    try {
-      await MobileCore.dispatchResponseEvent(responseEvent, requestEvent);
-    } on PlatformException catch (e) {
-      log("Failed to dispatch events '${e.message}''");
     }
   }
 
@@ -281,47 +261,43 @@ class _MyAppState extends State<MyApp> {
                 getRichText('SDK Identities = ', '$_sdkIdentities\n'),
                 getRichText('Privacy status = ', '$_privacyStatus\n'),
                 ElevatedButton(
-                  child: Text("FlutterAEPCore.sdkIdentities"),
+                  child: Text("MobileCore.sdkIdentities"),
                   onPressed: () => getSdkIdentities(),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPCore.sdkIdentities"),
-                  onPressed: () => getSdkIdentities(),
-                ),
-                ElevatedButton(
-                  child: Text("FlutterAEPCore.privacyStatus"),
+                  child: Text("MobileCore.privacyStatus"),
                   onPressed: () => getPrivacyStatus(),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPCore.setLogLevel"),
+                  child: Text("MobileCore.setLogLevel"),
                   onPressed: () => MobileCore.setLogLevel(LogLevel.error),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPCore.setPrivacyStatus(...)"),
+                  child: Text("MobileCore.setPrivacyStatus(...)"),
                   onPressed: () =>
                       MobileCore.setPrivacyStatus(PrivacyStatus.opt_in),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPCore.updateConfiguration(...)"),
+                  child: Text("MobileCore.updateConfiguration(...)"),
                   onPressed: () =>
                       MobileCore.updateConfiguration({"key": "value"}),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPCore.setAdvertisingIdentifier(...)"),
+                  child: Text("MobileCore.clearUpdatedConfiguration"),
+                  onPressed: () => MobileCore.clearUpdatedConfiguration(),
+                ),
+                ElevatedButton(
+                  child: Text("MobileCore.setAdvertisingIdentifier(...)"),
                   onPressed: () => setAdvertisingIdentifier(),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPCore.dispatchEvent(...)"),
+                  child: Text("MobileCore.dispatchEvent(...)"),
                   onPressed: () => dispatchEvent(),
                 ),
                 ElevatedButton(
-                  child: Text(
-                      "FlutterAEPCore.dispatchEventWithResponseCallback(...)"),
+                  child:
+                      Text("MobileCore.dispatchEventWithResponseCallback(...)"),
                   onPressed: () => dispatchEventWithResponseCallback(),
-                ),
-                ElevatedButton(
-                  child: Text("FlutterAEPCore.dispatchResponseEvent(...)"),
-                  onPressed: () => dispatchResponseEvent(),
                 ),
               ]),
             ),
@@ -335,32 +311,27 @@ class _MyAppState extends State<MyApp> {
                     'Get URL variables result = ', '$_getUrlVariablesResult\n'),
                 getRichText('Identifiers = ', '$_getIdentifiersResult\n'),
                 ElevatedButton(
-                  child: Text("FlutterAEPIdentity.appendToUrl(...)"),
+                  child: Text("Identity.appendToUrl(...)"),
                   onPressed: () => appendUrl(),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPIdentity.identifiers"),
+                  child: Text("Identity.identifiers"),
                   onPressed: () => getIdentifiers(),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPIdentity.experienceCloudId"),
+                  child: Text("Identity.experienceCloudId"),
                   onPressed: () => getExperienceCloudId(),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPIdentity.syncIdentifier(...)"),
+                  child: Text("Identity.syncIdentifier(...)"),
                   onPressed: () => syncIdentifier(),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPIdentity.syncIdentifiers(...)"),
-                  onPressed: () => syncIdentifiers(),
-                ),
-                ElevatedButton(
-                  child: Text(
-                      "FlutterAEPIdentity.syncIdentifiersWithAuthState(...)"),
+                  child: Text("Identity.syncIdentifiersWithAuthState(...)"),
                   onPressed: () => syncIdentifiersWithAuthState(),
                 ),
                 ElevatedButton(
-                  child: Text("FlutterAEPIdentity.urlVariables"),
+                  child: Text("Identity.urlVariables"),
                   onPressed: () => getUrlVariables(),
                 ),
               ]),
@@ -369,12 +340,12 @@ class _MyAppState extends State<MyApp> {
               child: ListView(shrinkWrap: true, children: <Widget>[
                 Text('AEPAssurance version = $_assuranceVersion\n'),
                 ElevatedButton(
-                  child: Text("ACPCore.trackState(...)"),
+                  child: Text("MobileCore.trackState(...)"),
                   onPressed: () => MobileCore.trackState("myState",
                       data: {"key1": "value1"}),
                 ),
                 ElevatedButton(
-                  child: Text("ACPCore.trackAction(...)"),
+                  child: Text("MobileCore.trackAction(...)"),
                   onPressed: () => MobileCore.trackAction("myAction",
                       data: {"key1": "value1"}),
                 ),
@@ -388,7 +359,7 @@ class _MyAppState extends State<MyApp> {
                   },
                 ),
                 ElevatedButton(
-                  child: Text("AEPAssurance.startSession(...)"),
+                  child: Text("Assurance.startSession(...)"),
                   onPressed: () => Assurance.startSession(_urlText),
                 ),
               ]),
