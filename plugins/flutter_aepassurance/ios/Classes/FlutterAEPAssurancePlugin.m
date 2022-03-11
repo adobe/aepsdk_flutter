@@ -24,10 +24,10 @@ governing permissions and limitations under the License.
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"extensionVersion" isEqualToString:call.method]) {
-      result([AEPAssurance extensionVersion]);
+      result([AEPMobileAssurance extensionVersion]);
   } else if ([@"startSession" isEqualToString:call.method]) {
       NSString *url = (NSString *) call.arguments;
-      [AEPAssurance startSession:[NSURL URLWithString: url]];
+      [AEPMobileAssurance startSessionWithUrl:[NSURL URLWithString: url]];
       result(nil);
   } else {
       result(FlutterMethodNotImplemented);

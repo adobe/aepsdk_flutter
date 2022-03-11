@@ -5,6 +5,7 @@
 @import AEPIdentity;
 @import AEPServices;
 @import AEPSignal;
+@import AEPAssurance;
 
 @interface AppDelegate : FlutterAppDelegate
 

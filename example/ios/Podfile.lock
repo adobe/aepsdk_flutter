@@ -1,16 +1,22 @@
 PODS:
-  - AEPCore (3.4.1):
+  - AEPAssurance (3.0.1):
+    - AEPCore (>= 3.1.0)
+    - AEPServices (>= 3.1.0)
+  - AEPCore (3.4.2):
     - AEPRulesEngine (>= 1.1.0)
-    - AEPServices (>= 3.4.1)
-  - AEPIdentity (3.4.1):
-    - AEPCore (>= 3.4.1)
-  - AEPLifecycle (3.4.1):
-    - AEPCore (>= 3.4.1)
+    - AEPServices (>= 3.4.2)
+  - AEPIdentity (3.4.2):
+    - AEPCore (>= 3.4.2)
+  - AEPLifecycle (3.4.2):
+    - AEPCore (>= 3.4.2)
   - AEPRulesEngine (1.1.0)
-  - AEPServices (3.4.1)
-  - AEPSignal (3.4.1):
-    - AEPCore (>= 3.4.1)
+  - AEPServices (3.4.2)
+  - AEPSignal (3.4.2):
+    - AEPCore (>= 3.4.2)
   - Flutter (1.0.0)
+  - flutter_aepassurance (1.0.0):
+    - AEPAssurance (~> 3.0)
+    - Flutter
   - flutter_aepcore (0.0.1):
     - AEPCore (~> 3.0)
     - AEPIdentity (~> 3.0)
@@ -20,10 +26,12 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_aepassurance (from `.symlinks/plugins/flutter_aepassurance/ios`)
   - flutter_aepcore (from `.symlinks/plugins/flutter_aepcore/ios`)
 
 SPEC REPOS:
   trunk:
+    - AEPAssurance
     - AEPCore
     - AEPIdentity
     - AEPLifecycle
@@ -34,17 +42,21 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_aepassurance:
+    :path: ".symlinks/plugins/flutter_aepassurance/ios"
   flutter_aepcore:
     :path: ".symlinks/plugins/flutter_aepcore/ios"
 
 SPEC CHECKSUMS:
-  AEPCore: cac94cc6f0b2f960397488d3d68d02e0918b75a9
-  AEPIdentity: 3b9e7cf6306032e2d581f623f42301aa31dfae55
-  AEPLifecycle: 30775572d127c5bf4ab2a1cb067844a1cdbeb61a
+  AEPAssurance: b25880cd4b14f22c61a1dce19807bd0ca0fe9b17
+  AEPCore: b01856bf24972e4720cb0511a358d1e68067252a
+  AEPIdentity: fbf755560afcbb0acd66cd5b6a1c147530fca5f6
+  AEPLifecycle: 1e0e843465fb143f8d8949dcf06de169d5c26f62
   AEPRulesEngine: bb2927ed5501ddf9754c66e97f8d2b1cf8e33b19
-  AEPServices: 01f402b120bb84d442776a2af2c6b6b12ac01572
-  AEPSignal: 02673fc1d2fd2ea154c5de77914c93bf3ea1ee26
+  AEPServices: 3214311f239c8cdc6267d757200b05ec0ab05878
+  AEPSignal: be3a4789b492f4d5a5aef7408f30ff8e866d1d79
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  flutter_aepassurance: 13c97bbe7545b5b556b3b967b42fb9c8cd72bdcd
   flutter_aepcore: 1287c8a6b88fdb967432b0080cc923b58260f1df
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3

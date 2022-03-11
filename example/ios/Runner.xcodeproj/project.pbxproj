@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -243,7 +243,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" embed_and_thin\n";
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -257,7 +257,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
 		};
 		AAF363E4A929B71DBB21EF1A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -266,6 +266,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AEPAssurance/AEPAssurance.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPCore/AEPCore.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPIdentity/AEPIdentity.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPLifecycle/AEPLifecycle.framework",
@@ -275,6 +276,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPAssurance.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPIdentity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPLifecycle.framework",
@@ -381,6 +383,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 66USX5VV9D;
 				ENABLE_BITCODE = NO;
+				FLUTTER_APPLICATION_PATH = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/;
+				FLUTTER_TARGET = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/lib/main.dart;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -391,7 +395,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPCoreExample;
+				PACKAGE_CONFIG = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/.dart_tool/package_config.json;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -513,6 +518,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 66USX5VV9D;
 				ENABLE_BITCODE = NO;
+				FLUTTER_APPLICATION_PATH = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/;
+				FLUTTER_TARGET = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/lib/main.dart;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -523,7 +530,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPCoreExample;
+				PACKAGE_CONFIG = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/.dart_tool/package_config.json;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -541,6 +549,8 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 66USX5VV9D;
 				ENABLE_BITCODE = NO;
+				FLUTTER_APPLICATION_PATH = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/;
+				FLUTTER_TARGET = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/lib/main.dart;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -551,7 +561,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPCoreExample;
+				PACKAGE_CONFIG = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/.dart_tool/package_config.json;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
