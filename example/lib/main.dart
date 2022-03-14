@@ -198,7 +198,7 @@ class _MyAppState extends State<MyApp> {
       "eventData": {"eventDataKey": "eventDataValue"}
     });
     try {
-      await MobileCore.dispatch(event);
+      await MobileCore.dispatchEvent(event);
     } on PlatformException catch (e) {
       log("Failed to dispatch event '${e.message}''");
     }
