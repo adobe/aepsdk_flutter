@@ -138,8 +138,7 @@ void main() {
       "eventSource": "testEventSource",
       "eventData": {"eventDataKey": "eventDataValue"}
     };
-    final Event expectedEvent =
-        Event(eventConstructorData);
+    final Event expectedEvent = Event(eventConstructorData);
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
@@ -172,8 +171,7 @@ void main() {
       "eventSource": "testEventSource",
       "eventData": {"eventDataKey": "eventDataValue"}
     };
-    final Event expectedEvent =
-        Event(eventConstructorData);
+    final Event expectedEvent = Event(eventConstructorData);
     final Event returnedEvent = Event({
       "eventName": "testrequestEvent",
       "eventType": "testrequestEvent",
@@ -220,8 +218,8 @@ void main() {
       "eventData": eventData
     };
 
-    final Event event = Event.createEvent(
-        eventName, eventType, eventSource, eventData);
+    final Event event =
+        Event.createEvent(eventName, eventType, eventSource, eventData);
 
     test('returns correct result', () async {
       expect(event.eventName, eventName);
@@ -359,7 +357,7 @@ void main() {
   group('clearUpdatedConfiguration', () {
     final List<MethodCall> log = <MethodCall>[];
 
-    setUp((){
+    setUp(() {
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
         log.add(methodCall);
         return null;
@@ -371,6 +369,52 @@ void main() {
 
       expect(log, <Matcher>[
         isMethodCall('clearUpdatedConfiguration', arguments: null),
+      ]);
+    });
+  });
+
+  group('collectPii', () {
+    final Map<String, String> testPiiData = {"testKey": "testValue"};
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return null;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await MobileCore.collectPii(testPiiData);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'collectPii',
+          arguments: testPiiData,
+        ),
+      ]);
+    });
+  });
+
+  group('setAppGroup', () {
+    final String testAppGroup = "testAppGroup";
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return null;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await MobileCore.setAppGroup(testAppGroup);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'setAppGroup',
+          arguments: testAppGroup,
+        ),
       ]);
     });
   });

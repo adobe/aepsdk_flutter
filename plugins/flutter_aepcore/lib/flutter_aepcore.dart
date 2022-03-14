@@ -93,6 +93,19 @@ class MobileCore {
   static Future<void> setPrivacyStatus(PrivacyStatus privacyStatus) =>
       _channel.invokeMethod('setPrivacyStatus', privacyStatus.value);
 
+  /// Sets the app group used to sharing user defaults and files among containing app and extension apps.
+  /// This must be called in AppDidFinishLaunching and before any other interactions with the Adobe Mobile library have happened.
+  ///
+  /// @param {String} appGroup to be set
+  static Future<void> setAppGroup(String appGroup) =>
+      _channel.invokeMethod('setAppGroup', appGroup);
+
+  /// Submits a generic PII collection request event with type `generic.pii`.
+  ///
+  /// @param {Map<String, String>} a map containing the PII data
+  static Future<void> collectPii(Map<String, String> data) =>
+      _channel.invokeMethod('collectPii', data);
+
   /// Update specific configuration parameters
   ///
   /// Update the current SDK configuration with specific key/value pairs. Keys not found in the current

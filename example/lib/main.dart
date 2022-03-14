@@ -287,6 +287,15 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => MobileCore.clearUpdatedConfiguration(),
                 ),
                 ElevatedButton(
+                  child: Text("MobileCore.setAppGroup"),
+                  onPressed: () => MobileCore.setAppGroup("testAppGroup"),
+                ),
+                ElevatedButton(
+                  child: Text("MobileCore.collectPii"),
+                  onPressed: () =>
+                      MobileCore.collectPii({"testKey": "testValue"}),
+                ),
+                ElevatedButton(
                   child: Text("MobileCore.setAdvertisingIdentifier(...)"),
                   onPressed: () => setAdvertisingIdentifier(),
                 ),

@@ -61,6 +61,10 @@ governing permissions and limitations under the License.
     } else if ([@"setPrivacyStatus" isEqualToString:call.method]) {
         [AEPMobileCore setPrivacyStatus:[FlutterAEPCoreDataBridge privacyStatusFromString:call.arguments]];
         result(nil);
+    } else if ([@"setAppGroup" isEqualToString:call.method]) {
+        [self handleSetAppGroup:call];
+    } else if ([@"collectPii" isEqualToString:call.method]) {
+        [self handleCollectPii:call];
     } else {
         result(FlutterMethodNotImplemented);
     }
@@ -105,6 +109,15 @@ governing permissions and limitations under the License.
     [AEPMobileCore getPrivacyStatus:^(enum AEPPrivacyStatus status) {
         result([FlutterAEPCoreDataBridge stringFromPrivacyStatus:status]);
     }];
+}
+
+- (void)handleSetAppGroup:(FlutterMethodCall *) call {
+    [AEPMobileCore setAppGroup: call.arguments];
+}
+
+- (void)handleCollectPii:(FlutterMethodCall *) call {
+    NSDictionary *dict = (NSDictionary *) call.arguments;
+    [AEPMobileCore collectPii: dict];
 }
 
 - (FlutterError *)flutterErrorFromNSError:(NSError *) error {
