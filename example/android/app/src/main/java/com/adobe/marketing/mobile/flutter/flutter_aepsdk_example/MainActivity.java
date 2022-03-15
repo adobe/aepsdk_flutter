@@ -1,4 +1,4 @@
-package com.adobe.marketing.mobile.flutter.flutter_aepcore_example;
+package com.adobe.marketing.mobile.flutter.flutter_aepsdk_example;
 
 import io.flutter.embedding.android.FlutterActivity;
 
