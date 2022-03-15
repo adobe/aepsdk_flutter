@@ -120,6 +120,10 @@ governing permissions and limitations under the License.
     [AEPMobileCore collectPii: dict];
 }
 
+- (void)handleSet:(FlutterMethodCall *) call {
+    [AEPMobileCore setAppGroup: call.arguments];
+}
+
 - (FlutterError *)flutterErrorFromNSError:(NSError *) error {
     return [FlutterError errorWithCode:[NSString stringWithFormat:@"%ld", (long)error.code]
                              message:error.localizedDescription

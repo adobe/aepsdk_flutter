@@ -307,4 +307,8 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         Map params = (Map) arguments;
         MobileCore.updateConfiguration(params);
     }
+
+    private void handleClearUpdatedConfiguration() {
+
+    }
 }

@@ -121,4 +121,8 @@ class MobileCore {
   /// provided by either `configureWith(appId:)` or `configureWith(filePath:)`
   static Future<void> clearUpdatedConfiguration() =>
       _channel.invokeMethod('clearUpdatedConfiguration');
+
+  /// Clears all identifiers from Edge extensions and generates a new Experience Cloud ID (ECID).
+  static Future<void> resetIdentities() =>
+      _channel.invokeMethod('resetIdentities');
 }
