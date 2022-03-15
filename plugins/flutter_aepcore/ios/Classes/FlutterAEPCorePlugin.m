@@ -65,6 +65,8 @@ governing permissions and limitations under the License.
         [self handleSetAppGroup:call];
     } else if ([@"collectPii" isEqualToString:call.method]) {
         [self handleCollectPii:call];
+    } else if ([@"resetIdentities" isEqualToString:call.method]) {
+        [self handleResetIdentities:call];
     } else {
         result(FlutterMethodNotImplemented);
     }
@@ -120,9 +122,10 @@ governing permissions and limitations under the License.
     [AEPMobileCore collectPii: dict];
 }
 
-- (void)handleSet:(FlutterMethodCall *) call {
-    [AEPMobileCore setAppGroup: call.arguments];
+- (void)handleResetIdentities:(FlutterMethodCall *) call {
+    [AEPMobileCore resetIdentities];
 }
+
 
 - (FlutterError *)flutterErrorFromNSError:(NSError *) error {
     return [FlutterError errorWithCode:[NSString stringWithFormat:@"%ld", (long)error.code]

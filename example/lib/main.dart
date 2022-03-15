@@ -265,6 +265,10 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => getSdkIdentities(),
                 ),
                 ElevatedButton(
+                  child: Text("MobileCore.resetIdentities"),
+                  onPressed: () => MobileCore.resetIdentities(),
+                ),
+                ElevatedButton(
                   child: Text("MobileCore.privacyStatus"),
                   onPressed: () => getPrivacyStatus(),
                 ),

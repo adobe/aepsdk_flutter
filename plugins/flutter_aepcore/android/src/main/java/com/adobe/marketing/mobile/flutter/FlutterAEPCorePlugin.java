@@ -80,6 +80,9 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             result.success(null);
         } else if ("getSdkIdentities".equals(call.method)) {
             getSdkIdentities(result);
+        } else if ("resetIdentities".equals(call.method)) {
+            handleResetIdentities();
+            result.success(null);
         } else if ("getPrivacyStatus".equals(call.method)) {
             getPrivacyStatus(result);
         } else if ("setAppGroup".equals(call.method)) {
@@ -93,6 +96,12 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             result.success(null);
         } else if ("updateConfiguration".equals(call.method)) {
             handleUpdateConfiguration(call.arguments);
+            result.success(null);
+        } else if ("clearUpdatedConfiguration".equals(call.method)) {
+            handleClearUpdatedConfiguration();
+            result.success(null);
+        } else if ("collectPii".equals(call.method)) {
+            handleCollectPii(call.arguments);
             result.success(null);
         } else {
             result.notImplemented();
@@ -309,6 +318,20 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     private void handleClearUpdatedConfiguration() {
+        MobileCore.clearUpdatedConfiguration();
+    }
 
+    private void handleResetIdentities() {
+        MobileCore.resetIdentities();
+    }
+
+    private void handleCollectPii(final Object arguments) {
+        if (!(arguments instanceof  Map)) {
+            Log.e(TAG, "CollectPii failed, arguments are invalid");
+            return;
+        }
+
+        Map params = (Map) arguments;
+        MobileCore.collectPii(params);
     }
 }
