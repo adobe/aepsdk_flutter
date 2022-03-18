@@ -48,7 +48,7 @@ Initializing the SDK should be done in native code (AppDelegate / SceneDelegate 
 
 As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
 
-Here is an example of initializing the SDK with AEPCore and AEPAssurance as done in the example app found in this repository:
+Here is an example of initializing the SDK with AEPCore as done in the example app found in this repository:
 
 ### iOS
 
