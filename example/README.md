@@ -1,6 +1,6 @@
-# flutter_aepcore_example
+# flutter_aepsdk_example
 
-Demonstrates how to use the flutter_aepcore plugin.
+Demonstrates how to use the flutter_aepsdk plugins.
 
 ## Getting Started
 
@@ -41,5 +41,5 @@ Ensure you have an iOS simulator/device connected.
 cd example
 flutter pub get
 cd ios && pod install && cd ../
-flutter run ios
+flutter run
 ```
