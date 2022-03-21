@@ -1,2 +1,17 @@
-.DS_Store
+**/.DS_Store
+**/.dart_tool/
+
+**/.packages
+**/.pub/
+
+**/build/
+
+**/.idea
+
+**/*.log
+
+**/.vscode
+
+**/*.iml
+
 
