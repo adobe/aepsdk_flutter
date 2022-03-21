@@ -48,4 +48,4 @@ flutter run
 
 If this is your first time using Assurance, make sure you get familiar with how to get up and running by reading the documentation [here](https://aep-sdks.gitbook.io/docs/foundation-extensions/adobe-experience-platform-assurance)
 
-The base url for the iOS app is `aepsdkflutter://host` and for Android it is `aepsdkflutter://adobe`. Once the example app is running, and you have entered the base url for the Assurance session on the web, navigate to the Assurance tab in the app, and paste the link received from the Assurance web portal. Now hit `start session` to begin your Assurance session.
+The base url for the iOS app is `aepsdkflutter://host` and for Android it is `aepsdkflutter://adobe`. Once the example app is running, and you have entered the base url for the Assurance session on the web, navigate to the Assurance tab in the app, and paste the link received from the Griffon web portal. Now hit `start session` to begin your Assurance session.
