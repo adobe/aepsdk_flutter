@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -384,7 +384,7 @@
 				DEVELOPMENT_TEAM = 66USX5VV9D;
 				ENABLE_BITCODE = NO;
 				FLUTTER_APPLICATION_PATH = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/;
-				FLUTTER_TARGET = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/lib/main.dart;
+				FLUTTER_TARGET = lib/main.dart;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -395,7 +395,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PACKAGE_CONFIG = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/.dart_tool/package_config.json;
+				PACKAGE_CONFIG = .packages;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner-Bridging-Header.h";
@@ -519,7 +519,7 @@
 				DEVELOPMENT_TEAM = 66USX5VV9D;
 				ENABLE_BITCODE = NO;
 				FLUTTER_APPLICATION_PATH = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/;
-				FLUTTER_TARGET = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/lib/main.dart;
+				FLUTTER_TARGET = lib/main.dart;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -530,7 +530,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PACKAGE_CONFIG = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/.dart_tool/package_config.json;
+				PACKAGE_CONFIG = .packages;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner-Bridging-Header.h";
@@ -550,7 +550,7 @@
 				DEVELOPMENT_TEAM = 66USX5VV9D;
 				ENABLE_BITCODE = NO;
 				FLUTTER_APPLICATION_PATH = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/;
-				FLUTTER_TARGET = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/lib/main.dart;
+				FLUTTER_TARGET = lib/main.dart;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -561,7 +561,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PACKAGE_CONFIG = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/.dart_tool/package_config.json;
+				PACKAGE_CONFIG = .packages;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner-Bridging-Header.h";
