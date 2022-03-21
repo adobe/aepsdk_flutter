@@ -31,7 +31,7 @@ For more detailed information on the Assurance APIs, visit the documentation [he
 
 As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
 
-Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information.
+Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information about initializing the SDK.
 
 ##### Importing the SDK:
 ```dart
