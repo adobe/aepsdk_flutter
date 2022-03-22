@@ -6,7 +6,7 @@
 
 ## Installation
 
-First, make sure that the [flutter_aepcore plugin is installed](./flutter_aepcore/README.md) as flutter_aepassurance depends on it. 
+First, make sure that the [flutter_aepcore](../flutter_aepcore/README.md) plugin is installed, as flutter_aepassurance depends on it. 
 
 Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepassurance/install).
 
@@ -49,7 +49,7 @@ Assurance.startSession(url);
  ```
 
 ## Contributing
-See [CONTRIBUTING](CONTRIBUTING.md)
+See [CONTRIBUTING](../../CONTRIBUTING.md)
 
 ## License
-See [LICENSE](LICENSE)
+See [LICENSE](../../LICENSE)
