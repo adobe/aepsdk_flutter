@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -383,8 +383,6 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 66USX5VV9D;
 				ENABLE_BITCODE = NO;
-				FLUTTER_APPLICATION_PATH = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/;
-				FLUTTER_TARGET = lib/main.dart;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -395,7 +393,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PACKAGE_CONFIG = .packages;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner-Bridging-Header.h";
@@ -518,8 +515,6 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 66USX5VV9D;
 				ENABLE_BITCODE = NO;
-				FLUTTER_APPLICATION_PATH = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/;
-				FLUTTER_TARGET = lib/main.dart;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -530,7 +525,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PACKAGE_CONFIG = .packages;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner-Bridging-Header.h";
@@ -549,8 +543,6 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = 66USX5VV9D;
 				ENABLE_BITCODE = NO;
-				FLUTTER_APPLICATION_PATH = /Users/choffman/code/MobileSDK/aepsdk_flutter/example/;
-				FLUTTER_TARGET = lib/main.dart;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
@@ -561,7 +553,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PACKAGE_CONFIG = .packages;
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.marketing.mobile.flutter.FlutterAEPSDKExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner-Bridging-Header.h";
