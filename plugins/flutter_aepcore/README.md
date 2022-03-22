@@ -16,29 +16,7 @@
 
 ## Installation
 
-First, make sure that `Flutter` is [installed](https://docs.flutter.dev/get-started/install).
-
-Now to install the package, run:
-
-```bash
-$ cd MyFlutterApp
-$ flutter pub add flutter_{plugin_name}
-```
-
-This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):
-
-```
-dependencies:
-  flutter_{plugin_name}: ^1.0.0
-```
-
-Now import the plugin in your Dart code as follows:
-
-```
-import 'package:flutter_{extension}/flutter_{plugin_name}.dart'
-```
-
-Install instructions for each respective plugin can be found in each plugin's readme: `/plugins/{plugin_name}/README.md`. Start by installing `flutter_aepcore` which is a dependency for all other extensions.
+Follow the instructions found in the repository's main [README](../../README.md#Installation)
 
 ## Usage
 
@@ -291,7 +269,7 @@ $ flutter test
 ```
 
 ## Contributing
-See [CONTRIBUTING](CONTRIBUTING.md)
+See [CONTRIBUTING](../../CONTRIBUTING.md)
 
 ## License
-See [LICENSE](LICENSE)
+See [LICENSE](../../LICENSE)
