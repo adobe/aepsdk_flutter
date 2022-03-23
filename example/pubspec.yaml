@@ -18,11 +18,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_aepcore:
-    path: ../plugins/flutter_aepcore/
+  flutter_aepcore: ">= 1.0.0 <2.0.0"
 
-  flutter_aepassurance:
-    path: ../plugins/flutter_aepassurance/
+  flutter_aepassurance: ">= 1.0.0 <2.0.0"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

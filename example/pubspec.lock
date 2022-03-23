@@ -65,16 +65,16 @@ packages:
   flutter_aepassurance:
     dependency: "direct dev"
     description:
-      path: "../plugins/flutter_aepassurance"
-      relative: true
-    source: path
+      name: flutter_aepassurance
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   flutter_aepcore:
     dependency: "direct dev"
     description:
-      path: "../plugins/flutter_aepcore"
-      relative: true
-    source: path
+      name: flutter_aepcore
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
