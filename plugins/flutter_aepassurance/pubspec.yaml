@@ -3,9 +3,6 @@ name: flutter_aepassurance
 description: Official Adobe Experience Platform support for Flutter apps. Assurance is a new, innovative product from Adobe to help you easily validate SDK implementations.
 version: 1.0.0
 
-# TODO: REMOVE ONCE CORE IS PUBLISHED
-publish_to: none
-
 homepage: https://aep-sdks.gitbook.io/docs/
 repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepassurance
 
@@ -16,8 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_aepcore: 
-    path: ../flutter_aepcore/
+  flutter_aepcore: ">= 1.0.0 <2.0.0"
 
 dev_dependencies:
   flutter_test:
