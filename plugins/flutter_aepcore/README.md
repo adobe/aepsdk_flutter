@@ -16,7 +16,7 @@
 
 ## Installation
 
-Follow the instructions found in the repository's main [README](../../README.md#Installation)
+Follow the instructions found in the repository's main [README](https://github.com/adobe/aepsdk_flutter#installation)
 
 ## Usage
 
@@ -269,7 +269,7 @@ $ flutter test
 ```
 
 ## Contributing
-See [CONTRIBUTING](../../CONTRIBUTING.md)
+See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)
 
 ## License
-See [LICENSE](../../LICENSE)
+See [LICENSE](https://github.com/adobe/aepsdk_flutter/blob/main/LICENSE)
