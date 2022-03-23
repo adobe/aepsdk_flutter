@@ -1,12 +1,12 @@
 # flutter_aepassurance
 
-[![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepassurance) ![Build](https://github.com/adobe/flutter_aepassurance/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepassurance) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 `flutter_aepassurance` is a flutter plugin for the iOS and Android [AEPAssurance SDK](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-assurance) to allow for integration with Flutter applications. Functionality to enable the Assurance extension is provided entirely through Dart documented below.
 
 ## Installation
 
-First, make sure that the [flutter_aepcore plugin is installed](./flutter_aepcore/README.md) as flutter_aepassurance depends on it. 
+First, make sure that the [flutter_aepcore](../flutter_aepcore/README.md) plugin is installed, as flutter_aepassurance depends on it. 
 
 Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepassurance/install).
 
@@ -49,7 +49,7 @@ Assurance.startSession(url);
  ```
 
 ## Contributing
-See [CONTRIBUTING](CONTRIBUTING.md)
+See [CONTRIBUTING](../../CONTRIBUTING.md)
 
 ## License
-See [LICENSE](LICENSE)
+See [LICENSE](../../LICENSE)

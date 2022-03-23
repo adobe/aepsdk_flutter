@@ -4,6 +4,11 @@
 
 This repository is a monorepo. It contains a collection of Adobe Experience Platform Mobile SDK Flutter plugins listed below. These plugins can be found in the [plugins](./plugins) directory.
 
+| Extension    | Package                                            |
+| ------------ | ------------------------------------------------------------ |
+| [Core](plugins/flutter_aepcore/README.md) (required)    | [![pub package](https://img.shields.io/pub/v/flutter_aepcore.svg)](https://pub.dartlang.org/packages/flutter_aepcore) |
+| [Assurance](plugins/flutter_aepassurance/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepassurance) |
+
 ## Installation
 
 First, make sure that `Flutter` is [installed](https://docs.flutter.dev/get-started/install).

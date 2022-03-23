@@ -1,6 +1,6 @@
 # flutter_aepcore
 
-[![pub package](https://img.shields.io/pub/v/flutter_aepcore.svg)](https://pub.dartlang.org/packages/flutter_aepcore) ![Build](https://github.com/adobe/flutter_aepcore/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![pub package](https://img.shields.io/pub/v/flutter_aepcore.svg)](https://pub.dartlang.org/packages/flutter_aepcore) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 `flutter_aepcore` is a flutter plugin for the iOS and Android [AEP Core SDK](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/mobile-core) to allow for integration with flutter applications. Functionality to enable the Core extension is provided entirely through Dart documented below.
 
@@ -16,29 +16,7 @@
 
 ## Installation
 
-First, make sure that `Flutter` is [installed](https://docs.flutter.dev/get-started/install).
-
-Now to install the package, run:
-
-```bash
-$ cd MyFlutterApp
-$ flutter pub add flutter_{plugin_name}
-```
-
-This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):
-
-```
-dependencies:
-  flutter_{plugin_name}: ^1.0.0
-```
-
-Now import the plugin in your Dart code as follows:
-
-```
-import 'package:flutter_{extension}/flutter_{plugin_name}.dart'
-```
-
-Install instructions for each respective plugin can be found in each plugin's readme: `/plugins/{plugin_name}/README.md`. Start by installing `flutter_aepcore` which is a dependency for all other extensions.
+Follow the instructions found in the repository's main [README](../../README.md#Installation)
 
 ## Usage
 
@@ -291,7 +269,7 @@ $ flutter test
 ```
 
 ## Contributing
-See [CONTRIBUTING](CONTRIBUTING.md)
+See [CONTRIBUTING](../../CONTRIBUTING.md)
 
 ## License
-See [LICENSE](LICENSE)
+See [LICENSE](../../LICENSE)
