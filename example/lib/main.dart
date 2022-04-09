@@ -9,6 +9,7 @@ import 'package:flutter_aepcore/flutter_aepidentity.dart';
 import 'package:flutter_aepcore/flutter_aeplifecycle.dart';
 import 'package:flutter_aepcore/flutter_aepsignal.dart';
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
+import 'package:flutter_aepedge/flutter_aepedge.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   String _lifecycleVersion = 'Unknown';
   String _signalVersion = 'Unknown';
   String _assuranceVersion = 'Unknown';
+  String _edgeVersion = 'Unknown';
   String _appendToUrlResult = "";
   String _experienceCloudId = "";
   String _getUrlVariablesResult = "";
@@ -43,7 +45,8 @@ class _MyAppState extends State<MyApp> {
         lifecycleVersion,
         signalVersion,
         identityVersion,
-        assuranceVersion;
+        assuranceVersion,
+        edgeVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       coreVersion = await MobileCore.extensionVersion;
@@ -51,6 +54,7 @@ class _MyAppState extends State<MyApp> {
       lifecycleVersion = await Lifecycle.extensionVersion;
       signalVersion = await Signal.extensionVersion;
       assuranceVersion = await Assurance.extensionVersion;
+      edgeVersion = await Edge.extensionVersion;
     } on PlatformException {
       log("Failed to get extension versions");
     }
@@ -66,6 +70,7 @@ class _MyAppState extends State<MyApp> {
       _lifecycleVersion = lifecycleVersion;
       _signalVersion = signalVersion;
       _assuranceVersion = assuranceVersion;
+      _edgeVersion = edgeVersion;
     });
   }
 
@@ -241,11 +246,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
-            tabs: [Text('Core'), Text('Identity'), Text('Assurance')],
+            tabs: [Text('Core'), Text('Identity'), Text('Assurance'), Text('Edge')],
           ),
           title: Text('Flutter AEP SDK'),
         ),
@@ -376,7 +381,13 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => Assurance.startSession(_urlText),
                 ),
               ]),
-            )
+            ),
+             Center(
+              child: ListView(shrinkWrap: true, children: <Widget>[
+                getRichText(
+                    'AEPEdge extension version: ', '$_edgeVersion\n'),
+              ]),
+             )
           ],
         ),
       ),

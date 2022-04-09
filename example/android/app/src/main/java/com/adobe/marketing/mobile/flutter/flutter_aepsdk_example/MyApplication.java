@@ -23,6 +23,7 @@ public class MyApplication extends FlutterApplication {
             Lifecycle.registerExtension();
             Signal.registerExtension();
             Assurance.registerExtension();
+            Edge.registerExtension();
             MobileCore.start(o -> MobileCore.configureWithAppID("yourAppId"));
         } catch (InvalidInitException e) {
             Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
