@@ -10,6 +10,7 @@ import 'package:flutter_aepcore/flutter_aeplifecycle.dart';
 import 'package:flutter_aepcore/flutter_aepsignal.dart';
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
 import 'package:flutter_aepedge/flutter_aepedge.dart';
+import 'package:flutter_aepedge/flutter_aepedge_data.dart';
 
 void main() => runApp(MyApp());
 
@@ -223,6 +224,19 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  Future<void> sendEvent() async {
+    final ExperienceEvent experienceevent = ExperienceEvent({
+      "xdmdata": {"eventType": "SampleXDMEvent"},
+      "data": {"free": "form", "data": "example"},
+      "dataIdentifier": "datasetIdExample",
+    });
+    try {
+      await Edge.sendEvent(experienceevent);
+    } on PlatformException catch (e) {
+      log("Failed to dispatch event '${e.message}''");
+    }
+  }
+
   // UTIL
   RichText getRichText(String label, String value) {
     return new RichText(
@@ -386,6 +400,11 @@ class _MyAppState extends State<MyApp> {
               child: ListView(shrinkWrap: true, children: <Widget>[
                 getRichText(
                     'AEPEdge extension version: ', '$_edgeVersion\n'),
+                ElevatedButton(
+                  child:
+                      Text("Edge.sentEvent(...)"),
+                  onPressed: () => sendEvent(),
+                ),
               ]),
              )
           ],

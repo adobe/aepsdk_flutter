@@ -27,7 +27,7 @@
         }
     }];
     
-    [AEPMobileCore configureWithAppId:@"yourappidhere"];
+    [AEPMobileCore configureWithAppId:@"3805cb8645dd/c03dd4785f89/launch-f9b5643dee2d-development"];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

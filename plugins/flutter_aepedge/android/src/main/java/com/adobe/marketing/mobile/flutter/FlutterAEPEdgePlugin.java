@@ -22,7 +22,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-/** FlutterAEPAssurancePlugin */
+/** FlutterAEPEdgePlugin */
 public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
 
   private static final String TAG = "FlutterAEPEdgePlugin";
@@ -46,10 +46,48 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
   public void onMethodCall(MethodCall call, Result result) {
     if ("extensionVersion".equals(call.method)) {
       result.success(Edge.extensionVersion());
+    } else if ("sendEvent".equals(call.method)) {
+      handleSentEvent(result, call.arguments);
     } else {
       result.notImplemented();
     }
   }
 
+  private void handleSentEvent(final Result result, final Object arguments) {
+    if (!(arguments instanceof Map)) {
+      Log.e(TAG, "Dispatch event failed because arguments were invalid");
+      return;
+    }
 
+    Map eventMap = (Map) arguments;
+    Event event = FlutterAEPCoreDataBridge.eventFromMap(eventMap);
+
+    if (event == null) {
+      Log.e(TAG, "Dispatch event failed because event is null");
+      return;
+    }
+
+    MobileCore.dispatchEventWithResponseCallback(event,
+            new AdobeCallback<Event>() {
+              @Override
+              public void call(Event event) {
+                Map eventMap = FlutterAEPCoreDataBridge.mapFromEvent(event);
+                result.success(eventMap);
+              }
+            }, new ExtensionErrorCallback<ExtensionError>() {
+              @Override
+              public void error(final ExtensionError extensionError) {
+                if (extensionError != null) {
+                  AndroidUtil.runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                      result.error(String.valueOf(extensionError.getErrorCode()), extensionError.getErrorName(), null);
+                    }
+                  });
+                } else {
+                  result.success(null);
+                }
+              }
+            });
+  }
 }

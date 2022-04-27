@@ -11,6 +11,8 @@ governing permissions and limitations under the License.
 
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:flutter_aepedge/src/aepedge_eventhandle.dart';
+import 'package:flutter_aepedge/src/aepedge_experienceevent.dart';
 
 /// Adobe Experience Platform Edge Workflow API.
 class Edge {
@@ -20,4 +22,16 @@ class Edge {
   /// Gets the current AEPEdge extension version.
   static Future<String> get extensionVersion =>
       _channel.invokeMethod('extensionVersion').then((value) => value!);
+
+  ///  Called by the extension public API to dispatch an event for other extensions or the internal SDK to consume. Any events dispatched by this call will not be processed until after `start` has been called.
+  static Future<EventHandle> sendEvent(
+    ExperienceEvent experienceEvent,
+  ) =>
+      _channel
+          .invokeMethod<Map<dynamic, dynamic>>(
+              'sentEvent', experienceEvent)
+          .then((value) => EventHandle(value!));
 }
+
+
+
