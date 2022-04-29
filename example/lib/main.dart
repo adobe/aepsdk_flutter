@@ -224,8 +224,6 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  
-
   Future<void> getConsent() async {
     Map<dynamic, dynamic> result =  new Map<dynamic,dynamic>() ;
 
@@ -239,6 +237,14 @@ class _MyAppState extends State<MyApp> {
     setState(() {
       _getConsentsResult = result.toString();
     });
+  }
+
+  Future<void> setDefaultConsent() async {
+    Map<String, Object> collectConsents = {"collect": {"val": "y"}};
+    Map<String, Object> defaultConsents = {"consents": collectConsents};
+     Map<String, Object> defaultConsents1 = {"consents.default": defaultConsents};
+
+    MobileCore.updateConfiguration(defaultConsents1);
   }
 
   Future<void> updateConsentYes() async {
@@ -422,6 +428,10 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(
                   child: Text("Consent.consents"),
                   onPressed: () => getConsent(),
+                ),
+                ElevatedButton(
+                  child: Text("consent.default"),
+                  onPressed: () => setDefaultConsent(),
                 ),
                 ElevatedButton(
                   child: Text("Consent.update - Yes"),
