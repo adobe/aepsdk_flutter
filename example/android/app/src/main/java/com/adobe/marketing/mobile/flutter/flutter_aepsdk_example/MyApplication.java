@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.adobe.marketing.mobile.*;
+import com.adobe.marketing.mobile.edge.consent.Consent;
 
 import io.flutter.app.FlutterApplication;
 
@@ -23,8 +24,8 @@ public class MyApplication extends FlutterApplication {
             Lifecycle.registerExtension();
             Signal.registerExtension();
             Assurance.registerExtension();
-            Edge.registerExtension();
-            MobileCore.start(o -> MobileCore.configureWithAppID("3805cb8645dd/c03dd4785f89/launch-f9b5643dee2d-development"));
+            Consent.registerExtension();
+            MobileCore.start(o -> MobileCore.configureWithAppID(""));
         } catch (InvalidInitException e) {
             Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
         }

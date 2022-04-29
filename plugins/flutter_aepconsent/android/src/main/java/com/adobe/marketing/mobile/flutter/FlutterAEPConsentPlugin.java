@@ -13,7 +13,7 @@ package com.adobe.marketing.mobile.flutter;
 
 import android.util.Log;
 
-import com.adobe.marketing.mobile.Edge;
+import com.adobe.marketing.mobile.edge.consent.Consent;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
