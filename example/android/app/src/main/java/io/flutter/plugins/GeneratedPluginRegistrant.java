@@ -21,14 +21,14 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin flutter_aepassurance, com.adobe.marketing.mobile.flutter.FlutterAEPAssurancePlugin", e);
     }
     try {
+      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.FlutterAEPConsentPlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin flutter_aepconsent, com.adobe.marketing.mobile.flutter.FlutterAEPConsentPlugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.FlutterAEPCorePlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepcore, com.adobe.marketing.mobile.flutter.FlutterAEPCorePlugin", e);
-    }
-    try {
-      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.FlutterAEPEdgePlugin());
-    } catch(Exception e) {
-      Log.e(TAG, "Error registering plugin flutter_aepedge, com.adobe.marketing.mobile.flutter.FlutterAEPEdgePlugin", e);
     }
   }
 }

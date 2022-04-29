@@ -9,7 +9,15 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-#import <Flutter/Flutter.h>
+import 'dart:async';
+import 'package:flutter/services.dart';
 
-@interface FlutterAEPEdgePlugin : NSObject<FlutterPlugin>
-@end
+/// Adobe Experience Platform Consent API.
+class Consent {
+  static const MethodChannel _channel = 
+       const MethodChannel('flutter_aepconsent');
+
+  /// Gets the current AEPConsent extension version.
+  static Future<String> get extensionVersion =>
+      _channel.invokeMethod('extensionVersion').then((value) => value!);
+}

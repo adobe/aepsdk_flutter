@@ -23,16 +23,16 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 /** FlutterAEPAssurancePlugin */
-public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
+public class FlutterAEPConsentPlugin implements FlutterPlugin, MethodCallHandler {
 
-  private static final String TAG = "FlutterAEPEdgePlugin";
+  private static final String TAG = "FlutterAEPConsentPlugin";
 
   private MethodChannel channel;
 
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
-    channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepedge");
-    channel.setMethodCallHandler(new FlutterAEPEdgePlugin());
+    channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepconsent");
+    channel.setMethodCallHandler(new FlutterAEPConsentPlugin());
   }
 
   @Override
@@ -45,7 +45,7 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if ("extensionVersion".equals(call.method)) {
-      result.success(Edge.extensionVersion());
+      result.success(Consent.extensionVersion());
     } else {
       result.notImplemented();
     }

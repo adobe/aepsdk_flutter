@@ -9,22 +9,22 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-#import "FlutterAEPEdgePlugin.h"
-@import AEPEdge;
+#import "FlutterAEPConsentPlugin.h"
+@import AEPEdgeConsent;
 @import AEPCore;
 
-@implementation FlutterAEPEdgePlugin
+@implementation FlutterAEPConsentPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"flutter_aepedge"
+      methodChannelWithName:@"flutter_aepconsent"
             binaryMessenger:[registrar messenger]];
-  FlutterAEPEdgePlugin* instance = [[FlutterAEPEdgePlugin alloc] init];
+  FlutterAEPConsentPlugin* instance = [[FlutterAEPConsentPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"extensionVersion" isEqualToString:call.method]) {
-      result([AEPMobileEdge extensionVersion]);
+      result([AEPMobileEdgeConsent extensionVersion]);
   } else {
       result(FlutterMethodNotImplemented);
   }

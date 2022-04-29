@@ -18,8 +18,12 @@
     [AEPMobileCore setWrapperType:AEPWrapperTypeFlutter];
     
     const UIApplicationState appState = application.applicationState;
-    
-    NSArray *extensionsToRegister = @[AEPMobileIdentity.class, AEPMobileLifecycle.class, AEPMobileSignal.class, AEPMobileAssurance.class, AEPMobileEdge.class];
+
+    NSArray *extensionsToRegister = @[AEPMobileIdentity.class, 
+                                      AEPMobileLifecycle.class, 
+                                      AEPMobileSignal.class, 
+                                      AEPMobileAssurance.class, 
+                                      AEPMobileEdgeConsent.class,];
     
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
         if (appState != UIApplicationStateBackground) {
@@ -27,7 +31,7 @@
         }
     }];
     
-    [AEPMobileCore configureWithAppId:@"yourappidhere"];
+    [AEPMobileCore configureWithAppId:@""];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

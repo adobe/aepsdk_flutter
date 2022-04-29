@@ -6,7 +6,7 @@
 @import AEPServices;
 @import AEPSignal;
 @import AEPAssurance;
-@import AEPEdge;
+@import AEPEdgeConsent;
 
 @interface AppDelegate : FlutterAppDelegate
 

@@ -1,10 +1,10 @@
-name: flutter_aepedge
+name: flutter_aepconsent
 
-description: Official Adobe Experience Platform support for Flutter apps. AEPEdge is a new, innovative product from Adobe to help you easily validate SDK implementations.
+description: Official Adobe Experience Platform support for Flutter apps. AEPConsent is a new, innovative product from Adobe to help you easily validate SDK implementations.
 version: 1.0.0
 
 homepage: https://aep-sdks.gitbook.io/docs/
-repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedge
+repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepconsent
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -32,6 +32,6 @@ flutter:
     platforms:
       android:
         package: com.adobe.marketing.mobile.flutter
-        pluginClass: FlutterAEPEdgePlugin
+        pluginClass: FlutterAEPConsentPlugin
       ios:
-        pluginClass: FlutterAEPEdgePlugin
+        pluginClass: FlutterAEPConsentPlugin

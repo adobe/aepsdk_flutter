@@ -9,7 +9,7 @@ import 'package:flutter_aepcore/flutter_aepidentity.dart';
 import 'package:flutter_aepcore/flutter_aeplifecycle.dart';
 import 'package:flutter_aepcore/flutter_aepsignal.dart';
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
-import 'package:flutter_aepedge/flutter_aepedge.dart';
+import 'package:flutter_aepconsent/flutter_aepconsent.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,7 +24,7 @@ class _MyAppState extends State<MyApp> {
   String _lifecycleVersion = 'Unknown';
   String _signalVersion = 'Unknown';
   String _assuranceVersion = 'Unknown';
-  String _edgeVersion = 'Unknown';
+  String _consentVersion = 'Unknown';
   String _appendToUrlResult = "";
   String _experienceCloudId = "";
   String _getUrlVariablesResult = "";
@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         signalVersion,
         identityVersion,
         assuranceVersion,
-        edgeVersion;
+        consentVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       coreVersion = await MobileCore.extensionVersion;
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
       lifecycleVersion = await Lifecycle.extensionVersion;
       signalVersion = await Signal.extensionVersion;
       assuranceVersion = await Assurance.extensionVersion;
-      edgeVersion = await Edge.extensionVersion;
+      consentVersion = await Consent.extensionVersion;
     } on PlatformException {
       log("Failed to get extension versions");
     }
@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
       _lifecycleVersion = lifecycleVersion;
       _signalVersion = signalVersion;
       _assuranceVersion = assuranceVersion;
-      _edgeVersion = edgeVersion;
+      _consentVersion = consentVersion;
     });
   }
 
@@ -250,7 +250,7 @@ class _MyAppState extends State<MyApp> {
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
-            tabs: [Text('Core'), Text('Identity'), Text('Assurance'), Text('Edge')],
+            tabs: [Text('Core'), Text('Identity'), Text('Assurance'), Text('Consent')],
           ),
           title: Text('Flutter AEP SDK'),
         ),
@@ -385,7 +385,7 @@ class _MyAppState extends State<MyApp> {
              Center(
               child: ListView(shrinkWrap: true, children: <Widget>[
                 getRichText(
-                    'AEPEdge extension version: ', '$_edgeVersion\n'),
+                    'AEPConsent extension version: ', '$_consentVersion\n'),
               ]),
              )
           ],
