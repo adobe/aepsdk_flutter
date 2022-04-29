@@ -25,9 +25,24 @@ governing permissions and limitations under the License.
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"extensionVersion" isEqualToString:call.method]) {
       result([AEPMobileEdgeConsent extensionVersion]);
+  } else if ([@"getConsents" isEqualToString:call.method]) {
+    [self handleGetConsent:call result:result];
+  } else if ([@"updateConsents" isEqualToString:call.method]) {
+    [self handleUpdateConsent:call result:result];
   } else {
       result(FlutterMethodNotImplemented);
   }
+}
+
+- (void)handleGetConsent:(FlutterMethodCall *) call result:(FlutterResult)result {
+     [AEPMobileEdgeConsent getConsents:^(NSDictionary* consents, NSError* error) {
+        result(consents);
+    }];
+}
+
+- (void)handleUpdateConsent:(FlutterMethodCall *) call result:(FlutterResult)result {
+    [AEPMobileEdgeConsent updateWithConsents:call.arguments];
+    result(nil);
 }
 
 @end

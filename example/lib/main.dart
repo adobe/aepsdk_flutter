@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
   String _getIdentifiersResult = "";
   String _sdkIdentities = "";
   String _privacyStatus = "";
+  String _getConsentsResult = "";
   String _urlText = '';
 
   @override
@@ -223,6 +224,37 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  
+
+  Future<void> getConsent() async {
+    Map<dynamic, dynamic> result =  new Map<dynamic,dynamic>() ;
+
+    try {
+      result = await Consent.consents;
+    } on PlatformException {
+      log("Failed to get consent info");
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _getConsentsResult = result.toString();
+    });
+  }
+
+  Future<void> updateConsentYes() async {
+    Map<String, dynamic> collectConsents = {"collect": {"val": "y"}};
+    Map<String, dynamic> currentConsents = {"consents": collectConsents};
+
+    Consent.update(currentConsents);
+  }
+
+  Future<void> updateConsentNo() async {
+    Map<String, dynamic> collectConsents = {"collect": {"val": "n"}};
+    Map<String, dynamic> currentConsents = {"consents": collectConsents};
+
+    Consent.update(currentConsents);
+  }
+
   // UTIL
   RichText getRichText(String label, String value) {
     return new RichText(
@@ -386,6 +418,19 @@ class _MyAppState extends State<MyApp> {
               child: ListView(shrinkWrap: true, children: <Widget>[
                 getRichText(
                     'AEPConsent extension version: ', '$_consentVersion\n'),
+                     getRichText('Current Consent = ', '$_getConsentsResult\n'),
+                ElevatedButton(
+                  child: Text("Consent.consents"),
+                  onPressed: () => getConsent(),
+                ),
+                ElevatedButton(
+                  child: Text("Consent.update - Yes"),
+                  onPressed: () => updateConsentYes(),
+                ),
+                ElevatedButton(
+                  child: Text("Consent.update - No"),
+                  onPressed: () => updateConsentNo(),
+                ),
               ]),
              )
           ],

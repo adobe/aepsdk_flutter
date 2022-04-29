@@ -20,4 +20,13 @@ class Consent {
   /// Gets the current AEPConsent extension version.
   static Future<String> get extensionVersion =>
       _channel.invokeMethod('extensionVersion').then((value) => value!);
+
+  /// Retrieves the current consent preferences stored in the Consent extension
+  static Future<Map<dynamic, dynamic>> get consents => _channel
+      .invokeMethod<Map<dynamic, dynamic>>('getConsents')
+      .then((value) => value!);
+
+  /// Update the consent preferences stored in the Consent extension
+  static Future<void> update (Map<String, dynamic> consents) =>
+      _channel.invokeMethod('updateConsents', consents);
 }
