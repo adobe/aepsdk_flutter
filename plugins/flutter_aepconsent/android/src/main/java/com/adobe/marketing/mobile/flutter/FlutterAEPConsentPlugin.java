@@ -71,6 +71,12 @@ public class FlutterAEPConsentPlugin implements FlutterPlugin, MethodCallHandler
                   }
               });
           }
+
+          @Override
+          public void fail(final AdobeError adobeError) {
+              final String errorName = adobeError != null ? adobeError.getErrorName() : AdobeError.UNEXPECTED_ERROR.getErrorName();
+              result.error(Integer.toString(adobeError.getErrorCode()),"getConsents - Failed to retrieve consents",errorName);
+          }
       });
   }
 
