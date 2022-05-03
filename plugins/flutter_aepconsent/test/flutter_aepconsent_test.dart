@@ -11,10 +11,10 @@ governing permissions and limitations under the License.
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_aepedge/flutter_aepedge.dart';
+import 'package:flutter_aepconsent/flutter_aepconsent.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('flutter_aepedge');
+  const MethodChannel channel = MethodChannel('flutter_aepconsent');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -30,7 +30,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await AEPEdge.extensionVersion;
+      await AEP.extensionVersion;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -41,32 +41,9 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await AEPEdge.extensionVersion, testVersion);
+      expect(await Consent.extensionVersion, testVersion);
     });
   });
-
-  group('startSession', () {
-    final String testUrl = "adobe.com";
-    final List<MethodCall> log = <MethodCall>[];
-
-    setUp(() {
-      channel.setMockMethodCallHandler((MethodCall methodCall) async {
-        log.add(methodCall);
-        return null;
-      });
-    });
-
-    test('invokes correct method', () async {
-      await Assurance.startSession(testUrl);
-
-      expect(log, <Matcher>[
-        isMethodCall(
-          'startSession',
-          arguments: testUrl,
-        ),
-      ]);
-    });
-  });
-
-
 }
+
+//TO DO: Add tests

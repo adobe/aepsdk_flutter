@@ -1,14 +1,14 @@
-# flutter_aepassurance
+# flutter_aepconsent
 
-[![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepassurance) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepconsent) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepassurance` is a flutter plugin for the iOS and Android [AEPAssurance SDK](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-assurance) to allow for integration with Flutter applications. Functionality to enable the Assurance extension is provided entirely through Dart documented below.
+`flutter_aepconsent` is a flutter plugin for the iOS and Android [AEPConsent SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network) to allow for integration with Flutter applications. Functionality to enable the Assurance extension is provided entirely through Dart documented below.
 
 ## Installation
 
 First, make sure that the [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md) plugin is installed, as flutter_aepassurance depends on it. 
 
-Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepassurance/install).
+Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepconsent/install).
 
 > Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
 
@@ -21,9 +21,9 @@ flutter test
 ```
 
 ## Usage
-### Assurance
+### Consent
 
-For more detailed information on the Assurance APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-assurance)
+For more detailed information on the Assurance APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network)
 
 ##### Registering the extension with AEPCore:
 
@@ -35,17 +35,12 @@ Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializi
 
 ##### Importing the SDK:
 ```dart
-import 'package:flutter_aepassurance/flutter_aepassurance.dart';
+import 'package:flutter_aepassurance/flutter_aepconsent.dart';
 ```
 
 ##### Getting Assurance version:
  ```dart
-String version = await Assurance.extensionVersion;
- ```
-
-##### Starting a Assurance session:
- ```dart
-Assurance.startSession(url);
+String version = await Consent.extensionVersion;
  ```
 
 ## Contributing

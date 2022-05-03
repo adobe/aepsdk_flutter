@@ -241,10 +241,10 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> setDefaultConsent() async {
     Map<String, Object> collectConsents = {"collect": {"val": "y"}};
-    Map<String, Object> defaultConsents = {"consents": collectConsents};
-     Map<String, Object> defaultConsents1 = {"consents.default": defaultConsents};
+    Map<String, Object> currentConsents = {"consents": collectConsents};
+    Map<String, Object> defaultConsents = {"consents.default": currentConsents};
 
-    MobileCore.updateConfiguration(defaultConsents1);
+    MobileCore.updateConfiguration(defaultConsents);
   }
 
   Future<void> updateConsentYes() async {
@@ -426,19 +426,19 @@ class _MyAppState extends State<MyApp> {
                     'AEPConsent extension version: ', '$_consentVersion\n'),
                      getRichText('Current Consent = ', '$_getConsentsResult\n'),
                 ElevatedButton(
-                  child: Text("Consent.consents"),
+                  child: Text("Get Consents"),
                   onPressed: () => getConsent(),
                 ),
                 ElevatedButton(
-                  child: Text("consent.default"),
+                  child: Text("Set Default Consent - Yes"),
                   onPressed: () => setDefaultConsent(),
                 ),
                 ElevatedButton(
-                  child: Text("Consent.update - Yes"),
+                  child: Text("Set Collect Consent - Yes"),
                   onPressed: () => updateConsentYes(),
                 ),
                 ElevatedButton(
-                  child: Text("Consent.update - No"),
+                  child: Text("Set Collect Consent - No"),
                   onPressed: () => updateConsentNo(),
                 ),
               ]),
