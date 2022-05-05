@@ -35,7 +35,7 @@ Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializi
 
 ##### Importing the SDK:
 ```dart
-import 'package:flutter_aepassurance/flutter_aepconsent.dart';
+import 'package:flutter_aepconsent/flutter_aepconsent.dart';
 ```
 
 ##### Getting Assurance version:

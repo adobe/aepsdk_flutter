@@ -11,6 +11,9 @@ import io.flutter.app.FlutterApplication;
 
 public class MyApplication extends FlutterApplication {
 
+    //Fill in your Adobe Environment File ID
+    private final String APP_ID = "your-app-ID";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -25,7 +28,12 @@ public class MyApplication extends FlutterApplication {
             Signal.registerExtension();
             Assurance.registerExtension();
             Consent.registerExtension();
-            MobileCore.start(o -> MobileCore.configureWithAppID(""));
+            MobileCore.start(new AdobeCallback () {
+                @Override
+                public void call(Object o) {
+                    MobileCore.configureWithAppID(APP_ID);
+                }
+            });
         } catch (InvalidInitException e) {
             Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
         }
