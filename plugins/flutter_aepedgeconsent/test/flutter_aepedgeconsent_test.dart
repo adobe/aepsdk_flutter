@@ -11,10 +11,10 @@ governing permissions and limitations under the License.
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_aepconsent/flutter_aepconsent.dart';
+import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('flutter_aepconsent');
+  const MethodChannel channel = MethodChannel('flutter_aepedgeconsent');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 

@@ -26,17 +26,17 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-/** FlutterAEPConsentPlugin */
-public class FlutterAEPConsentPlugin implements FlutterPlugin, MethodCallHandler {
+/** FlutterAEPEdgeConsentPlugin */
+public class FlutterAEPEdgeConsentPlugin implements FlutterPlugin, MethodCallHandler {
 
-  private static final String TAG = "FlutterAEPConsentPlugin";
+  private static final String TAG = "FlutterAEPEdgeConsentPlugin";
 
   private MethodChannel channel;
 
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
-    channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepconsent");
-    channel.setMethodCallHandler(new FlutterAEPConsentPlugin());
+    channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepedgeconsent");
+    channel.setMethodCallHandler(new FlutterAEPEdgeConsentPlugin());
   }
 
   @Override
@@ -51,16 +51,16 @@ public class FlutterAEPConsentPlugin implements FlutterPlugin, MethodCallHandler
     if ("extensionVersion".equals(call.method)) {
       result.success(Consent.extensionVersion());
     } else if("getConsents".equals(call.method)) {
-            handleGetConsent(result);
+            handleGetConsents(result);
     } else if("updateConsents".equals(call.method)) {
-            handleUpdateConsent(call.arguments);
+            handleUpdateConsents(call.arguments);
             result.success(null);
     } else {
       result.notImplemented();
     }
   }
 
-  private void handleGetConsent(final MethodChannel.Result result) {
+  private void handleGetConsents(final MethodChannel.Result result) {
       Consent.getConsents(new AdobeCallbackWithError<Map<String, Object>>() {
           @Override
           public void call(final Map<String, Object> consents) {
@@ -80,9 +80,9 @@ public class FlutterAEPConsentPlugin implements FlutterPlugin, MethodCallHandler
       });
   }
 
-  private void handleUpdateConsent(final Object arguments) {
+  private void handleUpdateConsents(final Object arguments) {
         if (!(arguments instanceof Map)) {
-            Log.e(TAG, "Update Consent failed because arguments were invalid");
+            Log.e(TAG, "Update Consent failed because arguments were invalid, expected Map.");
             return;
         }
 

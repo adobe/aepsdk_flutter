@@ -9,16 +9,16 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-#import "FlutterAEPConsentPlugin.h"
+#import "FlutterAEPEdgeConsentPlugin.h"
 @import AEPEdgeConsent;
 @import AEPCore;
 
-@implementation FlutterAEPConsentPlugin
+@implementation FlutterAEPEdgeConsentPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"flutter_aepconsent"
+      methodChannelWithName:@"flutter_aepedgeconsent"
             binaryMessenger:[registrar messenger]];
-  FlutterAEPConsentPlugin* instance = [[FlutterAEPConsentPlugin alloc] init];
+  FlutterAEPEdgeConsentPlugin* instance = [[FlutterAEPEdgeConsentPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
 }
 

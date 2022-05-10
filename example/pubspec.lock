@@ -69,19 +69,19 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
-  flutter_aepconsent:
-    dependency: "direct dev"
-    description:
-      path: "../plugins/flutter_aepconsent"
-      relative: true
-    source: path
-    version: "1.0.0"
   flutter_aepcore:
     dependency: "direct dev"
     description:
       name: flutter_aepcore
       url: "https://pub.dartlang.org"
     source: hosted
+    version: "1.0.0"
+  flutter_aepedgeconsent:
+    dependency: "direct dev"
+    description:
+      path: "../plugins/flutter_aepedgeconsent"
+      relative: true
+    source: path
     version: "1.0.0"
   flutter_test:
     dependency: "direct dev"

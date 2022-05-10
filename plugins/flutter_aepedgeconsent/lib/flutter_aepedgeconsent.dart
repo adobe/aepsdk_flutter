@@ -15,18 +15,20 @@ import 'package:flutter/services.dart';
 /// Adobe Experience Platform Consent API.
 class Consent {
   static const MethodChannel _channel = 
-       const MethodChannel('flutter_aepconsent');
+       const MethodChannel('flutter_aepedgeconsent');
 
-  /// Gets the current AEPConsent extension version.
+  /// Returns the version of the Consent extension
   static Future<String> get extensionVersion =>
       _channel.invokeMethod('extensionVersion').then((value) => value!);
 
   /// Retrieves the current consent preferences stored in the Consent extension
+  /// Output example: {"consents": {"collect": {"val": "y"}}}
   static Future<Map<dynamic, dynamic>> get consents => _channel
       .invokeMethod<Map<dynamic, dynamic>>('getConsents')
       .then((value) => value!);
 
-  /// Update the consent preferences stored in the Consent extension
+  /// Merges the existing consents with the given consents. Duplicate keys will take the value of those passed in the API
+  /// Input example: {"consents": {"collect": {"val": "y"}}}
   static Future<void> update (Map<String, dynamic> consents) =>
       _channel.invokeMethod('updateConsents', consents);
 }

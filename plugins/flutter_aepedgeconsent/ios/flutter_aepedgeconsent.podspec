@@ -1,8 +1,5 @@
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
 Pod::Spec.new do |s|
-  s.name             = 'flutter_aepconsent'
+  s.name             = 'flutter_aepedgeconsent'
   s.version          = '1.0.0'
   s.summary          = 'Adobe Experience Platform Consent support for Flutter apps.'
   s.homepage         = 'https://aep-sdks.gitbook.io/docs/'

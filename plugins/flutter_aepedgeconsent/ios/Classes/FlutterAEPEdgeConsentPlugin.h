@@ -11,5 +11,5 @@ governing permissions and limitations under the License.
 
 #import <Flutter/Flutter.h>
 
-@interface FlutterAEPConsentPlugin : NSObject<FlutterPlugin>
+@interface FlutterAEPEdgeConsentPlugin : NSObject<FlutterPlugin>
 @end

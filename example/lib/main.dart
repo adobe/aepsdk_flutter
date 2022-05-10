@@ -9,7 +9,7 @@ import 'package:flutter_aepcore/flutter_aepidentity.dart';
 import 'package:flutter_aepcore/flutter_aeplifecycle.dart';
 import 'package:flutter_aepcore/flutter_aepsignal.dart';
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
-import 'package:flutter_aepconsent/flutter_aepconsent.dart';
+import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 
 void main() => runApp(MyApp());
 
@@ -225,8 +225,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> getConsent() async {
-    Map<dynamic, dynamic> result =  new Map<dynamic,dynamic>() ;
-
+    Map<dynamic, dynamic> result = {};
+  
     try {
       result = await Consent.consents;
     } on PlatformException {
@@ -239,23 +239,16 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  Future<void> setDefaultConsent() async {
-    Map<String, Object> collectConsents = {"collect": {"val": "y"}};
+  Future<void> setDefaultConsent(bool allowed) async {
+    Map<String, Object> collectConsents = allowed ? {"collect": {"val": "y"}} : {"collect": {"val": "n"}}  ;
     Map<String, Object> currentConsents = {"consents": collectConsents};
     Map<String, Object> defaultConsents = {"consents.default": currentConsents};
 
     MobileCore.updateConfiguration(defaultConsents);
   }
 
-  Future<void> updateConsentYes() async {
-    Map<String, dynamic> collectConsents = {"collect": {"val": "y"}};
-    Map<String, dynamic> currentConsents = {"consents": collectConsents};
-
-    Consent.update(currentConsents);
-  }
-
-  Future<void> updateConsentNo() async {
-    Map<String, dynamic> collectConsents = {"collect": {"val": "n"}};
+  Future<void> updateConsent(bool allowed) async {
+    Map<String, dynamic> collectConsents = allowed ? {"collect": {"val": "y"}} : {"collect": {"val": "n"}} ;
     Map<String, dynamic> currentConsents = {"consents": collectConsents};
 
     Consent.update(currentConsents);
@@ -431,15 +424,15 @@ class _MyAppState extends State<MyApp> {
                 ),
                 ElevatedButton(
                   child: Text("Set Default Consent - Yes"),
-                  onPressed: () => setDefaultConsent(),
+                  onPressed: () => setDefaultConsent(true),
                 ),
                 ElevatedButton(
                   child: Text("Set Collect Consent - Yes"),
-                  onPressed: () => updateConsentYes(),
+                  onPressed: () => updateConsent(true),
                 ),
                 ElevatedButton(
                   child: Text("Set Collect Consent - No"),
-                  onPressed: () => updateConsentNo(),
+                  onPressed: () => updateConsent(false),
                 ),
               ]),
              )

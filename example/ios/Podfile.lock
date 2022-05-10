@@ -19,21 +19,21 @@ PODS:
   - flutter_aepassurance (1.0.0):
     - AEPAssurance (~> 3.0)
     - Flutter
-  - flutter_aepconsent (1.0.0):
-    - AEPEdgeConsent (~> 1.0)
-    - Flutter
   - flutter_aepcore (0.0.1):
     - AEPCore (~> 3.0)
     - AEPIdentity (~> 3.0)
     - AEPLifecycle (~> 3.0)
     - AEPSignal (~> 3.0)
     - Flutter
+  - flutter_aepedgeconsent (1.0.0):
+    - AEPEdgeConsent (~> 1.0)
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_aepassurance (from `.symlinks/plugins/flutter_aepassurance/ios`)
-  - flutter_aepconsent (from `.symlinks/plugins/flutter_aepconsent/ios`)
   - flutter_aepcore (from `.symlinks/plugins/flutter_aepcore/ios`)
+  - flutter_aepedgeconsent (from `.symlinks/plugins/flutter_aepedgeconsent/ios`)
 
 SPEC REPOS:
   trunk:
@@ -51,10 +51,10 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_aepassurance:
     :path: ".symlinks/plugins/flutter_aepassurance/ios"
-  flutter_aepconsent:
-    :path: ".symlinks/plugins/flutter_aepconsent/ios"
   flutter_aepcore:
     :path: ".symlinks/plugins/flutter_aepcore/ios"
+  flutter_aepedgeconsent:
+    :path: ".symlinks/plugins/flutter_aepedgeconsent/ios"
 
 SPEC CHECKSUMS:
   AEPAssurance: b25880cd4b14f22c61a1dce19807bd0ca0fe9b17
@@ -67,8 +67,8 @@ SPEC CHECKSUMS:
   AEPSignal: be3a4789b492f4d5a5aef7408f30ff8e866d1d79
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_aepassurance: 13c97bbe7545b5b556b3b967b42fb9c8cd72bdcd
-  flutter_aepconsent: 8e88a7733d670f5f9c6b71998d5b5170e75fcfbc
   flutter_aepcore: 1287c8a6b88fdb967432b0080cc923b58260f1df
+  flutter_aepedgeconsent: 6c0193b3f3c310b149657182c5f9f2d4ed9bf972
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
