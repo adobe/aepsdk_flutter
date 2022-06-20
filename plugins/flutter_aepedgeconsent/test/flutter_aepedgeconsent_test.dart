@@ -79,12 +79,17 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await Consent.consents, testGetConsent);
+      expect(await Consent.consents, {'consents': {'collect': {'val': 'y'}}}
+      );
     });
   });
 
   group('setCollectConsents', () {
-    final Map<String, dynamic> testSetConsent = {
+    final Map<String, dynamic> acutalSetConsent = {
+      'collect': {'val': 'y'}
+    };
+
+    final Map<String, dynamic> expectedSetConsent = {
       'collect': {'val': 'y'}
     };
 
@@ -98,12 +103,12 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await Consent.update(testSetConsent);
+      await Consent.update(acutalSetConsent);
 
       expect(log, <Matcher>[
         isMethodCall(
           'updateConsents',
-          arguments: testSetConsent,
+          arguments: expectedSetConsent,
         ),
       ]);
     });
