@@ -5,14 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.adobe.marketing.mobile.*;
-import com.adobe.marketing.mobile.edge.consent.Consent;
+//import com.adobe.marketing.mobile.edge.consent.Consent;
 
 import io.flutter.app.FlutterApplication;
 
 public class MyApplication extends FlutterApplication {
 
-    //Fill in your Adobe Environment File ID
-    private final String APP_ID = "your-app-ID";
+    // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
+    private final String ENVIRONMENT_FILE_ID = "YOUR-APP-ID";
 
     @Override
     public void onCreate() {
@@ -31,7 +31,7 @@ public class MyApplication extends FlutterApplication {
             MobileCore.start(new AdobeCallback () {
                 @Override
                 public void call(Object o) {
-                    MobileCore.configureWithAppID(APP_ID);
+                    MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
                 }
             });
         } catch (InvalidInitException e) {

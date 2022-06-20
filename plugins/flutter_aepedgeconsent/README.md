@@ -1,12 +1,12 @@
 # flutter_aepedgeconsent
 
-[![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepedgeconsent) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![pub package](https://img.shields.io/pub/v/flutter_aepedgeconsent.svg)](https://pub.dartlang.org/packages/flutter_aepedgeconsent) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepedgeconsent` is a flutter plugin for the iOS and Android [AEPEdgeConsent SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network) to allow for integration with Flutter applications. Functionality to enable the Assurance extension is provided entirely through Dart documented below.
+`flutter_aepedgeconsent` is a flutter plugin for the iOS and Android [AEPEdgeConsent SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network) to allow for integration with Flutter applications. Functionality to enable the Consent extension is provided entirely through Dart documented below.
 
 ## Installation
 
-First, make sure that the [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md) plugin is installed, as flutter_aepassurance depends on it. 
+First, make sure that the [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md) plugin is installed, as flutter_aepedgeconsent depends on it. 
 
 Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepedgeconsent/install).
 
