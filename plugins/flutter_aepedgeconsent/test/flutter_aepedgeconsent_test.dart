@@ -46,16 +46,10 @@ void main() {
   });
 
   group('getConsents', () {
-    final Map<String, String> consentPreferenceStringMap = {
-      "val": "y",
-    };
-
-    final Map<String, dynamic> consentsMap = {
-      "collect": consentPreferenceStringMap,
-    };
-
-    final Map<String, dynamic> testGetConsent = {
-      "consents": consentsMap,
+    final Map<String, dynamic> expectedConsent = {
+      "consents": {
+        "collect": {"val": "y"}
+      }
     };
 
     final List<MethodCall> log = <MethodCall>[];
@@ -63,7 +57,7 @@ void main() {
     setUp(() {
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
         log.add(methodCall);
-        return testGetConsent;
+        return expectedConsent;
       });
     });
 
@@ -79,18 +73,13 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await Consent.consents, {'consents': {'collect': {'val': 'y'}}}
-      );
+      expect(await Consent.consents, expectedConsent);
     });
   });
 
   group('setCollectConsents', () {
-    final Map<String, dynamic> acutalSetConsent = {
-      'collect': {'val': 'y'}
-    };
-
     final Map<String, dynamic> expectedSetConsent = {
-      'collect': {'val': 'y'}
+      "collect": {"val": "y"}
     };
 
     final List<MethodCall> log = <MethodCall>[];
@@ -103,7 +92,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await Consent.update(acutalSetConsent);
+      await Consent.update(expectedSetConsent);
 
       expect(log, <Matcher>[
         isMethodCall(
