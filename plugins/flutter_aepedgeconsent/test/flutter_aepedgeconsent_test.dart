@@ -30,7 +30,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await AEP.extensionVersion;
+      await Consent.extensionVersion;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -44,6 +44,68 @@ void main() {
       expect(await Consent.extensionVersion, testVersion);
     });
   });
-}
 
-//TO DO: Add tests
+  group('getConsents', () {
+    final Map<String, String> consentPreferenceStringMap = {
+      "val": "y",
+    };
+
+    final Map<String, dynamic> consentsMap = {
+      "collect": consentPreferenceStringMap,
+    };
+
+    final Map<String, dynamic> testGetConsent = {
+      "consents": consentsMap,
+    };
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return testGetConsent;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Consent.consents;
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'getConsents',
+          arguments: null,
+        ),
+      ]);
+    });
+
+    test('returns correct result', () async {
+      expect(await Consent.consents, testGetConsent);
+    });
+  });
+
+  group('setCollectConsents', () {
+    final Map<String, dynamic> testSetConsent = {
+      'collect': {'val': 'y'}
+    };
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return null;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Consent.update(testSetConsent);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'updateConsents',
+          arguments: testSetConsent,
+        ),
+      ]);
+    });
+  });
+}
