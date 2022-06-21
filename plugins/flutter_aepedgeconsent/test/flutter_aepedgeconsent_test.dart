@@ -77,9 +77,11 @@ void main() {
     });
   });
 
-  group('setCollectConsents', () {
+  group('update(Consents)', () {
     final Map<String, dynamic> expectedSetConsent = {
-      "collect": {"val": "y"}
+      "consents": {
+        "collect": {"val": "y"}
+      }
     };
 
     final List<MethodCall> log = <MethodCall>[];
