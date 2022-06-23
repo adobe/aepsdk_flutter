@@ -25,7 +25,7 @@ flutter test
 
 For more detailed information on the Consent APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network)
 
-##### Registering the extension with AEPCore:
+#### Registering the extension with AEPCore:
 
  > Note: It is required to initialize the SDK via native code inside your AppDelegate and MainApplication for iOS and Android respectively.
 
@@ -33,15 +33,61 @@ As part of the initialization code, make sure that you set the SDK wrapper type 
 
 Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information about initializing the SDK.
 
-##### Importing the SDK:
+#### Importing the SDK:
+
 ```dart
 import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 ```
 
-##### Getting Consent version:
- ```dart
+#### Getting Consent version:
+
+**Syntax**
+```dart
+static Future<String> get extensionVersion
+```
+
+**Example**
+```dart
 String version = await Consent.extensionVersion;
- ```
+```
+
+#### Getting Current Consent Preference:
+
+**Syntax**
+```dart
+static Future<Map<dynamic, dynamic>> get consents
+```
+
+**Example**
+```dart
+Map<dynamic, dynamic> result = {};
+    try {
+      result = await Consent.consents;
+    } on PlatformException {
+      log("Failed to get consent info");
+    }
+```
+
+#### Update Consent:
+
+**Syntax**
+```dart
+static Future<void> update(Map<String, dynamic> consents)
+```
+
+**Example**
+```dart
+Map<String, dynamic> collectConsents = allowed
+        ? {
+            "collect": {"val": "y"}
+          }
+        : {
+            "collect": {"val": "n"}
+          };
+Map<String, dynamic> currentConsents = {"consents": collectConsents};
+
+Consent.update(currentConsents);
+```
 
 ## Contributing
 See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)
