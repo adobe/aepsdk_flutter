@@ -33,6 +33,78 @@ As part of the initialization code, make sure that you set the SDK wrapper type 
 
 Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information about initializing the SDK.
 
+**Initialization Example**
+
+iOS
+```objc
+// AppDelegate.h
+@import AEPCore;
+@import AEPEdge;
+@import AEPEdgeIdentity;
+@import AEPEdgeConsent;
+...
+@implementation AppDelegate
+
+// AppDelegate.m
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [AEPMobileCore setWrapperType:AEPWrapperTypeFlutter];
+
+     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
+    NSString* ENVIRONMENT_FILE_ID = @"YOUR-APP-ID";
+    
+    const UIApplicationState appState = application.applicationState;
+
+    NSArray *extensionsToRegister = @[AEPMobileIdentity.class, 
+                                      AEPMobileEdge.class,                                              
+                                      AEPMobileEdgeConsent.class
+                                      ];
+
+    [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
+    [AEPMobileCore configureWithAppId: ENVIRONMENT_FILE_ID];
+    }];
+    return YES;   
+ } 
+```
+
+Android
+```java
+import com.adobe.marketing.mobile.MobileCore;
+import com.adobe.marketing.mobile.Edge;
+import com.adobe.marketing.mobile.edge.identity.Identity;
+import com.adobe.marketing.mobile.edge.consent.Consent;
+  
+...
+import io.flutter.app.FlutterApplication;
+...
+public class MainApplication extends FlutterApplication {
+  ...
+  // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
+  private final String ENVIRONMENT_FILE_ID = "YOUR-APP-ID";
+
+  @Override
+  public void on Create(){
+    super.onCreate();
+    ...
+    MobileCore.setApplication(this);
+    MobileCore.setLogLevel(LoggingMode.DEBUG);
+    MobileCore.setWrapperType(WrapperType.FLUTTER);
+
+    try {
+        Edge.registerExtension();
+        Identity.registerExtension();
+        Consent.registerExtension();
+        MobileCore.start(new AdobeCallback () {
+            @Override
+            public void call(Object o) {
+                MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
+            }
+        });
+    } catch (InvalidInitException e) {
+        Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
+    }
+```
+
+
 #### Importing the SDK:
 
 ```dart
