@@ -14,26 +14,26 @@ class ExperienceEvent {
   ExperienceEvent(this.eventdata);
 
   ExperienceEvent.createEvent(
-    final Map<dynamic, dynamic> xdmData,
-    final Map<dynamic, dynamic> data,
-    final String dataIdenitifer,
+    final Map<String, dynamic> xdmData,
+    final Map<String, dynamic> data,
+    final String datasetIdenitifer,
   ) {
-    final Map<dynamic, dynamic> experienceEventConstructorData = {
-      "xdmData": xdmData,
+    final Map<String, dynamic> experienceEventConstructorData = {
+      "xdmdata": xdmData,
       "data": data,
-      "dataIdenitifer": dataIdenitifer
+      "dataIdenitifer": datasetIdenitifer
     };
     this.eventdata = experienceEventConstructorData;
   }
 
-  late Map<dynamic, dynamic> eventdata;
+  late Map<String, dynamic> eventdata;
 
   /// The XDM data for this event.
-  Map<dynamic, dynamic> get xdmData => eventdata['xdmData'] ?? {};
+  Map<String, dynamic> get xdmdata => eventdata['xdmData'] ?? {};
 
   /// The free-form data for this event.
-  Map<dynamic, dynamic> get data => eventdata['data'] ?? {};
+  Map<String, dynamic> get data => eventdata['data'] ?? {};
 
   /// XDM formatted data for this event.
-  String? get dataIdenitifer => eventdata['dataIdenitifer'];
+  String? get datasetIdenitifer => eventdata['datasetIdenitifer'];
 }

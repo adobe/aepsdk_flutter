@@ -1,14 +1,14 @@
-# flutter_aepassurance
+# flutter_aepedge
 
-[![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepassurance) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![pub package](https://img.shields.io/pub/v/flutter_aepedge.svg)](https://pub.dartlang.org/packages/flutter_aepedge) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepassurance` is a flutter plugin for the iOS and Android [AEPAssurance SDK](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-assurance) to allow for integration with Flutter applications. Functionality to enable the Assurance extension is provided entirely through Dart documented below.
+`flutter_aepedge` is a flutter plugin for the iOS and Android [AEPedge SDK](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-edge) to allow for integration with Flutter applications. Functionality to enable the edge extension is provided entirely through Dart documented below.
 
 ## Installation
 
-First, make sure that the [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md) plugin is installed, as flutter_aepassurance depends on it. 
+First, make sure that the [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md) plugin is installed, as flutter_aepedge depends on it. 
 
-Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepassurance/install).
+Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepedge/install).
 
 > Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
 
@@ -21,9 +21,9 @@ flutter test
 ```
 
 ## Usage
-### Assurance
+### edge
 
-For more detailed information on the Assurance APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-assurance)
+For more detailed information on the edge APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-edge)
 
 ##### Registering the extension with AEPCore:
 
@@ -35,17 +35,12 @@ Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializi
 
 ##### Importing the SDK:
 ```dart
-import 'package:flutter_aepassurance/flutter_aepassurance.dart';
+import 'package:flutter_aepedge/flutter_aepedge.dart';
 ```
 
-##### Getting Assurance version:
+##### Getting edge version:
  ```dart
-String version = await Assurance.extensionVersion;
- ```
-
-##### Starting a Assurance session:
- ```dart
-Assurance.startSession(url);
+String version = await edge.extensionVersion;
  ```
 
 ## Contributing

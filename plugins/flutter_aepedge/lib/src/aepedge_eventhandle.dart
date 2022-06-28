@@ -9,13 +9,13 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-/// Experience Event is the event to be sent to Adobe Experience Platform Edge Network.
+/// EventHandle is the response returned from Adobe Experience Platform Edge Network.
 class EventHandle {
   EventHandle(this.data);
 
   EventHandle.createEvent(
     final String type,
-    final Map<dynamic, dynamic> payload,
+    final List<dynamic> payload,
   ) {
     final Map<dynamic, dynamic> eventHandleConstructorData = {
       "type": type,
@@ -30,5 +30,5 @@ class EventHandle {
   String? get type => data['type'];
 
   /// The payload of the eventHanlde response
-  Map<dynamic, dynamic> get payload => data['payload'] ?? {};
+  List<dynamic> get payload => data['payload'] ?? {};
 }

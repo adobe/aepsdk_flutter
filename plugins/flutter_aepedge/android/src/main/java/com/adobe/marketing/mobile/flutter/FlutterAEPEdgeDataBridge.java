@@ -15,8 +15,11 @@ package com.adobe.marketing.mobile.flutter;
 import com.adobe.marketing.mobile.EdgeEventHandle;
 import com.adobe.marketing.mobile.ExperienceEvent;
 
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
+
 
 public class FlutterAEPEdgeDataBridge {
 
@@ -28,33 +31,61 @@ public class FlutterAEPEdgeDataBridge {
     public final static String PAYLOAD_KEY = "payload";
 
     /**
-     * Converts a {@link Map} into an {@link Event}
+     * Converts a {@link Map} into an {@link ExperienceEvent}
      *
      * @param map
-     * @return An {@link Event}
+     * @return An {@link ExperienceEvent}
      */
     static ExperienceEvent eventFromMap(final Map map) {
-        if (map == null) {
+         if (map == null) {
+             return null;
+         }
+
+        Map<String, Object> xdmdata = getNullableMap(map, XDM_DATA_KEY);
+        String datasetId = null;
+
+        System.out.print("test bridge here");
+
+        if (xdmdata != null) {
+
+            Map<String, Object> data = getNullableMap(map, DATA_KEY);
+
+            try {
+                datasetId = getNullableString(map, DATASET_IDENTIFIER_KEY);
+            } catch (Exception e) {
+                //Log.d(TAG, "experienceEventFromReadableMap: " + e);
+            }
+
+            ExperienceEvent event = new ExperienceEvent.Builder().setXdmSchema(xdmdata, datasetId).setData(data).build();
+
+            return event;
+        }
+            return null;
+
+    }
+
+    /**
+     * Converts a {@link  EdgeEventHandle} into a {@link Map}
+     * @param eventhandle
+     * @return A {@link Map} that represents the eventhandle
+     */
+    public static Map mapFromEdgeEventHandle(final EdgeEventHandle eventhandle) {
+        if (eventhandle == null) {
             return null;
         }
 
-        Event event = new Event.Builder(
-                getNullableString(map, XDM_DATA_KEY),
-                getNullableString(map, DATA_KEY),
-                getNullableString(map, DATASET_IDENTIFIER_KEY))
-                .setEventData(getNullableMap(map, EVENT_DATA_KEY))
-                .build();
-        return event;
+        Map eventHandleMap = new HashMap();
+        if (eventhandle.getType() != null) {
+            eventHandleMap.put(TYPE_KEY, eventhandle.getType());
+        }
+        if (eventhandle.getPayload() != null) {
+            Object[] handles = new Object[] {eventhandle.getPayload().size()};
+            handles = eventhandle.getPayload().toArray();
+            eventHandleMap.put(PAYLOAD_KEY, handles);
+        }
+        return eventHandleMap;
     }
 
-    static Map mapFromEvent(final  event) {
-        Map<String, Object> map = new HashMap<>();
-        map.put(EVENT_NAME_KEY, event.getName());
-        map.put(EVENT_TYPE_KEY, event.getType());
-        map.put(EVENT_SOURCE_KEY, event.getSource());
-        map.put(EVENT_DATA_KEY, event.getEventData());
-        return map;
-    }
 
     // Helper methods
 

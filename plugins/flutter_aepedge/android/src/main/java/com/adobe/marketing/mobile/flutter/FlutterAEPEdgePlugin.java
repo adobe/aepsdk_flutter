@@ -14,6 +14,9 @@ package com.adobe.marketing.mobile.flutter;
 import android.util.Log;
 
 import com.adobe.marketing.mobile.Edge;
+import com.adobe.marketing.mobile.ExperienceEvent;
+import com.adobe.marketing.mobile.EdgeCallback;
+import com.adobe.marketing.mobile.EdgeEventHandle;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -21,6 +24,10 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+
+import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 
 /** FlutterAEPEdgePlugin */
 public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
@@ -53,41 +60,41 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
     }
   }
 
-  private void handleSentEvent(final Result result, final Object arguments) {
-    if (!(arguments instanceof Map)) {
-      Log.e(TAG, "Dispatch event failed because arguments were invalid");
+  private void handleSentEvent(final MethodChannel.Result result, final Object arguments) {
+     if (!(arguments instanceof Map)) {
+       Log.e(TAG, "Dispatch sendEvent failed because arguments were invalid");
+       return;
+     }
+
+     Map experienceEventMap = (Map) arguments;
+     ExperienceEvent experienceEvent = FlutterAEPEdgeDataBridge.eventFromMap(experienceEventMap);
+
+      if (experienceEvent == null) {
+      Log.e(TAG, "Dispatch Experience Event failed because event is null");
       return;
     }
 
-    Map eventMap = (Map) arguments;
-    Event event = FlutterAEPCoreDataBridge.eventFromMap(eventMap);
+    Edge.sendEvent(experienceEvent, new EdgeCallback() {
+      @Override
+      public void onComplete(final List<EdgeEventHandle> handles) {
 
-    if (event == null) {
-      Log.e(TAG, "Dispatch event failed because event is null");
-      return;
-    }
+        final List<Map> arr = new ArrayList<>();
+        if (handles == null) {
+          result.success(handles);
+          return;
+        }
 
-    MobileCore.dispatchEventWithResponseCallback(event,
-            new AdobeCallback<Event>() {
-              @Override
-              public void call(Event event) {
-                Map eventMap = FlutterAEPCoreDataBridge.mapFromEvent(event);
-                result.success(eventMap);
-              }
-            }, new ExtensionErrorCallback<ExtensionError>() {
-              @Override
-              public void error(final ExtensionError extensionError) {
-                if (extensionError != null) {
-                  AndroidUtil.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                      result.error(String.valueOf(extensionError.getErrorCode()), extensionError.getErrorName(), null);
-                    }
-                  });
-                } else {
-                  result.success(null);
-                }
-              }
-            });
+        for (EdgeEventHandle handle: handles) {
+          arr.add(FlutterAEPEdgeDataBridge.mapFromEdgeEventHandle(handle));
+        }
+        AndroidUtil.runOnUIThread(new Runnable() {
+          @Override
+          public void run() {
+            result.success(handles);
+          }
+
+        });
+      }
+    });
   }
 }

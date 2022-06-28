@@ -16,22 +16,35 @@ import 'package:flutter_aepedge/src/aepedge_experienceevent.dart';
 
 /// Adobe Experience Platform Edge Workflow API.
 class Edge {
-  static const MethodChannel _channel = 
-       const MethodChannel('flutter_aepedge');
+  static const MethodChannel _channel = const MethodChannel('flutter_aepedge');
 
-  /// Gets the current AEPEdge extension version.
+  /// Returns the version of the Edge extension
   static Future<String> get extensionVersion =>
       _channel.invokeMethod('extensionVersion').then((value) => value!);
 
-  ///  Called by the extension public API to dispatch an event for other extensions or the internal SDK to consume. Any events dispatched by this call will not be processed until after `start` has been called.
-  static Future<EventHandle> sendEvent(
+  /// Send an Experience Event to Adobe Experience Edge
+  /// @param {experienceEvent} Event to be sent to Adobe Experience Edge
+  /// returns the associated response handles received from the Adobe Experience Edge
+  /// or rejected if an unexpected error occured; it may return an empty array
+  /// if no handles were returned for the given experienceEvent
+
+  static Future<List<EventHandle>> sendEvent(
     ExperienceEvent experienceEvent,
   ) =>
       _channel
-          .invokeMethod<Map<dynamic, dynamic>>(
-              'sentEvent', experienceEvent)
-          .then((value) => EventHandle(value!));
+          .invokeListMethod<dynamic>('sendEvent', experienceEvent.eventdata)
+          .then((value) => (value ?? [])
+              .map<EventHandle>((data) => EventHandle(data))
+              .toList());
 }
 
 
 
+// /// Returns all customer identifiers that were previously synced with the Adobe Experience Cloud.
+//   static Future<List<Identifiable>> get identifiers => _channel
+//       .invokeListMethod<dynamic>(
+//         'getIdentifiers',
+//       )
+//       .then((value) => (value ?? [])
+//           .map<Identifiable>((data) => Identifiable(data))
+//           .toList());

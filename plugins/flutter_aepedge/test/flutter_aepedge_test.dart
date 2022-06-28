@@ -30,7 +30,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await AEPEdge.extensionVersion;
+      await Edge.extensionVersion;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -41,32 +41,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await AEPEdge.extensionVersion, testVersion);
+      expect(await Edge.extensionVersion, testVersion);
     });
   });
-
-  group('startSession', () {
-    final String testUrl = "adobe.com";
-    final List<MethodCall> log = <MethodCall>[];
-
-    setUp(() {
-      channel.setMockMethodCallHandler((MethodCall methodCall) async {
-        log.add(methodCall);
-        return null;
-      });
-    });
-
-    test('invokes correct method', () async {
-      await Assurance.startSession(testUrl);
-
-      expect(log, <Matcher>[
-        isMethodCall(
-          'startSession',
-          arguments: testUrl,
-        ),
-      ]);
-    });
-  });
-
-
 }

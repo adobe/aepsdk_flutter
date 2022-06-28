@@ -33,7 +33,8 @@ class _MyAppState extends State<MyApp> {
   String _sdkIdentities = "";
   String _privacyStatus = "";
   String _urlText = '';
-
+  //List<EventHandle> _edgeEventHandleResponse = EventHandle.createEvent("", [{}]);
+  List<EventHandle> _edgeEventHandleResponse = List.empty();
   @override
   void initState() {
     super.initState();
@@ -225,16 +226,23 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> sendEvent() async {
+    late List<EventHandle> result;
+
     final ExperienceEvent experienceevent = ExperienceEvent({
-      "xdmdata": {"eventType": "SampleXDMEvent"},
+      "xdmData": {"eventType": "SampleEventType"},
       "data": {"free": "form", "data": "example"},
-      "dataIdentifier": "datasetIdExample",
+      "datasetIdentifier": "datasetIdExample",
     });
     try {
-      await Edge.sendEvent(experienceevent);
+      result = await Edge.sendEvent(experienceevent);
     } on PlatformException catch (e) {
       log("Failed to dispatch event '${e.message}''");
     }
+
+    if (!mounted) return;
+    setState(() {
+      _edgeEventHandleResponse = result;
+    });
   }
 
   // UTIL
@@ -264,7 +272,12 @@ class _MyAppState extends State<MyApp> {
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
-            tabs: [Text('Core'), Text('Identity'), Text('Assurance'), Text('Edge')],
+            tabs: [
+              Text('Core'),
+              Text('Identity'),
+              Text('Assurance'),
+              Text('Edge')
+            ],
           ),
           title: Text('Flutter AEP SDK'),
         ),
@@ -396,17 +409,17 @@ class _MyAppState extends State<MyApp> {
                 ),
               ]),
             ),
-             Center(
+            Center(
               child: ListView(shrinkWrap: true, children: <Widget>[
-                getRichText(
-                    'AEPEdge extension version: ', '$_edgeVersion\n'),
+                getRichText('AEPEdge extension version: ', '$_edgeVersion\n'),
                 ElevatedButton(
-                  child:
-                      Text("Edge.sentEvent(...)"),
+                  child: Text("Edge.sentEvent(...)"),
                   onPressed: () => sendEvent(),
                 ),
+                getRichText('Response event handles: = ',
+                    '$_edgeEventHandleResponse\n'),
               ]),
-             )
+            )
           ],
         ),
       ),
