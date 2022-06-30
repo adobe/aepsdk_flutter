@@ -74,9 +74,9 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
       return;
     }
 
-    Edge.sendEvent(experienceEvent, new EdgeCallback() {
-      @Override
-      public void onComplete(final List<EdgeEventHandle> handles) {
+     Edge.sendEvent(experienceEvent, new EdgeCallback() {
+     @Override
+     public void onComplete(final List<EdgeEventHandle> handles) {
 
         final List<Map> arr = new ArrayList<>();
         if (handles == null) {
@@ -92,7 +92,6 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
           public void run() {
             result.success(handles);
           }
-
         });
       }
     });

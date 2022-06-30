@@ -9,15 +9,15 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-#ifndef AEPSDK_FLUTTER_FLUTTERAEPEDGEDATABRIDGE_H
-#define AEPSDK_FLUTTER_FLUTTERAEPEDGEDATABRIDGE_H
+#import <Foundation/Foundation.h>
 
+@import AEPEdge;
 
+@interface FlutterAEPEdgeDataBridge : NSObject
 
-// class FlutterAEPEdgeDataBridge {
++ (AEPExperienceEvent *_Nullable)experienceEventFromDictionary: (nonnull NSDictionary *) dict;
 
-// };
++ (NSDictionary *_Nullable)dictionaryFromEdgeEventHandler: (NSArray<AEPEdgeEventHandle *> *_Nullable) experienceEvent;
 
+@end
 
-
-#endif //AEPSDK_FLUTTER_FLUTTERAEPEDGEDATABRIDGE_H

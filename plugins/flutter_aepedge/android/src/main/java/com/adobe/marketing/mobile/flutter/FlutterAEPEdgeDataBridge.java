@@ -44,7 +44,6 @@ public class FlutterAEPEdgeDataBridge {
         Map<String, Object> xdmdata = getNullableMap(map, XDM_DATA_KEY);
         String datasetId = null;
 
-        System.out.print("test bridge here");
 
         if (xdmdata != null) {
 

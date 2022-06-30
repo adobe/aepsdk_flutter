@@ -7,6 +7,7 @@
 @import AEPSignal;
 @import AEPAssurance;
 @import AEPEdge;
+@import AEPEdgeIdentity;
 
 @interface AppDelegate : FlutterAppDelegate
 

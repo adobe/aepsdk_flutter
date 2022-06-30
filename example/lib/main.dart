@@ -33,7 +33,6 @@ class _MyAppState extends State<MyApp> {
   String _sdkIdentities = "";
   String _privacyStatus = "";
   String _urlText = '';
-  //List<EventHandle> _edgeEventHandleResponse = EventHandle.createEvent("", [{}]);
   List<EventHandle> _edgeEventHandleResponse = List.empty();
   @override
   void initState() {
@@ -225,13 +224,15 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  Future<void> sendEvent() async {
+  Future<void> sendEvent([datasetId]) async {
     late List<EventHandle> result;
+    Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+    Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceevent = ExperienceEvent({
-      "xdmData": {"eventType": "SampleEventType"},
-      "data": {"free": "form", "data": "example"},
-      "datasetIdentifier": "datasetIdExample",
+      "xdmData": xdmData,
+      "data": data,
+      "datasetIdentifier": datasetId,
     });
     try {
       result = await Edge.sendEvent(experienceevent);
@@ -415,6 +416,10 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(
                   child: Text("Edge.sentEvent(...)"),
                   onPressed: () => sendEvent(),
+                ),
+                ElevatedButton(
+                  child: Text("Edge.sentEvent to Dataset"),
+                  onPressed: () => sendEvent('datasetIdExample'),
                 ),
                 getRichText('Response event handles: = ',
                     '$_edgeEventHandleResponse\n'),

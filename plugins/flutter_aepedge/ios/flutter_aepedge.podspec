@@ -4,7 +4,7 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepedge'
   s.version          = '1.0.0'
-  s.summary          = 'Adobe Experience Platform support for Flutter apps.'
+  s.summary          = 'Adobe Experience Platform Edge Network extension for Flutter apps.'
   s.homepage         = 'https://aep-sdks.gitbook.io/docs/'
   s.license          = { :file => '../LICENSE' }
   s.author           = 'Adobe Mobile SDK Team'

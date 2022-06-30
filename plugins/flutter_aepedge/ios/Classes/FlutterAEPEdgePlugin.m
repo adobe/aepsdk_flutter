@@ -9,9 +9,10 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-#import "FlutterAEPEdgePlugin.h"
 @import AEPEdge;
 @import AEPCore;
+#import "FlutterAEPEdgePlugin.h"
+#import "FlutterAEPEdgeDataBridge.h"
 
 @implementation FlutterAEPEdgePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -25,9 +26,25 @@ governing permissions and limitations under the License.
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"extensionVersion" isEqualToString:call.method]) {
       result([AEPMobileEdge extensionVersion]);
+  } else if ([@"sendEvent" isEqualToString:call.method]) {
+     [self handleSendEvent:call result:result];
   } else {
       result(FlutterMethodNotImplemented);
   }
 }
+    
+    
+- (void)handleSendEvent:(FlutterMethodCall *) call result:(FlutterResult)result {
+    NSDictionary *experienceEventDict = (NSDictionary *) call.arguments;
+    AEPExperienceEvent *experienceEvent = [FlutterAEPEdgeDataBridge experienceEventFromDictionary:experienceEventDict];
+
+    if (!experienceEvent) {
+        return;
+    }
+    
+    [AEPMobileEdge sendExperienceEvent:experienceEvent completion:^(NSArray<AEPEdgeEventHandle *> * _Nonnull handles) {
+        result([FlutterAEPEdgeDataBridge dictionaryFromEdgeEventHandler:handles]);
+    }];
+    }
 
 @end

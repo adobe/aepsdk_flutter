@@ -38,7 +38,16 @@ class Edge {
               .toList());
 }
 
+// void toEventHandle(List<EventHandle> eventList) {
+//   List<EventHandle> edgeEventList = [];
 
+//   if (eventList) {
+//     for (var prop of eventList) {
+//       edgeEventList.add(new EdgeEventHandle(prop.type, prop.payload))
+//     }
+//   }
+//   return edgeEventList;
+// }
 
 // /// Returns all customer identifiers that were previously synced with the Adobe Experience Cloud.
 //   static Future<List<Identifiable>> get identifiers => _channel
