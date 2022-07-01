@@ -226,7 +226,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> getConsent() async {
     Map<dynamic, dynamic> result = {};
-  
+
     try {
       result = await Consent.consents;
     } on PlatformException {
@@ -240,7 +240,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> setDefaultConsent(bool allowed) async {
-    Map<String, Object> collectConsents = allowed ? {"collect": {"val": "y"}} : {"collect": {"val": "n"}}  ;
+    Map<String, Object> collectConsents = allowed
+        ? {
+            "collect": {"val": "y"}
+          }
+        : {
+            "collect": {"val": "n"}
+          };
     Map<String, Object> currentConsents = {"consents": collectConsents};
     Map<String, Object> defaultConsents = {"consents.default": currentConsents};
 
@@ -248,7 +254,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> updateConsent(bool allowed) async {
-    Map<String, dynamic> collectConsents = allowed ? {"collect": {"val": "y"}} : {"collect": {"val": "n"}} ;
+    Map<String, dynamic> collectConsents = allowed
+        ? {
+            "collect": {"val": "y"}
+          }
+        : {
+            "collect": {"val": "n"}
+          };
     Map<String, dynamic> currentConsents = {"consents": collectConsents};
 
     Consent.update(currentConsents);
@@ -281,7 +293,12 @@ class _MyAppState extends State<MyApp> {
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
-            tabs: [Text('Core'), Text('Identity'), Text('Assurance'), Text('Consent')],
+            tabs: [
+              Text('Core'),
+              Text('Identity'),
+              Text('Assurance'),
+              Text('Consent')
+            ],
           ),
           title: Text('Flutter AEP SDK'),
         ),
@@ -413,11 +430,11 @@ class _MyAppState extends State<MyApp> {
                 ),
               ]),
             ),
-             Center(
+            Center(
               child: ListView(shrinkWrap: true, children: <Widget>[
                 getRichText(
                     'AEPConsent extension version: ', '$_consentVersion\n'),
-                     getRichText('Current Consent = ', '$_getConsentsResult\n'),
+                getRichText('Current Consent = ', '$_getConsentsResult\n'),
                 ElevatedButton(
                   child: Text("Get Consents"),
                   onPressed: () => getConsent(),
@@ -435,7 +452,7 @@ class _MyAppState extends State<MyApp> {
                   onPressed: () => updateConsent(false),
                 ),
               ]),
-             )
+            )
           ],
         ),
       ),

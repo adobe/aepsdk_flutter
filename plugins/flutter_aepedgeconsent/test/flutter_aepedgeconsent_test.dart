@@ -30,7 +30,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await AEP.extensionVersion;
+      await Consent.extensionVersion;
 
       expect(log, <Matcher>[
         isMethodCall(

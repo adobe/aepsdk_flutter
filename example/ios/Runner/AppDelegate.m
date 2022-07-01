@@ -26,7 +26,7 @@
                                       AEPMobileLifecycle.class, 
                                       AEPMobileSignal.class, 
                                       AEPMobileAssurance.class, 
-                                      AEPMobileEdgeConsent.class,];
+                                      AEPMobileEdgeConsent.class];
     
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
         if (appState != UIApplicationStateBackground) {
