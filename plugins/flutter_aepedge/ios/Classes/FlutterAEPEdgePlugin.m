@@ -33,7 +33,6 @@ governing permissions and limitations under the License.
   }
 }
     
-    
 - (void)handleSendEvent:(FlutterMethodCall *) call result:(FlutterResult)result {
     NSDictionary *experienceEventDict = (NSDictionary *) call.arguments;
     AEPExperienceEvent *experienceEvent = [FlutterAEPEdgeDataBridge experienceEventFromDictionary:experienceEventDict];

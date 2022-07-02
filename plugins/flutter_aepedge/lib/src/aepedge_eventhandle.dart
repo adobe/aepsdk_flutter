@@ -31,4 +31,7 @@ class EventHandle {
 
   /// The payload of the eventHanlde response
   List<dynamic> get payload => data['payload'] ?? {};
+
+  @override
+  String toString() => '$runtimeType($data)';
 }
