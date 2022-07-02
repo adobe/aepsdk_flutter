@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.adobe.marketing.mobile.*;
-//import com.adobe.marketing.mobile.edge.consent.Consent;
 
 import io.flutter.app.FlutterApplication;
 

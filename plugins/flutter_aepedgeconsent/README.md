@@ -27,7 +27,7 @@ For more detailed information on the Consent APIs, visit the documentation [here
 
 #### Registering the extension with AEPCore:
 
- > Note: It is required to initialize the SDK via native code inside your AppDelegate and MainApplication for iOS and Android respectively.
+ > Note: It is required to initialize the SDK via native code inside your AppDelegate (iOS) and MainApplication class (Android).
 
 As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
 
@@ -54,7 +54,7 @@ iOS
     
     const UIApplicationState appState = application.applicationState;
 
-    NSArray *extensionsToRegister = @[AEPMobileIdentity.class, 
+    NSArray *extensionsToRegister = @[AEPMobileEdgeIdentity.class, 
                                       AEPMobileEdge.class,                                              
                                       AEPMobileEdgeConsent.class
                                       ];
@@ -86,22 +86,17 @@ public class MainApplication extends FlutterApplication {
     super.onCreate();
     ...
     MobileCore.setApplication(this);
-    MobileCore.setLogLevel(LoggingMode.DEBUG);
     MobileCore.setWrapperType(WrapperType.FLUTTER);
 
-    try {
-        Edge.registerExtension();
-        Identity.registerExtension();
-        Consent.registerExtension();
-        MobileCore.start(new AdobeCallback () {
-            @Override
-            public void call(Object o) {
-                MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
-            }
-        });
-    } catch (InvalidInitException e) {
-        Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
-    }
+    Edge.registerExtension();
+    Identity.registerExtension();
+    Consent.registerExtension();
+    MobileCore.start(new AdobeCallback () {
+        @Override
+        public void call(Object o) {
+          MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
+        }
+   });
 ```
 
 
