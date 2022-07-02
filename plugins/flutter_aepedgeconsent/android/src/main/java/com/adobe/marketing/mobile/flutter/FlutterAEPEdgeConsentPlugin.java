@@ -74,8 +74,8 @@ public class FlutterAEPEdgeConsentPlugin implements FlutterPlugin, MethodCallHan
 
           @Override
           public void fail(final AdobeError adobeError) {
-              final String errorName = adobeError != null ? adobeError.getErrorName() : AdobeError.UNEXPECTED_ERROR.getErrorName();
-              result.error(Integer.toString(adobeError.getErrorCode()),"getConsents - Failed to retrieve consents",errorName);
+            final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;;
+            result.error(Integer.toString(error.getErrorCode()),"getConsents - Failed to retrieve consents",error.getErrorName());
           }
       });
   }

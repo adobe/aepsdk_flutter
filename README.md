@@ -8,7 +8,7 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 | ------------ | ------------------------------------------------------------ |
 | [Core](plugins/flutter_aepcore/README.md) (required)    | [![pub package](https://img.shields.io/pub/v/flutter_aepcore.svg)](https://pub.dartlang.org/packages/flutter_aepcore) |
 | [Assurance](plugins/flutter_aepassurance/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepassurance) |
-| [Consent](plugins/flutter_aepconsent/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepconsent.svg)](https://pub.dartlang.org/packages/flutter_aepconsent) |
+| [Consent](plugins/flutter_aepedgeconsent/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedgeconsent.svg)](https://pub.dartlang.org/packages/flutter_aepedgeconsent) |
 
 ## Installation
 
