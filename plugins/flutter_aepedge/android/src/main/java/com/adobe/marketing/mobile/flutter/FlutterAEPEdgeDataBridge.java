@@ -16,9 +16,13 @@ import com.adobe.marketing.mobile.EdgeEventHandle;
 import com.adobe.marketing.mobile.ExperienceEvent;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
+import java.util.Collection;
 
 
 public class FlutterAEPEdgeDataBridge {
@@ -80,7 +84,7 @@ public class FlutterAEPEdgeDataBridge {
         if (eventhandle.getPayload() != null) {
             Object[] handles = new Object[] {eventhandle.getPayload().size()};
             handles = eventhandle.getPayload().toArray();
-            eventHandleMap.put(PAYLOAD_KEY, handles);
+            eventHandleMap.put(PAYLOAD_KEY, arrayUtil(handles));
         }
         return eventHandleMap;
     }
@@ -94,5 +98,15 @@ public class FlutterAEPEdgeDataBridge {
 
     private static Map getNullableMap(final Map data, final String key) {
         return data.containsKey(key) && (data.get(key) instanceof Map) ? (Map) data.get(key) : null;
+    }
+
+    private static List<?> arrayUtil(Object arrayObj) {
+        List<?> arrayList = new ArrayList<>();
+        if (arrayObj.getClass().isArray()) {
+            arrayList = Arrays.asList((Object[])arrayObj);
+        } else if (arrayObj instanceof Collection) {
+            arrayList = new ArrayList<>((Collection<?>)arrayObj);
+        }
+        return arrayList;
     }
 }

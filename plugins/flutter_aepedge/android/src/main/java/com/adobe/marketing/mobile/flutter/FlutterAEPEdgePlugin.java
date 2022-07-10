@@ -80,7 +80,7 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
 
         final List<Map> arr = new ArrayList<>();
         if (handles == null) {
-          result.success(handles);
+          result.success(arr);
           return;
         }
 
@@ -90,7 +90,7 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
         AndroidUtil.runOnUIThread(new Runnable() {
           @Override
           public void run() {
-            result.success(handles);
+           result.success(arr);
           }
         });
       }

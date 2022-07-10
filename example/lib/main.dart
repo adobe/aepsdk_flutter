@@ -243,6 +243,7 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
     setState(() {
       _edgeEventHandleResponse = result;
+      print("result info " + result.toString());
     });
   }
 
