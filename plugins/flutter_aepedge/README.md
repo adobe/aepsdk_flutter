@@ -111,6 +111,35 @@ String version = await edge.extensionVersion;
 
 //TO DO: add sendEvent API
 
+##### sendEvent
+ ```dart
+String version = await edge.extensionVersion;
+ ```
+**Syntax**
+```dart
+static Future<List<EventHandle>> sendEvent(
+    ExperienceEvent experienceEvent,
+  )
+```
+
+**Example**
+```dart
+late List<EventHandle> result;
+Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> data = {"free": "form", "data": "example"};
+
+final ExperienceEvent experienceevent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data,
+  "datasetIdentifier": datasetId,
+});
+try {
+  result = await Edge.sendEvent(experienceevent);
+} on PlatformException catch (e) {
+  log("Failed to dispatch event '${e.message}''");
+}
+
+
 ## Contributing
 See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)
 
