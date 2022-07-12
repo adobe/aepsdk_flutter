@@ -16,10 +16,17 @@
     [AEPMobileCore setLogLevel:AEPLogLevelTrace];
     [AEPMobileCore setPrivacyStatus:AEPPrivacyStatusOptedIn];
     [AEPMobileCore setWrapperType:AEPWrapperTypeFlutter];
+
+     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
+    NSString* ENVIRONMENT_FILE_ID = @"YOUR-APP-ID";
     
     const UIApplicationState appState = application.applicationState;
-    
-    NSArray *extensionsToRegister = @[AEPMobileIdentity.class, AEPMobileLifecycle.class, AEPMobileSignal.class, AEPMobileAssurance.class];
+
+    NSArray *extensionsToRegister = @[AEPMobileIdentity.class, 
+                                      AEPMobileLifecycle.class, 
+                                      AEPMobileSignal.class, 
+                                      AEPMobileAssurance.class, 
+                                      AEPMobileEdgeConsent.class];
     
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
         if (appState != UIApplicationStateBackground) {
@@ -27,7 +34,7 @@
         }
     }];
     
-    [AEPMobileCore configureWithAppId:@"yourappidhere"];
+    [AEPMobileCore configureWithAppId: ENVIRONMENT_FILE_ID];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

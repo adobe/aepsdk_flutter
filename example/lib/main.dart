@@ -9,6 +9,7 @@ import 'package:flutter_aepcore/flutter_aepidentity.dart';
 import 'package:flutter_aepcore/flutter_aeplifecycle.dart';
 import 'package:flutter_aepcore/flutter_aepsignal.dart';
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
+import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,12 +24,14 @@ class _MyAppState extends State<MyApp> {
   String _lifecycleVersion = 'Unknown';
   String _signalVersion = 'Unknown';
   String _assuranceVersion = 'Unknown';
+  String _consentVersion = 'Unknown';
   String _appendToUrlResult = "";
   String _experienceCloudId = "";
   String _getUrlVariablesResult = "";
   String _getIdentifiersResult = "";
   String _sdkIdentities = "";
   String _privacyStatus = "";
+  String _getConsentsResult = "";
   String _urlText = '';
 
   @override
@@ -43,7 +46,8 @@ class _MyAppState extends State<MyApp> {
         lifecycleVersion,
         signalVersion,
         identityVersion,
-        assuranceVersion;
+        assuranceVersion,
+        consentVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       coreVersion = await MobileCore.extensionVersion;
@@ -51,6 +55,7 @@ class _MyAppState extends State<MyApp> {
       lifecycleVersion = await Lifecycle.extensionVersion;
       signalVersion = await Signal.extensionVersion;
       assuranceVersion = await Assurance.extensionVersion;
+      consentVersion = await Consent.extensionVersion;
     } on PlatformException {
       log("Failed to get extension versions");
     }
@@ -66,6 +71,7 @@ class _MyAppState extends State<MyApp> {
       _lifecycleVersion = lifecycleVersion;
       _signalVersion = signalVersion;
       _assuranceVersion = assuranceVersion;
+      _consentVersion = consentVersion;
     });
   }
 
@@ -218,6 +224,48 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  Future<void> getConsent() async {
+    Map<dynamic, dynamic> result = {};
+
+    try {
+      result = await Consent.consents;
+    } on PlatformException {
+      log("Failed to get consent info");
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _getConsentsResult = result.toString();
+    });
+  }
+
+  Future<void> setDefaultConsent(bool allowed) async {
+    Map<String, Object> collectConsents = allowed
+        ? {
+            "collect": {"val": "y"}
+          }
+        : {
+            "collect": {"val": "n"}
+          };
+    Map<String, Object> currentConsents = {"consents": collectConsents};
+    Map<String, Object> defaultConsents = {"consents.default": currentConsents};
+
+    MobileCore.updateConfiguration(defaultConsents);
+  }
+
+  Future<void> updateConsent(bool allowed) async {
+    Map<String, dynamic> collectConsents = allowed
+        ? {
+            "collect": {"val": "y"}
+          }
+        : {
+            "collect": {"val": "n"}
+          };
+    Map<String, dynamic> currentConsents = {"consents": collectConsents};
+
+    Consent.update(currentConsents);
+  }
+
   // UTIL
   RichText getRichText(String label, String value) {
     return new RichText(
@@ -241,11 +289,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           bottom: TabBar(
-            tabs: [Text('Core'), Text('Identity'), Text('Assurance')],
+            tabs: [
+              Text('Core'),
+              Text('Identity'),
+              Text('Assurance'),
+              Text('Consent')
+            ],
           ),
           title: Text('Flutter AEP SDK'),
         ),
@@ -374,6 +427,29 @@ class _MyAppState extends State<MyApp> {
                 ElevatedButton(
                   child: Text("Assurance.startSession(...)"),
                   onPressed: () => Assurance.startSession(_urlText),
+                ),
+              ]),
+            ),
+            Center(
+              child: ListView(shrinkWrap: true, children: <Widget>[
+                getRichText(
+                    'AEPConsent extension version: ', '$_consentVersion\n'),
+                getRichText('Current Consent = ', '$_getConsentsResult\n'),
+                ElevatedButton(
+                  child: Text("Get Consents"),
+                  onPressed: () => getConsent(),
+                ),
+                ElevatedButton(
+                  child: Text("Set Default Consent - Yes"),
+                  onPressed: () => setDefaultConsent(true),
+                ),
+                ElevatedButton(
+                  child: Text("Set Collect Consent - Yes"),
+                  onPressed: () => updateConsent(true),
+                ),
+                ElevatedButton(
+                  child: Text("Set Collect Consent - No"),
+                  onPressed: () => updateConsent(false),
                 ),
               ]),
             )

@@ -10,6 +10,9 @@ import io.flutter.app.FlutterApplication;
 
 public class MyApplication extends FlutterApplication {
 
+    // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
+    private final String ENVIRONMENT_FILE_ID = "YOUR-APP-ID";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -23,7 +26,13 @@ public class MyApplication extends FlutterApplication {
             Lifecycle.registerExtension();
             Signal.registerExtension();
             Assurance.registerExtension();
-            MobileCore.start(o -> MobileCore.configureWithAppID("yourAppId"));
+            Consent.registerExtension();
+            MobileCore.start(new AdobeCallback () {
+                @Override
+                public void call(Object o) {
+                    MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
+                }
+            });
         } catch (InvalidInitException e) {
             Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
         }
