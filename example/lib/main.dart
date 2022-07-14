@@ -4,15 +4,6 @@ import 'assurance.dart';
 import 'consent.dart';
 import 'identity.dart';
 
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(home: homePage());
-//   }
-// }
-
 void main() {
   runApp(MaterialApp(
     home: homePage(),
