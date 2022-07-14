@@ -26,7 +26,7 @@ public class MyApplication extends FlutterApplication {
             Lifecycle.registerExtension();
             Signal.registerExtension();
             Assurance.registerExtension();
-            Consent.registerExtension();
+            com.adobe.marketing.mobile.edge.consent.Consent.registerExtension();
             MobileCore.start(new AdobeCallback () {
                 @Override
                 public void call(Object o) {

@@ -1,0 +1,130 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_aepcore/flutter_aepcore.dart';
+import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
+
+class consentPage extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<consentPage> {
+  String _consentVersion = 'Unknown';
+  String _getConsentsResult = "";
+
+  @override
+  void initState() {
+    super.initState();
+    initPlatformState();
+  }
+
+  // Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    late String consentVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      consentVersion = await Consent.extensionVersion;
+    } on PlatformException {
+      log("Failed to get extension versions");
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _consentVersion = consentVersion;
+    });
+  }
+
+  Future<void> getConsent() async {
+    Map<dynamic, dynamic> result = {};
+
+    try {
+      result = await Consent.consents;
+    } on PlatformException {
+      log("Failed to get consent info");
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _getConsentsResult = result.toString();
+    });
+  }
+
+  Future<void> setDefaultConsent(bool allowed) async {
+    Map<String, Object> collectConsents = allowed
+        ? {
+            "collect": {"val": "y"}
+          }
+        : {
+            "collect": {"val": "n"}
+          };
+    Map<String, Object> currentConsents = {"consents": collectConsents};
+    Map<String, Object> defaultConsents = {"consents.default": currentConsents};
+
+    MobileCore.updateConfiguration(defaultConsents);
+  }
+
+  Future<void> updateConsent(bool allowed) async {
+    Map<String, dynamic> collectConsents = allowed
+        ? {
+            "collect": {"val": "y"}
+          }
+        : {
+            "collect": {"val": "n"}
+          };
+    Map<String, dynamic> currentConsents = {"consents": collectConsents};
+
+    Consent.update(currentConsents);
+  }
+
+  // UTIL
+  RichText getRichText(String label, String value) {
+    return new RichText(
+      text: new TextSpan(
+        // Note: Styles for TextSpans must be explicitly defined.
+        // Child text spans will inherit styles from parent
+        style: new TextStyle(
+          fontSize: 14.0,
+          color: Colors.black,
+        ),
+        children: <TextSpan>[
+          new TextSpan(
+              text: label, style: new TextStyle(fontWeight: FontWeight.bold)),
+          new TextSpan(text: value),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(title: Text("Consent Screen")),
+      body: Center(
+        child: ListView(shrinkWrap: true, children: <Widget>[
+          getRichText('AEPConsent extension version: ', '$_consentVersion\n'),
+          getRichText('Current Consent = ', '$_getConsentsResult\n'),
+          ElevatedButton(
+            child: Text("Get Consents"),
+            onPressed: () => getConsent(),
+          ),
+          ElevatedButton(
+            child: Text("Set Default Consent - Yes"),
+            onPressed: () => setDefaultConsent(true),
+          ),
+          ElevatedButton(
+            child: Text("Set Collect Consent - Yes"),
+            onPressed: () => updateConsent(true),
+          ),
+          ElevatedButton(
+            child: Text("Set Collect Consent - No"),
+            onPressed: () => updateConsent(false),
+          ),
+        ]),
+      ));
+}
