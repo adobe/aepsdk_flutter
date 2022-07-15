@@ -71,6 +71,7 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
 
       if (experienceEvent == null) {
       Log.e(TAG, "Dispatch Experience Event failed because event is null");
+      result.error("Dispatch Experence Event failed", "ExperienceEvent is null", "Expect a valid Expereince event");
       return;
     }
 
@@ -80,9 +81,15 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
 
         final List<Map> arr = new ArrayList<>();
         if (handles == null) {
-          result.success(arr);
-          return;
+          AndroidUtil.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+              result.success(arr);
+              return;
+            }
+          });
         }
+       
 
         for (EdgeEventHandle handle: handles) {
           arr.add(FlutterAEPEdgeDataBridge.mapFromEdgeEventHandle(handle));
