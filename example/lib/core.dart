@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_aepcore/flutter_aepcore_data.dart';
 import 'package:flutter_aepcore/flutter_aeplifecycle.dart';
 import 'package:flutter_aepcore/flutter_aepsignal.dart';
+import 'util.dart';
 
-class corePage extends StatefulWidget {
+class CorePage extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<corePage> {
+class _MyAppState extends State<CorePage> {
   String _coreVersion = 'Unknown';
   String _lifecycleVersion = 'Unknown';
   String _signalVersion = 'Unknown';
@@ -109,25 +109,6 @@ class _MyAppState extends State<corePage> {
     } on PlatformException catch (e) {
       log("Failed to dispatch event '${e.message}''");
     }
-  }
-
-  // UTIL
-  RichText getRichText(String label, String value) {
-    return new RichText(
-      text: new TextSpan(
-        // Note: Styles for TextSpans must be explicitly defined.
-        // Child text spans will inherit styles from parent
-        style: new TextStyle(
-          fontSize: 14.0,
-          color: Colors.black,
-        ),
-        children: <TextSpan>[
-          new TextSpan(
-              text: label, style: new TextStyle(fontWeight: FontWeight.bold)),
-          new TextSpan(text: value),
-        ],
-      ),
-    );
   }
 
   @override

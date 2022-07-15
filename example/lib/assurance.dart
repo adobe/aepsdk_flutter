@@ -1,17 +1,15 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
 
-class assurancePage extends StatefulWidget {
+class AssurancePage extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<assurancePage> {
+class _MyAppState extends State<AssurancePage> {
   String _assuranceVersion = 'Unknown';
   String _urlText = '';
 
@@ -42,41 +40,12 @@ class _MyAppState extends State<assurancePage> {
     });
   }
 
-  // UTIL
-  RichText getRichText(String label, String value) {
-    return new RichText(
-      text: new TextSpan(
-        // Note: Styles for TextSpans must be explicitly defined.
-        // Child text spans will inherit styles from parent
-        style: new TextStyle(
-          fontSize: 14.0,
-          color: Colors.black,
-        ),
-        children: <TextSpan>[
-          new TextSpan(
-              text: label, style: new TextStyle(fontWeight: FontWeight.bold)),
-          new TextSpan(text: value),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: Text("Assurance Screen")),
         body: Center(
           child: ListView(shrinkWrap: true, children: <Widget>[
             Text('AEPAssurance version = $_assuranceVersion\n'),
-            ElevatedButton(
-              child: Text("MobileCore.trackState(...)"),
-              onPressed: () =>
-                  MobileCore.trackState("myState", data: {"key1": "value1"}),
-            ),
-            ElevatedButton(
-              child: Text("MobileCore.trackAction(...)"),
-              onPressed: () =>
-                  MobileCore.trackAction("myAction", data: {"key1": "value1"}),
-            ),
             TextField(
               decoration: InputDecoration(
                   border: new OutlineInputBorder(

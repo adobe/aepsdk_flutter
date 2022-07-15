@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -6,12 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore_data.dart';
 import 'package:flutter_aepcore/flutter_aepidentity.dart';
 
-class identityPage extends StatefulWidget {
+class IdentityPage extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<identityPage> {
+class _MyAppState extends State<IdentityPage> {
   String _identityVersion = 'Unknown';
   String _appendToUrlResult = "";
   String _experienceCloudId = "";
@@ -132,7 +131,7 @@ class _MyAppState extends State<identityPage> {
     });
   }
 
-  // UTIL
+  // // UTIL
   RichText getRichText(String label, String value) {
     return new RichText(
       text: new TextSpan(

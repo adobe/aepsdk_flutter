@@ -6,11 +6,11 @@ import 'identity.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: homePage(),
+    home: HomePage(),
   ));
 }
 
-class homePage extends StatelessWidget {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,32 +19,35 @@ class homePage extends StatelessWidget {
         ),
         body: Center(
           child: new Column(children: <Widget>[
+            Container(
+              height: 150,
+            ),
             ElevatedButton(
               child: const Text('CORE'),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => corePage()));
+                    MaterialPageRoute(builder: (context) => CorePage()));
               },
             ),
             ElevatedButton(
               child: const Text('IDENTITY'),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => identityPage()));
+                    MaterialPageRoute(builder: (context) => IdentityPage()));
               },
             ),
             ElevatedButton(
               child: const Text('ASSURANCE'),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => assurancePage()));
+                    MaterialPageRoute(builder: (context) => AssurancePage()));
               },
             ),
             ElevatedButton(
               child: const Text('CONSENT'),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => consentPage()));
+                    MaterialPageRoute(builder: (context) => ConsentPage()));
               },
             ),
           ]),

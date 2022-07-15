@@ -1,17 +1,17 @@
-import 'dart:async';
 import 'dart:developer';
 
+import 'util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 
-class consentPage extends StatefulWidget {
+class ConsentPage extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<consentPage> {
+class _MyAppState extends State<ConsentPage> {
   String _consentVersion = 'Unknown';
   String _getConsentsResult = "";
 
@@ -81,25 +81,6 @@ class _MyAppState extends State<consentPage> {
     Map<String, dynamic> currentConsents = {"consents": collectConsents};
 
     Consent.update(currentConsents);
-  }
-
-  // UTIL
-  RichText getRichText(String label, String value) {
-    return new RichText(
-      text: new TextSpan(
-        // Note: Styles for TextSpans must be explicitly defined.
-        // Child text spans will inherit styles from parent
-        style: new TextStyle(
-          fontSize: 14.0,
-          color: Colors.black,
-        ),
-        children: <TextSpan>[
-          new TextSpan(
-              text: label, style: new TextStyle(fontWeight: FontWeight.bold)),
-          new TextSpan(text: value),
-        ],
-      ),
-    );
   }
 
   @override
