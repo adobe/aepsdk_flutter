@@ -104,8 +104,6 @@ import 'package:flutter_aepedge/flutter_aepedge.dart';
 String version = await edge.extensionVersion;
  ```
 
-//TO DO: add sendEvent API
-
 ##### sendEvent
  ```dart
 String version = await edge.extensionVersion;
