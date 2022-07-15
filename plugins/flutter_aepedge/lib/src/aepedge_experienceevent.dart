@@ -11,29 +11,27 @@ governing permissions and limitations under the License.
 
 /// Experience Event is the event to be sent to Adobe Experience Platform Edge Network.
 class ExperienceEvent {
-  ExperienceEvent(this.eventdata);
+  ExperienceEvent(this.eventData);
 
-  ExperienceEvent.createEvent(
-    final Map<String, dynamic> xdmData,
-    final Map<String, dynamic> data,
-    final String datasetIdenitifer,
-  ) {
+  ExperienceEvent.createEvent(final Map<String, dynamic> xdmData,
+      [final Map<String, dynamic>? data, final String? datasetIdentifier]) {
     final Map<String, dynamic> experienceEventConstructorData = {
       "xdmdata": xdmData,
       "data": data,
-      "dataIdenitifer": datasetIdenitifer
+      "dataIdenitifer": datasetIdentifier
     };
-    this.eventdata = experienceEventConstructorData;
+    this.eventData = experienceEventConstructorData;
   }
 
-  late Map<String, dynamic> eventdata;
+  /// The data in this experience event
+  late Map<String, dynamic> eventData;
 
   /// The XDM data for this event.
-  Map<String, dynamic> get xdmdata => eventdata['xdmData'] ?? {};
+  Map<String, dynamic> get xdmData => eventData['xdmData'] ?? {};
 
   /// The free-form data for this event.
-  Map<String, dynamic> get data => eventdata['data'] ?? {};
+  Map<String, dynamic>? get data => eventData['data'] ?? {};
 
   /// XDM formatted data for this event.
-  String? get datasetIdenitifer => eventdata['datasetIdenitifer'];
+  String? get datasetIdentifier => eventData['datasetIdentifier'];
 }

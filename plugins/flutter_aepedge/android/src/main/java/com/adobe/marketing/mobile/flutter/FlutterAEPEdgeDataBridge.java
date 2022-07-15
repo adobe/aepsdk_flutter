@@ -25,14 +25,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 
-public class FlutterAEPEdgeDataBridge {
+class FlutterAEPEdgeDataBridge {
 
     // Event Object Keys
-    public final static String XDM_DATA_KEY = "xdmData";
-    public final static String DATA_KEY = "data";
-    public final static String DATASET_IDENTIFIER_KEY = "datasetIdentifier";
-    public final static String TYPE_KEY = "type";
-    public final static String PAYLOAD_KEY = "payload";
+    private final static String XDM_DATA_KEY = "xdmData";
+    private final static String DATA_KEY = "data";
+    private final static String DATASET_IDENTIFIER_KEY = "datasetIdentifier";
+    private final static String TYPE_KEY = "type";
+    private final static String PAYLOAD_KEY = "payload";
 
     /**
      * Converts a {@link Map} into an {@link ExperienceEvent}
@@ -40,7 +40,7 @@ public class FlutterAEPEdgeDataBridge {
      * @param map
      * @return An {@link ExperienceEvent}
      */
-    static ExperienceEvent eventFromMap(final Map map) {
+    protected static ExperienceEvent eventFromMap(final Map map) {
          if (map == null) {
              return null;
          }
@@ -72,7 +72,7 @@ public class FlutterAEPEdgeDataBridge {
      * @param eventhandle
      * @return A {@link Map} that represents the eventhandle
      */
-    public static Map mapFromEdgeEventHandle(final EdgeEventHandle eventhandle) {
+    protected static Map mapFromEdgeEventHandle(final EdgeEventHandle eventhandle) {
         if (eventhandle == null) {
             return null;
         }

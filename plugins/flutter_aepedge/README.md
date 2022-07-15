@@ -23,7 +23,7 @@ flutter test
 ## Usage
 ### Edge Network
 
-For more detailed information on the edge APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-edge)
+For more detailed information on the Edge APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-edge)
 
 ##### Registering the extension with AEPCore:
 
@@ -41,7 +41,6 @@ iOS
 @import AEPCore;
 @import AEPEdge;
 @import AEPEdgeIdentity;
-@import AEPEdgeConsent;
 ...
 @implementation AppDelegate
 
@@ -56,7 +55,6 @@ iOS
 
     NSArray *extensionsToRegister = @[AEPMobileEdgeIdentity.class, 
                                       AEPMobileEdge.class,                                              
-                                      AEPMobileEdgeConsent.class
                                       ];
 
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
@@ -70,9 +68,7 @@ Android
 ```java
 import com.adobe.marketing.mobile.MobileCore;
 import com.adobe.marketing.mobile.Edge;
-import com.adobe.marketing.mobile.edge.identity.Identity;
-import com.adobe.marketing.mobile.edge.consent.Consent;
-  
+import com.adobe.marketing.mobile.edge.identity.Identity;  
 ...
 import io.flutter.app.FlutterApplication;
 ...
@@ -90,7 +86,6 @@ public class MainApplication extends FlutterApplication {
 
     Edge.registerExtension();
     Identity.registerExtension();
-    Consent.registerExtension();
     MobileCore.start(new AdobeCallback () {
         @Override
         public void call(Object o) {
@@ -138,7 +133,7 @@ try {
 } on PlatformException catch (e) {
   log("Failed to dispatch event '${e.message}''");
 }
-
+```
 
 ## Contributing
 See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)

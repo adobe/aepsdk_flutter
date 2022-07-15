@@ -20,7 +20,6 @@ public class MyApplication extends FlutterApplication {
         MobileCore.setWrapperType(WrapperType.FLUTTER);
         
         try {
-            Identity.registerExtension();
             com.adobe.marketing.mobile.edge.identity.Identity.registerExtension();
             com.adobe.marketing.mobile.Identity.registerExtension();
             Lifecycle.registerExtension();
@@ -28,7 +27,6 @@ public class MyApplication extends FlutterApplication {
             Assurance.registerExtension();
             Edge.registerExtension();
             MobileCore.start(o -> MobileCore.configureWithAppID("YOUR-APP-ID"));
-            System.out.println("test registration here");
         } catch (InvalidInitException e) {
             Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
         }

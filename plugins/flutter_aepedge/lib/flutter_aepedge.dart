@@ -11,8 +11,7 @@ governing permissions and limitations under the License.
 
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:flutter_aepedge/src/aepedge_eventhandle.dart';
-import 'package:flutter_aepedge/src/aepedge_experienceevent.dart';
+import 'package:flutter_aepedge/flutter_aepedge_data.dart';
 
 /// Adobe Experience Platform Edge Workflow API.
 class Edge {
@@ -32,7 +31,7 @@ class Edge {
     ExperienceEvent experienceEvent,
   ) =>
       _channel
-          .invokeListMethod<dynamic>('sendEvent', experienceEvent.eventdata)
+          .invokeListMethod<dynamic>('sendEvent', experienceEvent.eventData)
           .then((value) => (value ?? [])
               .map<EventHandle>((data) => EventHandle(data))
               .toList());

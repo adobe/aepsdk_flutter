@@ -14,23 +14,24 @@ class EventHandle {
   EventHandle(this.data);
 
   EventHandle.createEvent(
-    final String type,
-    final List<dynamic> payload,
+    final String? type,
+    final List<dynamic>? payload,
   ) {
-    final Map<dynamic, dynamic> eventHandleConstructorData = {
+    final Map<String, dynamic> eventHandleConstructorData = {
       "type": type,
       "payload": payload
     };
     this.data = eventHandleConstructorData;
   }
 
+  /// The data in the eventHandle response
   late Map<dynamic, dynamic> data;
 
   /// The type of the eventHandle response.
   String? get type => data['type'];
 
   /// The payload of the eventHanlde response
-  List<dynamic> get payload => data['payload'] ?? {};
+  List<dynamic>? get payload => data['payload'] ?? {};
 
   @override
   String toString() => '$runtimeType($data)';
