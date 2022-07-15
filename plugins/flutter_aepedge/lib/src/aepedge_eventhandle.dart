@@ -24,13 +24,13 @@ class EventHandle {
     this.data = eventHandleConstructorData;
   }
 
-  /// The data in the eventHandle response
+  /// The data in the eventHandle response.
   late Map<dynamic, dynamic> data;
 
   /// The type of the eventHandle response.
   String? get type => data['type'];
 
-  /// The payload of the eventHanlde response
+  /// The payload of the eventHanlde response.
   List<dynamic>? get payload => data['payload'] ?? {};
 
   @override

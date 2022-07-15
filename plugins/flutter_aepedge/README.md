@@ -128,8 +128,8 @@ final ExperienceEvent experienceevent = ExperienceEvent({
 });
 try {
   result = await Edge.sendEvent(experienceevent);
-} on PlatformException catch (e) {
-  log("Failed to dispatch event '${e.message}''");
+} on PlatformException {
+  log("Failed to send experience event");
 }
 ```
 
