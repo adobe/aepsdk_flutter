@@ -68,8 +68,8 @@ SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_aepassurance: 13c97bbe7545b5b556b3b967b42fb9c8cd72bdcd
   flutter_aepcore: 1287c8a6b88fdb967432b0080cc923b58260f1df
-  flutter_aepedgeconsent: 6c0193b3f3c310b149657182c5f9f2d4ed9bf972
+  flutter_aepedgeconsent: c252a0959641fb1de38f7e96762f9037bc8adfc0
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
