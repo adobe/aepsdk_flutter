@@ -100,6 +100,7 @@ class FlutterAEPEdgeDataBridge {
         return data.containsKey(key) && (data.get(key) instanceof Map) ? (Map) data.get(key) : null;
     }
 
+    @SuppressWarnings("unchecked")
     private static List<?> arrayUtil(Object arrayObj) {
         List<?> arrayList = new ArrayList<>();
         if (arrayObj.getClass().isArray()) {
