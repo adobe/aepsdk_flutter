@@ -12,6 +12,8 @@ governing permissions and limitations under the License.
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_aepedge/flutter_aepedge.dart';
+import 'package:flutter_aepedge/src/aepedge_experienceevent.dart';
+import 'package:flutter_aepedge/src/aepedge_eventhandle.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('flutter_aepedge');
@@ -42,6 +44,150 @@ void main() {
 
     test('returns correct result', () async {
       expect(await Edge.extensionVersion, testVersion);
+    });
+  });
+
+  group('sendEvent', () {
+    final Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+    final Map<String, dynamic> data = {"free": "form", "data": "example"};
+
+    final Map<String, dynamic> experienceeventData = {
+      "xdmData": xdmData,
+      "data": data,
+      "datasetIdentifier": "datasetExample",
+    };
+
+    //setup experienceEvent
+    final ExperienceEvent experienceEvent =
+        ExperienceEvent(experienceeventData);
+
+    final String eventHandleType = "state:store";
+    final List<dynamic> eventHandlePayload = [
+      {"maxAge": 1800, "value": "testValue1", "key": "keyExample1"},
+      {"maxAge": 34128000, "value": "testValue2", "key": "keyExample2"}
+    ];
+
+    final Map<dynamic, dynamic> eventHandleExpectedData = {
+      "type": eventHandleType,
+      "payload": eventHandlePayload
+    };
+
+    //setup returned and expected EventHandles
+    final EventHandle expectedEvent = EventHandle(eventHandleExpectedData);
+    final EventHandle returnedEvent = EventHandle(eventHandleExpectedData);
+
+    final List<EventHandle> expectedResponse = [expectedEvent];
+    final List<dynamic> returnedResponse = [returnedEvent.data];
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return returnedResponse;
+      });
+    });
+    test('invokes correct method', () async {
+      await Edge.sendEvent(experienceEvent);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'sendEvent',
+          arguments: experienceeventData,
+        ),
+      ]);
+    });
+
+    test('returns correct result', () async {
+      final actualEventHandleResponse = await Edge.sendEvent(experienceEvent);
+      expect(actualEventHandleResponse[0].payload, expectedResponse[0].payload);
+      expect(actualEventHandleResponse[0].type, expectedResponse[0].type);
+    });
+  });
+
+  group('sendEvent nested', () {
+    final Map<dynamic, dynamic> mapValue = {"keySample": "keyValue"};
+    final Map<dynamic, dynamic> dataValue = {"keySample1": "keyValue1"};
+    final Map<dynamic, dynamic> xdmData = {"eventType": mapValue};
+    final Map<String, dynamic> data = {"free": "form", "data": dataValue};
+
+    final Map<String, dynamic> experienceeventData = {
+      "xdmData": xdmData,
+      "data": data,
+      "datasetIdentifier": "datasetExample",
+    };
+
+    //setup experienceEvent
+    final ExperienceEvent experienceEvent =
+        ExperienceEvent(experienceeventData);
+
+    final String eventHandleType = "state:store";
+    final List<dynamic> eventHandlePayload = [
+      {"maxAge": 1800, "value": "testValue1", "key": "keyExample1"},
+      {"maxAge": 34128000, "value": "testValue2", "key": "keyExample2"}
+    ];
+
+    final Map<dynamic, dynamic> eventHandleExpectedData = {
+      "type": eventHandleType,
+      "payload": eventHandlePayload
+    };
+
+    final String eventHandleType2 = "state:store";
+    final List<dynamic> eventHandlePayload2 = [
+      {
+        "type": "samplestore#",
+        "destinationId": "345",
+        "alias": "auto",
+        "segments": [
+          {"id": "00001234-7nfj-78u0-0ne7-nju348098jd1"},
+          {"id": "78947208-yuj6-78nh-672m-k8792d7v9wnb"}
+        ]
+      },
+    ];
+
+    final Map<dynamic, dynamic> eventHandleExpectedData2 = {
+      "type": eventHandleType2,
+      "payload": eventHandlePayload2
+    };
+
+    //setup returned and expected EventHandles
+    final EventHandle expectedEvent = EventHandle(eventHandleExpectedData);
+    final EventHandle returnedEvent = EventHandle(eventHandleExpectedData);
+
+    final EventHandle expectedEvent2 = EventHandle(eventHandleExpectedData2);
+    final EventHandle returnedEvent2 = EventHandle(eventHandleExpectedData2);
+
+    final List<EventHandle> expectedResponse = [expectedEvent, expectedEvent2];
+    final List<dynamic> returnedResponse = [
+      returnedEvent.data,
+      returnedEvent2.data
+    ];
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return returnedResponse;
+      });
+    });
+    test('invokes correct method happy test', () async {
+      await Edge.sendEvent(experienceEvent);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'sendEvent',
+          arguments: experienceeventData,
+        ),
+      ]);
+    });
+
+    test('returns correct result', () async {
+      final actualEventHandleResponse = await Edge.sendEvent(experienceEvent);
+      expect(actualEventHandleResponse[0].payload, expectedResponse[0].payload);
+      expect(actualEventHandleResponse[0].type, expectedResponse[0].type);
+      expect(actualEventHandleResponse[1].payload, expectedResponse[1].payload);
+      expect(actualEventHandleResponse[1].type, expectedResponse[1].type);
     });
   });
 }
