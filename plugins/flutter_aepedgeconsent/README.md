@@ -98,14 +98,13 @@ public class MainApplication extends FlutterApplication {
         }
    });
 ```
-
-
+------
 #### Importing the SDK:
 
 ```dart
 import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 ```
-
+------
 #### Getting Consent version:
 
 **Syntax**
@@ -117,7 +116,7 @@ static Future<String> get extensionVersion
 ```dart
 String version = await Consent.extensionVersion;
 ```
-
+------
 #### Getting Current Consent Preference:
 
 **Syntax**
@@ -134,7 +133,7 @@ Map<dynamic, dynamic> result = {};
       log("Failed to get consent info");
     }
 ```
-
+------
 #### Update Consent:
 
 **Syntax**
