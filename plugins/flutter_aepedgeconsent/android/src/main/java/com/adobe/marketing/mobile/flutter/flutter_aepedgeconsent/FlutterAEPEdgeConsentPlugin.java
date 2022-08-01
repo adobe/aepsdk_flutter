@@ -49,14 +49,24 @@ public class FlutterAEPEdgeConsentPlugin implements FlutterPlugin, MethodCallHan
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if ("extensionVersion".equals(call.method)) {
-      result.success(Consent.extensionVersion());
+      AndroidUtil.runOnUIThread(new Runnable() {
+        @Override
+        public void run() {
+          result.success(Consent.extensionVersion());
+        }
+      });
     } else if("getConsents".equals(call.method)) {
             handleGetConsents(result);
     } else if("updateConsents".equals(call.method)) {
             handleUpdateConsents(call.arguments);
             result.success(null);
     } else {
-      result.notImplemented();
+      AndroidUtil.runOnUIThread(new Runnable() {
+        @Override
+        public void run() {
+          result.notImplemented();
+        }
+      });
     }
   }
 
@@ -74,8 +84,13 @@ public class FlutterAEPEdgeConsentPlugin implements FlutterPlugin, MethodCallHan
 
           @Override
           public void fail(final AdobeError adobeError) {
-            final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;;
-            result.error(Integer.toString(error.getErrorCode()),"getConsents - Failed to retrieve consents",error.getErrorName());
+            final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+            AndroidUtil.runOnUIThread(new Runnable() {
+              @Override
+              public void run() {
+                result.error(Integer.toString(error.getErrorCode()),"getConsents - Failed to retrieve consents",error.getErrorName());
+              }
+            });
           }
       });
   }
