@@ -52,11 +52,21 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if ("extensionVersion".equals(call.method)) {
-      result.success(Edge.extensionVersion());
+      AndroidUtil.runOnUIThread(new Runnable() {
+        @Override
+        public void run() {
+           result.success(Edge.extensionVersion());
+        }
+      });
     } else if ("sendEvent".equals(call.method)) {
-      handleSentEvent(result, call.arguments);
+         handleSentEvent(result, call.arguments);
     } else {
-      result.notImplemented();
+      AndroidUtil.runOnUIThread(new Runnable() {
+        @Override
+        public void run() {
+           result.notImplemented();
+        }
+      });
     }
   }
 
@@ -71,7 +81,6 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
 
       if (experienceEvent == null) {
       Log.e(TAG, "Dispatch Experience Event failed because event is null");
-      result.error("Dispatch Experence Event failed", "ExperienceEvent is null", "Expect a valid Expereince event");
       return;
     }
 

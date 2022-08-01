@@ -126,11 +126,8 @@ final ExperienceEvent experienceevent = ExperienceEvent({
   "data": data,
   "datasetIdentifier": "datasetIdExample"
 });
-try {
-  result = await Edge.sendEvent(experienceevent);
-} on PlatformException {
-  log("Failed to send experience event");
-}
+
+ result = await Edge.sendEvent(experienceevent);
 ```
 ------
 ### Public classes

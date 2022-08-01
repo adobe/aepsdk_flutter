@@ -234,11 +234,8 @@ class _MyAppState extends State<MyApp> {
       "data": data,
       "datasetIdentifier": datasetId,
     });
-    try {
-      result = await Edge.sendEvent(experienceevent);
-    } on PlatformException {
-      log("Failed to send experience event");
-    }
+
+    result = await Edge.sendEvent(experienceevent);
 
     if (!mounted) return;
     setState(() {

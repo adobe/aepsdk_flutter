@@ -53,18 +53,13 @@ class FlutterAEPEdgeDataBridge {
 
             Map<String, Object> data = getNullableMap(map, DATA_KEY);
 
-            try {
-                datasetId = getNullableString(map, DATASET_IDENTIFIER_KEY);
-            } catch (Exception e) {
-                //Log.d(TAG, "experienceEventFromReadableMap: " + e);
-            }
-
+            datasetId = getNullableString(map, DATASET_IDENTIFIER_KEY);
+            
             ExperienceEvent event = new ExperienceEvent.Builder().setXdmSchema(xdmdata, datasetId).setData(data).build();
 
             return event;
         }
             return null;
-
     }
 
     /**
