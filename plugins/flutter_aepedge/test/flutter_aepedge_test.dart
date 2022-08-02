@@ -72,12 +72,11 @@ void main() {
       "payload": eventHandlePayload
     };
 
-    //setup returned and expected EventHandles
     final EventHandle expectedEvent = EventHandle(expectedEventHandle);
-    final EventHandle returnedEvent = EventHandle(expectedEventHandle);
 
+    //setup returned and expected response
     final List<EventHandle> expectedResponse = [expectedEvent];
-    final List<dynamic> returnedResponse = [returnedEvent.data];
+    final List<dynamic> returnedResponse = [expectedEvent.data];
 
     final List<MethodCall> log = <MethodCall>[];
 
@@ -150,17 +149,14 @@ void main() {
       "payload": eventHandlePayload2
     };
 
-    //setup returned and expected EventHandles
     final EventHandle expectedEvent = EventHandle(expectedEventHandle);
-    final EventHandle returnedEvent = EventHandle(expectedEventHandle);
-
     final EventHandle expectedEvent2 = EventHandle(expectedEventHandle2);
-    final EventHandle returnedEvent2 = EventHandle(expectedEventHandle2);
 
+    //setup returned and expected response
     final List<EventHandle> expectedResponse = [expectedEvent, expectedEvent2];
     final List<dynamic> returnedResponse = [
-      returnedEvent.data,
-      returnedEvent2.data
+      expectedEvent.data,
+      expectedEvent2.data
     ];
 
     final List<MethodCall> log = <MethodCall>[];
