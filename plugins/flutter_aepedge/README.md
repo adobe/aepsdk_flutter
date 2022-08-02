@@ -122,6 +122,7 @@ Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
 
 final ExperienceEvent experienceevent = ExperienceEvent({
+  //xdmData is required for experienceEvent
   "xdmData": xdmData,
   "data": data,
   "datasetIdentifier": "datasetIdExample"

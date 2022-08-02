@@ -80,7 +80,7 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
      ExperienceEvent experienceEvent = FlutterAEPEdgeDataBridge.eventFromMap(experienceEventMap);
 
       if (experienceEvent == null) {
-      Log.e(TAG, "Dispatch Experience Event failed because event is null");
+      Log.e(TAG, "Dispatch Experience Event failed because experience event is null.");
       return;
     }
 

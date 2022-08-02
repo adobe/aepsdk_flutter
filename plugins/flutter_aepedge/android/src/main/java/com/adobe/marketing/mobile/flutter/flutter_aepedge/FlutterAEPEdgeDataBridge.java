@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.Collection;
+import android.util.Log;
 
 
 class FlutterAEPEdgeDataBridge {
@@ -33,6 +34,7 @@ class FlutterAEPEdgeDataBridge {
     private final static String DATASET_IDENTIFIER_KEY = "datasetIdentifier";
     private final static String TYPE_KEY = "type";
     private final static String PAYLOAD_KEY = "payload";
+    private final static String TAG = "FlutterAEPEdgeDataBridge";
 
     /**
      * Converts a {@link Map} into an {@link ExperienceEvent}
@@ -59,6 +61,7 @@ class FlutterAEPEdgeDataBridge {
 
             return event;
         }
+            Log.d(TAG, "xdmdata is required, but it is currently null.");   
             return null;
     }
 

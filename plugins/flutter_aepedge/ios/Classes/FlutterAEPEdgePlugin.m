@@ -11,6 +11,7 @@ governing permissions and limitations under the License.
 
 @import AEPEdge;
 @import AEPCore;
+@import Foundation;
 #import "FlutterAEPEdgePlugin.h"
 #import "FlutterAEPEdgeDataBridge.h"
 
@@ -36,8 +37,9 @@ governing permissions and limitations under the License.
 - (void)handleSendEvent:(FlutterMethodCall *) call result:(FlutterResult)result {
     NSDictionary *experienceEventDict = (NSDictionary *) call.arguments;
     AEPExperienceEvent *experienceEvent = [FlutterAEPEdgeDataBridge experienceEventFromDictionary:experienceEventDict];
-
+    NSString* eventExperienceError = @"Dispatch Experience Event failed because experience event is null.";
     if (!experienceEvent) {
+        NSLog(@"FlutterAEPEdgePlugin - %@", eventExperienceError);
         return;
     }
     
@@ -45,5 +47,4 @@ governing permissions and limitations under the License.
         result([FlutterAEPEdgeDataBridge dictionaryFromEdgeEventHandler:handles]);
     }];
     }
-
 @end
