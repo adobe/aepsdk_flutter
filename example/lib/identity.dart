@@ -38,12 +38,7 @@ class _MyAppState extends State<IdentityPage> {
   Future<void> initPlatformState() async {
     late String identityVersion;
 
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      identityVersion = await Identity.extensionVersion;
-    } on PlatformException {
-      log("Failed to get extension versions");
-    }
+    identityVersion = await Identity.extensionVersion;
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling

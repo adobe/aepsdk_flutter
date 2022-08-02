@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_aepedge/flutter_aepedge_data.dart';
 import 'package:flutter_aepedge/flutter_aepedge.dart';
 import 'util.dart';
@@ -24,12 +21,8 @@ class _MyAppState extends State<EdgePage> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     late String edgeVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      edgeVersion = await Edge.extensionVersion;
-    } on PlatformException {
-      log("Failed to get extension versions");
-    }
+
+    edgeVersion = await Edge.extensionVersion;
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -43,7 +36,7 @@ class _MyAppState extends State<EdgePage> {
 
   Future<void> sendEvent([datasetId]) async {
     late List<EventHandle> result;
-    Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+    Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceevent = ExperienceEvent({
@@ -51,11 +44,8 @@ class _MyAppState extends State<EdgePage> {
       "data": data,
       "datasetIdentifier": datasetId,
     });
-    try {
-      result = await Edge.sendEvent(experienceevent);
-    } on PlatformException {
-      log("Failed to send experience event");
-    }
+
+    result = await Edge.sendEvent(experienceevent);
 
     if (!mounted) return;
     setState(() {

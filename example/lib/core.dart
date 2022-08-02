@@ -39,14 +39,10 @@ class _MyAppState extends State<CorePage> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     late String coreVersion, lifecycleVersion, signalVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      coreVersion = await MobileCore.extensionVersion;
-      lifecycleVersion = await Lifecycle.extensionVersion;
-      signalVersion = await Signal.extensionVersion;
-    } on PlatformException {
-      log("Failed to get extension versions");
-    }
+
+    coreVersion = await MobileCore.extensionVersion;
+    lifecycleVersion = await Lifecycle.extensionVersion;
+    signalVersion = await Signal.extensionVersion;
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
