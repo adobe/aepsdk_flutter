@@ -118,7 +118,7 @@ static Future<List<EventHandle>> sendEvent(
 **Example**
 ```dart
 late List<EventHandle> result;
-Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
 
 final ExperienceEvent experienceevent = ExperienceEvent({
@@ -137,7 +137,7 @@ final ExperienceEvent experienceevent = ExperienceEvent({
 ##### Create Experience Event from Dictionary:
 
 ```dart
-Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 final ExperienceEvent experienceevent = ExperienceEvent({
   "xdmData": xdmData
 });
@@ -146,7 +146,7 @@ final ExperienceEvent experienceevent = ExperienceEvent({
 ##### Add free form data to the Experience event:
 
 ```dart
-Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
 final ExperienceEvent experienceevent = ExperienceEvent({
   "xdmData": xdmData,
@@ -157,7 +157,7 @@ final ExperienceEvent experienceevent = ExperienceEvent({
 ##### Set the destination Dataset identifier to the current Experience event:
 
 ```dart
-Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 final ExperienceEvent experienceevent = ExperienceEvent({
   "xdmData": xdmData, "data": null, "datasetIdExample"
 });
@@ -166,7 +166,7 @@ final ExperienceEvent experienceevent = ExperienceEvent({
 ##### Create Experience Event with xdmdata, free form data and the destination Dataset identifier:
 
 ```dart
-Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
 
 final ExperienceEvent experienceevent = ExperienceEvent({
