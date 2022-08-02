@@ -24,7 +24,9 @@ static NSString* const PAYLOAD_KEY = @"payload";
      
     NSDictionary *xdmData = [[dict objectForKey:XDM_DATA_KEY] isKindOfClass:[NSDictionary class]] ? [dict objectForKey:XDM_DATA_KEY] : nil;
     
-    if (!xdmData) {
+    NSString* xdmDataError = @"xdmdata is required, but it is currently null.";
+    if (!xdmData) {   
+        NSLog(@"FlutterAEPEdgeDataBridge - %@", xdmDataError);
         return nil;
     }
     

@@ -93,18 +93,18 @@ public class MainApplication extends FlutterApplication {
         }
    });
 ```
-
-##### Importing the SDK:
+------
+#### Importing the SDK:
 ```dart
 import 'package:flutter_aepedge/flutter_aepedge.dart';
 ```
-
-##### Getting edge version:
+------
+#### Getting edge version:
  ```dart
 String version = await edge.extensionVersion;
  ```
-
-##### sendEvent
+------
+#### sendEvent
  ```dart
 String version = await edge.extensionVersion;
  ```
@@ -122,15 +122,58 @@ Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
 
 final ExperienceEvent experienceevent = ExperienceEvent({
+  //xdmData is required for experienceEvent
   "xdmData": xdmData,
   "data": data,
-  "datasetIdentifier": datasetId,
+  "datasetIdentifier": "datasetIdExample"
 });
-try {
-  result = await Edge.sendEvent(experienceevent);
-} on PlatformException {
-  log("Failed to send experience event");
-}
+
+ result = await Edge.sendEvent(experienceevent);
+```
+------
+### Public classes
+#### ExperienceEvent
+
+##### Create Experience Event from Dictionary:
+
+```dart
+Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+final ExperienceEvent experienceevent = ExperienceEvent({
+  "xdmData": xdmData
+});
+```
+
+##### Add free form data to the Experience event:
+
+```dart
+Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> data = {"free": "form", "data": "example"};
+final ExperienceEvent experienceevent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data
+});
+```
+
+##### Set the destination Dataset identifier to the current Experience event:
+
+```dart
+Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+final ExperienceEvent experienceevent = ExperienceEvent({
+  "xdmData": xdmData, "data": null, "datasetIdExample"
+});
+```
+
+##### Create Experience Event with xdmdata, free form data and the destination Dataset identifier:
+
+```dart
+Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> data = {"free": "form", "data": "example"};
+
+final ExperienceEvent experienceevent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data,
+  "datasetIdentifier": "datasetIdExample"
+});
 ```
 
 ## Contributing
