@@ -48,7 +48,7 @@ void main() {
   });
 
   group('sendEvent', () {
-    final Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+    final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     final Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final Map<String, dynamic> experienceeventData = {
@@ -67,14 +67,14 @@ void main() {
       {"maxAge": 34128000, "value": "testValue2", "key": "keyExample2"}
     ];
 
-    final Map<dynamic, dynamic> eventHandleExpectedData = {
+    final Map<String, dynamic> expectedEventHandle = {
       "type": eventHandleType,
       "payload": eventHandlePayload
     };
 
     //setup returned and expected EventHandles
-    final EventHandle expectedEvent = EventHandle(eventHandleExpectedData);
-    final EventHandle returnedEvent = EventHandle(eventHandleExpectedData);
+    final EventHandle expectedEvent = EventHandle(expectedEventHandle);
+    final EventHandle returnedEvent = EventHandle(expectedEventHandle);
 
     final List<EventHandle> expectedResponse = [expectedEvent];
     final List<dynamic> returnedResponse = [returnedEvent.data];
@@ -105,10 +105,10 @@ void main() {
     });
   });
 
-  group('sendEvent nested', () {
+  group('sendEvent with nested data and multiple response handles', () {
     final Map<dynamic, dynamic> mapValue = {"keySample": "keyValue"};
     final Map<dynamic, dynamic> dataValue = {"keySample1": "keyValue1"};
-    final Map<dynamic, dynamic> xdmData = {"eventType": mapValue};
+    final Map<String, dynamic> xdmData = {"eventType": mapValue};
     final Map<String, dynamic> data = {"free": "form", "data": dataValue};
 
     final Map<String, dynamic> experienceeventData = {
@@ -127,7 +127,7 @@ void main() {
       {"maxAge": 34128000, "value": "testValue2", "key": "keyExample2"}
     ];
 
-    final Map<dynamic, dynamic> eventHandleExpectedData = {
+    final Map<String, dynamic> expectedEventHandle = {
       "type": eventHandleType,
       "payload": eventHandlePayload
     };
@@ -145,17 +145,17 @@ void main() {
       },
     ];
 
-    final Map<dynamic, dynamic> eventHandleExpectedData2 = {
+    final Map<String, dynamic> expectedEventHandle2 = {
       "type": eventHandleType2,
       "payload": eventHandlePayload2
     };
 
     //setup returned and expected EventHandles
-    final EventHandle expectedEvent = EventHandle(eventHandleExpectedData);
-    final EventHandle returnedEvent = EventHandle(eventHandleExpectedData);
+    final EventHandle expectedEvent = EventHandle(expectedEventHandle);
+    final EventHandle returnedEvent = EventHandle(expectedEventHandle);
 
-    final EventHandle expectedEvent2 = EventHandle(eventHandleExpectedData2);
-    final EventHandle returnedEvent2 = EventHandle(eventHandleExpectedData2);
+    final EventHandle expectedEvent2 = EventHandle(expectedEventHandle2);
+    final EventHandle returnedEvent2 = EventHandle(expectedEventHandle2);
 
     final List<EventHandle> expectedResponse = [expectedEvent, expectedEvent2];
     final List<dynamic> returnedResponse = [
