@@ -38,6 +38,7 @@ example/lib/generated_plugin_registrant.dart
 example/!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 example/android/gradle-wrapper.jar
 example/android/local.properties
+example/android/app/local.properties
 example/android/GeneratedPluginRegistrant.java
 
 # Android

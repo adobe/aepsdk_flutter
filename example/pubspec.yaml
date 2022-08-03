@@ -22,7 +22,11 @@ dev_dependencies:
 
   flutter_aepassurance: ">= 1.0.0 <2.0.0"
 
-  flutter_aepedgeconsent: ">= 1.0.0 <2.0.0"
+  #flutter_aepedgeconsent: ">= 1.0.0 <2.0.0"
+
+  flutter_aepedgeconsent: 
+           path: ../plugins/flutter_aepedgeconsent
+
   
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
