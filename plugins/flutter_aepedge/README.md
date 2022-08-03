@@ -27,7 +27,7 @@ flutter test
 
 ## Usage
 
-For more detailed information on the Edge APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-edge)
+For more detailed information on the Edge APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/foundation-extensions/experience-platform-extension)
 
 ### Registering the extension with AEPCore:
 
