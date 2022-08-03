@@ -4,9 +4,13 @@
 
 `flutter_aepedgeconsent` is a flutter plugin for the iOS and Android [AEPEdgeConsent SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network) to allow for integration with Flutter applications. Functionality to enable the Consent extension is provided entirely through Dart documented below.
 
-## Installation
+## Prerequisites
 
-First, make sure that the [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md) plugin is installed, as flutter_aepedgeconsent depends on it. 
+The Edge Consent extension has the following peer dependency, which must be installed prior to installing the Edge Consent extension:
+
+- [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md)
+
+## Installation
 
 Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepedgeconsent/install).
 
@@ -21,11 +25,10 @@ flutter test
 ```
 
 ## Usage
-### Consent
 
 For more detailed information on the Consent APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network)
 
-#### Registering the extension with AEPCore:
+### Registering the extension with AEPCore:
 
  > Note: It is required to initialize the SDK via native code inside your AppDelegate (iOS) and MainApplication class (Android).
 
@@ -99,14 +102,14 @@ public class MainApplication extends FlutterApplication {
    });
 ```
 ------
-#### Importing the SDK:
+### Importing the SDK:
 
 ```dart
 import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 ```
 ------
-#### Getting Consent version:
-
+## API reference
+### extensionVersion
 **Syntax**
 ```dart
 static Future<String> get extensionVersion
@@ -117,7 +120,7 @@ static Future<String> get extensionVersion
 String version = await Consent.extensionVersion;
 ```
 ------
-#### Getting Current Consent Preference:
+### Getting Current Consent Preference:
 
 **Syntax**
 ```dart
@@ -134,7 +137,7 @@ Map<dynamic, dynamic> result = {};
     }
 ```
 ------
-#### Update Consent:
+### Update Consent:
 
 **Syntax**
 ```dart
