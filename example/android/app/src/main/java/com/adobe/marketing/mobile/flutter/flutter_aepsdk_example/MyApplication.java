@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.adobe.marketing.mobile.*;
 
+
 import io.flutter.app.FlutterApplication;
 
 public class MyApplication extends FlutterApplication {
@@ -19,11 +20,13 @@ public class MyApplication extends FlutterApplication {
         MobileCore.setWrapperType(WrapperType.FLUTTER);
         
         try {
-            Identity.registerExtension();
+            com.adobe.marketing.mobile.edge.identity.Identity.registerExtension();
+            com.adobe.marketing.mobile.Identity.registerExtension();
             Lifecycle.registerExtension();
             Signal.registerExtension();
             Assurance.registerExtension();
-            MobileCore.start(o -> MobileCore.configureWithAppID("yourAppId"));
+            Edge.registerExtension();
+            MobileCore.start(o -> MobileCore.configureWithAppID("YOUR-APP-ID"));
         } catch (InvalidInitException e) {
             Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
         }

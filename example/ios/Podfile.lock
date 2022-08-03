@@ -2,17 +2,22 @@ PODS:
   - AEPAssurance (3.0.1):
     - AEPCore (>= 3.1.0)
     - AEPServices (>= 3.1.0)
-  - AEPCore (3.4.2):
+  - AEPCore (3.7.0):
     - AEPRulesEngine (>= 1.1.0)
-    - AEPServices (>= 3.4.2)
-  - AEPIdentity (3.4.2):
-    - AEPCore (>= 3.4.2)
-  - AEPLifecycle (3.4.2):
-    - AEPCore (>= 3.4.2)
-  - AEPRulesEngine (1.1.0)
-  - AEPServices (3.4.2)
-  - AEPSignal (3.4.2):
-    - AEPCore (>= 3.4.2)
+    - AEPServices (>= 3.7.0)
+  - AEPEdge (1.4.1):
+    - AEPCore (>= 3.5.0)
+    - AEPEdgeIdentity
+  - AEPEdgeIdentity (1.1.0):
+    - AEPCore (>= 3.6.0)
+  - AEPIdentity (3.7.0):
+    - AEPCore (>= 3.7.0)
+  - AEPLifecycle (3.7.0):
+    - AEPCore (>= 3.7.0)
+  - AEPRulesEngine (1.2.0)
+  - AEPServices (3.7.0)
+  - AEPSignal (3.7.0):
+    - AEPCore (>= 3.7.0)
   - Flutter (1.0.0)
   - flutter_aepassurance (1.0.0):
     - AEPAssurance (~> 3.0)
@@ -23,16 +28,22 @@ PODS:
     - AEPLifecycle (~> 3.0)
     - AEPSignal (~> 3.0)
     - Flutter
+  - flutter_aepedge (1.0.0):
+    - AEPEdge (~> 1.0)
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_aepassurance (from `.symlinks/plugins/flutter_aepassurance/ios`)
   - flutter_aepcore (from `.symlinks/plugins/flutter_aepcore/ios`)
+  - flutter_aepedge (from `.symlinks/plugins/flutter_aepedge/ios`)
 
 SPEC REPOS:
   trunk:
     - AEPAssurance
     - AEPCore
+    - AEPEdge
+    - AEPEdgeIdentity
     - AEPIdentity
     - AEPLifecycle
     - AEPRulesEngine
@@ -46,18 +57,23 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_aepassurance/ios"
   flutter_aepcore:
     :path: ".symlinks/plugins/flutter_aepcore/ios"
+  flutter_aepedge:
+    :path: ".symlinks/plugins/flutter_aepedge/ios"
 
 SPEC CHECKSUMS:
   AEPAssurance: b25880cd4b14f22c61a1dce19807bd0ca0fe9b17
-  AEPCore: b01856bf24972e4720cb0511a358d1e68067252a
-  AEPIdentity: fbf755560afcbb0acd66cd5b6a1c147530fca5f6
-  AEPLifecycle: 1e0e843465fb143f8d8949dcf06de169d5c26f62
-  AEPRulesEngine: bb2927ed5501ddf9754c66e97f8d2b1cf8e33b19
-  AEPServices: 3214311f239c8cdc6267d757200b05ec0ab05878
-  AEPSignal: be3a4789b492f4d5a5aef7408f30ff8e866d1d79
+  AEPCore: 290dd609f261efe7a049bd3bdcbbc0734fe0e1fc
+  AEPEdge: 6faf60328f9e5ae7a107fd61f9a968f46ebf2928
+  AEPEdgeIdentity: 47f0c6ecbec5857b2a8cb9b7bf717c2424c6bae0
+  AEPIdentity: 965c831d132eba4874566220598590399f7617ac
+  AEPLifecycle: 7c2ba7de3b067999eb8b6a66f85f5815e87a06dc
+  AEPRulesEngine: 71228dfdac24c9ded09be13e3257a7eb22468ccc
+  AEPServices: 7bc2af2a153ea223e87ec50c8e3fd6e0282869c6
+  AEPSignal: a7fbfd170fc121a4c0c413b6af644513d9966fde
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_aepassurance: 13c97bbe7545b5b556b3b967b42fb9c8cd72bdcd
   flutter_aepcore: 1287c8a6b88fdb967432b0080cc923b58260f1df
+  flutter_aepedge: aa259cf38362941c6c4b5a9447d4d1f870083fba
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 

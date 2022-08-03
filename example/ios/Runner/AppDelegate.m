@@ -19,7 +19,7 @@
     
     const UIApplicationState appState = application.applicationState;
     
-    NSArray *extensionsToRegister = @[AEPMobileIdentity.class, AEPMobileLifecycle.class, AEPMobileSignal.class, AEPMobileAssurance.class];
+    NSArray *extensionsToRegister = @[AEPMobileIdentity.class, AEPMobileLifecycle.class, AEPMobileSignal.class, AEPMobileAssurance.class, AEPMobileEdge.class, AEPMobileEdgeIdentity.class];
     
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
         if (appState != UIApplicationStateBackground) {
@@ -27,7 +27,7 @@
         }
     }];
     
-    [AEPMobileCore configureWithAppId:@"yourappidhere"];
+    [AEPMobileCore configureWithAppId:@"YOUR-APP-ID"];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

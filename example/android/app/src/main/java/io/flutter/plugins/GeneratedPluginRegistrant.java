@@ -25,5 +25,10 @@ public final class GeneratedPluginRegistrant {
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepcore, com.adobe.marketing.mobile.flutter.FlutterAEPCorePlugin", e);
     }
+    try {
+      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepedge.FlutterAEPEdgePlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin flutter_aepedge, com.adobe.marketing.mobile.flutter.flutter_aepedge.FlutterAEPEdgePlugin", e);
+    }
   }
 }
