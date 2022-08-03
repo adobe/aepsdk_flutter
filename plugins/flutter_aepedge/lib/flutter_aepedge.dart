@@ -23,9 +23,8 @@ class Edge {
 
   /// Send an Experience Event to Adobe Experience Edge
   /// @param {experienceEvent} Event to be sent to Adobe Experience Edge
-  /// returns the associated response handles received from the Adobe Experience Edge
-  /// or rejected if an unexpected error occured; it may return an empty array
-  /// if no handles were returned for the given experienceEvent
+  /// returns the associated response handles received from the Adobe Experience Edge;
+  /// it may return an empty array if no handles were returned for the given experienceEvent
 
   static Future<List<EventHandle>> sendEvent(
     ExperienceEvent experienceEvent,

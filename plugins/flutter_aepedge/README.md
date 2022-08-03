@@ -2,11 +2,16 @@
 
 [![pub package](https://img.shields.io/pub/v/flutter_aepedge.svg)](https://pub.dartlang.org/packages/flutter_aepedge) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepedge` is a flutter plugin for the iOS and Android [AEPEdge SDK](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-edge) to allow for integration with Flutter applications. Functionality to enable the edge extension is provided entirely through Dart documented below.
+`flutter_aepedge` is a flutter plugin for the iOS and Android [AEPEdge SDK](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-edge) to allow for integration with Flutter applications. Functionality to enable the Edge extension is provided entirely through Dart documented below.
+
+## Prerequisites
+
+The Edge Network extension has the following peer dependencies, which must be installed prior to installing the Edge extension:
+
+- [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md)
+- [flutter_aepedgeidentity](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aeedgeidentity/README.md)
 
 ## Installation
-
-First, make sure that the [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md) and [flutter_aepedgeidentity](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aeedgeidentity/README.md) plugins are installed, as flutter_aepedge depends on them. 
 
 Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepedge/install).
 
@@ -21,11 +26,10 @@ flutter test
 ```
 
 ## Usage
-### Edge Network
 
 For more detailed information on the Edge APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-edge)
 
-##### Registering the extension with AEPCore:
+### Registering the extension with AEPCore:
 
  > Note: It is required to initialize the SDK via native code inside your AppDelegate (iOS) and MainApplication class (Android).
 
@@ -54,7 +58,7 @@ iOS
     const UIApplicationState appState = application.applicationState;
 
     NSArray *extensionsToRegister = @[AEPMobileEdgeIdentity.class, 
-                                      AEPMobileEdge.class,                                              
+                                      AEPMobileEdge.class                                             
                                       ];
 
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
@@ -93,21 +97,27 @@ public class MainApplication extends FlutterApplication {
         }
    });
 ```
-
-##### Importing the SDK:
+------
+### Importing the extension
+In your Flutter application, import the Edge extension as follows:
 ```dart
 import 'package:flutter_aepedge/flutter_aepedge.dart';
 ```
-
-##### Getting edge version:
- ```dart
-String version = await edge.extensionVersion;
+------
+## API reference
+### extensionVersion
+**Syntax**
+```dart
+static Future<String> get extensionVersion
  ```
 
-##### sendEvent
+**Example**
  ```dart
-String version = await edge.extensionVersion;
+String version = await Edge.extensionVersion;
  ```
+------
+### sendEvent
+
 **Syntax**
 ```dart
 static Future<List<EventHandle>> sendEvent(
@@ -117,20 +127,60 @@ static Future<List<EventHandle>> sendEvent(
 
 **Example**
 ```dart
-late List<EventHandle> result;
-Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data
+});
+List<EventHandle> result = await Edge.sendEvent(experienceEvent);
+```
+------
+### Public classes
+#### ExperienceEvent
 
+##### Create Experience Event from Dictionary:
+
+```dart
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData
+});
+```
+
+##### Add free form data to the Experience event:
+
+```dart
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> data = {"free": "form", "data": "example"};
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data
+});
+```
+
+##### Set the destination Dataset identifier to the current Experience event:
+
+```dart
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 final ExperienceEvent experienceevent = ExperienceEvent({
   "xdmData": xdmData,
-  "data": data,
-  "datasetIdentifier": datasetId,
+  "data": null,
+  "datasetIdentifier": "datasetIdExample"
 });
-try {
-  result = await Edge.sendEvent(experienceevent);
-} on PlatformException {
-  log("Failed to send experience event");
-}
+```
+
+##### Create Experience Event with xdmdata, free form data and the destination Dataset identifier:
+
+```dart
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> data = {"free": "form", "data": "example"};
+
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data,
+  "datasetIdentifier": "datasetIdExample"
+});
 ```
 
 ## Contributing
