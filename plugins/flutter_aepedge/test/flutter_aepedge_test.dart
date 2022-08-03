@@ -51,7 +51,7 @@ void main() {
     final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     final Map<String, dynamic> data = {"free": "form", "data": "example"};
 
-    final Map<String, dynamic> experienceeventData = {
+    final Map<String, dynamic> experienceEventData = {
       "xdmData": xdmData,
       "data": data,
       "datasetIdentifier": "datasetExample",
@@ -59,7 +59,7 @@ void main() {
 
     //setup experienceEvent
     final ExperienceEvent experienceEvent =
-        ExperienceEvent(experienceeventData);
+        ExperienceEvent(experienceEventData);
 
     final String eventHandleType = "state:store";
     final List<dynamic> eventHandlePayload = [
@@ -67,23 +67,21 @@ void main() {
       {"maxAge": 34128000, "value": "testValue2", "key": "keyExample2"}
     ];
 
-    final Map<String, dynamic> expectedEventHandle = {
+    final Map<dynamic, dynamic> expectedEventHandle = {
       "type": eventHandleType,
       "payload": eventHandlePayload
     };
 
-    final EventHandle expectedEvent = EventHandle(expectedEventHandle);
-
-    //setup returned and expected response
-    final List<EventHandle> expectedResponse = [expectedEvent];
-    final List<dynamic> returnedResponse = [expectedEvent.data];
+    final List<EventHandle> expectedResponse = [
+      EventHandle(expectedEventHandle)
+    ];
 
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
         log.add(methodCall);
-        return returnedResponse;
+        return [expectedEventHandle];
       });
     });
     test('invokes correct method', () async {
@@ -92,7 +90,7 @@ void main() {
       expect(log, <Matcher>[
         isMethodCall(
           'sendEvent',
-          arguments: experienceeventData,
+          arguments: experienceEventData,
         ),
       ]);
     });
@@ -110,7 +108,7 @@ void main() {
     final Map<String, dynamic> xdmData = {"eventType": mapValue};
     final Map<String, dynamic> data = {"free": "form", "data": dataValue};
 
-    final Map<String, dynamic> experienceeventData = {
+    final Map<String, dynamic> experienceEventData = {
       "xdmData": xdmData,
       "data": data,
       "datasetIdentifier": "datasetExample",
@@ -118,7 +116,7 @@ void main() {
 
     //setup experienceEvent
     final ExperienceEvent experienceEvent =
-        ExperienceEvent(experienceeventData);
+        ExperienceEvent(experienceEventData);
 
     final String eventHandleType = "state:store";
     final List<dynamic> eventHandlePayload = [
@@ -126,7 +124,7 @@ void main() {
       {"maxAge": 34128000, "value": "testValue2", "key": "keyExample2"}
     ];
 
-    final Map<String, dynamic> expectedEventHandle = {
+    final Map<dynamic, dynamic> expectedEventHandle = {
       "type": eventHandleType,
       "payload": eventHandlePayload
     };
@@ -144,19 +142,14 @@ void main() {
       },
     ];
 
-    final Map<String, dynamic> expectedEventHandle2 = {
+    final Map<dynamic, dynamic> expectedEventHandle2 = {
       "type": eventHandleType2,
       "payload": eventHandlePayload2
     };
 
-    final EventHandle expectedEvent = EventHandle(expectedEventHandle);
-    final EventHandle expectedEvent2 = EventHandle(expectedEventHandle2);
-
-    //setup returned and expected response
-    final List<EventHandle> expectedResponse = [expectedEvent, expectedEvent2];
-    final List<dynamic> returnedResponse = [
-      expectedEvent.data,
-      expectedEvent2.data
+    final List<EventHandle> expectedResponse = [
+      EventHandle(expectedEventHandle),
+      EventHandle(expectedEventHandle2)
     ];
 
     final List<MethodCall> log = <MethodCall>[];
@@ -164,7 +157,7 @@ void main() {
     setUp(() {
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
         log.add(methodCall);
-        return returnedResponse;
+        return [expectedEventHandle, expectedEventHandle2];
       });
     });
     test('invokes correct method happy test', () async {
@@ -173,7 +166,7 @@ void main() {
       expect(log, <Matcher>[
         isMethodCall(
           'sendEvent',
-          arguments: experienceeventData,
+          arguments: experienceEventData,
         ),
       ]);
     });
