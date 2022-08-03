@@ -226,13 +226,13 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> sendEvent([datasetId]) async {
     late List<EventHandle> result;
-    Map<dynamic, dynamic> xdmData = {"eventType": "SampleEventType"};
+    Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceevent = ExperienceEvent({
       "xdmData": xdmData,
       "data": data,
-      "datasetIdentifier": datasetId,
+      "datasetIdentifier": "identifierTest",
     });
 
     result = await Edge.sendEvent(experienceevent);

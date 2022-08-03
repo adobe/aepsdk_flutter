@@ -11,28 +11,31 @@ governing permissions and limitations under the License.
 
 /// EventHandle is the response returned from Adobe Experience Platform Edge Network.
 class EventHandle {
-  EventHandle(this.data);
+  static const String _type = 'type';
+  static const String _payload = 'payload';
+
+  EventHandle(this._data);
 
   EventHandle.createEvent(
     final String? type,
     final List<dynamic>? payload,
   ) {
     final Map<String, dynamic> eventHandleConstructorData = {
-      "type": type,
-      "payload": payload
+      _type: type,
+      _payload: payload
     };
-    this.data = eventHandleConstructorData;
+    this._data = eventHandleConstructorData;
   }
 
   /// The data in the eventHandle response.
-  late Map<dynamic, dynamic> data;
+  late Map<dynamic, dynamic> _data;
 
   /// The type of the eventHandle response.
-  String? get type => data['type'];
+  String? get type => _data[_type];
 
   /// The payload of the eventHanlde response.
-  List<dynamic>? get payload => data['payload'] ?? {};
+  List<dynamic>? get payload => _data[_payload] ?? {};
 
   @override
-  String toString() => '$runtimeType($data)';
+  String toString() => '$runtimeType($_data)';
 }
