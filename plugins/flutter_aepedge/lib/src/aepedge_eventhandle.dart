@@ -14,21 +14,10 @@ class EventHandle {
   static const String _type = 'type';
   static const String _payload = 'payload';
 
-  EventHandle(this._data);
-
-  EventHandle.createEvent(
-    final String? type,
-    final List<dynamic>? payload,
-  ) {
-    final Map<String, dynamic> eventHandleConstructorData = {
-      _type: type,
-      _payload: payload
-    };
-    this._data = eventHandleConstructorData;
-  }
-
   /// The data in the eventHandle response.
-  late Map<dynamic, dynamic> _data;
+  final Map<dynamic, dynamic> _data;
+
+  EventHandle(this._data);
 
   /// The type of the eventHandle response.
   String? get type => _data[_type];

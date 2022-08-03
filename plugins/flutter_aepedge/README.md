@@ -6,7 +6,7 @@
 
 ## Prerequisites
 
-The Edge Network extension has the following peer dependencies, which must be installed prior to installing the Edge extension:
+The Edge Network extension has the following peer dependencies, which must be installed prior to installing it:
 
 - [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md)
 - [flutter_aepedgeidentity](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aeedgeidentity/README.md)
