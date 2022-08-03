@@ -39,13 +39,13 @@ class _MyAppState extends State<EdgePage> {
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
 
-    final ExperienceEvent experienceevent = ExperienceEvent({
+    final ExperienceEvent experienceEvent = ExperienceEvent({
       "xdmData": xdmData,
       "data": data,
       "datasetIdentifier": datasetId,
     });
 
-    result = await Edge.sendEvent(experienceevent);
+    result = await Edge.sendEvent(experienceEvent);
 
     if (!mounted) return;
     setState(() {
