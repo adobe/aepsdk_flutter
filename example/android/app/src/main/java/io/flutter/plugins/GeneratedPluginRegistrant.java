@@ -30,5 +30,10 @@ public final class GeneratedPluginRegistrant {
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepedge, com.adobe.marketing.mobile.flutter.flutter_aepedge.FlutterAEPEdgePlugin", e);
     }
+    try {
+      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepedgeconsent.FlutterAEPEdgeConsentPlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin flutter_aepedgeconsent, com.adobe.marketing.mobile.flutter.flutter_aepedgeconsent.FlutterAEPEdgeConsentPlugin", e);
+    }
   }
 }

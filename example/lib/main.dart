@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'core.dart';
 import 'assurance.dart';
 import 'edge.dart';
+import 'consent.dart';
 import 'identity.dart';
 
 void main() {
@@ -59,6 +60,13 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => EdgePage()));
+              },
+            ),
+            ElevatedButton(
+              child: const Text('CONSENT'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ConsentPage()));
               },
             ),
           ]),

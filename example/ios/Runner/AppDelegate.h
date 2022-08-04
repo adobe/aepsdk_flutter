@@ -8,6 +8,7 @@
 @import AEPAssurance;
 @import AEPEdge;
 @import AEPEdgeIdentity;
+@import AEPEdgeConsent;
 
 @interface AppDelegate : FlutterAppDelegate
 
