@@ -1,3 +1,14 @@
+/*
+Copyright 2022 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+
 package com.adobe.marketing.mobile.flutter.flutter_aepsdk_example;
 
 import android.app.Activity;
@@ -10,6 +21,9 @@ import io.flutter.app.FlutterApplication;
 
 public class MyApplication extends FlutterApplication {
 
+    // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
+    private final String ENVIRONMENT_FILE_ID = "YOUR-APP-ID";
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -19,11 +33,18 @@ public class MyApplication extends FlutterApplication {
         MobileCore.setWrapperType(WrapperType.FLUTTER);
         
         try {
-            Identity.registerExtension();
+            com.adobe.marketing.mobile.edge.identity.Identity.registerExtension();
+            com.adobe.marketing.mobile.Identity.registerExtension();
             Lifecycle.registerExtension();
             Signal.registerExtension();
+            Edge.registerExtension();
             Assurance.registerExtension();
-            MobileCore.start(o -> MobileCore.configureWithAppID("yourAppId"));
+            MobileCore.start(new AdobeCallback () {
+                @Override
+                public void call(Object o) {
+                    MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
+                }
+            });
         } catch (InvalidInitException e) {
             Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
         }
