@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/flutter_aepedge.svg)](https://pub.dartlang.org/packages/flutter_aepedge) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepedge` is a flutter plugin for the iOS and Android [AEPEdge SDK](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/adobe-experience-platform-edge) to allow for integration with Flutter applications. Functionality to enable the Edge extension is provided entirely through Dart documented below.
+`flutter_aepedge` is a flutter plugin for the iOS and Android [AEPEdge SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/experience-platform-extension) to allow for integration with Flutter applications. Functionality to enable the Edge extension is provided entirely through Dart documented below.
 
 ## Prerequisites
 

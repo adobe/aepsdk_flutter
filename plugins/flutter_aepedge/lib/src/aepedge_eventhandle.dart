@@ -22,7 +22,7 @@ class EventHandle {
   /// The type of the eventHandle response.
   String? get type => _data[_type];
 
-  /// The payload of the eventHanlde response.
+  /// The payload of the eventHandle response.
   List<dynamic>? get payload => _data[_payload] ?? {};
 
   @override
