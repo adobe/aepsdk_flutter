@@ -8,6 +8,8 @@ PODS:
   - AEPEdge (1.4.1):
     - AEPCore (>= 3.5.0)
     - AEPEdgeIdentity
+  - AEPEdgeConsent (1.0.0):
+    - AEPCore (>= 3.1.0)
   - AEPEdgeIdentity (1.1.0):
     - AEPCore (>= 3.6.0)
   - AEPIdentity (3.7.0):
@@ -18,8 +20,6 @@ PODS:
   - AEPServices (3.7.0)
   - AEPSignal (3.7.0):
     - AEPCore (>= 3.7.0)
-  - AEPEdgeConsent (1.0.0):
-    - AEPCore (>= 3.1.0)
   - Flutter (1.0.0)
   - flutter_aepassurance (1.0.0):
     - AEPAssurance (~> 3.0)
@@ -30,6 +30,9 @@ PODS:
     - AEPLifecycle (~> 3.0)
     - AEPSignal (~> 3.0)
     - Flutter
+  - flutter_aepedge (1.0.0):
+    - AEPEdge (~> 1.0)
+    - Flutter
   - flutter_aepedgeconsent (1.0.0):
     - AEPEdgeConsent (~> 1.0)
     - Flutter
@@ -38,13 +41,16 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_aepassurance (from `.symlinks/plugins/flutter_aepassurance/ios`)
   - flutter_aepcore (from `.symlinks/plugins/flutter_aepcore/ios`)
+  - flutter_aepedge (from `.symlinks/plugins/flutter_aepedge/ios`)
   - flutter_aepedgeconsent (from `.symlinks/plugins/flutter_aepedgeconsent/ios`)
 
 SPEC REPOS:
   trunk:
     - AEPAssurance
     - AEPCore
+    - AEPEdge
     - AEPEdgeConsent
+    - AEPEdgeIdentity
     - AEPIdentity
     - AEPLifecycle
     - AEPRulesEngine
@@ -58,6 +64,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_aepassurance/ios"
   flutter_aepcore:
     :path: ".symlinks/plugins/flutter_aepcore/ios"
+  flutter_aepedge:
+    :path: ".symlinks/plugins/flutter_aepedge/ios"
   flutter_aepedgeconsent:
     :path: ".symlinks/plugins/flutter_aepedgeconsent/ios"
 
@@ -65,9 +73,9 @@ SPEC CHECKSUMS:
   AEPAssurance: b25880cd4b14f22c61a1dce19807bd0ca0fe9b17
   AEPCore: 290dd609f261efe7a049bd3bdcbbc0734fe0e1fc
   AEPEdge: 6faf60328f9e5ae7a107fd61f9a968f46ebf2928
+  AEPEdgeConsent: dd46002b0c4bf55443f5441990e799248975713e
   AEPEdgeIdentity: 47f0c6ecbec5857b2a8cb9b7bf717c2424c6bae0
   AEPIdentity: 965c831d132eba4874566220598590399f7617ac
-  AEPEdgeConsent: dd46002b0c4bf55443f5441990e799248975713e
   AEPLifecycle: 7c2ba7de3b067999eb8b6a66f85f5815e87a06dc
   AEPRulesEngine: 71228dfdac24c9ded09be13e3257a7eb22468ccc
   AEPServices: 7bc2af2a153ea223e87ec50c8e3fd6e0282869c6

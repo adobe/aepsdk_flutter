@@ -76,6 +76,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  flutter_aepedge:
+    dependency: "direct dev"
+    description:
+      path: "../plugins/flutter_aepedge"
+      relative: true
+    source: path
+    version: "1.0.0"
   flutter_aepedgeconsent:
     dependency: "direct dev"
     description:
