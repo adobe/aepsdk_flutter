@@ -123,9 +123,9 @@ jobs:
           flutter-version: '2.x'
 
       - name: Install dependencies
-        working-directory: ./plugins/flutter_aepconsent
+        working-directory: ./plugins/flutter_aepedgeconsent
         run: flutter pub get
 
       - name: Unit test
-        working-directory: ./plugins/flutter_aepconsent
+        working-directory: ./plugins/flutter_aepedgeconsent
         run: flutter test
