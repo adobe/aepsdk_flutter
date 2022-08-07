@@ -32,6 +32,11 @@ dev_dependencies:
   flutter_aepedgeconsent: 
         path: ../plugins/flutter_aepedgeconsent
 
+  #flutter_aepedgidentity: ">= 1.0.0 <2.0.0"
+
+  flutter_aepedgeidentity: 
+        path: ../plugins/flutter_aepedgeidentity
+
   
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -10,7 +10,6 @@ governing permissions and limitations under the License.
 */
 
 import 'dart:developer';
-
 import 'util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

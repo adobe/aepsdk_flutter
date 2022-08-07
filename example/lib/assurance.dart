@@ -10,8 +10,6 @@ governing permissions and limitations under the License.
 */
 
 import 'package:flutter/material.dart';
-import 'dart:developer';
-import 'package:flutter/services.dart';
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
 
 class AssurancePage extends StatefulWidget {
