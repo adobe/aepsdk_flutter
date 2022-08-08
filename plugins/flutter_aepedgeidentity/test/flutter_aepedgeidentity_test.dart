@@ -41,7 +41,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await Edge.extensionVersion, testVersion);
+      expect(await Identity.extensionVersion, testVersion);
     });
   });
 }

@@ -30,7 +30,9 @@ governing permissions and limitations under the License.
      result([AEPMobileEdgeIdentity extensionVersion]);
   } else if ([@"getExperienceCloudId" isEqualToString:call.method]) {
      [self handleGetExperinceCloudId:call result:result];
-  } else {
+  } else if ([@"getUrlVariables" isEqualToString:call.method]) {
+     [self handleGetUrlVariables:call result:result];
+  }  else {
       result(FlutterMethodNotImplemented);
   }
 }
@@ -42,6 +44,16 @@ governing permissions and limitations under the License.
          return;
       }
          result(experienceCloudId);
+    }];
+    }
+
+- (void)handleGetUrlVariables:(FlutterMethodCall *) call result:(FlutterResult)result {
+    [AEPMobileEdgeIdentity getUrlVariables:^(NSString * _Nullable urlVariables, NSError * _Nullable error) {
+        if (error && error.code != AEPErrorNone) {
+         result([self flutterErrorFromNSError:error]);
+         return;
+      }
+         result(urlVariables);
     }];
     }
 

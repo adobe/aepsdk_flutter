@@ -24,6 +24,7 @@ class EdgeIdentityPage extends StatefulWidget {
 class _MyAppState extends State<EdgeIdentityPage> {
   String _edgeIdentityVersion = 'Unknown';
   String _getExperienceCloudIdResult = "";
+  String _getUrlVariablesResult = "";
 
   @override
   void initState() {
@@ -62,6 +63,21 @@ class _MyAppState extends State<EdgeIdentityPage> {
     });
   }
 
+  Future<void> getUrlVariables() async {
+    String result = "";
+
+    try {
+      result = await Identity.getUrlVariables;
+    } on PlatformException {
+      log("Failed to get URL variable info");
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _getUrlVariablesResult = result.toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text("Edge Identity Screen")),
@@ -75,6 +91,11 @@ class _MyAppState extends State<EdgeIdentityPage> {
           ),
           getRichText(
               'Experience Cloud Id: = ', '$_getExperienceCloudIdResult\n'),
+          ElevatedButton(
+            child: Text("Identity.getUrlVariable()"),
+            onPressed: () => getUrlVariables(),
+          ),
+          getRichText('URL Variable: = ', '$_getUrlVariablesResult\n'),
         ]),
       ));
 }

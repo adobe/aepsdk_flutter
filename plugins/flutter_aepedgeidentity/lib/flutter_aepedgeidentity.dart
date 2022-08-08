@@ -24,4 +24,12 @@ class Identity {
   /// Returns the Experience Cloud ID. An empty string is returned if the Experience Cloud ID was previously cleared.
   static Future<String> get getExperienceCloudId =>
       _channel.invokeMethod('getExperienceCloudId').then((value) => value!);
+
+  /// Returns the identifiers in a URL's query parameters for consumption in hybrid mobile applications.
+  /// There is no leading &amp; or ? punctuation as the caller is responsible for placing the variables in their resulting URL in the correct locations.
+  //To do
+  /// It will be invoked once the URL Variables are available or rejected if an unexpected error occurred or the request timed out.
+
+  static Future<String> get getUrlVariables =>
+      _channel.invokeMethod('getUrlVariables').then((value) => value!);
 }

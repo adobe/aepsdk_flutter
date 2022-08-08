@@ -58,6 +58,8 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
       });
     } else if ("getExperienceCloudId".equals(call.method)) {
          handleGetExperienceCloudId(result);
+    } else if ("getUrlVariables".equals(call.method)) {
+         handlerGetUrlVariables(result);
     } else {
       AndroidUtil.runOnUIThread(new Runnable() {
         @Override
@@ -91,6 +93,31 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
           });
         }
     });
+}
+
+  private void handlerGetUrlVariables(final MethodChannel.Result result) {
+      Identity.getUrlVariables(new AdobeCallbackWithError<String>() {
+          @Override
+          public void call(final String urlVariables) {
+              AndroidUtil.runOnUIThread(new Runnable() {
+                  @Override
+                  public void run() {
+                      result.success(urlVariables);
+                  }
+              });
+          }
+
+          @Override
+          public void fail(final AdobeError adobeError) {
+            final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+            AndroidUtil.runOnUIThread(new Runnable() {
+              @Override
+              public void run() {
+                result.error(Integer.toString(error.getErrorCode()),"getExperienceCloudId - Failed to retrieve Experience Cloud Id",error.getErrorName());
+              }
+            });
+          }
+      });
 }
 }
 
