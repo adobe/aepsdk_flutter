@@ -130,7 +130,7 @@ jobs:
         working-directory: ./plugins/flutter_aepedgeconsent
         run: flutter test
 
-    job7:
+  job7:
     name: EdgeIdentity unit tests
     runs-on: ubuntu-latest
     steps:
