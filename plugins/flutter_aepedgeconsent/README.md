@@ -2,11 +2,11 @@
 
 [![pub package](https://img.shields.io/pub/v/flutter_aepedgeconsent.svg)](https://pub.dartlang.org/packages/flutter_aepedgeconsent) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepedgeconsent` is a flutter plugin for the iOS and Android [AEPEdgeConsent SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network) to allow for integration with Flutter applications. Functionality to enable the Consent extension is provided entirely through Dart documented below.
+`flutter_aepedgeconsent` is a flutter plugin for the iOS and Android [AEPEdgeConsent SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network) to allow for integration with Flutter applications. Functionality to enable the Consent for Edge Network extension is provided entirely through Dart documented below.
 
 ## Prerequisites
 
-The Edge Consent extension has the following peer dependency, which must be installed prior to installing the Edge Consent extension:
+The Consent extension has the following peer dependency, which must be installed prior to installing it:
 
 - [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md)
 
@@ -124,12 +124,12 @@ String version = await Consent.extensionVersion;
 
 **Syntax**
 ```dart
-static Future<Map<dynamic, dynamic>> get consents
+static Future<Map<String, dynamic>> get consents
 ```
 
 **Example**
 ```dart
-Map<dynamic, dynamic> result = {};
+Map<String, dynamic> result = {};
     try {
       result = await Consent.consents;
     } on PlatformException {
