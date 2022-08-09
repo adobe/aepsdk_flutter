@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.adobe.marketing.mobile.*;
+import com.adobe.marketing.mobile.edge.consent.Consent;
 
 import io.flutter.app.FlutterApplication;
 
@@ -39,6 +40,7 @@ public class MyApplication extends FlutterApplication {
             Signal.registerExtension();
             Edge.registerExtension();
             Assurance.registerExtension();
+            Consent.registerExtension();
             MobileCore.start(new AdobeCallback () {
                 @Override
                 public void call(Object o) {
