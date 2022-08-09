@@ -9,23 +9,15 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'package:flutter/material.dart';
+#import <Foundation/Foundation.h>
 
-// UTIL
-RichText getRichText(String label, String value) {
-  return new RichText(
-    text: new TextSpan(
-      // Note: Styles for TextSpans must be explicitly defined.
-      // Child text spans will inherit styles from parent
-      style: new TextStyle(
-        fontSize: 14.0,
-        color: Colors.black,
-      ),
-      children: <TextSpan>[
-        new TextSpan(
-            text: label, style: new TextStyle(fontWeight: FontWeight.bold)),
-        new TextSpan(text: value),
-      ],
-    ),
-  );
-}
+@import AEPEdge;
+
+@interface FlutterAEPEdgeDataBridge : NSObject
+
++ (AEPExperienceEvent *_Nullable)experienceEventFromDictionary: (nonnull NSDictionary *) dict;
+
++ (NSDictionary *_Nullable)dictionaryFromEdgeEventHandler: (NSArray<AEPEdgeEventHandle *> *_Nullable) experienceEvent;
+
+@end
+

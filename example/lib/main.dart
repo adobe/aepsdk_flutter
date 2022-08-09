@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 import 'package:flutter/material.dart';
 import 'core.dart';
 import 'assurance.dart';
+import 'edge.dart';
 import 'consent.dart';
 import 'identity.dart';
 
@@ -52,6 +53,13 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => AssurancePage()));
+              },
+            ),
+            ElevatedButton(
+              child: const Text('EDGE'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => EdgePage()));
               },
             ),
             ElevatedButton(

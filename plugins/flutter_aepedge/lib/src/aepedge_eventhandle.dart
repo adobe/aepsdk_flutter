@@ -9,23 +9,22 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'package:flutter/material.dart';
+/// EventHandle is the response returned from Adobe Experience Platform Edge Network.
+class EventHandle {
+  static const String _type = 'type';
+  static const String _payload = 'payload';
 
-// UTIL
-RichText getRichText(String label, String value) {
-  return new RichText(
-    text: new TextSpan(
-      // Note: Styles for TextSpans must be explicitly defined.
-      // Child text spans will inherit styles from parent
-      style: new TextStyle(
-        fontSize: 14.0,
-        color: Colors.black,
-      ),
-      children: <TextSpan>[
-        new TextSpan(
-            text: label, style: new TextStyle(fontWeight: FontWeight.bold)),
-        new TextSpan(text: value),
-      ],
-    ),
-  );
+  /// The data in the eventHandle response.
+  final Map<dynamic, dynamic> _data;
+
+  EventHandle(this._data);
+
+  /// The type of the eventHandle response.
+  String? get type => _data[_type];
+
+  /// The payload of the eventHandle response.
+  List<dynamic>? get payload => _data[_payload] ?? {};
+
+  @override
+  String toString() => '$runtimeType($_data)';
 }

@@ -37,6 +37,8 @@ governing permissions and limitations under the License.
                                       AEPMobileLifecycle.class, 
                                       AEPMobileSignal.class, 
                                       AEPMobileAssurance.class, 
+                                      AEPMobileEdge.class,
+                                      AEPMobileEdgeIdentity.class,
                                       AEPMobileEdgeConsent.class];
     
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{

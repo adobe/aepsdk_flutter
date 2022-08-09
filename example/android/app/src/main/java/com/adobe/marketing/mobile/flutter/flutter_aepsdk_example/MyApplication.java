@@ -34,9 +34,11 @@ public class MyApplication extends FlutterApplication {
         MobileCore.setWrapperType(WrapperType.FLUTTER);
         
         try {
-            Identity.registerExtension();
+            com.adobe.marketing.mobile.edge.identity.Identity.registerExtension();
+            com.adobe.marketing.mobile.Identity.registerExtension();
             Lifecycle.registerExtension();
             Signal.registerExtension();
+            Edge.registerExtension();
             Assurance.registerExtension();
             Consent.registerExtension();
             MobileCore.start(new AdobeCallback () {

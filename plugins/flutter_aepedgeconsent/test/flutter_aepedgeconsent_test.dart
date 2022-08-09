@@ -60,7 +60,6 @@ void main() {
         return expectedConsent;
       });
     });
-
     test('invokes correct method', () async {
       await Consent.consents;
 

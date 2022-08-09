@@ -9,9 +9,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
 
@@ -34,12 +33,7 @@ class _MyAppState extends State<AssurancePage> {
   Future<void> initPlatformState() async {
     late String assuranceVersion;
 
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      assuranceVersion = await Assurance.extensionVersion;
-    } on PlatformException {
-      log("Failed to get Assurance extension versions");
-    }
+    assuranceVersion = await Assurance.extensionVersion;
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
