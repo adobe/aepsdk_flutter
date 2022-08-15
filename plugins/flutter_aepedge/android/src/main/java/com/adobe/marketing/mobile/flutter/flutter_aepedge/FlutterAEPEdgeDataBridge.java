@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.Collection;
+
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 
@@ -42,6 +44,7 @@ class FlutterAEPEdgeDataBridge {
      * @param map
      * @return An {@link ExperienceEvent}
      */
+    @SuppressLint("LongLogTag")
     protected static ExperienceEvent eventFromMap(final Map map) {
          if (map == null) {
              return null;

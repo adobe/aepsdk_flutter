@@ -9,5 +9,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-export 'package:flutter_aepedge/src/aepedge_eventhandle.dart';
-export 'package:flutter_aepedge/src/aepedge_experienceevent.dart';
+export 'package:flutter_aepedgeidentity/src/aepedgeidentity_authenticated_state.dart';
+export 'package:flutter_aepedgeidentity/src/aepedgeidentity_identity_item.dart';
+export 'package:flutter_aepedgeidentity/src/aepedgeidentity_identity_map.dart';

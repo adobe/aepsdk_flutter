@@ -16,6 +16,8 @@ import android.util.Log;
 import com.adobe.marketing.mobile.AdobeError;
 import com.adobe.marketing.mobile.AdobeCallbackWithError;
 import com.adobe.marketing.mobile.edge.identity.Identity;
+import com.adobe.marketing.mobile.edge.identity.IdentityMap;
+import com.adobe.marketing.mobile.edge.identity.IdentityItem;
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
@@ -31,8 +33,8 @@ import java.util.ArrayList;
 public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHandler {
 
   private static final String TAG = "FlutterAEPEdgeIdentityPlugin";
-
   private MethodChannel channel;
+  
 
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
@@ -60,7 +62,16 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
          handleGetExperienceCloudId(result);
     } else if ("getUrlVariables".equals(call.method)) {
          handlerGetUrlVariables(result);
-    } else {
+    } else if ("getIdentities".equals(call.method)) {
+          handlerGetIdentities(result);
+   } else if ("updateIdentities".equals(call.method)) {
+         handlerUpdateIdentities(call.arguments);
+         result.success(null);
+//    } else if ("removeIdentities".equals(call.method)) {
+//          handlerRemoveIdentities(call.arguments);
+//          result.success(null);
+  }
+    else {
       AndroidUtil.runOnUIThread(new Runnable() {
         @Override
         public void run() {
@@ -119,5 +130,43 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
           }
       });
 }
+
+  private void handlerGetIdentities(final MethodChannel.Result result) {
+    Identity.getIdentities(new AdobeCallbackWithError<IdentityMap>() {
+        @Override
+        public void call(IdentityMap map) {
+            AndroidUtil.runOnUIThread(new Runnable() {
+                @Override
+                public void run() {
+                    Map identityMap = FlutterAEPEdgeIdentityDataBridge.mapFromIdentityMap(map);
+                    result.success(identityMap);
+                }
+            });
+        }
+
+        @Override
+        public void fail(final AdobeError adobeError) {
+          final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+          AndroidUtil.runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+              result.error(Integer.toString(error.getErrorCode()),"getIdentity - Failed to retrieve identities",error.getErrorName());
+            }
+          });
+        }
+    });
+}
+
+ private void handlerUpdateIdentities(final Map arguments)
+{  
+   Map params = arguments;
+   IdentityMap mapobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityMap(params);
+   Identity.updateIdentities(mapobj);
+}
+
+//  private void handlerRemoveIdentities(final Object arguments) {
+//    IdentityItem itemobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityItem(item);
+//    Identity.removeIdentity(itemobj, namespace);
+//}
 }
 

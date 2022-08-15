@@ -9,6 +9,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +26,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
   String _edgeIdentityVersion = 'Unknown';
   String _getExperienceCloudIdResult = "";
   String _getUrlVariablesResult = "";
+  String _getIdentitiesResult = "";
 
   @override
   void initState() {
@@ -78,6 +80,52 @@ class _MyAppState extends State<EdgeIdentityPage> {
     });
   }
 
+  Future<void> getIdentities() async {
+    IdentityMap result = new IdentityMap();
+
+    try {
+      result = await Identity.getIdentities;
+    } on PlatformException {
+      log("Failed to get identities");
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _getIdentitiesResult = json.encode(result.toString());
+    });
+  }
+
+  Future<void> updateIdentities() async {
+    //String result = "";
+    String namespace1 = 'namespace1';
+    String id = "id";
+
+    IdentityItem item1 =
+        new IdentityItem(id, AuthenticatedState.AUTHENTICATED, true);
+    // IdentityItem item2 = new IdentityItem('id2'); - To Do fix
+
+    IdentityMap identityMap = new IdentityMap();
+    identityMap.addItem(item1, namespace1);
+    //identityMap.addItem(item2, namespace1);
+
+    Identity.updateIdentities(identityMap);
+  }
+
+  Future<void> removeIdentity() async {
+    String result = "";
+
+    try {
+      result = await Identity.getUrlVariables;
+    } on PlatformException {
+      log("Failed to get URL variable info");
+    }
+
+    if (!mounted) return;
+    setState(() {
+      _getUrlVariablesResult = result.toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text("Edge Identity Screen")),
@@ -96,6 +144,19 @@ class _MyAppState extends State<EdgeIdentityPage> {
             onPressed: () => getUrlVariables(),
           ),
           getRichText('URL Variable: = ', '$_getUrlVariablesResult\n'),
+          ElevatedButton(
+            child: Text("Identity.getIdentites()"),
+            onPressed: () => getIdentities(),
+          ),
+          getRichText('Identities: = ', '$_getIdentitiesResult\n'),
+          ElevatedButton(
+            child: Text("Identity.updateIdentites()"),
+            onPressed: () => updateIdentities(),
+          ),
+          ElevatedButton(
+            child: Text("Identity.removeIdentity()"),
+            onPressed: () => removeIdentity(),
+          ),
         ]),
       ));
 }
