@@ -17,6 +17,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity_data.dart';
 
 /// The Adobe Experience Platform Identity for Edge Network
+
 class Identity {
   static const MethodChannel _channel =
       const MethodChannel('flutter_aepedgeidentity');
@@ -54,16 +55,18 @@ class Identity {
   /// The Identity extension will merge the received identifiers with the previously saved one in an additive manner, no identifiers will be removed using this API.
   /// Identifiers which have an empty  `id` or empty `namespace` are not allowed and are ignored.
 
+  //****TO Do invokeMethod for instance of identityMap which not supported in writeValue
   static Future<void> updateIdentities(IdentityMap identityMap) =>
       _channel.invokeMethod('updateIdentities', identityMap);
 
-  /// TO Do
+  /// To do doc
   /// Removes the provided identity item from the stored client-side `IdentityMap`. The Identity extension will stop sending this identifier.
   /// - Parameters:
   /// - item: The identity item to remove.
   /// - withNamespace: The namespace of the Identity to remove.
 
-  static Future<void> removeIdentities(IdentityItem item, String namespace) =>
+  //****TO Do invokeMethod for two arguments
+  static Future<void> removeIdentities(String item, String namespace) =>
       _channel.invokeMethod('removeIdentities', <String, dynamic>{
         'item': item,
         'namespace': namespace,

@@ -112,18 +112,19 @@ class _MyAppState extends State<EdgeIdentityPage> {
   }
 
   Future<void> removeIdentity() async {
-    String result = "";
+    String namespace1 = 'namespace1';
+    String namespace2 = 'namespace2';
+    String id = "id";
 
-    try {
-      result = await Identity.getUrlVariables;
-    } on PlatformException {
-      log("Failed to get URL variable info");
-    }
+    IdentityItem item1 =
+        new IdentityItem(id, AuthenticatedState.AUTHENTICATED, true);
+    // IdentityItem item2 = new IdentityItem('id2'); - To Do fix
 
-    if (!mounted) return;
-    setState(() {
-      _getUrlVariablesResult = result.toString();
-    });
+    IdentityMap identityMap = new IdentityMap();
+    identityMap.removeItem(item1, namespace1);
+    //identityMap.addItem(item2, namespace1);
+
+    Identity.removeIdentities(namespace2, namespace1);
   }
 
   @override

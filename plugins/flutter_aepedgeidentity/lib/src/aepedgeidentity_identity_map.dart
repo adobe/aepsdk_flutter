@@ -10,10 +10,13 @@ governing permissions and limitations under the License.
 */
 
 import 'package:flutter_aepedgeidentity/src/aepedgeidentity_identity_item.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 /// identity map containing a set of end user identities, keyed on either namespace integration code or the namespace ID of the identity.
+/// TO DO: Trying to converting identityMap to Json.
+@JsonSerializable(anyMap: true, explicitToJson: true)
 class IdentityMap {
-  ///Adds an `IdentityItem` to this `IdentityMap`
+  ///add an `IdentityItem` to this `IdentityMap`
   var identityMap = <String, List<IdentityItem>>{};
 
   void addItem(IdentityItem item, String namespace) {

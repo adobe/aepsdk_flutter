@@ -10,9 +10,11 @@ governing permissions and limitations under the License.
 */
 
 import 'package:flutter_aepedgeidentity/src/aepedgeidentity_authenticated_state.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 ///IdentityItem defines an identity to be included in an IdentityMap
-
+/// TO DO: Trying to converting identityMap to Json.
+@JsonSerializable(anyMap: true, explicitToJson: true)
 class IdentityItem {
   String _id = '';
   AuthenticatedState _authenticatedState = AuthenticatedState.AMBIGOUS;
