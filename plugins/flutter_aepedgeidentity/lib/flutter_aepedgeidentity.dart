@@ -21,7 +21,7 @@ class Identity {
   static const MethodChannel _channel =
       const MethodChannel('flutter_aepedgeidentity');
 
-  /// Returns the version of the Edge extension
+  /// Returns the version of the Identity for Edge Network extension
   static Future<String> get extensionVersion =>
       _channel.invokeMethod('extensionVersion').then((value) => value!);
 
@@ -29,15 +29,15 @@ class Identity {
   static Future<String> get getExperienceCloudId =>
       _channel.invokeMethod('getExperienceCloudId').then((value) => value!);
 
+  ///To do doc
   /// Returns the identifiers in a URL's query parameters for consumption in hybrid mobile applications.
   /// There is no leading &amp; or ? punctuation as the caller is responsible for placing the variables in their resulting URL in the correct locations.
-  //To do
   /// It will be invoked once the URL Variables are available or rejected if an unexpected error occurred or the request timed out.
 
   static Future<String> get getUrlVariables =>
       _channel.invokeMethod('getUrlVariables').then((value) => value!);
 
-  /// TO Do
+  ///To do doc
   /// @brief Returns all identifiers, including customer identifiers which were previously added.
   /// If there are no identifiers stored in the `Identity` extension, then an empty `IdentityMap` is returned.
   /// @return promise method which will be invoked once the identifiers are available or rejected if an unexpected error occurred or the request timed out.
@@ -49,17 +49,13 @@ class Identity {
       .invokeMethod<Map<dynamic, dynamic>>('getIdentities')
       .then((value) => toIdentityMap(value));
 
-  // static Future<IdentityMap> get getIdentities => _channel
-  //     .invokeMethod<IdentityMap>('getIdentities')
-  //     .then((value) => value as IdentityMap);
-
-  /// TO Do
+  ///To do doc
   /// Updates the currently known `IdentityMap` within the SDK.
   /// The Identity extension will merge the received identifiers with the previously saved one in an additive manner, no identifiers will be removed using this API.
   /// Identifiers which have an empty  `id` or empty `namespace` are not allowed and are ignored.
 
-  static Future<void> updateIdentities(IdentityMap idenitityMap) =>
-      _channel.invokeMethod('updateIdentities', idenitityMap.toString());
+  static Future<void> updateIdentities(IdentityMap identityMap) =>
+      _channel.invokeMethod('updateIdentities', identityMap);
 
   /// TO Do
   /// Removes the provided identity item from the stored client-side `IdentityMap`. The Identity extension will stop sending this identifier.
