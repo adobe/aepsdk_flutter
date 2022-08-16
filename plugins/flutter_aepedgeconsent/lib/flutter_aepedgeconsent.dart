@@ -23,9 +23,9 @@ class Consent {
 
   /// Retrieves the current consent preferences stored in the Consent extension
   /// Output example: {"consents": {"collect": {"val": "y"}}}
-  static Future<Map<dynamic, dynamic>> get consents => _channel
+  static Future<Map<String, dynamic>> get consents => _channel
       .invokeMethod<Map<dynamic, dynamic>>('getConsents')
-      .then((value) => value!);
+      .then((value) => Map<String, dynamic>.from(value ?? {}));
 
   /// Merges the existing consents with the given consents. Duplicate keys will take the value of those passed in the API
   /// Input example: {"consents": {"collect": {"val": "y"}}}

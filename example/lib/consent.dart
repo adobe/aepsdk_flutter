@@ -52,7 +52,7 @@ class _MyAppState extends State<ConsentPage> {
   }
 
   Future<void> getConsent() async {
-    Map<dynamic, dynamic> result = {};
+    Map<String, dynamic> result = {};
 
     try {
       result = await Consent.consents;
