@@ -66,10 +66,12 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
           handlerGetIdentities(result);
    } else if ("updateIdentities".equals(call.method)) {
          handlerUpdateIdentities(call.arguments);
+         //result.success(null);
+   } else if ("removeIdentities".equals(call.method)) {
+         String item = call.argument("item");
+         String namespace = call.argument("namespace");
+         handlerRemoveIdentities(item, namespace);
          result.success(null);
-//    } else if ("removeIdentities".equals(call.method)) {
-//          handlerRemoveIdentities(call.arguments);
-//          result.success(null);
   }
     else {
       AndroidUtil.runOnUIThread(new Runnable() {
@@ -157,16 +159,15 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
     });
 }
 
- private void handlerUpdateIdentities(final Map arguments)
+ private void handlerUpdateIdentities(final Object arguments)
 {  
-   Map params = arguments;
-   IdentityMap mapobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityMap(params);
-   Identity.updateIdentities(mapobj);
+   //IdentityMap mapobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityMap(arguments);
+   //Identity.updateIdentities(mapobj);
 }
 
-//  private void handlerRemoveIdentities(final Object arguments) {
-//    IdentityItem itemobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityItem(item);
-//    Identity.removeIdentity(itemobj, namespace);
-//}
+ private void handlerRemoveIdentities(final String item, final String namespace) {
+   //IdentityItem itemobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityItem(arguments);
+   //Identity.removeIdentity(itemobj, arguments2);
+}
 }
 
