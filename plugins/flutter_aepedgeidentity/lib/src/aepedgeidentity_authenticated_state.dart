@@ -22,7 +22,7 @@ extension AEPAuthStateExt on AuthenticatedState {
       case AuthenticatedState.AUTHENTICATED:
         return 'authenticated';
       case AuthenticatedState.AMBIGOUS:
-        return 'ambigous';
+        return 'ambiguous';
     }
   }
 }
@@ -34,9 +34,9 @@ extension AEPAuthStateValueExt on String {
         return AuthenticatedState.AUTHENTICATED;
       case 'loggedout':
         return AuthenticatedState.LOGGED_OUT;
-      case 'ambigous':
+      case 'ambiguous':
         return AuthenticatedState.AMBIGOUS;
     }
-    throw Exception('Invalid AuthenticationState value: $this');
+    return AuthenticatedState.AMBIGOUS;
   }
 }

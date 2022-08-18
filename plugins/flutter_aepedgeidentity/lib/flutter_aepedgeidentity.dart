@@ -78,18 +78,10 @@ IdentityMap toIdentityMap(value) {
 
   for (MapEntry e in value.entries) {
     e.value.forEach((myitem) {
-      if (myitem["authenticatedState"] == "authenticated") {
-        myitem["authenticatedState"] = AuthenticatedState.AUTHENTICATED;
-      } else if (myitem["authenticatedState"] == "loggedout") {
-        myitem["authenticatedState"] = AuthenticatedState.LOGGED_OUT;
-      } else if (myitem["authenticatedState"] == "ambiguous") {
-        myitem["authenticatedState"] = AuthenticatedState.AMBIGOUS;
-      } else {
-        myitem["authenticatedState"] = AuthenticatedState.AMBIGOUS;
-      }
-
-      IdentityItem identityItem = new IdentityItem(
-          myitem["id"], myitem["authenticatedState"], myitem["primary"]);
+      AuthenticatedState auth =
+          (myitem["authenticatedState"] as String).toAEPAuthState;
+      IdentityItem identityItem =
+          new IdentityItem(myitem["id"], auth, myitem["primary"]);
 
       idMap.addItem(identityItem, e.key);
     });
