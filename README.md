@@ -79,7 +79,9 @@ $ flutter test
 
 ## Contributing
 
-See [Contributing](CONTRIBUTING.md)
+If you are migrating an ACP plugin to AEP, or need help with publishing, please follow the steps [outlined here](https://wiki.corp.adobe.com/display/adms/Migrating+ACP+Flutter+Wrapper+to+AEP).
+
+For all other information on contributing see [Contributing](CONTRIBUTING.md)
 
 ## License
 
