@@ -9,6 +9,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+//import 'dart:html';
+
 import 'package:flutter_aepedgeidentity/src/aepedgeidentity_authenticated_state.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -39,5 +41,15 @@ class IdentityItem {
   @override
   String toString() {
     return '{id: $id, authenticatedState: $authenticatedState, primary: $primary}';
+  }
+
+  //convert to map
+  Map toMap() {
+    Map<String, Object> retMap = {};
+    retMap["id"] = id;
+    retMap["authenticatedState"] = authenticatedState.toString();
+    retMap["primary"] = primary;
+
+    return retMap;
   }
 }

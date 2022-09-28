@@ -57,7 +57,7 @@ class Identity {
 
   //****TO Do invokeMethod for instance of identityMap which not supported in writeValue
   static Future<void> updateIdentities(IdentityMap identityMap) =>
-      _channel.invokeMethod('updateIdentities', identityMap);
+      _channel.invokeMethod('updateIdentities', identityMap.toMap());
 
   /// To do doc
   /// Removes the provided identity item from the stored client-side `IdentityMap`. The Identity extension will stop sending this identifier.
@@ -66,9 +66,9 @@ class Identity {
   /// - withNamespace: The namespace of the Identity to remove.
 
   //****TO Do invokeMethod for two arguments
-  static Future<void> removeIdentities(String item, String namespace) =>
-      _channel.invokeMethod('removeIdentities', <String, dynamic>{
-        'item': item,
+  static Future<void> removeIdentities(IdentityItem item, String namespace) =>
+      _channel.invokeMethod('removeIdentities', <dynamic, dynamic>{
+        'item': item.toMap(),
         'namespace': namespace,
       });
 }

@@ -9,15 +9,16 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+import 'dart:async';
 import 'package:flutter_aepedgeidentity/src/aepedgeidentity_identity_item.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 /// identity map containing a set of end user identities, keyed on either namespace integration code or the namespace ID of the identity.
 /// TO DO: Trying to converting identityMap to Json.
-@JsonSerializable(anyMap: true, explicitToJson: true)
+
 class IdentityMap {
   ///add an `IdentityItem` to this `IdentityMap`
-  var identityMap = <String, List<IdentityItem>>{};
+  Map<String, List<IdentityItem>> identityMap = {};
+  Map<String, Map<String, List<Map<dynamic, dynamic>>>> retidentityMap = {};
 
   void addItem(IdentityItem item, String namespace) {
     if (item.id.isEmpty || item.id.length == 0) {
@@ -83,14 +84,33 @@ class IdentityMap {
   String toString() {
     return '{identityMap: $identityMap}';
   }
-}
 
-IdentityItem copyItem(IdentityItem item) {
-  IdentityItem clonedItem =
-      new IdentityItem(item.id, item.authenticatedState, item.primary);
-  return clonedItem;
-}
+  IdentityItem copyItem(IdentityItem item) {
+    IdentityItem clonedItem =
+        new IdentityItem(item.id, item.authenticatedState, item.primary);
+    return clonedItem;
+  }
 
-bool equalIds(String id1, String id2) {
-  return id1.toLowerCase() == id2.toLowerCase();
+  bool equalIds(String id1, String id2) {
+    return id1.toLowerCase() == id2.toLowerCase();
+  }
+
+  Map toMap() {
+    Map<String, List<Map<dynamic, dynamic>>> retMap = {};
+
+    identityMap.forEach((key, value) {
+      print(key);
+      print(value);
+
+      List<Map<dynamic, dynamic>> convertedIdItemList = [];
+      value.forEach((v) {
+        Map<dynamic, dynamic> newvalue = v.toMap();
+        convertedIdItemList.add(newvalue);
+      });
+
+      retMap = {key: convertedIdItemList};
+    });
+
+    return retMap;
+  }
 }

@@ -113,7 +113,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
 
   Future<void> removeIdentity() async {
     String namespace1 = 'namespace1';
-    String namespace2 = 'namespace2';
+    String namespace2 = 'namespace2FromApp2';
     String id = "id";
 
     IdentityItem item1 =
@@ -124,7 +124,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
     identityMap.removeItem(item1, namespace1);
     //identityMap.addItem(item2, namespace1);
 
-    Identity.removeIdentities(namespace2, namespace1);
+    Identity.removeIdentities(item1, namespace1);
   }
 
   @override

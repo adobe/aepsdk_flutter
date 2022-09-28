@@ -11,6 +11,7 @@ governing permissions and limitations under the License.
 
 package com.adobe.marketing.mobile.flutter.flutter_aepedgeidentity;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.adobe.marketing.mobile.AdobeError;
@@ -66,9 +67,9 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
           handlerGetIdentities(result);
    } else if ("updateIdentities".equals(call.method)) {
          handlerUpdateIdentities(call.arguments);
-         //result.success(null);
+         result.success(null);
    } else if ("removeIdentities".equals(call.method)) {
-         String item = call.argument("item");
+         Map item = call.argument("item");
          String namespace = call.argument("namespace");
          handlerRemoveIdentities(item, namespace);
          result.success(null);
@@ -158,16 +159,22 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
         }
     });
 }
+ @SuppressLint("LongLogTag")
+ private void handlerUpdateIdentities(final Object arguments) {
+  if (!(arguments instanceof Map)) {
+    Log.e(TAG, "Updating Identities failed, arguments are invalid");
+    return;
+  } 
 
- private void handlerUpdateIdentities(final Object arguments)
-{  
-   //IdentityMap mapobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityMap(arguments);
-   //Identity.updateIdentities(mapobj);
+   Map<String, List<Map<String, Object>>> map = (Map) arguments;
+   IdentityMap identityMap = FlutterAEPEdgeIdentityDataBridge.mapToIdentityMap(map);
+   Identity.updateIdentities(identityMap);
 }
 
- private void handlerRemoveIdentities(final String item, final String namespace) {
-   //IdentityItem itemobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityItem(arguments);
-   //Identity.removeIdentity(itemobj, arguments2);
+ private void handlerRemoveIdentities(final Map item, final String namespace) {
+      Log.d("removeIdentityTag","Calise message here" + item + " " + namespace);
+   IdentityItem itemobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityItem(item);
+   Identity.removeIdentity(itemobj, namespace);
 }
 }
 
