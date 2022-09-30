@@ -32,7 +32,13 @@ governing permissions and limitations under the License.
      [self handleGetExperinceCloudId:call result:result];
   } else if ([@"getUrlVariables" isEqualToString:call.method]) {
      [self handleGetUrlVariables:call result:result];
-  }  else {
+  } else if ([@"getIdentities" isEqualToString:call.method]) {
+     [self handleGetIdentities:call result:result]; 
+  } else if ([@"updateIdentities" isEqualToString:call.method]) {
+     [self handleUpdateIdentities:call result:result]; }
+    else if ([@"removeIdentities" isEqualToString:call.method]) {
+     [self handleRemoveIdentities:call result:result]; }
+     else {
       result(FlutterMethodNotImplemented);
   }
 }
@@ -56,6 +62,40 @@ governing permissions and limitations under the License.
          result(urlVariables);
     }];
     }
+
+- (void)handleGetIdentities:(FlutterMethodCall *) call result:(FlutterResult)result {
+    [AEPMobileEdgeIdentity getIdentities:^(AEPIdentityMap * _Nullable IdentityMap, NSError * _Nullable error) {
+        
+        if (error) {
+            result([self flutterErrorFromNSError:error]);
+            return;
+        } else {
+            result([FlutterAEPEdgeIdentityDataBridge dictionaryFromIdentityMap:IdentityMap]);
+        }
+    }];
+    }
+
+-   (void)handleUpdateIdentities:(FlutterMethodCall *) call result:(FlutterResult)result {
+    
+    NSDictionary *map = call.arguments;
+  
+    AEPIdentityMap *convertMap = [FlutterAEPEdgeIdentityDataBridge dictionaryToIdentityMap:map];
+
+    [AEPMobileEdgeIdentity updateIdentities:(AEPIdentityMap * _Nonnull) convertMap];
+}
+
+-  (void)handleRemoveIdentities:(FlutterMethodCall *) call result:(FlutterResult)result {
+    NSDictionary *item = call.arguments[@"item"];
+    NSString *namespace = call.arguments[@"namespace"];
+    
+    AEPIdentityItem *convertItem = [FlutterAEPEdgeIdentityDataBridge dictionaryToIdentityItem:item];
+    
+    if (!convertItem || !namespace) {
+     return;
+     }
+
+     [AEPMobileEdgeIdentity removeIdentityItem:(AEPIdentityItem * _Nonnull) convertItem withNamespace:(NSString * _Nonnull) namespace];
+}
 
 - (FlutterError *)flutterErrorFromNSError:(NSError *) error {
     return [FlutterError errorWithCode:[NSString stringWithFormat:@"%ld", (long)error.code]

@@ -82,6 +82,8 @@ class _MyAppState extends State<EdgeIdentityPage> {
 
   Future<void> getIdentities() async {
     IdentityMap result = new IdentityMap();
+    bool test1 = result.isEmpty();
+    print("test1 is: $test1");
 
     try {
       result = await Identity.getIdentities;
@@ -92,6 +94,9 @@ class _MyAppState extends State<EdgeIdentityPage> {
     if (!mounted) return;
     setState(() {
       _getIdentitiesResult = json.encode(result.toString());
+      bool test2 = result.isEmpty();
+      print("test2 is: $test2");
+      print("calise $result");
     });
   }
 
@@ -102,29 +107,42 @@ class _MyAppState extends State<EdgeIdentityPage> {
 
     IdentityItem item1 =
         new IdentityItem(id, AuthenticatedState.AUTHENTICATED, true);
-    // IdentityItem item2 = new IdentityItem('id2'); - To Do fix
+    IdentityItem item2 =
+        new IdentityItem('id2', AuthenticatedState.AUTHENTICATED, false);
 
     IdentityMap identityMap = new IdentityMap();
     identityMap.addItem(item1, namespace1);
-    //identityMap.addItem(item2, namespace1);
+    identityMap.addItem(item2, "namespace2");
+
+    bool test1 = identityMap.isEmpty();
 
     Identity.updateIdentities(identityMap);
+    var testnamespace = identityMap.getNamespaces();
+    print("calise $testnamespace");
+    var testIdentityNamespace =
+        identityMap.getIdentityItemsForNamespace((namespace1));
+    print("calise $testIdentityNamespace");
+    print("calise $testIdentityNamespace");
   }
 
   Future<void> removeIdentity() async {
     String namespace1 = 'namespace1';
-    String namespace2 = 'namespace2FromApp2';
+    String namespace2 = 'namespace2';
+    //String namespace2 = 'namespace2FromApp2';
     String id = "id";
 
     IdentityItem item1 =
-        new IdentityItem(id, AuthenticatedState.AUTHENTICATED, true);
-    // IdentityItem item2 = new IdentityItem('id2'); - To Do fix
+        new IdentityItem(id, AuthenticatedState.AMBIGOUS, true);
+    IdentityItem item2 =
+        new IdentityItem('id2', AuthenticatedState.AMBIGOUS, false);
 
     IdentityMap identityMap = new IdentityMap();
-    identityMap.removeItem(item1, namespace1);
-    //identityMap.addItem(item2, namespace1);
 
+    bool test2 = identityMap.isEmpty();
+    //identityMap.removeItem(item2, namespace1);
+    //identityMap.removeItem(item1, namespace1);
     Identity.removeIdentities(item1, namespace1);
+    Identity.removeIdentities(item2, namespace2);
   }
 
   @override

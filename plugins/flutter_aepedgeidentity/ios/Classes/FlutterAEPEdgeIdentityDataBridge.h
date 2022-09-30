@@ -9,5 +9,20 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+#import <Foundation/Foundation.h>
 
+@import AEPEdgeIdentity;
 
+@interface FlutterAEPEdgeIdentityDataBridge : NSObject
+
++ (NSDictionary *_Nullable)dictionaryFromIdentityMap: (nullable AEPIdentityMap *) map;
+
++ (AEPIdentityMap *_Nonnull)dictionaryToIdentityMap: (nonnull NSDictionary *) dict;
+
++ (AEPIdentityItem *_Nullable)dictionaryToIdentityItem: (nullable NSDictionary *) dict;
+
++ (AEPAuthenticatedState) authStateFromString: (nullable NSString *) authStateString;
+
++ (NSString *_Nullable)stringFromAuthState: (AEPAuthenticatedState) authState;
+
+@end
