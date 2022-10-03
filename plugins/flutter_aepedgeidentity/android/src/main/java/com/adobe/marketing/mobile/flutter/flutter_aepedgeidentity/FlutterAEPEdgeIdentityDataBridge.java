@@ -89,17 +89,15 @@ class FlutterAEPEdgeIdentityDataBridge {
                 Map maptest = new HashMap<>();
 
                 maptest = ObjectToMap(value);
-
                 for (int i = 0; i < maps.size(); i++) {
                     Map itemAsMap = (Map) maptest.get(i);
                     IdentityItem item = mapToIdentityItem(itemAsMap);
                     if (item != null) {
                         identityMapFromFlutterMap.addItem(item, namespace);
+                        }
                     }
                 }
             }
-
-        }
         //  }
         // return identityMapFromFlutterMap;
         return null;
@@ -115,8 +113,6 @@ class FlutterAEPEdgeIdentityDataBridge {
         if (id == null) {
             return null;
         }
-
-        AuthenticatedState test = getAuthenticatedState(map, AEP_AUTH_STATE_KEY);
 
         return new IdentityItem(id, getAuthenticatedState(map, AEP_AUTH_STATE_KEY), getBooleanOrDefaultFalse(map, IS_PRIMARY_KEY));
     }
@@ -137,14 +133,14 @@ class FlutterAEPEdgeIdentityDataBridge {
     }
 
     private static Map ObjectToMap(Object obj) {
-        Map<String, Object> mapa = new HashMap<>();
+        Map<String, Object> convertedMap = new HashMap<>();
         for (Field field : obj.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             try {
-                mapa.put(field.getName(), field.get(obj));
+                convertedMap.put(field.getName(), field.get(obj));
             } catch (Exception e) {
             }
         }
-        return mapa;
+        return convertedMap;
     }
     }
