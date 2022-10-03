@@ -96,7 +96,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
       _getIdentitiesResult = json.encode(result.toString());
       bool test2 = result.isEmpty();
       print("test2 is: $test2");
-      print("calise $result");
+      print("loghere $result");
     });
   }
 
@@ -109,20 +109,23 @@ class _MyAppState extends State<EdgeIdentityPage> {
         new IdentityItem(id, AuthenticatedState.AUTHENTICATED, true);
     IdentityItem item2 =
         new IdentityItem('id2', AuthenticatedState.AUTHENTICATED, false);
+    IdentityItem item3 =
+        new IdentityItem('id3', AuthenticatedState.AUTHENTICATED, false);
 
     IdentityMap identityMap = new IdentityMap();
     identityMap.addItem(item1, namespace1);
     identityMap.addItem(item2, "namespace2");
+    //identityMap.addItem(item3, "namespace3");
 
     bool test1 = identityMap.isEmpty();
 
     Identity.updateIdentities(identityMap);
+
     var testnamespace = identityMap.getNamespaces();
-    print("calise $testnamespace");
+    print("loghere $testnamespace");
     var testIdentityNamespace =
         identityMap.getIdentityItemsForNamespace((namespace1));
-    print("calise $testIdentityNamespace");
-    print("calise $testIdentityNamespace");
+    print("loghere $testIdentityNamespace");
   }
 
   Future<void> removeIdentity() async {
@@ -132,7 +135,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
     String id = "id";
 
     IdentityItem item1 =
-        new IdentityItem(id, AuthenticatedState.AMBIGOUS, true);
+        new IdentityItem(id, AuthenticatedState.AUTHENTICATED, true);
     IdentityItem item2 =
         new IdentityItem('id2', AuthenticatedState.AMBIGOUS, false);
 
@@ -142,7 +145,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
     //identityMap.removeItem(item2, namespace1);
     //identityMap.removeItem(item1, namespace1);
     Identity.removeIdentities(item1, namespace1);
-    Identity.removeIdentities(item2, namespace2);
+    // Identity.removeIdentities(item2, namespace2);
   }
 
   @override

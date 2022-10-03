@@ -13,12 +13,10 @@ import 'dart:async';
 import 'package:flutter_aepedgeidentity/src/aepedgeidentity_identity_item.dart';
 
 /// identity map containing a set of end user identities, keyed on either namespace integration code or the namespace ID of the identity.
-/// TO DO: Trying to converting identityMap to Json.
 
 class IdentityMap {
   ///add an `IdentityItem` to this `IdentityMap`
   Map<String, List<IdentityItem>> identityMap = {};
-  Map<String, Map<String, List<Map<dynamic, dynamic>>>> retidentityMap = {};
 
   void addItem(IdentityItem item, String namespace) {
     if (item.id.isEmpty || item.id.length == 0) {
@@ -26,7 +24,6 @@ class IdentityMap {
     }
 
     ///add item to the existing namespace
-    ///
 
     IdentityItem itemCopy = copyItem(item);
 
@@ -79,7 +76,7 @@ class IdentityMap {
     }
   }
 
-  ///Be able to print the instance to String
+  ///Convert to String
   @override
   String toString() {
     return '{identityMap: $identityMap}';
@@ -95,22 +92,28 @@ class IdentityMap {
     return id1.toLowerCase() == id2.toLowerCase();
   }
 
+  ///Convert to Map
   Map toMap() {
+    Map<String, List<Map<dynamic, dynamic>>> retMapAll = {};
+
     Map<String, List<Map<dynamic, dynamic>>> retMap = {};
 
-    identityMap.forEach((key, value) {
-      print(key);
-      print(value);
+    List<Map<dynamic, dynamic>> convertedIdItemListAll = [];
 
+    identityMap.forEach((key, value) {
       List<Map<dynamic, dynamic>> convertedIdItemList = [];
+
       value.forEach((v) {
-        Map<dynamic, dynamic> newvalue = v.toMap();
-        convertedIdItemList.add(newvalue);
+        Map<dynamic, dynamic> value = v.toMap();
+        convertedIdItemList.add(value);
       });
 
       retMap = {key: convertedIdItemList};
+
+      convertedIdItemListAll.add(retMap);
     });
 
-    return retMap;
+    retMapAll = {"identityMap": convertedIdItemListAll};
+    return retMapAll;
   }
 }

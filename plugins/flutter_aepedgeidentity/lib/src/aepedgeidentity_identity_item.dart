@@ -47,7 +47,7 @@ class IdentityItem {
   Map toMap() {
     Map<String, Object> retMap = {};
     retMap["id"] = id;
-    retMap["authenticatedState"] = authenticatedState.toString();
+    retMap["authenticatedState"] = authenticatedState.value;
     retMap["primary"] = primary;
 
     return retMap;

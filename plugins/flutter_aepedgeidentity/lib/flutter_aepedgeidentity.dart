@@ -41,10 +41,6 @@ class Identity {
   ///To do doc
   /// @brief Returns all identifiers, including customer identifiers which were previously added.
   /// If there are no identifiers stored in the `Identity` extension, then an empty `IdentityMap` is returned.
-  /// @return promise method which will be invoked once the identifiers are available or rejected if an unexpected error occurred or the request timed out.
-  // static Future<Map<dynamic, dynamic>> get getIdentities => _channel
-  //     .invokeMethod<Map<dynamic, dynamic>>('getIdentities')
-  //     .then((value) => value!);
 
   static Future<IdentityMap> get getIdentities => _channel
       .invokeMethod<Map<dynamic, dynamic>>('getIdentities')
@@ -55,7 +51,6 @@ class Identity {
   /// The Identity extension will merge the received identifiers with the previously saved one in an additive manner, no identifiers will be removed using this API.
   /// Identifiers which have an empty  `id` or empty `namespace` are not allowed and are ignored.
 
-  //****TO Do invokeMethod for instance of identityMap which not supported in writeValue
   static Future<void> updateIdentities(IdentityMap identityMap) =>
       _channel.invokeMethod<void>('updateIdentities', identityMap.toMap());
 
@@ -65,7 +60,7 @@ class Identity {
   /// - item: The identity item to remove.
   /// - withNamespace: The namespace of the Identity to remove.
 
-  //****TO Do invokeMethod for two arguments
+  // To do doc
   static Future<void> removeIdentities(IdentityItem item, String namespace) =>
       _channel.invokeMethod<void>('removeIdentities', <dynamic, dynamic>{
         'item': item.toMap(),

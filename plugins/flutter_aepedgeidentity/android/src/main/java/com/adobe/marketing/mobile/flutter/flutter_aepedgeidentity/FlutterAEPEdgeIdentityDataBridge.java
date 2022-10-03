@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 
 class FlutterAEPEdgeIdentityDataBridge {
 
@@ -33,34 +34,36 @@ class FlutterAEPEdgeIdentityDataBridge {
     private static final String IDENTITY_MAP_KEY = "identityMap";
 
     static Map mapFromIdentityMap(final IdentityMap map) {
+
+
         if (map == null) {
             return null;
         }
 
-        if (map.isEmpty()){
+        if (map.isEmpty()) {
             return new HashMap<>();
         }
 
         Map identityMapToMap = new HashMap<>();
 
-            for (String namespace : map.getNamespaces()) {
-                List<IdentityItem> items = map.getIdentityItemsForNamespace(namespace);
-                List itemsAsArray = new ArrayList();
+        for (String namespace : map.getNamespaces()) {
+            List<IdentityItem> items = map.getIdentityItemsForNamespace(namespace);
+            List itemsAsArray = new ArrayList();
 
-                for (IdentityItem item : items) {
-                    Map itemMap = new HashMap<>();
+            for (IdentityItem item : items) {
+                Map itemMap = new HashMap<>();
 
-                    itemMap.put(IS_PRIMARY_KEY, item.isPrimary());
-                    itemMap.put(AEP_AUTH_STATE_KEY, item.getAuthenticatedState().getName());    
-                    itemMap.put(ID_KEY, item.getId());
+                itemMap.put(IS_PRIMARY_KEY, item.isPrimary());
+                itemMap.put(AEP_AUTH_STATE_KEY, item.getAuthenticatedState().getName());
+                itemMap.put(ID_KEY, item.getId());
 
-                    itemsAsArray.add(itemMap);
-                }
-
-                if (itemsAsArray.size() != 0) {
-                    identityMapToMap.put(namespace, itemsAsArray);
-                }
+                itemsAsArray.add(itemMap);
             }
+
+            if (itemsAsArray.size() != 0) {
+                identityMapToMap.put(namespace, itemsAsArray);
+            }
+        }
         return identityMapToMap;
     }
 
@@ -72,48 +75,76 @@ class FlutterAEPEdgeIdentityDataBridge {
 
         IdentityMap identityMapFromFlutterMap = new IdentityMap();
 
-        Iterator<String> itr = map.keySet().iterator();
-        while (itr.hasNext()) {
-            String namespace = itr.next();
-            List<Map<String, Object>> value = map.get(namespace);
-          
-            for (int i = 0; i < value.size(); i++) {
-                Map itemAsMap = value.get(i);
-                IdentityItem item = mapToIdentityItem(itemAsMap);
-                if (item !=null){
-                    identityMapFromFlutterMap.addItem(item, namespace);
+        List<Map<String, Object>> mapvalue = map.get(IDENTITY_MAP_KEY);
+
+        for (Map<String, Object> maps : mapvalue) {
+//            for (Map.Entry<String, Object> entry : maps.entrySet()) {
+//                System.out.println(entry.getKey() + " - " + entry.getValue());
+
+            Iterator<String> itr = maps.keySet().iterator();
+            while (itr.hasNext()) {
+                String namespace = itr.next();
+                Object value = maps.get(namespace);
+
+                Map maptest = new HashMap<>();
+
+                maptest = ObjectToMap(value);
+
+                for (int i = 0; i < maps.size(); i++) {
+                    Map itemAsMap = (Map) maptest.get(i);
+                    IdentityItem item = mapToIdentityItem(itemAsMap);
+                    if (item != null) {
+                        identityMapFromFlutterMap.addItem(item, namespace);
+                    }
                 }
             }
+
         }
-        return identityMapFromFlutterMap;
+        //  }
+        // return identityMapFromFlutterMap;
+        return null;
     }
 
-   static IdentityItem mapToIdentityItem(Map map) {
-       if (map == null) {
-           return null;
-       }
+    static IdentityItem mapToIdentityItem(Map map) {
+        if (map == null) {
+            return null;
+        }
 
-       String id = getNullableString(map, ID_KEY);
-       // verify id is not null as this is not an accepted value for ids
-       if (id == null) {
-           return null;
-       }
+        String id = getNullableString(map, ID_KEY);
+        // verify id is not null as this is not an accepted value for ids
+        if (id == null) {
+            return null;
+        }
 
-       return new IdentityItem(id, getAuthenticatedState(map, AEP_AUTH_STATE_KEY), getBooleanOrDefaultFalse(map, IS_PRIMARY_KEY));
-   }
+        AuthenticatedState test = getAuthenticatedState(map, AEP_AUTH_STATE_KEY);
 
-     // Helper methods
+        return new IdentityItem(id, getAuthenticatedState(map, AEP_AUTH_STATE_KEY), getBooleanOrDefaultFalse(map, IS_PRIMARY_KEY));
+    }
 
-     private static AuthenticatedState getAuthenticatedState(final Map data, final String key) {
-        return AuthenticatedState.fromString(String.valueOf(data.containsKey(key) ? data.containsValue(key) : null));
+    // Helper methods
+
+    private static AuthenticatedState getAuthenticatedState(final Map data, final String key) {
+        return AuthenticatedState.fromString(data.containsKey(key) && (data.get(key) instanceof String) ? (String) data.get(key) : null);
     }
 
     private static String getNullableString(final Map data, final String key) {
         return data.containsKey(key) && (data.get(key) instanceof String) ? (String) data.get(key) : null;
     }
 
-
+    //TO do
     private static Boolean getBooleanOrDefaultFalse(final Map data, final String key) {
         return data.containsKey(key) == (data.get(key) instanceof Boolean);
     }
-}
+
+    private static Map ObjectToMap(Object obj) {
+        Map<String, Object> mapa = new HashMap<>();
+        for (Field field : obj.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                mapa.put(field.getName(), field.get(obj));
+            } catch (Exception e) {
+            }
+        }
+        return mapa;
+    }
+    }

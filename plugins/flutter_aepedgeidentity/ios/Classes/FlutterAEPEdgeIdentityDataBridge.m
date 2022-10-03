@@ -53,13 +53,17 @@ static NSString* const AMBIGUOUS = @"ambiguous";
     AEPIdentityMap *identityMap = [[AEPIdentityMap alloc] init];
     
 //    NSDictionary *itemsMap = [[dict objectForKey:IDENTITY_MAP_KEY] isKindOfClass:[NSDictionary class]] ? [dict objectForKey:IDENTITY_MAP_KEY] : nil;
-//
-//    if (!itemsMap){
+    
+    NSDictionary *itemsMap = [[dict objectForKey:@"identityMap"] isKindOfClass:[NSDictionary class]] ? [dict objectForKey:IDENTITY_MAP_KEY] : nil;
+    
+    //NSArray* items1 = [dict objectForKey:IDENTITY_MAP_KEY];
+
+//    if (!itemsMap1){
 //        return identityMap;
 //    }
 
     //NSDictionary *itemsMap = dict;
-    NSArray <NSString*>* namespaces = [dict allKeys];
+    NSArray <NSString*>* namespaces = [itemsMap allKeys];
    
     for (NSString *namespace in namespaces){
         NSArray* items = [dict objectForKey:namespace];
