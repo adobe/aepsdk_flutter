@@ -2,16 +2,16 @@
 
 ## Initial Setup
 
-1. Fork [this repository](https://github.com/adobe/aepsdk_flutter)
+1. Make sure you have [flutter installed](https://docs.flutter.dev/get-started/install/macos) on your machine.
 
-2. Create a branch with your plugin name off of the main branch e.g: `edge`. Make sure all of the upcoming steps / work is done on your newly created plugin branch. 
+2. Fork [this repository](https://github.com/adobe/aepsdk_flutter)
 
-3. Make sure you have [flutter installed](https://docs.flutter.dev/get-started/install/macos) on your machine.
+3. Create a branch with your plugin name off of the main branch e.g: `edge`. Make sure all of the upcoming steps / work is done on your newly created plugin branch. 
 
 4. Navigate to the plugin directory 
 `cd aepsdk_flutter/plugins/`
 
-5. Follow the steps [outlined here](https://docs.flutter.dev/development/packages-and-plugins/developing-packages#step-1-create-the-package-1) to create a template plugin, replace "hello" with your plugin name e.g: `flutter_aepedge`. Note that the existing flutter plugins in the monorepo follow the naming convention `flutter_aep{plugin name}`
+5. Follow the steps [outlined here](https://docs.flutter.dev/development/packages-and-plugins/developing-packages#step-1-create-the-package-1) to create a template plugin, replace "hello" with your plugin name preceded by `flutter_aep` e.g: `flutter_aepedge`.
 
 ## Add Dependencies
 
