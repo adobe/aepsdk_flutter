@@ -32,7 +32,7 @@ extension AEPAuthStateValueExt on String {
     switch (this) {
       case 'authenticated':
         return AuthenticatedState.AUTHENTICATED;
-      case 'loggedout':
+      case 'loggedOut':
         return AuthenticatedState.LOGGED_OUT;
       case 'ambiguous':
         return AuthenticatedState.AMBIGOUS;
