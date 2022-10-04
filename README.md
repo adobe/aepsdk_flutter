@@ -81,7 +81,7 @@ $ flutter test
 
 If you are migrating an ACP plugin to AEP, or need help with publishing, please follow the steps [outlined here](https://wiki.corp.adobe.com/display/adms/Migrating+ACP+Flutter+Wrapper+to+AEP).
 
-If you are creating a new AEP plugin, please follow the steps [outlined here](docs/creating_plugins.md)
+If you are creating a new AEP plugin, please follow the steps [outlined here](docs/creating_new_plugins.md)
 
 For all other information on contributing see [Contributing](CONTRIBUTING.md)
 
