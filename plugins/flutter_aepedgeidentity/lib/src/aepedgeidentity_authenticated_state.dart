@@ -18,7 +18,7 @@ extension AEPAuthStateExt on AuthenticatedState {
   String get value {
     switch (this) {
       case AuthenticatedState.LOGGED_OUT:
-        return 'loggedout';
+        return 'loggedOut';
       case AuthenticatedState.AUTHENTICATED:
         return 'authenticated';
       case AuthenticatedState.AMBIGOUS:
