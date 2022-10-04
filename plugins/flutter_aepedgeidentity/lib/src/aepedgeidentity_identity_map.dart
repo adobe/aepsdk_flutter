@@ -9,7 +9,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'dart:async';
 import 'package:flutter_aepedgeidentity/src/aepedgeidentity_identity_item.dart';
 
 /// identity map containing a set of end user identities, keyed on either namespace integration code or the namespace ID of the identity.
@@ -24,7 +23,6 @@ class IdentityMap {
     }
 
     ///add item to the existing namespace
-
     IdentityItem itemCopy = copyItem(item);
 
     if (this.identityMap[namespace] != null) {
@@ -65,10 +63,12 @@ class IdentityMap {
     if (this.identityMap[namespace] != null) {
       List<IdentityItem> list = this
           .identityMap[namespace]!
-          .where((element) => equalIds(element.id, element.id))
+          .where((element) => !equalIds(element.id, item.id))
           .toList();
       if (list.length == 0) {
         this
+
+            /// To Do: Need to validate this
             .identityMap
             .removeWhere((key, value) => key == this.identityMap[namespace]);
       } else
@@ -94,11 +94,9 @@ class IdentityMap {
 
   ///Convert to Map
   Map toMap() {
-    Map<String, List<Map<dynamic, dynamic>>> retMapAll = {};
+    Map retMapAll = {};
 
     Map<String, List<Map<dynamic, dynamic>>> retMap = {};
-
-    List<Map<dynamic, dynamic>> convertedIdItemListAll = [];
 
     identityMap.forEach((key, value) {
       List<Map<dynamic, dynamic>> convertedIdItemList = [];
@@ -108,12 +106,10 @@ class IdentityMap {
         convertedIdItemList.add(value);
       });
 
-      retMap = {key: convertedIdItemList};
-
-      convertedIdItemListAll.add(retMap);
+      retMap[key] = convertedIdItemList;
     });
 
-    retMapAll = {"identityMap": convertedIdItemListAll};
+    retMapAll = {'identityMap': retMap};
     return retMapAll;
   }
 }

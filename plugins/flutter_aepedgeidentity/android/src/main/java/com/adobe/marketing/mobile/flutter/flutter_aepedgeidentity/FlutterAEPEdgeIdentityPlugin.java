@@ -65,10 +65,10 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
          handlerGetUrlVariables(result);
     } else if ("getIdentities".equals(call.method)) {
           handlerGetIdentities(result);
-   } else if ("updateIdentities".equals(call.method)) {
+    } else if ("updateIdentities".equals(call.method)) {
          handlerUpdateIdentities(call.arguments);
          result.success(null);
-   } else if ("removeIdentities".equals(call.method)) {
+    } else if ("removeIdentities".equals(call.method)) {
          Map item = call.argument("item");
          String namespace = call.argument("namespace");
          handlerRemoveIdentities(item, namespace);
@@ -105,9 +105,9 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
               result.error(Integer.toString(error.getErrorCode()),"getExperienceCloudId - Failed to retrieve Experience Cloud Id",error.getErrorName());
             }
           });
-        }
+        } 
     });
-}
+  }
 
   private void handlerGetUrlVariables(final MethodChannel.Result result) {
       Identity.getUrlVariables(new AdobeCallbackWithError<String>() {
@@ -132,7 +132,7 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
             });
           }
       });
-}
+  }
 
   private void handlerGetIdentities(final MethodChannel.Result result) {
     Identity.getIdentities(new AdobeCallbackWithError<IdentityMap>() {
@@ -158,23 +158,22 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
           });
         }
     });
-}
+  }
+
  @SuppressLint("LongLogTag")
- private void handlerUpdateIdentities(final Object arguments) {
-  if (!(arguments instanceof Map)) {
+  private void handlerUpdateIdentities(final Object arguments) {
+    if (!(arguments instanceof Map)) {
     Log.e(TAG, "Updating Identities failed, arguments are invalid");
     return;
-  } 
+    }
 
-   Map<String, List<Map<String, Object>>> map = (Map) arguments;
-   IdentityMap identityMap = FlutterAEPEdgeIdentityDataBridge.mapToIdentityMap(map);
-   Identity.updateIdentities(identityMap);
-}
+    Map<String,Map<String,List<Map<String,Object>>>> map = (Map) arguments;
+    IdentityMap identityMap = FlutterAEPEdgeIdentityDataBridge.mapToIdentityMap(map);
+    Identity.updateIdentities(identityMap);
+  }
 
- private void handlerRemoveIdentities(final Map item, final String namespace) {
-      Log.d("removeIdentityTag","Calise message here" + item + " " + namespace);
-   IdentityItem itemobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityItem(item);
-   Identity.removeIdentity(itemobj, namespace);
+  private void handlerRemoveIdentities(final Map item, final String namespace) {
+    IdentityItem itemobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityItem(item);
+    Identity.removeIdentity(itemobj, namespace);
+  }
 }
-}
-

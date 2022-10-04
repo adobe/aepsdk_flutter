@@ -24,9 +24,9 @@ class EdgeIdentityPage extends StatefulWidget {
 
 class _MyAppState extends State<EdgeIdentityPage> {
   String _edgeIdentityVersion = 'Unknown';
-  String _getExperienceCloudIdResult = "";
-  String _getUrlVariablesResult = "";
-  String _getIdentitiesResult = "";
+  String _getExperienceCloudIdResult = '';
+  String _getUrlVariablesResult = '';
+  String _getIdentitiesResult = '';
 
   @override
   void initState() {
@@ -51,12 +51,12 @@ class _MyAppState extends State<EdgeIdentityPage> {
   }
 
   Future<void> getExperienceCloudId() async {
-    String result = "";
+    String result = '';
 
     try {
       result = await Identity.getExperienceCloudId;
     } on PlatformException {
-      log("Failed to get Experience Cloud id info");
+      log('Failed to get Experience Cloud id info');
     }
 
     if (!mounted) return;
@@ -66,12 +66,12 @@ class _MyAppState extends State<EdgeIdentityPage> {
   }
 
   Future<void> getUrlVariables() async {
-    String result = "";
+    String result = '';
 
     try {
       result = await Identity.getUrlVariables;
     } on PlatformException {
-      log("Failed to get URL variable info");
+      log('Failed to get URL variable info');
     }
 
     if (!mounted) return;
@@ -82,101 +82,71 @@ class _MyAppState extends State<EdgeIdentityPage> {
 
   Future<void> getIdentities() async {
     IdentityMap result = new IdentityMap();
-    bool test1 = result.isEmpty();
-    print("test1 is: $test1");
 
     try {
       result = await Identity.getIdentities;
     } on PlatformException {
-      log("Failed to get identities");
+      log('Failed to get identities');
     }
 
     if (!mounted) return;
     setState(() {
       _getIdentitiesResult = json.encode(result.toString());
-      bool test2 = result.isEmpty();
-      print("test2 is: $test2");
-      print("loghere $result");
     });
   }
 
   Future<void> updateIdentities() async {
-    //String result = "";
-    String namespace1 = 'namespace1';
-    String id = "id";
-
     IdentityItem item1 =
-        new IdentityItem(id, AuthenticatedState.AUTHENTICATED, true);
-    IdentityItem item2 =
-        new IdentityItem('id2', AuthenticatedState.AUTHENTICATED, false);
-    IdentityItem item3 =
-        new IdentityItem('id3', AuthenticatedState.AUTHENTICATED, false);
+        new IdentityItem('id1', AuthenticatedState.AUTHENTICATED, true);
+    IdentityItem item2_1 =
+        new IdentityItem('id2_1', AuthenticatedState.LOGGED_OUT, false);
+    IdentityItem item2_2 =
+        new IdentityItem('id2_2', AuthenticatedState.AMBIGOUS, false);
 
     IdentityMap identityMap = new IdentityMap();
-    identityMap.addItem(item1, namespace1);
-    identityMap.addItem(item2, "namespace2");
-    //identityMap.addItem(item3, "namespace3");
-
-    bool test1 = identityMap.isEmpty();
+    identityMap.addItem(item1, 'namespace1');
+    identityMap.addItem(item2_1, 'namespace2');
+    identityMap.addItem(item2_2, 'namespace2');
 
     Identity.updateIdentities(identityMap);
-
-    var testnamespace = identityMap.getNamespaces();
-    print("loghere $testnamespace");
-    var testIdentityNamespace =
-        identityMap.getIdentityItemsForNamespace((namespace1));
-    print("loghere $testIdentityNamespace");
   }
 
   Future<void> removeIdentity() async {
-    String namespace1 = 'namespace1';
-    String namespace2 = 'namespace2';
-    //String namespace2 = 'namespace2FromApp2';
-    String id = "id";
+    IdentityItem item2_1 =
+        new IdentityItem('id2_1', AuthenticatedState.LOGGED_OUT, false);
 
-    IdentityItem item1 =
-        new IdentityItem(id, AuthenticatedState.AUTHENTICATED, true);
-    IdentityItem item2 =
-        new IdentityItem('id2', AuthenticatedState.AMBIGOUS, false);
-
-    IdentityMap identityMap = new IdentityMap();
-
-    bool test2 = identityMap.isEmpty();
-    //identityMap.removeItem(item2, namespace1);
-    //identityMap.removeItem(item1, namespace1);
-    Identity.removeIdentities(item1, namespace1);
-    // Identity.removeIdentities(item2, namespace2);
+    Identity.removeIdentities(item2_1, 'namespace2');
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text("Edge Identity Screen")),
+      appBar: AppBar(title: Text('Edge Identity Screen')),
       body: Center(
         child: ListView(shrinkWrap: true, children: <Widget>[
           getRichText(
               'AEPEdgeIdentity extension version: ', '$_edgeIdentityVersion\n'),
           ElevatedButton(
-            child: Text("Identity.getExperienceCloudId()"),
+            child: Text('Identity.getExperienceCloudId()'),
             onPressed: () => getExperienceCloudId(),
           ),
           getRichText(
               'Experience Cloud Id: = ', '$_getExperienceCloudIdResult\n'),
           ElevatedButton(
-            child: Text("Identity.getUrlVariable()"),
+            child: Text('Identity.getUrlVariable()'),
             onPressed: () => getUrlVariables(),
           ),
           getRichText('URL Variable: = ', '$_getUrlVariablesResult\n'),
           ElevatedButton(
-            child: Text("Identity.getIdentites()"),
+            child: Text('Identity.getIdentites()'),
             onPressed: () => getIdentities(),
           ),
           getRichText('Identities: = ', '$_getIdentitiesResult\n'),
           ElevatedButton(
-            child: Text("Identity.updateIdentites()"),
+            child: Text('Identity.updateIdentites()'),
             onPressed: () => updateIdentities(),
           ),
           ElevatedButton(
-            child: Text("Identity.removeIdentity()"),
+            child: Text('Identity.removeIdentity()'),
             onPressed: () => removeIdentity(),
           ),
         ]),

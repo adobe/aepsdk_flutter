@@ -12,11 +12,9 @@ governing permissions and limitations under the License.
 //import 'dart:html';
 
 import 'package:flutter_aepedgeidentity/src/aepedgeidentity_authenticated_state.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 ///IdentityItem defines an identity to be included in an IdentityMap
-/// TO DO: Trying to converting identityMap to Json.
-@JsonSerializable(anyMap: true, explicitToJson: true)
+
 class IdentityItem {
   String _id = '';
   AuthenticatedState _authenticatedState = AuthenticatedState.AMBIGOUS;
@@ -31,13 +29,11 @@ class IdentityItem {
 
   String get id => _id;
 
-  // ///
   AuthenticatedState get authenticatedState => _authenticatedState;
 
-  // ///
   bool get primary => _primary;
 
-  ///Print the instance to String
+  ///Convert to String
   @override
   String toString() {
     return '{id: $id, authenticatedState: $authenticatedState, primary: $primary}';
@@ -46,9 +42,9 @@ class IdentityItem {
   //convert to map
   Map toMap() {
     Map<String, Object> retMap = {};
-    retMap["id"] = id;
-    retMap["authenticatedState"] = authenticatedState.value;
-    retMap["primary"] = primary;
+    retMap['id'] = id;
+    retMap['authenticatedState'] = authenticatedState.value;
+    retMap['primary'] = primary;
 
     return retMap;
   }

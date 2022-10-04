@@ -10,10 +10,7 @@ governing permissions and limitations under the License.
 */
 
 import 'dart:async';
-import 'dart:convert';
-import 'dart:ffi';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity_data.dart';
 
 /// The Adobe Experience Platform Identity for Edge Network
@@ -30,37 +27,32 @@ class Identity {
   static Future<String> get getExperienceCloudId =>
       _channel.invokeMethod('getExperienceCloudId').then((value) => value!);
 
-  ///To do doc
   /// Returns the identifiers in a URL's query parameters for consumption in hybrid mobile applications.
   /// There is no leading &amp; or ? punctuation as the caller is responsible for placing the variables in their resulting URL in the correct locations.
-  /// It will be invoked once the URL Variables are available or rejected if an unexpected error occurred or the request timed out.
-
   static Future<String> get getUrlVariables =>
       _channel.invokeMethod('getUrlVariables').then((value) => value!);
 
-  ///To do doc
-  /// @brief Returns all identifiers, including customer identifiers which were previously added.
+  /// Returns all identifiers, including customer identifiers which were previously added.
+  ///
   /// If there are no identifiers stored in the `Identity` extension, then an empty `IdentityMap` is returned.
-
   static Future<IdentityMap> get getIdentities => _channel
       .invokeMethod<Map<dynamic, dynamic>>('getIdentities')
       .then((value) => toIdentityMap(value));
 
-  ///To do doc
   /// Updates the currently known `IdentityMap` within the SDK.
+  ///
   /// The Identity extension will merge the received identifiers with the previously saved one in an additive manner, no identifiers will be removed using this API.
   /// Identifiers which have an empty  `id` or empty `namespace` are not allowed and are ignored.
 
   static Future<void> updateIdentities(IdentityMap identityMap) =>
       _channel.invokeMethod<void>('updateIdentities', identityMap.toMap());
 
-  /// To do doc
   /// Removes the provided identity item from the stored client-side `IdentityMap`. The Identity extension will stop sending this identifier.
+  ///
   /// - Parameters:
   /// - item: The identity item to remove.
-  /// - withNamespace: The namespace of the Identity to remove.
+  /// - namespace: The namespace of the Identity to remove.
 
-  // To do doc
   static Future<void> removeIdentities(IdentityItem item, String namespace) =>
       _channel.invokeMethod<void>('removeIdentities', <dynamic, dynamic>{
         'item': item.toMap(),
@@ -74,9 +66,9 @@ IdentityMap toIdentityMap(value) {
   for (MapEntry e in value.entries) {
     e.value.forEach((myitem) {
       AuthenticatedState auth =
-          (myitem["authenticatedState"] as String).toAEPAuthState;
+          (myitem['authenticatedState'] as String).toAEPAuthState;
       IdentityItem identityItem =
-          new IdentityItem(myitem["id"], auth, myitem["primary"]);
+          new IdentityItem(myitem['id'], auth, myitem['primary']);
 
       idMap.addItem(identityItem, e.key);
     });

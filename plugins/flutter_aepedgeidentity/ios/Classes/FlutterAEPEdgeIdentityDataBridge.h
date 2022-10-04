@@ -21,7 +21,7 @@ governing permissions and limitations under the License.
 
 + (AEPIdentityItem *_Nullable)dictionaryToIdentityItem: (nullable NSDictionary *) dict;
 
-+ (AEPAuthenticatedState) authStateFromString: (nullable NSString *) authStateString;
++ (AEPAuthenticatedState)authStateFromString: (nullable NSString *) authStateString;
 
 + (NSString *_Nullable)stringFromAuthState: (AEPAuthenticatedState) authState;
 

@@ -10,7 +10,8 @@ governing permissions and limitations under the License.
 */
 
 /// Authenticated State is a state defines for IdentityItem
-/// The possible authenticated state are Ambiguous, Autheticated and LoggedOut
+///
+/// The possible authenticated state are ambiguous, authenticated and loggedOut
 
 enum AuthenticatedState { AUTHENTICATED, LOGGED_OUT, AMBIGOUS }
 
