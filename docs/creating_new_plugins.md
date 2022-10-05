@@ -2,7 +2,7 @@
 
 ## Initial Setup
 
-1. Make sure you have [flutter installed](https://docs.flutter.dev/get-started/install/macos) on your machine.
+1. Make sure you have [Flutter installed](https://docs.flutter.dev/get-started/install/macos) on your machine.
 
 2. Fork [this repository](https://github.com/adobe/aepsdk_flutter)
 
@@ -77,23 +77,23 @@ your_plugin_name:
 
     b. For Android, update the MyApplication.java to register the new extension. If your extension requires native code support to work, add it now.
 
-5. To make sure the ios project is configured correctly, run "flutter pub get" from the "example" directory. Then run a "pod install" from the ios directory. Now open the Runner.xcworkspace and make sure it builds correctly.
+5. To make sure the iOS project is configured correctly, run "flutter pub get" from the "example" directory. Then run a "pod install" from the iOS directory. Now open the Runner.xcworkspace and make sure it builds correctly.
 
-6. To make sure the Android project is configured correctly, open the android directory in Android Studio and make sure the automated gradle scripts work properly. 
+6. To make sure the Android project is configured correctly, open the Android directory in Android Studio and make sure the automated gradle scripts work properly. 
 
 ## Testing:
 
-1. Now, you are ready to test your plugin. Make sure that you have run `flutter pub get` from the example directory, and then a `pod install` from the ios directory.
+1. You may now test your plugin. Make sure that you have run `flutter pub get` from the example directory, followed by `pod install` from the iOS directory.
 
-2. Set up a launch property and add the app id to the native code for both android and ios. 
+2. Set up a launch property and add the app id to the native code for both Android and ios. 
 
-3. Set up an Assurance session. Note that for android the host url is: "aepsdkflutter://adobe" and for iOS it is: "aepsdkflutter://host"
+3. Set up an Assurance session. Note that for Android the host url is: "aepsdkflutter://adobe" and for iOS it is: "aepsdkflutter://host"
 
-4. Testing Android can be done via Android Studio. Simply open the "example/android/" directory in Android Studio and run the app. This works since Flutter is integrated with Android Studio. 
+4. Android testing may be done via Android Studio. Open the "example/android/" directory in Android Studio and run the app. This should work, seamlessly, as Flutter is integrated with Android Studio. 
 
-5. Testing iOS is done by running `flutter pub get` from the example directory, then `pod install` from the example/ios directory. Then, make sure that you have an xcode simulator running (only an ios simulator, close out any android ones). Now from the command line run `flutter run`. 
+5. Testing iOS is done by running `flutter pub get` from the example directory, then `pod install` from the example/ios directory. Then, make sure that you have an xcode simulator running (only an iOS simulator, close out any Android ones). Now from the command line run `flutter run`. 
 
-6. Once the Android/iOS flutter app is running, simply connect your assurance session using the assurance field and begin testing.
+6. Once the Android/iOS Flutter app is running, simply connect your assurance session using the assurance field and begin testing.
 
 7. You can now run the unit tests as well by navigating to your plugin's directory and running `flutter test` from the command line which will run the tests found in the `tests` directory.
 
@@ -109,5 +109,3 @@ your_plugin_name:
 ## Submit Pull Request:
 
 You are now ready to submit a final pull request for approval. Someone from the Adobe team will review your pull request. Once it is approved, we will take care of publishing the plugin using our Pub.dev Adobe Verified Publisher. 
-
-
