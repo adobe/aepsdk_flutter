@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
   String _sdkIdentities = "";
   String _privacyStatus = "";
   String _urlText = '';
+  String _testingSomething = '';
 
   @override
   void initState() {
