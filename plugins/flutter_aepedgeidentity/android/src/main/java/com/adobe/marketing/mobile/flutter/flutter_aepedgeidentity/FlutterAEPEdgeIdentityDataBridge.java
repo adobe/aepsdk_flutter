@@ -128,6 +128,6 @@ class FlutterAEPEdgeIdentityDataBridge {
     }
 
     private static Boolean getBoolean(final Map data, final String key) {
-        return data.containsKey(key) == (data.get(key) instanceof Boolean);
+        return data.containsKey(key) && (data.get(key) instanceof Boolean) ? (Boolean) data.get(key) : null;
     }
 }

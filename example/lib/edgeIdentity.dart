@@ -97,9 +97,9 @@ class _MyAppState extends State<EdgeIdentityPage> {
 
   Future<void> updateIdentities() async {
     IdentityItem item1 =
-        new IdentityItem('id1', AuthenticatedState.AUTHENTICATED, true);
+        new IdentityItem('id1', AuthenticatedState.AUTHENTICATED, false);
     IdentityItem item2_1 =
-        new IdentityItem('id2_1', AuthenticatedState.LOGGED_OUT, false);
+        new IdentityItem('id2_1', AuthenticatedState.LOGGED_OUT, true);
     IdentityItem item2_2 =
         new IdentityItem('id2_2', AuthenticatedState.AMBIGOUS, false);
 
