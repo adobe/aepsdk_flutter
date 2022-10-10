@@ -62,16 +62,16 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
     } else if ("getExperienceCloudId".equals(call.method)) {
          handleGetExperienceCloudId(result);
     } else if ("getUrlVariables".equals(call.method)) {
-         handlerGetUrlVariables(result);
+         handleGetUrlVariables(result);
     } else if ("getIdentities".equals(call.method)) {
-          handlerGetIdentities(result);
+          handleGetIdentities(result);
     } else if ("updateIdentities".equals(call.method)) {
-         handlerUpdateIdentities(call.arguments);
+         handleUpdateIdentities(call.arguments);
          result.success(null);
     } else if ("removeIdentities".equals(call.method)) {
          Map item = call.argument("item");
          String namespace = call.argument("namespace");
-         handlerRemoveIdentities(item, namespace);
+         handleRemoveIdentities(item, namespace);
          result.success(null);
   }
     else {
@@ -109,7 +109,7 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
     });
   }
 
-  private void handlerGetUrlVariables(final MethodChannel.Result result) {
+  private void handleGetUrlVariables(final MethodChannel.Result result) {
       Identity.getUrlVariables(new AdobeCallbackWithError<String>() {
           @Override
           public void call(final String urlVariables) {
@@ -134,7 +134,7 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
       });
   }
 
-  private void handlerGetIdentities(final MethodChannel.Result result) {
+  private void handleGetIdentities(final MethodChannel.Result result) {
     Identity.getIdentities(new AdobeCallbackWithError<IdentityMap>() {
         @Override
         public void call(IdentityMap map) {
@@ -161,9 +161,9 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
   }
 
  @SuppressLint("LongLogTag")
-  private void handlerUpdateIdentities(final Object arguments) {
+  private void handleUpdateIdentities(final Object arguments) {
     if (!(arguments instanceof Map)) {
-    Log.e(TAG, "Updating Identities failed, arguments are invalid");
+    Log.e(TAG, "Updating Identities failed, passed IdentityMap is invalid");
     return;
     }
 
@@ -172,7 +172,7 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
     Identity.updateIdentities(identityMap);
   }
 
-  private void handlerRemoveIdentities(final Map item, final String namespace) {
+  private void handleRemoveIdentities(final Map item, final String namespace) {
     IdentityItem itemobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityItem(item);
     Identity.removeIdentity(itemobj, namespace);
   }

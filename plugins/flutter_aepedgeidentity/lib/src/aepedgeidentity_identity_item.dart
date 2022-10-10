@@ -20,8 +20,10 @@ class IdentityItem {
   AuthenticatedState _authenticatedState = AuthenticatedState.AMBIGOUS;
   bool _primary = false;
 
-  IdentityItem(final String id, final AuthenticatedState authenticatedState,
-      final bool primary) {
+  IdentityItem(final String id,
+      [final AuthenticatedState authenticatedState =
+          AuthenticatedState.AMBIGOUS,
+      final bool primary = false]) {
     this._id = id;
     this._authenticatedState = authenticatedState;
     this._primary = primary;

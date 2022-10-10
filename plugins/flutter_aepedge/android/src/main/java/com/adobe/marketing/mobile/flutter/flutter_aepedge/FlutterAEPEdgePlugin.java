@@ -88,7 +88,7 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
      @Override
      public void onComplete(final List<EdgeEventHandle> handles) {
 
-        final List<Map> arr = new ArrayList<>();
+        final List<Map> arr = new ArrayList();
         if (handles == null) {
           AndroidUtil.runOnUIThread(new Runnable() {
             @Override

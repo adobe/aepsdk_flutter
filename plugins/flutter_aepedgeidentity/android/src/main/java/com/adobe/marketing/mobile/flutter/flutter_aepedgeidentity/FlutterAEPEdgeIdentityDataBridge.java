@@ -16,15 +16,13 @@ import com.adobe.marketing.mobile.edge.identity.IdentityMap;
 import com.adobe.marketing.mobile.edge.identity.IdentityItem;
 import com.adobe.marketing.mobile.edge.identity.AuthenticatedState;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
+
+import android.annotation.SuppressLint;
+import android.util.Log;
 
 class FlutterAEPEdgeIdentityDataBridge {
 
@@ -35,76 +33,75 @@ class FlutterAEPEdgeIdentityDataBridge {
 
     static Map mapFromIdentityMap(final IdentityMap map) {
 
-
-        if (map == null) {
+        if (map == null || map.isEmpty()){
             return null;
         }
 
-        if (map.isEmpty()) {
-            return new HashMap<>();
-        }
-
-        Map identityMapToMap = new HashMap<>();
+        Map identityMapToMap = new HashMap();
 
         for (String namespace : map.getNamespaces()) {
-            List<IdentityItem> items = map.getIdentityItemsForNamespace(namespace);
-            List itemsAsArray = new ArrayList();
+            List<IdentityItem> identityitems = map.getIdentityItemsForNamespace(namespace);
 
-            for (IdentityItem item : items) {
-                Map itemMap = new HashMap<>();
+            List<Map<String, Object>> identityItemsList = new ArrayList();
 
-                itemMap.put(IS_PRIMARY_KEY, item.isPrimary());
-                itemMap.put(AEP_AUTH_STATE_KEY, item.getAuthenticatedState().getName());
-                itemMap.put(ID_KEY, item.getId());
+            for (IdentityItem item : identityitems) {
+                Map identityItemAsMap = new HashMap();
 
-                itemsAsArray.add(itemMap);
+                identityItemAsMap.put(IS_PRIMARY_KEY, item.isPrimary());
+                identityItemAsMap.put(AEP_AUTH_STATE_KEY, item.getAuthenticatedState().getName());
+                identityItemAsMap.put(ID_KEY, item.getId());
+
+                identityItemsList.add(identityItemAsMap);
             }
 
-            if (itemsAsArray.size() != 0) {
-                identityMapToMap.put(namespace, itemsAsArray);
+            if (identityItemsList.size() != 0) {
+                identityMapToMap.put(namespace, identityItemsList);
             }
         }
         return identityMapToMap;
     }
 
-    static IdentityMap mapToIdentityMap(final Map<String, Map<String, List<Map<String, Object>>> >map) {
+    @SuppressLint("LongLogTag")
+    static IdentityMap mapToIdentityMap(final Map<String, Map<String, List<Map<String, Object>>>>map) {
 
-        if (map == null) {
+        if (map == null || map.isEmpty()) {
             return null;
         }
 
-        IdentityMap identityMapFromFlutterMap = new IdentityMap();
+        IdentityMap identityMap = new IdentityMap();
 
-        Map<String, List<Map<String, Object>>> mapvalue = map.get(IDENTITY_MAP_KEY);
+        Map<String, List<Map<String, Object>>> genericIdentityMap = map.get(IDENTITY_MAP_KEY);
 
-            Iterator<String> itr = mapvalue.keySet().iterator();
-            while (itr.hasNext()) {
-                List<Map<String, Object>> namespaceArray = null;
-                String namespace = itr.next();
-                try {
-                    namespaceArray = (ArrayList) mapvalue.get(namespace);
+        for (Map.Entry<String, List<Map<String, Object>>> entry : genericIdentityMap.entrySet()) {
 
-                } catch(ClassCastException e){
+            String namespace = entry.getKey();
 
-                }
+            List<Map<String, Object>> namespaceList = null;
 
-                if (namespaceArray == null) {
-                    continue;
-                }
-                for (int i = 0; i < namespaceArray.size(); i++) {
-                    Map itemAsMap = namespaceArray.get(i);
-                    IdentityItem item = mapToIdentityItem(itemAsMap);
-                    if (item != null) {
-                        identityMapFromFlutterMap.addItem(item, namespace);
-                    }
-                }
+            try {
+                namespaceList = (ArrayList) genericIdentityMap.get(namespace);
+
+            } catch (ClassCastException e) {
+                Log.d("FlutterAEPEdgeIdentityDataBridge", "mapToIdentityMap: " + e);
             }
 
-        return identityMapFromFlutterMap;
-    }
+            if (namespaceList == null) {
+                continue;
+            }
+
+            for (int i = 0; i < namespaceList.size(); i++) {
+                Map identityItemAsMap = namespaceList.get(i);
+                IdentityItem item = mapToIdentityItem(identityItemAsMap);
+                if (item != null) {
+                    identityMap.addItem(item, namespace);
+                }
+            }
+        }
+        return identityMap;
+      }
 
     static IdentityItem mapToIdentityItem(Map map) {
-        if (map == null) {
+        if (map == null || map.isEmpty()) {
             return null;
         }
 
@@ -120,7 +117,7 @@ class FlutterAEPEdgeIdentityDataBridge {
     // Helper methods
 
     private static AuthenticatedState getAuthenticatedState(final Map data, final String key) {
-        return AuthenticatedState.fromString(data.containsKey(key) && (data.get(key) instanceof String) ? (String) data.get(key) : null);
+        return AuthenticatedState.fromString(getNullableString(data, key));
     }
 
     private static String getNullableString(final Map data, final String key) {

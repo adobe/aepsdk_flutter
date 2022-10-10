@@ -18,7 +18,7 @@ class IdentityMap {
   Map<String, List<IdentityItem>> identityMap = {};
 
   void addItem(IdentityItem item, String namespace) {
-    if (item.id.isEmpty || item.id.length == 0) {
+    if (item.id.isEmpty) {
       return;
     }
 
@@ -66,9 +66,8 @@ class IdentityMap {
           .where((element) => !equalIds(element.id, item.id))
           .toList();
       if (list.length == 0) {
+        /// To Do: Need to validate this
         this
-
-            /// To Do: Need to validate this
             .identityMap
             .removeWhere((key, value) => key == this.identityMap[namespace]);
       } else

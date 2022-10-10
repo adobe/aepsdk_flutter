@@ -43,7 +43,9 @@ class _MyAppState extends State<EdgeIdentityPage> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+    }
 
     setState(() {
       _edgeIdentityVersion = edgeIdentityVersion;
@@ -59,7 +61,9 @@ class _MyAppState extends State<EdgeIdentityPage> {
       log('Failed to get Experience Cloud id info');
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+    }
     setState(() {
       _getExperienceCloudIdResult = result.toString();
     });
@@ -74,7 +78,9 @@ class _MyAppState extends State<EdgeIdentityPage> {
       log('Failed to get URL variable info');
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+    }
     setState(() {
       _getUrlVariablesResult = result.toString();
     });
@@ -89,7 +95,9 @@ class _MyAppState extends State<EdgeIdentityPage> {
       log('Failed to get identities');
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+    }
     setState(() {
       _getIdentitiesResult = json.encode(result.toString());
     });
@@ -100,20 +108,20 @@ class _MyAppState extends State<EdgeIdentityPage> {
         new IdentityItem('id1', AuthenticatedState.AUTHENTICATED, false);
     IdentityItem item2_1 =
         new IdentityItem('id2_1', AuthenticatedState.LOGGED_OUT, true);
-    IdentityItem item2_2 =
-        new IdentityItem('id2_2', AuthenticatedState.AMBIGOUS, false);
+    IdentityItem item2_2 = new IdentityItem('id2_2');
 
     IdentityMap identityMap = new IdentityMap();
     identityMap.addItem(item1, 'namespace1');
     identityMap.addItem(item2_1, 'namespace2');
     identityMap.addItem(item2_2, 'namespace2');
 
+    identityMap.removeItem(item2_1, 'namespace2');
+
     Identity.updateIdentities(identityMap);
   }
 
   Future<void> removeIdentity() async {
-    IdentityItem item2_1 =
-        new IdentityItem('id2_1', AuthenticatedState.LOGGED_OUT, false);
+    IdentityItem item2_1 = new IdentityItem('id2_1');
 
     Identity.removeIdentities(item2_1, 'namespace2');
   }

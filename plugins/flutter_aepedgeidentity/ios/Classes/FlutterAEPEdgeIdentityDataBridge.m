@@ -21,32 +21,32 @@ static NSString* const AUTHENTICATED = @"authenticated";
 static NSString* const LOGGED_OUT = @"loggedOut";
 static NSString* const AMBIGUOUS = @"ambiguous";
 
-+ (NSDictionary *)dictionaryFromIdentityMap: (nullable AEPIdentityMap *) idmap {
-    NSMutableDictionary *mapDict = [NSMutableDictionary dictionary];
++ (NSDictionary *)dictionaryFromIdentityMap: (nullable AEPIdentityMap *) idMap {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
-    if (!idmap){
-        return mapDict;
+    if (!idMap){
+        return dict;
     }
     
-        for (NSString *namespace in idmap.namespaces) {
-            NSArray* items = [idmap getItemsWithNamespace:namespace];
+        for (NSString *namespace in idMap.namespaces) {
+            NSArray* items = [idMap getItemsWithNamespace:namespace];
            
-            NSMutableArray *mapArray = [NSMutableArray array];
+            NSMutableArray *IdenitiyItemsArray = [NSMutableArray array];
             
             for (AEPIdentityItem *item in items){
-              NSMutableDictionary *itemdict = [NSMutableDictionary dictionary];
-              itemdict[IS_PRIMARY_KEY] = @(item.primary);
-              itemdict[AUTH_STATE_KEY] = [FlutterAEPEdgeIdentityDataBridge stringFromAuthState:(item.authenticatedState)];
-              itemdict[ID_KEY] = item.id ;
+              NSMutableDictionary *itemDict = [NSMutableDictionary dictionary];
+              itemDict[IS_PRIMARY_KEY] = @(item.primary);
+              itemDict[AUTH_STATE_KEY] = [FlutterAEPEdgeIdentityDataBridge stringFromAuthState:(item.authenticatedState)];
+              itemDict[ID_KEY] = item.id ;
                 
-              [mapArray addObject:itemdict];
+              [IdenitiyItemsArray addObject:itemDict];
             }
-            if (mapArray.count !=0) {
-                [mapDict setObject:mapArray forKey:namespace];
+            if (IdenitiyItemsArray.count !=0) {
+                [dict setObject:IdenitiyItemsArray forKey:namespace];
             }
         }
       
-        return mapDict;
+        return dict;
     }
 
 + (nonnull AEPIdentityMap  *)dictionaryToIdentityMap: (nonnull NSDictionary *) dict {

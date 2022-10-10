@@ -64,13 +64,13 @@ governing permissions and limitations under the License.
     }
 
 - (void)handleGetIdentities:(FlutterMethodCall *) call result:(FlutterResult)result {
-    [AEPMobileEdgeIdentity getIdentities:^(AEPIdentityMap * _Nullable IdentityMap, NSError * _Nullable error) {
+    [AEPMobileEdgeIdentity getIdentities:^(AEPIdentityMap * _Nullable identityMap, NSError * _Nullable error) {
         
         if (error) {
             result([self flutterErrorFromNSError:error]);
             return;
         } else {
-            result([FlutterAEPEdgeIdentityDataBridge dictionaryFromIdentityMap:IdentityMap]);
+            result([FlutterAEPEdgeIdentityDataBridge dictionaryFromIdentityMap:identityMap]);
         }
     }];
     }
@@ -79,22 +79,22 @@ governing permissions and limitations under the License.
     
     NSDictionary *map = call.arguments;
   
-    AEPIdentityMap *convertMap = [FlutterAEPEdgeIdentityDataBridge dictionaryToIdentityMap:map];
+    AEPIdentityMap *identityMap = [FlutterAEPEdgeIdentityDataBridge dictionaryToIdentityMap:map];
 
-    [AEPMobileEdgeIdentity updateIdentities:(AEPIdentityMap * _Nonnull) convertMap];
+    [AEPMobileEdgeIdentity updateIdentities:(AEPIdentityMap * _Nonnull) identityMap];
 }
 
 -  (void)handleRemoveIdentities:(FlutterMethodCall *) call result:(FlutterResult)result {
     NSDictionary *item = call.arguments[@"item"];
     NSString *namespace = call.arguments[@"namespace"];
     
-    AEPIdentityItem *convertItem = [FlutterAEPEdgeIdentityDataBridge dictionaryToIdentityItem:item];
+    AEPIdentityItem *identityItem = [FlutterAEPEdgeIdentityDataBridge dictionaryToIdentityItem:item];
     
-    if (!convertItem || !namespace) {
+    if (!identityItem || !namespace) {
      return;
      }
 
-     [AEPMobileEdgeIdentity removeIdentityItem:(AEPIdentityItem * _Nonnull) convertItem withNamespace:(NSString * _Nonnull) namespace];
+     [AEPMobileEdgeIdentity removeIdentityItem:(AEPIdentityItem * _Nonnull) identityItem withNamespace:(NSString * _Nonnull) namespace];
 }
 
 - (FlutterError *)flutterErrorFromNSError:(NSError *) error {
