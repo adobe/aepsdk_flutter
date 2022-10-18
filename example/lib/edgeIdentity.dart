@@ -115,8 +115,6 @@ class _MyAppState extends State<EdgeIdentityPage> {
     identityMap.addItem(item2_1, 'namespace2');
     identityMap.addItem(item2_2, 'namespace2');
 
-    identityMap.removeItem(item2_1, 'namespace2');
-
     Identity.updateIdentities(identityMap);
   }
 

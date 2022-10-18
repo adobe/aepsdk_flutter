@@ -54,7 +54,7 @@ class FlutterAEPEdgeIdentityDataBridge {
                 identityItemsList.add(identityItemAsMap);
             }
 
-            if (identityItemsList.size() != 0) {
+            if (!identityItemsList.isEmpty()) {
                 identityMapToMap.put(namespace, identityItemsList);
             }
         }
@@ -76,14 +76,7 @@ class FlutterAEPEdgeIdentityDataBridge {
 
             String namespace = entry.getKey();
 
-            List<Map<String, Object>> namespaceList = null;
-
-            try {
-                namespaceList = (ArrayList) genericIdentityMap.get(namespace);
-
-            } catch (ClassCastException e) {
-                Log.d("FlutterAEPEdgeIdentityDataBridge", "mapToIdentityMap: " + e);
-            }
+            List<Map<String, Object>> namespaceList = entry.getValue();
 
             if (namespaceList == null) {
                 continue;
