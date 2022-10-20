@@ -14,9 +14,9 @@ import 'package:flutter_aepedgeidentity/src/aepedgeidentity_identity_item.dart';
 /// identity map containing a set of end user identities, keyed on either namespace integration code or the namespace ID of the identity.
 
 class IdentityMap {
-  ///add an `IdentityItem` to this `IdentityMap`
   Map<String, List<IdentityItem>> identityMap = {};
 
+  ///add an `IdentityItem` to this `IdentityMap`
   void addItem(IdentityItem item, String namespace) {
     if (item.id.isEmpty) {
       return;
@@ -49,8 +49,14 @@ class IdentityMap {
   }
 
   /// Retrieves the IdentityItems for a given namespace
-  List<IdentityItem>? getIdentityItemsForNamespace(String namespace) {
-    return this.identityMap[namespace];
+  List<IdentityItem> getIdentityItemsForNamespace(String namespace) {
+    if (!this.identityMap.containsKey(namespace)) {
+      return List.empty();
+    }
+
+    List<IdentityItem> itemsFromNamespaceCopy =
+        List.from(this.identityMap[namespace]!);
+    return itemsFromNamespaceCopy;
   }
 
   /// Removes the provided `IdentityItem` for a namespace from the `IdentityMap`

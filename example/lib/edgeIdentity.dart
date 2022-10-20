@@ -65,7 +65,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
       log('Failed to setState, widget is not mounted');
     }
     setState(() {
-      _getExperienceCloudIdResult = result.toString();
+      _getExperienceCloudIdResult = result;
     });
   }
 
@@ -121,7 +121,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
   Future<void> removeIdentity() async {
     IdentityItem item2_1 = new IdentityItem('id2_1');
 
-    Identity.removeIdentities(item2_1, 'namespace2');
+    Identity.removeIdentity(item2_1, 'namespace2');
   }
 
   @override
@@ -138,7 +138,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
           getRichText(
               'Experience Cloud Id: = ', '$_getExperienceCloudIdResult\n'),
           ElevatedButton(
-            child: Text('Identity.getUrlVariable()'),
+            child: Text('Identity.getUrlVariables()'),
             onPressed: () => getUrlVariables(),
           ),
           getRichText('URL Variable: = ', '$_getUrlVariablesResult\n'),

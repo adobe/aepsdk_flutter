@@ -68,10 +68,10 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
     } else if ("updateIdentities".equals(call.method)) {
          handleUpdateIdentities(call.arguments);
          result.success(null);
-    } else if ("removeIdentities".equals(call.method)) {
+    } else if ("removeIdentity".equals(call.method)) {
          Map item = call.argument("item");
          String namespace = call.argument("namespace");
-         handleRemoveIdentities(item, namespace);
+         handleRemoveIdentity(item, namespace);
          result.success(null);
   }
     else {
@@ -127,7 +127,7 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
             AndroidUtil.runOnUIThread(new Runnable() {
               @Override
               public void run() {
-                result.error(Integer.toString(error.getErrorCode()),"getExperienceCloudId - Failed to retrieve Experience Cloud Id",error.getErrorName());
+                result.error(Integer.toString(error.getErrorCode()),"getUrlVariables - failed to retrieve the URL variables",error.getErrorName());
               }
             });
           }
@@ -172,7 +172,7 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
     Identity.updateIdentities(identityMap);
   }
 
-  private void handleRemoveIdentities(final Map item, final String namespace) {
+  private void handleRemoveIdentity(final Map item, final String namespace) {
     IdentityItem itemobj  = FlutterAEPEdgeIdentityDataBridge.mapToIdentityItem(item);
     Identity.removeIdentity(itemobj, namespace);
   }

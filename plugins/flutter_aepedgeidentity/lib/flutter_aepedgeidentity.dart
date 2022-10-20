@@ -37,7 +37,7 @@ class Identity {
   /// If there are no identifiers stored in the `Identity` extension, then an empty `IdentityMap` is returned.
   static Future<IdentityMap> get getIdentities => _channel
       .invokeMethod<Map<dynamic, dynamic>>('getIdentities')
-      .then((value) => toIdentityMap(value));
+      .then((value) => _toIdentityMap(value));
 
   /// Updates the currently known `IdentityMap` within the SDK.
   ///
@@ -53,14 +53,14 @@ class Identity {
   /// - item: The identity item to remove.
   /// - namespace: The namespace of the Identity to remove.
 
-  static Future<void> removeIdentities(IdentityItem item, String namespace) =>
-      _channel.invokeMethod<void>('removeIdentities', <dynamic, dynamic>{
+  static Future<void> removeIdentity(IdentityItem item, String namespace) =>
+      _channel.invokeMethod<void>('removeIdentity', <dynamic, dynamic>{
         'item': item.toMap(),
         'namespace': namespace,
       });
 }
 
-IdentityMap toIdentityMap(value) {
+IdentityMap _toIdentityMap(value) {
   IdentityMap idMap = new IdentityMap();
 
   for (MapEntry e in value.entries) {

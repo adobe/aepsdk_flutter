@@ -24,7 +24,7 @@ static NSString* const AMBIGUOUS = @"ambiguous";
 + (NSDictionary *)dictionaryFromIdentityMap: (nullable AEPIdentityMap *) idMap {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
-    if (!idMap){
+    if (!idMap || [idMap isEmpty]){
         return dict;
     }
     

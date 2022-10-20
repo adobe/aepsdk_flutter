@@ -36,8 +36,8 @@ governing permissions and limitations under the License.
      [self handleGetIdentities:call result:result]; 
   } else if ([@"updateIdentities" isEqualToString:call.method]) {
      [self handleUpdateIdentities:call result:result]; }
-    else if ([@"removeIdentities" isEqualToString:call.method]) {
-     [self handleRemoveIdentities:call result:result]; }
+    else if ([@"removeIdentity" isEqualToString:call.method]) {
+     [self handleRemoveIdentity:call result:result]; }
      else {
       result(FlutterMethodNotImplemented);
   }
@@ -66,7 +66,7 @@ governing permissions and limitations under the License.
 - (void)handleGetIdentities:(FlutterMethodCall *) call result:(FlutterResult)result {
     [AEPMobileEdgeIdentity getIdentities:^(AEPIdentityMap * _Nullable identityMap, NSError * _Nullable error) {
         
-        if (error) {
+        if (error && error.code != AEPErrorNone) {
             result([self flutterErrorFromNSError:error]);
             return;
         } else {
@@ -84,7 +84,7 @@ governing permissions and limitations under the License.
     [AEPMobileEdgeIdentity updateIdentities:(AEPIdentityMap * _Nonnull) identityMap];
 }
 
--  (void)handleRemoveIdentities:(FlutterMethodCall *) call result:(FlutterResult)result {
+-  (void)handleRemoveIdentity:(FlutterMethodCall *) call result:(FlutterResult)result {
     NSDictionary *item = call.arguments[@"item"];
     NSString *namespace = call.arguments[@"namespace"];
     
