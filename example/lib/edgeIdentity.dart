@@ -45,6 +45,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
     // setState to update our non-existent appearance.
     if (!mounted) {
       log('Failed to setState, widget is not mounted');
+      return;
     }
 
     setState(() {
@@ -63,6 +64,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
 
     if (!mounted) {
       log('Failed to setState, widget is not mounted');
+      return;
     }
     setState(() {
       _getExperienceCloudIdResult = result;
@@ -80,6 +82,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
 
     if (!mounted) {
       log('Failed to setState, widget is not mounted');
+      return;
     }
     setState(() {
       _getUrlVariablesResult = result.toString();
@@ -97,7 +100,9 @@ class _MyAppState extends State<EdgeIdentityPage> {
 
     if (!mounted) {
       log('Failed to setState, widget is not mounted');
+      return;
     }
+
     setState(() {
       _getIdentitiesResult = json.encode(result.toString());
     });
