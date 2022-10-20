@@ -72,10 +72,7 @@ class IdentityMap {
           .where((element) => !equalIds(element.id, item.id))
           .toList();
       if (list.length == 0) {
-        /// To Do: Need to validate this
-        this
-            .identityMap
-            .removeWhere((key, value) => key == this.identityMap[namespace]);
+        this.identityMap.remove(namespace);
       } else
         this.identityMap[namespace] = list;
     }
