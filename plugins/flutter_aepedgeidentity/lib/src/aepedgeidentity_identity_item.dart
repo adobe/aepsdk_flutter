@@ -29,6 +29,11 @@ class IdentityItem {
     this._primary = primary;
   }
 
+  //clone for a deep copy
+  factory IdentityItem.clone(IdentityItem source) {
+    return IdentityItem(source.id, source.authenticatedState, source.primary);
+  }
+
   String get id => _id;
 
   AuthenticatedState get authenticatedState => _authenticatedState;

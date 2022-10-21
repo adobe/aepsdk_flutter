@@ -54,8 +54,11 @@ class IdentityMap {
       return List.empty();
     }
 
-    List<IdentityItem> itemsFromNamespaceCopy =
-        List.from(this.identityMap[namespace]!);
+    List<IdentityItem> itemsFromNamespaceCopy = this
+        .identityMap[namespace]!
+        .map((items) => IdentityItem.clone(items))
+        .toList();
+
     return itemsFromNamespaceCopy;
   }
 
