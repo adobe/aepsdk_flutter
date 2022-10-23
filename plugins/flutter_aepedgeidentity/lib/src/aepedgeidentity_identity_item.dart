@@ -17,12 +17,12 @@ import 'package:flutter_aepedgeidentity/src/aepedgeidentity_authenticated_state.
 
 class IdentityItem {
   String _id = '';
-  AuthenticatedState _authenticatedState = AuthenticatedState.AMBIGOUS;
+  AuthenticatedState _authenticatedState = AuthenticatedState.AMBIGUOUS;
   bool _primary = false;
 
   IdentityItem(final String id,
       [final AuthenticatedState authenticatedState =
-          AuthenticatedState.AMBIGOUS,
+          AuthenticatedState.AMBIGUOUS,
       final bool primary = false]) {
     this._id = id;
     this._authenticatedState = authenticatedState;

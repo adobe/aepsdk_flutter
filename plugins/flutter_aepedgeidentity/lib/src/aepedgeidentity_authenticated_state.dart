@@ -13,7 +13,7 @@ governing permissions and limitations under the License.
 ///
 /// The possible authenticated state are ambiguous, authenticated and loggedOut
 
-enum AuthenticatedState { AUTHENTICATED, LOGGED_OUT, AMBIGOUS }
+enum AuthenticatedState { AUTHENTICATED, LOGGED_OUT, AMBIGUOUS }
 
 extension AEPAuthStateExt on AuthenticatedState {
   String get value {
@@ -22,7 +22,7 @@ extension AEPAuthStateExt on AuthenticatedState {
         return 'loggedOut';
       case AuthenticatedState.AUTHENTICATED:
         return 'authenticated';
-      case AuthenticatedState.AMBIGOUS:
+      case AuthenticatedState.AMBIGUOUS:
         return 'ambiguous';
     }
   }
@@ -36,8 +36,8 @@ extension AEPAuthStateValueExt on String {
       case 'loggedOut':
         return AuthenticatedState.LOGGED_OUT;
       case 'ambiguous':
-        return AuthenticatedState.AMBIGOUS;
+        return AuthenticatedState.AMBIGUOUS;
     }
-    return AuthenticatedState.AMBIGOUS;
+    return AuthenticatedState.AMBIGUOUS;
   }
 }
