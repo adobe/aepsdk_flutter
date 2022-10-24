@@ -15,6 +15,7 @@ import 'assurance.dart';
 import 'edge.dart';
 import 'consent.dart';
 import 'identity.dart';
+import 'edgeIdentity.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -67,6 +68,15 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ConsentPage()));
+              },
+            ),
+            ElevatedButton(
+              child: const Text('EDGE IDENTITY'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => EdgeIdentityPage()));
               },
             ),
           ]),

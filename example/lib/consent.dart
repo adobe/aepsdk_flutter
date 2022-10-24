@@ -10,7 +10,6 @@ governing permissions and limitations under the License.
 */
 
 import 'dart:developer';
-
 import 'util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,7 +44,10 @@ class _MyAppState extends State<ConsentPage> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
 
     setState(() {
       _consentVersion = consentVersion;
@@ -61,7 +63,11 @@ class _MyAppState extends State<ConsentPage> {
       log("Failed to get consent info");
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
     setState(() {
       _getConsentsResult = result.toString();
     });

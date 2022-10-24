@@ -47,7 +47,10 @@ class _MyAppState extends State<CorePage> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
 
     setState(() {
       _coreVersion = coreVersion;
@@ -65,7 +68,11 @@ class _MyAppState extends State<CorePage> {
       log("Failed to get sdk identities");
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
     setState(() {
       _sdkIdentities = result;
     });
@@ -80,7 +87,11 @@ class _MyAppState extends State<CorePage> {
       log("Failed to get privacy status");
     }
 
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
     setState(() {
       _privacyStatus = result.value;
     });

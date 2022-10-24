@@ -9,9 +9,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'package:flutter/material.dart';
 import 'dart:developer';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
 
 class AssurancePage extends StatefulWidget {
@@ -38,7 +37,10 @@ class _MyAppState extends State<AssurancePage> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
 
     setState(() {
       _assuranceVersion = assuranceVersion;
