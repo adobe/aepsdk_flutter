@@ -212,10 +212,6 @@ void main() {
 
   group('removeIdentities', () {
     IdentityItem item1 = new IdentityItem('id1');
-    IdentityItem item2 =
-        new IdentityItem('id2', AuthenticatedState.AUTHENTICATED, true);
-
-    IdentityMap idmap = new IdentityMap();
 
     Map<dynamic, dynamic> expectedMap = {
       'item': {
@@ -236,14 +232,11 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      //     idmap.addItem(item1, "namespace1");
-      //     idmap.addItem(item2, "namespace2");
+      await Identity.removeIdentity(item1, 'namespace1');
 
-      //     await Identity.removeIdentity(item1, 'namespace1');
-
-      //     expect(log, <Matcher>[
-      //       isMethodCall('removeIdentity', arguments: expectedMap.toString()),
-      //     ]);
+      expect(log, <Matcher>[
+        isMethodCall('removeIdentity', arguments: expectedMap),
+      ]);
     });
   });
 }
