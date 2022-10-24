@@ -21,8 +21,9 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 Run:
 
-```bash
-flutter test
+```
+$ cd plugins/flutter_aepedge/
+$ flutter test
 ```
 
 ## Usage
@@ -102,10 +103,13 @@ public class MainApplication extends FlutterApplication {
 In your Flutter application, import the Edge extension as follows:
 ```dart
 import 'package:flutter_aepedge/flutter_aepedge.dart';
+import 'package:flutter_aepedge/flutter_aepedge_data.dart';
 ```
 ------
 ## API reference
 ### extensionVersion
+Returns the SDK version of the Edge Network extension
+
 **Syntax**
 ```dart
 static Future<String> get extensionVersion
@@ -117,6 +121,7 @@ String version = await Edge.extensionVersion;
  ```
 ------
 ### sendEvent
+Sends an Experience event to Adobe Experience Platform Edge Network.
 
 **Syntax**
 ```dart
@@ -138,6 +143,7 @@ List<EventHandle> result = await Edge.sendEvent(experienceEvent);
 ------
 ### Public classes
 #### ExperienceEvent
+Experience Event is the event to be sent to Adobe Experience Platform Edge Network. The XDM data is required for any Experience Event being sent using the Edge extension.
 
 ##### Create Experience Event from Dictionary:
 
@@ -181,6 +187,13 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
   "data": data,
   "datasetIdentifier": "datasetIdExample"
 });
+```
+#### EventHandle
+The EventHandle is a response fragment from Adobe Experience Platform Edge Network for a sent XDM Experience Event. One event can receive none, one or multiple EdgeEventHandle(s) as response.
+
+```dart
+static const String _type = 'type';
+static const String _payload = 'payload';
 ```
 
 ## Contributing

@@ -52,7 +52,6 @@ class _MyAppState extends State<EdgePage> {
   Future<void> sendEvent([datasetId]) async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
-    Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceEvent = ExperienceEvent(
         {"xdmData": xdmData, "data": null, "datasetIdentifier": null});

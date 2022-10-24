@@ -20,8 +20,9 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 Run:
 
-```bash
-flutter test
+```
+$ cd plugins/flutter_aepedgeconsent/
+$ flutter test
 ```
 
 ## Usage
@@ -110,6 +111,8 @@ import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 ------
 ## API reference
 ### extensionVersion
+Returns the SDK version of the Identity for Edge Consent extension
+
 **Syntax**
 ```dart
 static Future<String> get extensionVersion
@@ -120,7 +123,8 @@ static Future<String> get extensionVersion
 String version = await Consent.extensionVersion;
 ```
 ------
-### Getting Current Consent Preference:
+### getConsents:
+Retrieves the current consent preferences stored in the Consent extension.
 
 **Syntax**
 ```dart
@@ -137,7 +141,8 @@ Map<String, dynamic> result = {};
     }
 ```
 ------
-### Update Consent:
+### updateConsents:
+Merges the existing consents with the given consents. Duplicate keys will take the value of those passed in the API.
 
 **Syntax**
 ```dart

@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity.dart';
+import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity_data.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('flutter_aepedgeidentity');
@@ -42,6 +43,207 @@ void main() {
 
     test('returns correct result', () async {
       expect(await Identity.extensionVersion, testVersion);
+    });
+  });
+
+  group('getExperienceCloudId', () {
+    final String testECID = "test-ecid";
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return testECID;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Identity.getExperienceCloudId;
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'getExperienceCloudId',
+          arguments: null,
+        ),
+      ]);
+    });
+
+    test('returns correct result', () async {
+      expect(await Identity.getExperienceCloudId, testECID);
+    });
+  });
+
+  group('getUrlVariables', () {
+    final String expectedVariables = "%20&arg=20";
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return expectedVariables;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Identity.getUrlVariables;
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'getUrlVariables',
+          arguments: null,
+        ),
+      ]);
+    });
+
+    test('returns correct result', () async {
+      expect(await Identity.getUrlVariables, expectedVariables);
+    });
+  });
+
+  group('getIdentities with addItem', () {
+    IdentityItem item1 =
+        new IdentityItem('id1', AuthenticatedState.AUTHENTICATED, false);
+    IdentityItem item2 =
+        new IdentityItem('id2', AuthenticatedState.LOGGED_OUT, true);
+
+    Map<dynamic, dynamic> expectedMap = {
+      'namespace1': [item1],
+      'namespace2': [item2]
+    };
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return {};
+      });
+    });
+
+    test('returns correct result', () async {
+      IdentityMap currentIdentity = await Identity.getIdentities;
+      currentIdentity.addItem(item1, "namespace1");
+      currentIdentity.addItem(item2, "namespace2");
+
+      expect(currentIdentity.identityMap.toString(), expectedMap.toString());
+      expect(currentIdentity.getNamespaces().length, equals(2));
+      expect(currentIdentity.isEmpty(), equals(false));
+      expect(currentIdentity.getIdentityItemsForNamespace('namespace1').length,
+          equals(1));
+    });
+  });
+
+  group('getIdentities with removeItem', () {
+    IdentityItem item1 =
+        new IdentityItem('id1', AuthenticatedState.AUTHENTICATED, false);
+    IdentityItem item2 =
+        new IdentityItem('id2', AuthenticatedState.LOGGED_OUT, true);
+
+    Map<dynamic, dynamic> expectedMap = {
+      'namespace1': [item1],
+    };
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return {};
+      });
+    });
+
+    test('returns correct result', () async {
+      IdentityMap currentIdentity = await Identity.getIdentities;
+      currentIdentity.addItem(item1, "namespace1");
+      currentIdentity.addItem(item2, "namespace2");
+
+      currentIdentity.removeItem(item2, "namespace2");
+
+      expect(currentIdentity.identityMap.toString(), expectedMap.toString());
+      expect(currentIdentity.getNamespaces().length, equals(1));
+      expect(currentIdentity.isEmpty(), equals(false));
+      expect(currentIdentity.getIdentityItemsForNamespace('namespace1').length,
+          equals(1));
+    });
+  });
+
+  group('updateIdentities', () {
+    IdentityItem item1 = new IdentityItem('id1');
+    IdentityItem item2 =
+        new IdentityItem('id2', AuthenticatedState.AUTHENTICATED, true);
+
+    IdentityMap idmap = new IdentityMap();
+
+    Map<dynamic, dynamic> expectedMap = {
+      'identityMap': {
+        'namespace1': [
+          {'id': 'id1', 'authenticatedState': 'ambiguous', 'primary': false}
+        ],
+        'namespace2': [
+          {'id': 'id2', 'authenticatedState': 'authenticated', 'primary': true}
+        ]
+      }
+    };
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return expectedMap;
+      });
+    });
+
+    test('invokes correct method', () async {
+      idmap.addItem(item1, "namespace1");
+      idmap.addItem(item2, "namespace2");
+
+      await Identity.updateIdentities(idmap);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'updateIdentities',
+          arguments: expectedMap,
+        ),
+      ]);
+    });
+  });
+
+  group('removeIdentities', () {
+    IdentityItem item1 = new IdentityItem('id1');
+    IdentityItem item2 =
+        new IdentityItem('id2', AuthenticatedState.AUTHENTICATED, true);
+
+    IdentityMap idmap = new IdentityMap();
+
+    Map<dynamic, dynamic> expectedMap = {
+      'item': {
+        'id': 'id1',
+        'authenticatedState': 'ambiguous',
+        'primary': false
+      },
+      'namespace': 'namespace1'
+    };
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return null;
+      });
+    });
+
+    test('invokes correct method', () async {
+      //     idmap.addItem(item1, "namespace1");
+      //     idmap.addItem(item2, "namespace2");
+
+      //     await Identity.removeIdentity(item1, 'namespace1');
+
+      //     expect(log, <Matcher>[
+      //       isMethodCall('removeIdentity', arguments: expectedMap.toString()),
+      //     ]);
     });
   });
 }
