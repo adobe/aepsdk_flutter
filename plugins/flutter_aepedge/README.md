@@ -104,7 +104,7 @@ import 'package:flutter_aepedge/flutter_aepedge.dart';
 ------
 ## API reference
 ### extensionVersion
-Returns the SDK version of the Edge Network extension
+Returns the SDK version of the Edge Network extension.
 
 **Syntax**
 ```dart

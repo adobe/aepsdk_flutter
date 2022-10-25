@@ -209,7 +209,7 @@ void main() {
     });
   });
 
-  group('removeIdentities', () {
+  group('removeIdentity', () {
     IdentityItem item1 = new IdentityItem('id1');
 
     Map<dynamic, dynamic> expectedMap = {
