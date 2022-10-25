@@ -51,9 +51,10 @@ class _MyAppState extends State<EdgePage> {
   Future<void> sendEvent([datasetId]) async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceEvent = ExperienceEvent(
-        {"xdmData": xdmData, "data": null, "datasetIdentifier": null});
+        {"xdmData": xdmData, "data": data, "datasetIdentifier": null});
 
     result = await Edge.sendEvent(experienceEvent);
 
@@ -80,7 +81,7 @@ class _MyAppState extends State<EdgePage> {
           ),
           ElevatedButton(
             child: Text("Edge.sentEvent to Dataset"),
-            onPressed: () => sendEvent('free": "form", "data": "example'),
+            onPressed: () => sendEvent('datasetIdExample'),
           ),
           getRichText(
               'Response event handles: = ', '$_edgeEventHandleResponse\n'),
