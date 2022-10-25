@@ -13,7 +13,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity_data.dart';
 import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity.dart';
 import 'util.dart';
 
@@ -57,7 +56,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
     String result = '';
 
     try {
-      result = await Identity.getExperienceCloudId;
+      result = await Identity.experienceCloudId;
     } on PlatformException {
       log('Failed to get Experience Cloud id info');
     }
@@ -75,7 +74,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
     String result = '';
 
     try {
-      result = await Identity.getUrlVariables;
+      result = await Identity.urlVariables;
     } on PlatformException {
       log('Failed to get URL variable info');
     }
@@ -93,7 +92,7 @@ class _MyAppState extends State<EdgeIdentityPage> {
     IdentityMap result = new IdentityMap();
 
     try {
-      result = await Identity.getIdentities;
+      result = await Identity.identities;
     } on PlatformException {
       log('Failed to get identities');
     }

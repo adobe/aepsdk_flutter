@@ -22,7 +22,6 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 Run:
 
 ```
-$ cd plugins/flutter_aepedge/
 $ flutter test
 ```
 
@@ -56,8 +55,6 @@ iOS
      // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
     NSString* ENVIRONMENT_FILE_ID = @"YOUR-APP-ID";
     
-    const UIApplicationState appState = application.applicationState;
-
     NSArray *extensionsToRegister = @[AEPMobileEdgeIdentity.class, 
                                       AEPMobileEdge.class                                             
                                       ];
@@ -103,7 +100,6 @@ public class MainApplication extends FlutterApplication {
 In your Flutter application, import the Edge extension as follows:
 ```dart
 import 'package:flutter_aepedge/flutter_aepedge.dart';
-import 'package:flutter_aepedge/flutter_aepedge_data.dart';
 ```
 ------
 ## API reference

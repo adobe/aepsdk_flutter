@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity_data.dart';
+export 'package:flutter_aepedgeidentity/flutter_aepedgeidentity_data.dart';
 
 /// The Adobe Experience Platform Identity for Edge Network
 
@@ -24,18 +25,18 @@ class Identity {
       _channel.invokeMethod('extensionVersion').then((value) => value!);
 
   /// Returns the Experience Cloud ID. An empty string is returned if the Experience Cloud ID was previously cleared.
-  static Future<String> get getExperienceCloudId =>
+  static Future<String> get experienceCloudId =>
       _channel.invokeMethod('getExperienceCloudId').then((value) => value!);
 
   /// Returns the identifiers in a URL's query parameters for consumption in hybrid mobile applications.
   /// There is no leading &amp; or ? punctuation as the caller is responsible for placing the variables in their resulting URL in the correct locations.
-  static Future<String> get getUrlVariables =>
+  static Future<String> get urlVariables =>
       _channel.invokeMethod('getUrlVariables').then((value) => value!);
 
   /// Returns all identifiers, including customer identifiers which were previously added.
   ///
   /// If there are no identifiers stored in the `Identity` extension, then an empty `IdentityMap` is returned.
-  static Future<IdentityMap> get getIdentities => _channel
+  static Future<IdentityMap> get identities => _channel
       .invokeMethod<Map<dynamic, dynamic>>('getIdentities')
       .then((value) => _toIdentityMap(value));
 

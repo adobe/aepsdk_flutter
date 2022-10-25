@@ -21,7 +21,6 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 Run:
 
 ```
-$ cd plugins/flutter_aepedgeconsent/
 $ flutter test
 ```
 
@@ -56,8 +55,6 @@ iOS
      // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
     NSString* ENVIRONMENT_FILE_ID = @"YOUR-APP-ID";
     
-    const UIApplicationState appState = application.applicationState;
-
     NSArray *extensionsToRegister = @[AEPMobileEdgeIdentity.class, 
                                       AEPMobileEdge.class,                                              
                                       AEPMobileEdgeConsent.class
@@ -111,7 +108,7 @@ import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 ------
 ## API reference
 ### extensionVersion
-Returns the SDK version of the Identity for Edge Consent extension
+Returns the SDK version of the Consent extension.
 
 **Syntax**
 ```dart
@@ -123,7 +120,7 @@ static Future<String> get extensionVersion
 String version = await Consent.extensionVersion;
 ```
 ------
-### getConsents:
+### getConsents
 Retrieves the current consent preferences stored in the Consent extension.
 
 **Syntax**
@@ -141,7 +138,7 @@ Map<String, dynamic> result = {};
     }
 ```
 ------
-### updateConsents:
+### updateConsents
 Merges the existing consents with the given consents. Duplicate keys will take the value of those passed in the API.
 
 **Syntax**

@@ -12,7 +12,6 @@ governing permissions and limitations under the License.
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity.dart';
-import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity_data.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('flutter_aepedgeidentity');
@@ -58,7 +57,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await Identity.getExperienceCloudId;
+      await Identity.experienceCloudId;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -69,7 +68,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await Identity.getExperienceCloudId, testECID);
+      expect(await Identity.experienceCloudId, testECID);
     });
   });
 
@@ -86,7 +85,7 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await Identity.getUrlVariables;
+      await Identity.urlVariables;
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -97,7 +96,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      expect(await Identity.getUrlVariables, expectedVariables);
+      expect(await Identity.urlVariables, expectedVariables);
     });
   });
 
@@ -122,7 +121,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      IdentityMap currentIdentity = await Identity.getIdentities;
+      IdentityMap currentIdentity = await Identity.identities;
       currentIdentity.addItem(item1, "namespace1");
       currentIdentity.addItem(item2, "namespace2");
 
@@ -154,7 +153,7 @@ void main() {
     });
 
     test('returns correct result', () async {
-      IdentityMap currentIdentity = await Identity.getIdentities;
+      IdentityMap currentIdentity = await Identity.identities;
       currentIdentity.addItem(item1, "namespace1");
       currentIdentity.addItem(item2, "namespace2");
 

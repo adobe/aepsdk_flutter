@@ -11,7 +11,6 @@ governing permissions and limitations under the License.
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_aepedge/flutter_aepedge_data.dart';
 import 'package:flutter_aepedge/flutter_aepedge.dart';
 import 'util.dart';
 
@@ -81,7 +80,7 @@ class _MyAppState extends State<EdgePage> {
           ),
           ElevatedButton(
             child: Text("Edge.sentEvent to Dataset"),
-            onPressed: () => sendEvent('datasetIdExample'),
+            onPressed: () => sendEvent('free": "form", "data": "example'),
           ),
           getRichText(
               'Response event handles: = ', '$_edgeEventHandleResponse\n'),
