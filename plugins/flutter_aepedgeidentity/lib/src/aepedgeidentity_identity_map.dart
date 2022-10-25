@@ -23,12 +23,12 @@ class IdentityMap {
     }
 
     ///add item to the existing namespace
-    IdentityItem itemCopy = copyItem(item);
+    IdentityItem itemCopy = _copyItem(item);
 
     if (this.identityMap[namespace] != null) {
       int index = this
           .identityMap[namespace]!
-          .indexWhere((element) => equalIds(element.id, itemCopy.id));
+          .indexWhere((element) => _equalIds(element.id, itemCopy.id));
       if (index != -1) {
         this.identityMap[namespace]![index] = itemCopy;
       } else
@@ -72,7 +72,7 @@ class IdentityMap {
     if (this.identityMap[namespace] != null) {
       List<IdentityItem> list = this
           .identityMap[namespace]!
-          .where((element) => !equalIds(element.id, item.id))
+          .where((element) => !_equalIds(element.id, item.id))
           .toList();
       if (list.length == 0) {
         this.identityMap.remove(namespace);
@@ -87,13 +87,13 @@ class IdentityMap {
     return '{identityMap: $identityMap}';
   }
 
-  IdentityItem copyItem(IdentityItem item) {
+  IdentityItem _copyItem(IdentityItem item) {
     IdentityItem clonedItem =
         new IdentityItem(item.id, item.authenticatedState, item.primary);
     return clonedItem;
   }
 
-  bool equalIds(String id1, String id2) {
+  bool _equalIds(String id1, String id2) {
     return id1.toLowerCase() == id2.toLowerCase();
   }
 
