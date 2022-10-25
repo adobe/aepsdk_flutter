@@ -70,25 +70,57 @@ void main() {
           expectedItemsForNamespace1[1].authenticatedState);
       expect(actualItemsForNamespace1[1].primary,
           expectedItemsForNamespace1[1].primary);
-
-      //test a non-existed namespace
-      final int actualItemsForNamespace3Length =
-          idMap.getIdentityItemsForNamespace('namespace3').length;
-      expect(actualItemsForNamespace3Length, equals(0));
-
-      //test an invalid namespace
-      final int actualItemsForNamespaceInvalidLength =
-          idMap.getIdentityItemsForNamespace('invalid').length;
-      expect(actualItemsForNamespaceInvalidLength, equals(0));
-
-      //test an empty namespace
-      final int actualItemsForNamespaceEmptyLength =
-          idMap.getIdentityItemsForNamespace('').length;
-      expect(actualItemsForNamespaceEmptyLength, equals(0));
     });
   });
 
-  group('IdentityMap addItem replaces items with same id', () {
+  group('IdentityMap getIdentityItemsForNamespace', () {
+    IdentityItem item1 =
+        new IdentityItem('id1', AuthenticatedState.AMBIGUOUS, true);
+    IdentityItem item2 =
+        new IdentityItem('id2', AuthenticatedState.AUTHENTICATED, false);
+    IdentityItem item3 = new IdentityItem('id3', AuthenticatedState.LOGGED_OUT);
+    IdentityItem item4 = new IdentityItem('id4');
+
+    IdentityMap idMap = new IdentityMap();
+    idMap.addItem(item1, 'namespace1');
+    idMap.addItem(item2, 'namespace1');
+    idMap.addItem(item3, 'namespace2');
+    idMap.addItem(item4, 'namespace2');
+
+    List<IdentityItem> expectedItemsForNamespace1 = <IdentityItem>[
+      item1,
+      item2
+    ];
+
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return expectedItemsForNamespace1;
+      });
+    });
+
+    test('test a non-existed namespace', () async {
+      final int actualItemsForNamespace3Length =
+          idMap.getIdentityItemsForNamespace('namespace3').length;
+      expect(actualItemsForNamespace3Length, equals(0));
+    });
+
+    test('test an invalid namespace', () async {
+      final int actualItemsForNamespaceInvalidLength =
+          idMap.getIdentityItemsForNamespace('invalid').length;
+      expect(actualItemsForNamespaceInvalidLength, equals(0));
+    });
+
+    test('test an empty namespace', () async {
+      final int actualItemsForNamespaceInvalidLength =
+          idMap.getIdentityItemsForNamespace('invalid').length;
+      expect(actualItemsForNamespaceInvalidLength, equals(0));
+    });
+  });
+
+  group('IdentityMap addItem', () {
     IdentityItem item1 =
         new IdentityItem('id1', AuthenticatedState.AMBIGUOUS, true);
 
@@ -112,15 +144,14 @@ void main() {
     setUp(() {
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
         log.add(methodCall);
-        return expectedSameIdSameItem;
+        return {};
       });
     });
 
-    test('is validated', () async {
+    test('same id and same item, should ignore the new added item', () async {
       final List<IdentityItem> actualSameIdSameItem =
           idMap.getIdentityItemsForNamespace('namespace1');
 
-      //test add item with same id and same item, should ignore the new added item
       final int actualSameIdSameItemLength =
           idMap.getIdentityItemsForNamespace('namespace1').length;
 
@@ -130,8 +161,9 @@ void main() {
           expectedSameIdSameItem[0].authenticatedState);
       expect(
           actualSameIdSameItem[0].primary, expectedSameIdSameItem[0].primary);
+    });
 
-      //test add item with same id but different item, should replace existing item
+    test('same id but different item, should replace existing item', () async {
       idMap.addItem(item2, 'namespace1');
       final int actualSameIdDiffItemLength =
           idMap.getIdentityItemsForNamespace('namespace1').length;
@@ -193,8 +225,10 @@ void main() {
           expectedItemsForNamespace2[0].authenticatedState);
       expect(actualItemsForNamespace2[0].primary,
           expectedItemsForNamespace2[0].primary);
-
-      //test removeAllItems in namespace2, namespace2 should be removed
+    });
+    test('test removeAllItems in namespace2, namespace2 should be removed',
+        () async {
+      //test with getNamespaces()
       idMap.removeItem(item3, 'namespace2');
       expect(
           idMap.getIdentityItemsForNamespace('namespace2').length, equals(0));
