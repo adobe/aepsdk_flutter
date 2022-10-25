@@ -124,7 +124,7 @@ static Future<String> get experienceCloudId
 
 **Example**
 ```dart
-String result = await Identity.getExperienceCloudId;
+String result = await Identity.experienceCloudId;
 ```
 ------
 ### getIdentities
@@ -137,7 +137,7 @@ static Future<IdentityMap> get identities
 
 **Example**
 ```dart
-IdentityMap result = await Identity.getIdentities;
+IdentityMap result = await Identity.identities;
 ```
 ------
 ### getUrlVariables
@@ -155,7 +155,7 @@ static Future<String> get urlVariables
 
 **Example**
 ```dart
-String result = await Identity.getUrlVariables
+String result = await Identity.urlVariables
 ```
 ------
 ### removeIdentity
