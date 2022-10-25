@@ -18,9 +18,9 @@ First, make sure that `Flutter` is [installed](https://docs.flutter.dev/get-star
 
 Now to install the package, run:
 
-```
-$ cd MyFlutterApp
-$ flutter pub add flutter_{plugin_name}
+```bash
+cd MyFlutterApp
+flutter pub add flutter_{plugin_name}
 ```
 
 This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):

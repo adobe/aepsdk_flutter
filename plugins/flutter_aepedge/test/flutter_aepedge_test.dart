@@ -12,8 +12,6 @@ governing permissions and limitations under the License.
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_aepedge/flutter_aepedge.dart';
-import 'package:flutter_aepedge/src/aepedge_experienceevent.dart';
-import 'package:flutter_aepedge/src/aepedge_eventhandle.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('flutter_aepedge');

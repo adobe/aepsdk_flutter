@@ -11,7 +11,6 @@ governing permissions and limitations under the License.
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_aepedge/flutter_aepedge_data.dart';
 import 'package:flutter_aepedge/flutter_aepedge.dart';
 import 'util.dart';
 
@@ -55,7 +54,7 @@ class _MyAppState extends State<EdgePage> {
     Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceEvent = ExperienceEvent(
-        {"xdmData": xdmData, "data": null, "datasetIdentifier": null});
+        {"xdmData": xdmData, "data": data, "datasetIdentifier": datasetId});
 
     result = await Edge.sendEvent(experienceEvent);
 

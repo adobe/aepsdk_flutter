@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepedge/flutter_aepedge_data.dart';
+export 'package:flutter_aepedge/flutter_aepedge_data.dart';
 
 /// Adobe Experience Platform Edge Workflow API.
 class Edge {
