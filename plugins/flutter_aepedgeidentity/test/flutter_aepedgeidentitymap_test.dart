@@ -101,12 +101,6 @@ void main() {
       });
     });
 
-    test('test a non-existed namespace', () async {
-      final int actualItemsForNamespace3Length =
-          idMap.getIdentityItemsForNamespace('namespace3').length;
-      expect(actualItemsForNamespace3Length, equals(0));
-    });
-
     test('test an invalid namespace', () async {
       final int actualItemsForNamespaceInvalidLength =
           idMap.getIdentityItemsForNamespace('invalid').length;
@@ -114,9 +108,9 @@ void main() {
     });
 
     test('test an empty namespace', () async {
-      final int actualItemsForNamespaceInvalidLength =
-          idMap.getIdentityItemsForNamespace('invalid').length;
-      expect(actualItemsForNamespaceInvalidLength, equals(0));
+      final int actualItemsForNamespaceEmptyLength =
+          idMap.getIdentityItemsForNamespace('').length;
+      expect(actualItemsForNamespaceEmptyLength, equals(0));
     });
   });
 
@@ -232,6 +226,7 @@ void main() {
       idMap.removeItem(item3, 'namespace2');
       expect(
           idMap.getIdentityItemsForNamespace('namespace2').length, equals(0));
+      expect(idMap.isEmpty(), true);
     });
   });
 

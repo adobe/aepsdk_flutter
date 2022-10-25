@@ -21,8 +21,8 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 Run:
 
-```
-$ flutter test
+```bash
+flutter test
 ```
 
 ## Usage
@@ -185,7 +185,7 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 });
 ```
 #### EventHandle
-The EventHandle is a response fragment from Adobe Experience Platform Edge Network for a sent XDM Experience Event. One event can receive none, one or multiple EdgeEventHandle(s) as response.
+The EventHandle is a response fragment from Adobe Experience Platform Edge Network for a sent XDM Experience Event. One event can receive none, one or multiple EdgeEventHandle(s) as a response.
 
 ```dart
 static const String _type = 'type';

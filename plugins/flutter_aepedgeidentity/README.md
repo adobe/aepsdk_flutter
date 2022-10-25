@@ -19,8 +19,8 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 ## Tests
 Run:
 
-```
-$ flutter test
+```bash
+flutter test
 ```
 
 ## Usage
@@ -209,7 +209,7 @@ static Future<void> resetIdentities()
 MobileCore.resetIdentities()
 ```
 ------
-### setAdvertisingIdentifier:
+### setAdvertisingIdentifier
 When this API is called with a valid advertising identifier, the Identity for Edge Network extension includes the advertising identifier in the XDM Identity Map using the namespace GAID (Google Advertising ID) in Android and IDFA (Identifier for Advertisers) in iOS. If the API is called with the empty string (''), null/nil, or the all-zeros UUID string values, the advertising identifier is removed from the XDM Identity Map (if previously set).
 The advertising identifier is preserved between app upgrades, is saved and restored during the standard application backup process, and is removed at uninstall.
 
@@ -225,7 +225,7 @@ static Future<void> setAdvertisingIdentifier(String aid)
 MobileCore.setAdvertisingIdentifier('ad-id');
 ```
 ------
-### updateIdentities:
+### updateIdentities
 
 Update the currently known identities within the SDK. The Identity extension will merge the received identifiers with the previously saved ones in an additive manner, no identities are removed from this API.
 
@@ -240,7 +240,7 @@ Updating identities using a reserved namespace is not allowed using this API. Th
 **Syntax**
 
 ```dart
-static Future<IdentityMap> get getIdentities
+static Future<void> updateIdentities(IdentityMap identityMap)
 ```
 
 **Example**

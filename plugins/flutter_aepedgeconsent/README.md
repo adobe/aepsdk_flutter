@@ -20,8 +20,8 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 Run:
 
-```
-$ flutter test
+```bash
+flutter test
 ```
 
 ## Usage
