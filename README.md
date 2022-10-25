@@ -10,6 +10,7 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 | [Assurance](plugins/flutter_aepassurance/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepassurance.svg)](https://pub.dartlang.org/packages/flutter_aepassurance) |
 | [Edge](plugins/flutter_aepedge/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedge.svg)](https://pub.dartlang.org/packages/flutter_aepedge) |
 | [Consent](plugins/flutter_aepedgeconsent/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedgeconsent.svg)](https://pub.dartlang.org/packages/flutter_aepedgeconsent) |
+| [EdgeIdentity](plugins/flutter_aepedgeidentity/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedgidentity.svg)](https://pub.dartlang.org/packages/flutter_aepedgeidentity) |
 
 ## Installation
 
@@ -17,9 +18,9 @@ First, make sure that `Flutter` is [installed](https://docs.flutter.dev/get-star
 
 Now to install the package, run:
 
-```
-$ cd MyFlutterApp
-$ flutter pub add flutter_{plugin_name}
+```bash
+cd MyFlutterApp
+flutter pub add flutter_{plugin_name}
 ```
 
 This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):

@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.Collection;
+
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 
@@ -42,26 +44,27 @@ class FlutterAEPEdgeDataBridge {
      * @param map
      * @return An {@link ExperienceEvent}
      */
+    @SuppressLint("LongLogTag")
     protected static ExperienceEvent eventFromMap(final Map map) {
          if (map == null) {
              return null;
          }
 
-        Map<String, Object> xdmdata = getNullableMap(map, XDM_DATA_KEY);
+        Map<String, Object> xdmData = getNullableMap(map, XDM_DATA_KEY);
         String datasetId = null;
 
 
-        if (xdmdata != null) {
+        if (xdmData != null) {
 
             Map<String, Object> data = getNullableMap(map, DATA_KEY);
 
             datasetId = getNullableString(map, DATASET_IDENTIFIER_KEY);
             
-            ExperienceEvent event = new ExperienceEvent.Builder().setXdmSchema(xdmdata, datasetId).setData(data).build();
+            ExperienceEvent event = new ExperienceEvent.Builder().setXdmSchema(xdmData, datasetId).setData(data).build();
 
             return event;
         }
-            Log.d(TAG, "xdmdata is required, but it is currently null.");   
+            Log.d(TAG, "eventFromMap - XDM data is required, but it is currently null.");   
             return null;
     }
 
@@ -100,11 +103,11 @@ class FlutterAEPEdgeDataBridge {
 
     @SuppressWarnings("unchecked")
     private static List<?> arrayUtil(Object arrayObj) {
-        List<?> arrayList = new ArrayList<>();
+        List<?> arrayList = new ArrayList();
         if (arrayObj.getClass().isArray()) {
             arrayList = Arrays.asList((Object[])arrayObj);
         } else if (arrayObj instanceof Collection) {
-            arrayList = new ArrayList<>((Collection<?>)arrayObj);
+            arrayList = new ArrayList((Collection<?>)arrayObj);
         }
         return arrayList;
     }

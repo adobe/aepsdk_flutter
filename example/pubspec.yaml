@@ -21,16 +21,21 @@ dev_dependencies:
   flutter_aepcore: ">= 1.0.0 <2.0.0"
 
   flutter_aepassurance: ">= 1.0.0 <2.0.0"
-
+  #TODO
   #flutter_aepedge: ">= 1.0.0 <2.0.0"
 
   flutter_aepedge: 
         path: ../plugins/flutter_aepedge
-
+  #TODO
   #flutter_aepedgeconsent: ">= 1.0.0 <2.0.0"
 
   flutter_aepedgeconsent: 
         path: ../plugins/flutter_aepedgeconsent
+  #TODO
+  #flutter_aepedgidentity: ">= 1.0.0 <2.0.0"
+
+  flutter_aepedgeidentity: 
+        path: ../plugins/flutter_aepedgeidentity
 
   
 # For information on the generic Dart part of this file, see the

@@ -9,8 +9,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_aepedge/flutter_aepedge_data.dart';
 import 'package:flutter_aepedge/flutter_aepedge.dart';
 import 'util.dart';
 
@@ -38,7 +38,10 @@ class _MyAppState extends State<EdgePage> {
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
 
     setState(() {
       _edgeVersion = edgeVersion;
@@ -51,11 +54,15 @@ class _MyAppState extends State<EdgePage> {
     Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceEvent = ExperienceEvent(
-        {"xdmData": xdmData, "data": null, "datasetIdentifier": null});
+        {"xdmData": xdmData, "data": data, "datasetIdentifier": datasetId});
 
     result = await Edge.sendEvent(experienceEvent);
 
-    if (!mounted) return;
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
     setState(() {
       _edgeEventHandleResponse = result;
       print("result info " + result.toString());

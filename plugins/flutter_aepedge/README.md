@@ -9,7 +9,7 @@
 The Edge Network extension has the following peer dependencies, which must be installed prior to installing it:
 
 - [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md)
-- [flutter_aepedgeidentity](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aeedgeidentity/README.md)
+- [flutter_aepedgeidentity](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepedgeidentity/README.md)
 
 ## Installation
 
@@ -55,8 +55,6 @@ iOS
      // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
     NSString* ENVIRONMENT_FILE_ID = @"YOUR-APP-ID";
     
-    const UIApplicationState appState = application.applicationState;
-
     NSArray *extensionsToRegister = @[AEPMobileEdgeIdentity.class, 
                                       AEPMobileEdge.class                                             
                                       ];
@@ -106,6 +104,8 @@ import 'package:flutter_aepedge/flutter_aepedge.dart';
 ------
 ## API reference
 ### extensionVersion
+Returns the SDK version of the Edge Network extension.
+
 **Syntax**
 ```dart
 static Future<String> get extensionVersion
@@ -117,6 +117,7 @@ String version = await Edge.extensionVersion;
  ```
 ------
 ### sendEvent
+Sends an Experience event to Adobe Experience Platform Edge Network.
 
 **Syntax**
 ```dart
@@ -138,6 +139,7 @@ List<EventHandle> result = await Edge.sendEvent(experienceEvent);
 ------
 ### Public classes
 #### ExperienceEvent
+Experience Event is the event to be sent to Adobe Experience Platform Edge Network. The XDM data is required for any Experience Event being sent using the Edge extension.
 
 ##### Create Experience Event from Dictionary:
 
@@ -181,6 +183,13 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
   "data": data,
   "datasetIdentifier": "datasetIdExample"
 });
+```
+#### EventHandle
+The EventHandle is a response fragment from Adobe Experience Platform Edge Network for a sent XDM Experience Event. One event can receive none, one or multiple EdgeEventHandle(s) as a response.
+
+```dart
+static const String _type = 'type';
+static const String _payload = 'payload';
 ```
 
 ## Contributing

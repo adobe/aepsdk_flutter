@@ -90,6 +90,13 @@ packages:
       relative: true
     source: path
     version: "1.0.0"
+  flutter_aepedgeidentity:
+    dependency: "direct dev"
+    description:
+      path: "../plugins/flutter_aepedgeidentity"
+      relative: true
+    source: path
+    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
