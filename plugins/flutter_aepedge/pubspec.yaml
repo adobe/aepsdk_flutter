@@ -10,7 +10,6 @@ environment:
   flutter: ">=2.0.0"
 
 dependencies:
-
   flutter:
     sdk: flutter
   flutter_aepcore: ">= 1.0.0 <2.0.0"
