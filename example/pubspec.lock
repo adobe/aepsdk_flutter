@@ -86,16 +86,16 @@ packages:
   flutter_aepedgeconsent:
     dependency: "direct dev"
     description:
-      path: "../plugins/flutter_aepedgeconsent"
-      relative: true
-    source: path
+      name: flutter_aepedgeconsent
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   flutter_aepedgeidentity:
     dependency: "direct dev"
     description:
-      path: "../plugins/flutter_aepedgeidentity"
-      relative: true
-    source: path
+      name: flutter_aepedgeidentity
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
