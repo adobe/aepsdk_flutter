@@ -74,7 +74,7 @@ public class FlutterAEPIdentityDataBridge {
             return null;
         }
 
-        Map<String, String> visitorIDMap = new HashMap();
+        Map<String, String> visitorIDMap = new HashMap<>();
         visitorIDMap.put(AEP_VISITOR_ID_ORIGIN, visitorID.getIdOrigin());
         visitorIDMap.put(AEP_VISITOR_ID_TYPE, visitorID.getIdType());
         visitorIDMap.put(AEP_VISITOR_IDENTIFIER, visitorID.getId());

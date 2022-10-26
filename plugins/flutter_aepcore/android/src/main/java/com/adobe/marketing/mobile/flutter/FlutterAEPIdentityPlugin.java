@@ -95,7 +95,7 @@ public class FlutterAEPIdentityPlugin implements FlutterPlugin, MethodChannel.Me
 
             @Override
             public void call(List<VisitorID> visitorIDS) {
-                final List<Map> ids = new ArrayList();
+                final List<Map> ids = new ArrayList<>();
                 for (VisitorID visitor: visitorIDS) {
                     ids.add(FlutterAEPIdentityDataBridge.mapFromVisitorIdentifier(visitor));
                 }

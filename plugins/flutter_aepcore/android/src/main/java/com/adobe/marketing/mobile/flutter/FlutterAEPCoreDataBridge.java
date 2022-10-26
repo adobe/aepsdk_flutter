@@ -55,7 +55,7 @@ public class FlutterAEPCoreDataBridge {
     }
 
     static Map mapFromEvent(final Event event) {
-        Map<String, Object> map = new HashMap();
+        Map<String, Object> map = new HashMap<>();
         map.put(EVENT_NAME_KEY, event.getName());
         map.put(EVENT_TYPE_KEY, event.getType());
         map.put(EVENT_SOURCE_KEY, event.getSource());
