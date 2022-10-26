@@ -82,7 +82,11 @@ $ flutter test
 
 ## Contributing
 
-See [Contributing](CONTRIBUTING.md)
+If you are migrating a plugin for an ACP-prefixed (Objective-C) library to an AEP-prefixed (Swift) library, or need help with publishing, please follow the steps [outlined here](https://wiki.corp.adobe.com/display/adms/Migrating+ACP+Flutter+Wrapper+to+AEP).
+
+If you are creating a plugin for an AEP-prefix (Swift) library, please follow the steps [outlined here](docs/creating_new_plugins.md)
+
+For all other information on contributing see [Contributing](CONTRIBUTING.md)
 
 ## License
 
