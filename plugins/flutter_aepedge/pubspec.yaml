@@ -13,8 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_aepcore: ">= 1.0.0 <2.0.0"
-  #TODO
-  #flutter_aepedgeidentity: ">= 1.0.0 <2.0.0"
+  flutter_aepedgeidentity: ">= 1.0.0 <2.0.0"
  
 dev_dependencies:
   flutter_test:
