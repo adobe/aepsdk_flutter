@@ -21,11 +21,8 @@ dev_dependencies:
   flutter_aepcore: ">= 1.0.0 <2.0.0"
 
   flutter_aepassurance: ">= 1.0.0 <2.0.0"
-  #TODO
-  #flutter_aepedge: ">= 1.0.0 <2.0.0"
-
-  flutter_aepedge: 
-        path: ../plugins/flutter_aepedge
+  
+  flutter_aepedge: ">= 1.0.0 <2.0.0"
 
   flutter_aepedgeconsent: ">= 1.0.0 <2.0.0"
 
