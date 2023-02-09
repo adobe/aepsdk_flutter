@@ -10,6 +10,7 @@ governing permissions and limitations under the License.
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_aepsdk_example/optimize.dart';
 import 'core.dart';
 import 'assurance.dart';
 import 'edge.dart';
@@ -77,6 +78,13 @@ class HomePage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => EdgeIdentityPage()));
+              },
+            ),
+            ElevatedButton(
+              child: const Text('OPTIMIZE'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OptimizePage()));
               },
             ),
           ]),

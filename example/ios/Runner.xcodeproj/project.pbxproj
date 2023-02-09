@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -233,6 +233,7 @@
 		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -247,6 +248,7 @@
 		};
 		9740EEB61CF901F6004384FC /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -273,9 +275,11 @@
 				"${BUILT_PRODUCTS_DIR}/AEPEdgeIdentity/AEPEdgeIdentity.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPIdentity/AEPIdentity.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPLifecycle/AEPLifecycle.framework",
+				"${BUILT_PRODUCTS_DIR}/AEPOptimize/AEPOptimize.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPRulesEngine/AEPRulesEngine.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPServices/AEPServices.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPSignal/AEPSignal.framework",
+				"${BUILT_PRODUCTS_DIR}/flutter_aepoptimize/flutter_aepoptimize.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -286,9 +290,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPEdgeIdentity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPIdentity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPLifecycle.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPOptimize.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPRulesEngine.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPSignal.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/flutter_aepoptimize.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

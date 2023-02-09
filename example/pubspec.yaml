@@ -28,6 +28,9 @@ dev_dependencies:
 
   flutter_aepedgeidentity: ">= 1.0.0 <2.0.0"  
 
+  flutter_aepoptimize:
+    path: ../plugins/flutter_aepoptimize
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
