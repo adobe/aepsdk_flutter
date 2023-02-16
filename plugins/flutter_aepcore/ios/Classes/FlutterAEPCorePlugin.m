@@ -40,7 +40,7 @@ governing permissions and limitations under the License.
         [AEPMobileCore setAdvertisingIdentifier:aid];
         result(nil);
     } else if ([@"dispatchEvent" isEqualToString:call.method]) {
-        [self handleDispatchEvent:call];
+        [self handleDispatchEvent:call result:result];
     } else if ([@"dispatchEventWithResponseCallback" isEqualToString:call.method]) {
         [self handleDispatchEventWithResponseCallback:call result:result];
     } else if ([@"getSdkIdentities" isEqualToString:call.method]) {
@@ -63,10 +63,13 @@ governing permissions and limitations under the License.
         result(nil);
     } else if ([@"setAppGroup" isEqualToString:call.method]) {
         [self handleSetAppGroup:call];
+        result(nil);
     } else if ([@"collectPii" isEqualToString:call.method]) {
         [self handleCollectPii:call];
+        result(nil);
     } else if ([@"resetIdentities" isEqualToString:call.method]) {
         [self handleResetIdentities:call];
+        result(nil);
     } else {
         result(FlutterMethodNotImplemented);
     }
@@ -86,15 +89,29 @@ governing permissions and limitations under the License.
     
 }
 
-- (void)handleDispatchEvent:(FlutterMethodCall *) call {
+- (void)handleDispatchEvent:(FlutterMethodCall *) call
+    result:(FlutterResult)result {
     NSDictionary *eventDict = (NSDictionary *) call.arguments;
     AEPEvent *event = [AEPEvent eventFromDictionary:eventDict];
+    if (event == nil) {
+        FlutterError* error = [FlutterError errorWithCode:[NSString stringWithFormat:@"%ld", AEPErrorUnexpected] message:@"Unexpected error" details:nil];
+        
+        result(error);
+        return;
+    }
     [AEPMobileCore dispatch:event];
+    result(nil);
 }
 
 - (void)handleDispatchEventWithResponseCallback:(FlutterMethodCall *) call result:(FlutterResult)result {
     NSDictionary *eventDict = (NSDictionary *) call.arguments;
     AEPEvent *event = [AEPEvent eventFromDictionary:eventDict];
+    if (event == nil) {
+        FlutterError* error = [FlutterError errorWithCode:[NSString stringWithFormat:@"%ld", AEPErrorUnexpected] message:@"Unexpected error" details:nil];
+        
+        result(error);
+        return;
+    }
     
     [AEPMobileCore dispatch:event timeout:1 responseCallback:^(AEPEvent * _Nullable responseEvent) {
         result([AEPEvent dictionaryFromEvent:responseEvent]);

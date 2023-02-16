@@ -159,9 +159,6 @@ void main() {
       ]);
     });
 
-    test('returns correct result', () async {
-      expect(await MobileCore.dispatchEvent(expectedEvent), true);
-    });
   });
 
   group('dispatchEventWithResponseCallback', () {
