@@ -132,6 +132,10 @@ final Event event = Event({
     }
 ```
 
+##### Reset identities 
+```dart
+MobileCore.resetIdentities()
+```
 ### Identity
 
 For more information on the Core Identity APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/mobile-core/identity).

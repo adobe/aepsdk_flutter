@@ -28,7 +28,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.adobe.marketing.mobile.flutter
+        package: com.adobe.marketing.mobile.flutter.flutter_aepcore
         pluginClass: FlutterAEPCorePlugin
       ios:
         pluginClass: FlutterAEPCorePlugin

@@ -35,7 +35,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.adobe.marketing.mobile.flutter
+        package: com.adobe.marketing.mobile.flutter.flutter_aepassurance
         pluginClass: FlutterAEPAssurancePlugin
       ios:
         pluginClass: FlutterAEPAssurancePlugin
