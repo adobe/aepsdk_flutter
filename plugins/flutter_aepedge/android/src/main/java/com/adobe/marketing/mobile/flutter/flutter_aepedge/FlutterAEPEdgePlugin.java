@@ -13,6 +13,7 @@ package com.adobe.marketing.mobile.flutter.flutter_aepedge;
 
 import android.util.Log;
 
+import com.adobe.marketing.mobile.AdobeError;
 import com.adobe.marketing.mobile.Edge;
 import com.adobe.marketing.mobile.ExperienceEvent;
 import com.adobe.marketing.mobile.EdgeCallback;
@@ -52,27 +53,18 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if ("extensionVersion".equals(call.method)) {
-      AndroidUtil.runOnUIThread(new Runnable() {
-        @Override
-        public void run() {
-           result.success(Edge.extensionVersion());
-        }
-      });
+        result.success(Edge.extensionVersion());
     } else if ("sendEvent".equals(call.method)) {
-         handleSentEvent(result, call.arguments);
+        handleSentEvent(result, call.arguments);
     } else {
-      AndroidUtil.runOnUIThread(new Runnable() {
-        @Override
-        public void run() {
-           result.notImplemented();
-        }
-      });
+        result.notImplemented();
     }
   }
 
   private void handleSentEvent(final MethodChannel.Result result, final Object arguments) {
      if (!(arguments instanceof Map)) {
        Log.e(TAG, "Dispatch sendEvent failed because arguments were invalid");
+       result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
        return;
      }
 
@@ -81,35 +73,19 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
 
       if (experienceEvent == null) {
       Log.e(TAG, "Dispatch Experience Event failed because experience event is null.");
+      result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
       return;
     }
 
-     Edge.sendEvent(experienceEvent, new EdgeCallback() {
-     @Override
-     public void onComplete(final List<EdgeEventHandle> handles) {
-
+     Edge.sendEvent(experienceEvent, handles -> {
         final List<Map> arr = new ArrayList();
-        if (handles == null) {
-          AndroidUtil.runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-              result.success(arr);
-              return;
+        if (handles != null) {
+            for (EdgeEventHandle handle: handles) {
+                arr.add(FlutterAEPEdgeDataBridge.mapFromEdgeEventHandle(handle));
             }
-          });
         }
-       
 
-        for (EdgeEventHandle handle: handles) {
-          arr.add(FlutterAEPEdgeDataBridge.mapFromEdgeEventHandle(handle));
-        }
-        AndroidUtil.runOnUIThread(new Runnable() {
-          @Override
-          public void run() {
-           result.success(arr);
-          }
-        });
-      }
-    });
+        AndroidUtil.runOnUIThread(() -> result.success(arr));
+      });
   }
 }

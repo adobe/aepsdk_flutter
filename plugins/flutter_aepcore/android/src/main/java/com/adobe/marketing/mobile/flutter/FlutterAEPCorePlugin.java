@@ -13,13 +13,7 @@ package com.adobe.marketing.mobile.flutter;
 
 import android.util.Log;
 
-import com.adobe.marketing.mobile.AdobeCallback;
-import com.adobe.marketing.mobile.Event;
-import com.adobe.marketing.mobile.ExtensionError;
-import com.adobe.marketing.mobile.ExtensionErrorCallback;
-import com.adobe.marketing.mobile.LoggingMode;
-import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.MobilePrivacyStatus;
+import com.adobe.marketing.mobile.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,11 +67,6 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             handleDispatchEvent(result, call.arguments);
         } else if ("dispatchEventWithResponseCallback".equals(call.method)) {
             handleDispatchEventWithResponseCallback(result, call.arguments);
-        } else if ("dispatchResponseEvent".equals(call.method)) {
-            handleDispatchResponseEvent(result, call.arguments);
-        } else if ("downloadRules".equals(call.method)) {
-            MobileCore.log(LoggingMode.DEBUG, AEPCORE_TAG, "downloadRules() cannot be invoked on Android");
-            result.success(null);
         } else if ("getSdkIdentities".equals(call.method)) {
             getSdkIdentities(result);
         } else if ("resetIdentities".equals(call.method)) {
@@ -86,10 +75,10 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         } else if ("getPrivacyStatus".equals(call.method)) {
             getPrivacyStatus(result);
         } else if ("setAppGroup".equals(call.method)) {
-            MobileCore.log(LoggingMode.DEBUG, AEPCORE_TAG, "setAppGroup() cannot be invoked on Android");
+            com.adobe.marketing.mobile.services.Log.debug(TAG, AEPCORE_TAG, "setAppGroup() cannot be invoked on Android");
             result.success(null);
         } else if ("setLogLevel".equals(call.method)) {
-            setLogLevel(call.arguments);
+            handleSetLogLevel(call.arguments);
             result.success(null);
         } else if ("setPrivacyStatus".equals(call.method)) {
             handleSetPrivacyStatus(call.arguments);
@@ -152,6 +141,7 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     private void handleDispatchEvent(final Result result, final Object arguments) {
         if (!(arguments instanceof Map)) {
             Log.e(TAG, "Dispatch event failed because arguments were invalid");
+            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
             return;
         }
 
@@ -160,29 +150,18 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
 
         if (event == null) {
             Log.e(TAG, "Dispatch event failed because event is null");
+            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
             return;
         }
 
-        MobileCore.dispatchEvent(event, new ExtensionErrorCallback<ExtensionError>() {
-            @Override
-            public void error(final ExtensionError extensionError) {
-                if (extensionError != null) {
-                    AndroidUtil.runOnUIThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            result.error(String.valueOf(extensionError.getErrorCode()), extensionError.getErrorName(), null);
-                        }
-                    });
-                } else {
-                    result.success(null);
-                }
-            }
-        });
+        MobileCore.dispatchEvent(event);
+        result.success(null);
     }
 
     private void handleDispatchEventWithResponseCallback(final Result result, final Object arguments) {
         if (!(arguments instanceof Map)) {
             Log.e(TAG, "Dispatch event failed because arguments were invalid");
+            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
             return;
         }
 
@@ -191,68 +170,22 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
 
         if (event == null) {
             Log.e(TAG, "Dispatch event failed because event is null");
+            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
             return;
         }
 
-        MobileCore.dispatchEventWithResponseCallback(event,
-                new AdobeCallback<Event>() {
-                    @Override
-                    public void call(Event event) {
-                        Map eventMap = FlutterAEPCoreDataBridge.mapFromEvent(event);
-                        result.success(eventMap);
-                    }
-                }, new ExtensionErrorCallback<ExtensionError>() {
-                    @Override
-                    public void error(final ExtensionError extensionError) {
-                        if (extensionError != null) {
-                            AndroidUtil.runOnUIThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    result.error(String.valueOf(extensionError.getErrorCode()), extensionError.getErrorName(), null);
-                                }
-                            });
-                        } else {
-                            result.success(null);
-                        }
-                    }
-                });
-    }
-
-    private void handleDispatchResponseEvent(final Result result, final Object arguments) {
-        if (!(arguments instanceof Map)) {
-            Log.e(TAG, "Dispatch event failed because arguments were invalid");
-            return;
-        }
-
-        Map eventMap = (Map) arguments;
-        Map responseEventMap = (Map) eventMap.get("responseEvent");
-        Map requestEventMap = (Map) eventMap.get("requestEvent");
-        Event responseEvent = FlutterAEPCoreDataBridge.eventFromMap(responseEventMap);
-        Event requestEvent = FlutterAEPCoreDataBridge.eventFromMap(requestEventMap);
-
-        if (responseEvent == null || requestEvent == null) {
-            Log.e(TAG, "Dispatch response event failed because responseEvent or requestEvent is null");
-            return;
-        }
-
-        MobileCore.dispatchResponseEvent(responseEvent, requestEvent, new ExtensionErrorCallback<ExtensionError>() {
+        MobileCore.dispatchEventWithResponseCallback(event, 1000, new AdobeCallbackWithError<Event>() {
             @Override
-            public void error(final ExtensionError extensionError) {
-                if (extensionError != null) {
-                    AndroidUtil.runOnUIThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            result.error(String.valueOf(extensionError.getErrorCode()), extensionError.getErrorName(), null);
-                        }
-                    });
-                } else {
-                    AndroidUtil.runOnUIThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            result.success(null);
-                        }
-                    });
-                }
+            public void fail(AdobeError adobeError) {
+                AndroidUtil.runOnUIThread(() -> result.error(String.valueOf(adobeError.getErrorCode()), adobeError.getErrorName(), null));
+            }
+
+            @Override
+            public void call(Event event) {
+                AndroidUtil.runOnUIThread(() -> {
+                    Map eventMap = FlutterAEPCoreDataBridge.mapFromEvent(event);
+                    result.success(eventMap);
+                });
             }
         });
     }
@@ -261,12 +194,7 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         MobileCore.getSdkIdentities(new AdobeCallback<String>() {
             @Override
             public void call(final String sdkIdentities) {
-                AndroidUtil.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        result.success(sdkIdentities);
-                    }
-                });
+                AndroidUtil.runOnUIThread(() -> result.success(sdkIdentities));
             }
         });
     }
@@ -275,17 +203,12 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         MobileCore.getPrivacyStatus(new AdobeCallback<MobilePrivacyStatus>() {
             @Override
             public void call(final MobilePrivacyStatus mobilePrivacyStatus) {
-                AndroidUtil.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        result.success(FlutterAEPCoreDataBridge.stringFromPrivacyStatus(mobilePrivacyStatus));
-                    }
-                });
+                AndroidUtil.runOnUIThread(() -> result.success(FlutterAEPCoreDataBridge.stringFromPrivacyStatus(mobilePrivacyStatus)));
             }
         });
     }
 
-    private void setLogLevel(final Object arguments) {
+    private void handleSetLogLevel(final Object arguments) {
         if (!(arguments instanceof String)) {
             Log.e(TAG, "Setting log level failed, arguments are invalid");
             return;
