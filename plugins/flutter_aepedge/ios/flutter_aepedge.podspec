@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepedge'
-  s.version          = '1.0.0'
+  s.version          = '2.0.0'
   s.summary          = 'Adobe Experience Platform Edge Network extension for Flutter apps.'
   s.homepage         = 'https://aep-sdks.gitbook.io/docs/'
   s.license          = { :file => '../LICENSE' }
