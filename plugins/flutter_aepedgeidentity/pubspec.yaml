@@ -16,7 +16,7 @@ dependencies:
 
 dependency_overrides:
   flutter_aepcore:
-    path: ../plugins/flutter_aepcore
+    path: ../flutter_aepcore
  
 dev_dependencies:
   flutter_test:

@@ -17,7 +17,9 @@ dependencies:
 
 dependency_overrides:
   flutter_aepcore:
-    path: ../plugins/flutter_aepcore
+    path: ../flutter_aepcore
+  flutter_aepedgeidentity:
+    path: ../flutter_aepedgeidentity
 
 dev_dependencies:
   flutter_test:
