@@ -24,6 +24,8 @@ dependencies:
 
   flutter_aepedgeidentity: ">= 2.0.0 <3.0.0"  
 
+  flutter_aepuserprofile: ">= 1.0.0 <2.0.0"  
+
 dependency_overrides:
   flutter_aepcore:
     path: ../plugins/flutter_aepcore
@@ -39,6 +41,9 @@ dependency_overrides:
 
   flutter_aepedgeidentity:
     path: ../plugins/flutter_aepedgeidentity
+
+  flutter_aepuserprofile:
+    path: ../plugins/flutter_aepuserprofile
 
 dev_dependencies:
   flutter_test:
