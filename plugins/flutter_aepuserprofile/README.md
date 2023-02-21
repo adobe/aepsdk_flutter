@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/flutter_aepuserprofile.svg)](https://pub.dartlang.org/packages/flutter_aepuserprofile) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepuserprofile` is a flutter plugin for the iOS and Android [UserProfile SDK](https://developer.adobe.com/client-sdks/documentation/profile/) to allow for integration with Flutter applications. Functionality to enable the UserProfile extension is provided entirely through Dart documented below.
+`flutter_aepuserprofile` is a flutter plugin for the iOS and Android [Adobe Experience Platform UserProfile SDK](https://developer.adobe.com/client-sdks/documentation/profile/) to allow for integration with Flutter applications. Functionality to enable the UserProfile extension is provided entirely through Dart documented below.
 
 ## Installation
 

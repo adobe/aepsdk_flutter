@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.name             = 'flutter_aepuserprofile'
   s.version          = '1.0.0'
   s.summary          = 'Adobe Experience Platform User Profile support for Flutter apps.'
-  s.homepage         = 'https://aep-sdks.gitbook.io/docs/'
+  s.homepage         = 'https://developer.adobe.com/client-sdks'
   s.license          = { :file => '../LICENSE' }
   s.author           = 'Adobe Mobile SDK Team'
   s.source           = { :path => '.' }
