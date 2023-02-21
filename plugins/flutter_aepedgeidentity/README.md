@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/flutter_aepedgeidentity.svg)](https://pub.dartlang.org/packages/flutter_aepedgeidentity) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepedgeidentity` is a flutter plugin for the iOS and Android [AEPEdgeIdentity SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/identity-for-edge-network) to allow for integration with Flutter applications. Functionality to enable the Edge Identity extension is provided entirely through Dart documented below.
+`flutter_aepedgeidentity` is a flutter plugin for the iOS and Android [Adobe Experience Platform Edge Identity SDK](https://developer.adobe.com/client-sdks/documentation/identity-for-edge-network/) to allow for integration with Flutter applications. Functionality to enable the Edge Identity extension is provided entirely through Dart documented below.
 
 ## Prerequisites
 
@@ -25,7 +25,7 @@ flutter test
 
 ## Usage
 
-For more detailed information on the Edge Identity APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/foundation-extensions/identity-for-edge-network)
+For more detailed information on the Edge Identity APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/identity-for-edge-network/)
 
 ### Registering the extension with AEPCore:
 
@@ -191,7 +191,7 @@ Some example use cases for this API are:
 * A last-resort reset for when an ECID should no longer be used.
 
 This API is not recommended for:
-* Resetting a user's consent and privacy settings; see [Privacy and GDPR](https://aep-sdks.gitbook.io/docs/resources/privacy-and-gdpr).
+* Resetting a user's consent and privacy settings; see [Privacy and GDPR](https://developer.adobe.com/client-sdks/documentation/privacy-and-gdpr/).
 * Removing existing custom identifiers; use the [removeIdentity](README.md#removeidentity) API instead.
 * Removing a previously synced advertising identifier after the advertising tracking settings were changed by the user; use the [setAdvertisingIdentifier](README.md#setadvertisingidentifier) API instead.
 
@@ -353,7 +353,7 @@ IdentityItem item  = new IdentityItem('identifier', AuthenticatedState.AUTHENTIC
 
 
 ## Frequently Asked Questions (FAQ)
-For more details, refer to the [frequently asked questions page](https://aep-sdks.gitbook.io/docs/foundation-extensions/identity-for-edge-network/identity-faq) 
+For more details, refer to the [frequently asked questions page](https://developer.adobe.com/client-sdks/documentation/identity-for-edge-network/faq/) 
 
 ## Contributing
 See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)

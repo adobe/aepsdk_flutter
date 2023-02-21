@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/flutter_aepcore.svg)](https://pub.dartlang.org/packages/flutter_aepcore) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepcore` is a flutter plugin for the iOS and Android [AEP Core SDK](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/mobile-core) to allow for integration with flutter applications. Functionality to enable the Core extension is provided entirely through Dart documented below.
+`flutter_aepcore` is a flutter plugin for the iOS and Android [AEP Core SDK](https://developer.adobe.com/client-sdks/documentation/mobile-core/) to allow for integration with flutter applications. Functionality to enable the Core extension is provided entirely through Dart documented below.
 
 ## Contents
 - [Installation](#installation)
@@ -22,7 +22,7 @@ Follow the instructions found in the repository's main [README](https://github.c
 
 ### Initializing
 
-Initializing the SDK should be done in native code (AppDelegate / SceneDelegate for iOS and Application class for Android). Documentation for initializing the SDK can be found [here](https://aep-sdks.gitbook.io/docs/getting-started/get-the-sdk#2-add-initialization-code).
+Initializing the SDK should be done in native code (AppDelegate / SceneDelegate for iOS and Application class for Android). Documentation for initializing the SDK can be found [here](https://developer.adobe.com/client-sdks/documentation/getting-started/get-the-sdk/#2-add-initialization-code).
 
 As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
 
@@ -30,7 +30,7 @@ Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializi
 
 ### Core
 
-For more detailed information on the Core APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/mobile-core)
+For more detailed information on the Core APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/)
 
 ##### Importing Core:
 ```dart
@@ -138,7 +138,7 @@ MobileCore.resetIdentities()
 ```
 ### Identity
 
-For more information on the Core Identity APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/mobile-core/identity).
+For more information on the Core Identity APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/identity/).
 
 ##### Importing Identity:
 ```dart
@@ -245,13 +245,13 @@ class Identifiable {
 
 ### Lifecycle
 
-For more information on the Core Lifecycle APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/mobile-core/lifecycle)
+For more information on the Core Lifecycle APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/lifecycle/)
 
-> Note: It is required to implement Lifecycle in native [Android and iOS code](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/mobile-core/lifecycle).
+> Note: It is required to implement Lifecycle in native [Android and iOS code](https://developer.adobe.com/client-sdks/documentation/mobile-core/lifecycle/).
 
 ### Signal
 
-For more information on the Core Signal APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/using-mobile-extensions/mobile-core/signals)
+For more information on the Core Signal APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/signal/)
 
 ##### Importing Signal:
 ```dart
