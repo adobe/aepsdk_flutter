@@ -16,7 +16,9 @@
 
 ## Installation
 
-Follow the instructions found in the repository's main [README](https://github.com/adobe/aepsdk_flutter#installation)
+Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepcore/install).
+
+> Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
 
 ## Usage
 
