@@ -179,7 +179,7 @@ void main() {
   });
 
   group('setLocationHint', () {
-    final String sampleLocationHint = "irl1";
+    final String testLocationHint = "irl1";
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
@@ -190,12 +190,12 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await Edge.setLocationHint(sampleLocationHint);
+      await Edge.setLocationHint(testLocationHint);
 
       expect(log, <Matcher>[
         isMethodCall(
           'setLocationHint',
-          arguments: sampleLocationHint,
+          arguments: testLocationHint,
         ),
       ]);
     });

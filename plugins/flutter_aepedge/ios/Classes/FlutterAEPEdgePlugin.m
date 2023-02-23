@@ -16,28 +16,28 @@ governing permissions and limitations under the License.
 #import "FlutterAEPEdgeDataBridge.h"
 
 @implementation FlutterAEPEdgePlugin
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"flutter_aepedge"
+    + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
+    FlutterMethodChannel* channel = [FlutterMethodChannel
+        methodChannelWithName:@"flutter_aepedge"
             binaryMessenger:[registrar messenger]];
-  FlutterAEPEdgePlugin* instance = [[FlutterAEPEdgePlugin alloc] init];
-  [registrar addMethodCallDelegate:instance channel:channel];
+    FlutterAEPEdgePlugin* instance = [[FlutterAEPEdgePlugin alloc] init];
+    [registrar addMethodCallDelegate:instance channel:channel];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"extensionVersion" isEqualToString:call.method]) {
-      result([AEPMobileEdge extensionVersion]);
-  } else if ([@"sendEvent" isEqualToString:call.method]) {
-     [self handleSendEvent:call result:result];
-  } else if ([@"getLocationHint" isEqualToString:call.method]) {
-     [self handleGetLocationHint:call result:result];
-  } else if ([@"setLocationHint" isEqualToString:call.method]) {
+    if ([@"extensionVersion" isEqualToString:call.method]) {
+        result([AEPMobileEdge extensionVersion]);
+    } else if ([@"sendEvent" isEqualToString:call.method]) {
+        [self handleSendEvent:call result:result];
+    } else if ([@"getLocationHint" isEqualToString:call.method]) {
+        [self handleGetLocationHint:call result:result];
+    } else if ([@"setLocationHint" isEqualToString:call.method]) {
     NSString *hint = call.arguments;
         [AEPMobileEdge setLocationHint:hint];
         result(nil);
-  } else {
-      result(FlutterMethodNotImplemented);
-  }
+    } else {
+        result(FlutterMethodNotImplemented);
+    }
 }
 
 - (void)handleSendEvent:(FlutterMethodCall *) call result:(FlutterResult)result {
@@ -48,7 +48,7 @@ governing permissions and limitations under the License.
         NSLog(@"FlutterAEPEdgePlugin - %@", eventExperienceError);
         return;
     }
-    
+
     [AEPMobileEdge sendExperienceEvent:experienceEvent completion:^(NSArray<AEPEdgeEventHandle *> * _Nonnull handles) {
         result([FlutterAEPEdgeDataBridge dictionaryFromEdgeEventHandler:handles]);
     }];
@@ -58,5 +58,5 @@ governing permissions and limitations under the License.
     [AEPMobileEdge getLocationHint:^(NSString * _Nullable hint, NSError * _Nullable error) {
         result(hint);
     }];
-}
+    }
 @end
