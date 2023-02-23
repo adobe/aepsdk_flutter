@@ -13,11 +13,15 @@ package com.adobe.marketing.mobile.flutter.flutter_aepedge;
 
 import android.util.Log;
 
+import com.adobe.marketing.mobile.AdobeCallbackWithError;
 import com.adobe.marketing.mobile.AdobeError;
 import com.adobe.marketing.mobile.Edge;
 import com.adobe.marketing.mobile.ExperienceEvent;
 import com.adobe.marketing.mobile.EdgeCallback;
 import com.adobe.marketing.mobile.EdgeEventHandle;
+import com.adobe.marketing.mobile.Identity;
+import com.adobe.marketing.mobile.VisitorID;
+import com.adobe.marketing.mobile.flutter.flutter_aepcore.FlutterAEPIdentityDataBridge;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -56,6 +60,10 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
         result.success(Edge.extensionVersion());
     } else if ("sendEvent".equals(call.method)) {
         handleSentEvent(result, call.arguments);
+    } else if ("getLocationHint".equals(call.method)) {
+        handleGetLocationHint(result);
+    } else if ("setLocationHint".equals(call.method)) {
+        handleSetLocationHint(call.arguments);
     } else {
         result.notImplemented();
     }
@@ -88,4 +96,29 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
         AndroidUtil.runOnUIThread(() -> result.success(arr));
       });
   }
+
+    private void handleGetLocationHint(final MethodChannel.Result result) {
+        Edge.getLocationHint(new AdobeCallbackWithError<String>() {
+            @Override
+            public void call(final String hint) {
+                com.adobe.marketing.mobile.flutter.flutter_aepedge.AndroidUtil.runOnUIThread(() -> result.success(hint));
+            }
+
+            @Override
+            public void fail(final AdobeError adobeError) {
+                final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+                com.adobe.marketing.mobile.flutter.flutter_aepedge.AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getLocationHint - Failed to retrieve location hint",error.getErrorName()));
+            }
+        });
+    }
+
+  private void handleSetLocationHint(final Object arguments) {
+    if (arguments == null) {
+        Edge.setLocationHint(null);
+    }
+
+    if (arguments instanceof String) {
+        Edge.setLocationHint((String) arguments);
+    }
+ }
 }

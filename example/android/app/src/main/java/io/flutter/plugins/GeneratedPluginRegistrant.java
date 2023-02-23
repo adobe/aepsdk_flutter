@@ -16,14 +16,14 @@ public final class GeneratedPluginRegistrant {
   private static final String TAG = "GeneratedPluginRegistrant";
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
-      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.FlutterAEPAssurancePlugin());
+      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepassurance.FlutterAEPAssurancePlugin());
     } catch(Exception e) {
-      Log.e(TAG, "Error registering plugin flutter_aepassurance, com.adobe.marketing.mobile.flutter.FlutterAEPAssurancePlugin", e);
+      Log.e(TAG, "Error registering plugin flutter_aepassurance, com.adobe.marketing.mobile.flutter.flutter_aepassurance.FlutterAEPAssurancePlugin", e);
     }
     try {
-      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.FlutterAEPCorePlugin());
+      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepcore.FlutterAEPCorePlugin());
     } catch(Exception e) {
-      Log.e(TAG, "Error registering plugin flutter_aepcore, com.adobe.marketing.mobile.flutter.FlutterAEPCorePlugin", e);
+      Log.e(TAG, "Error registering plugin flutter_aepcore, com.adobe.marketing.mobile.flutter.flutter_aepcore.FlutterAEPCorePlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepedge.FlutterAEPEdgePlugin());

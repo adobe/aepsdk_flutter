@@ -10,6 +10,7 @@ governing permissions and limitations under the License.
 */
 
 import 'dart:developer';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_aepedge/flutter_aepedge.dart';
 import 'util.dart';
@@ -29,6 +30,7 @@ class _MyAppState extends State<EdgePage> {
     initPlatformState();
   }
 
+  String? _edgeLocationHint = 'Unknown';
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     late String edgeVersion;
@@ -69,6 +71,25 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
+  Future<void> getLocationHint() async {
+    String? result = null;
+
+    try {
+      result = await Edge.locationHint;
+    } on PlatformException {
+      log("Failed to get location hint");
+    }
+
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
+    setState(() {
+      _edgeLocationHint = result;
+    });
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text("Edge Screen")),
@@ -85,6 +106,19 @@ class _MyAppState extends State<EdgePage> {
           ),
           getRichText(
               'Response event handles: = ', '$_edgeEventHandleResponse\n'),
+          ElevatedButton(
+            child: Text("Edge.setLocationHint(null)"),
+            onPressed: () => Edge.setLocationHint(null),
+          ),
+          ElevatedButton(
+            child: Text("Edge.setLocationHint(va6)"),
+            onPressed: () => Edge.setLocationHint("va6"),
+          ),
+          ElevatedButton(
+            child: Text("Edge.getLocationHint"),
+            onPressed: () => getLocationHint(),
+          ),
+          getRichText('Get Location hint: = ', '$_edgeLocationHint\n'),
         ]),
       ));
 }

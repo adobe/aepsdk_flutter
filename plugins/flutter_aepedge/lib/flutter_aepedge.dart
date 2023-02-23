@@ -35,4 +35,19 @@ class Edge {
           .then((value) => (value ?? [])
               .map<EventHandle>((data) => EventHandle(data))
               .toList());
+
+  /// Gets the Edge Network location hint used in requests to the Adobe Experience Platform Edge Network.
+  /// The Edge Network location hint may be used when building the URL for Adobe Experience Platform Edge Network
+  /// requests to hint at the server cluster to use.
+  /// @return the Edge Network location hint, or nil if the location hint expired or is not set.
+  static Future<String?> get locationHint =>
+      _channel.invokeMethod<String?>('getLocationHint').then((value) => value);
+
+  /// Set the Edge Network location hint used in requests to the Adobe Experience Platform Edge Network.
+  /// Sets the Edge Network location hint used in requests to the AEP Edge Network causing requests to "stick" to a specific server cluster.
+  /// Passing an empty string will clear the existing location hint. Edge Network responses may overwrite the location hint to a new value when necessary to manage network traffic.
+  /// Use caution when setting the location hint. Only use location hints for the 'EdgeNetwork' scope. An incorrect location hint value will cause all Edge Network requests to fail.
+  /// @param {hint} the Edge Network location hint to use when connecting to the Adobe Experience Platform Edge Network
+  static Future<void> setLocationHint([String? hint]) =>
+      _channel.invokeMethod<void>('setLocationHint', hint);
 }

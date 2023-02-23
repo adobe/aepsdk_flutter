@@ -29,11 +29,17 @@ governing permissions and limitations under the License.
       result([AEPMobileEdge extensionVersion]);
   } else if ([@"sendEvent" isEqualToString:call.method]) {
      [self handleSendEvent:call result:result];
+  } else if ([@"getLocationHint" isEqualToString:call.method]) {
+     [self handleGetLocationHint:call result:result];
+  } else if ([@"setLocationHint" isEqualToString:call.method]) {
+    NSString *hint = call.arguments;
+        [AEPMobileEdge setLocationHint:hint];
+        result(nil);
   } else {
       result(FlutterMethodNotImplemented);
   }
 }
-    
+
 - (void)handleSendEvent:(FlutterMethodCall *) call result:(FlutterResult)result {
     NSDictionary *experienceEventDict = (NSDictionary *) call.arguments;
     AEPExperienceEvent *experienceEvent = [FlutterAEPEdgeDataBridge experienceEventFromDictionary:experienceEventDict];
@@ -47,4 +53,10 @@ governing permissions and limitations under the License.
         result([FlutterAEPEdgeDataBridge dictionaryFromEdgeEventHandler:handles]);
     }];
     }
+
+- (void)handleGetLocationHint:(FlutterMethodCall *) call result:(FlutterResult)result {
+    [AEPMobileEdge getLocationHint:^(NSString * _Nullable hint, NSError * _Nullable error) {
+        result(hint);
+    }];
+}
 @end
