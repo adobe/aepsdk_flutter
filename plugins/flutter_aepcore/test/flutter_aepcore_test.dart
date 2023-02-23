@@ -158,7 +158,6 @@ void main() {
         ),
       ]);
     });
-
   });
 
   group('dispatchEventWithResponseCallback', () {

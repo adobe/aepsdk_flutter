@@ -177,4 +177,106 @@ void main() {
       expect(actualEventHandleResponse[1].type, expectedResponse[1].type);
     });
   });
+
+  group('setLocationHint', () {
+    final String sampleLocationHint = "irl1";
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return null;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Edge.setLocationHint(sampleLocationHint);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'setLocationHint',
+          arguments: sampleLocationHint,
+        ),
+      ]);
+    });
+  });
+
+  group('setLocationHint to null', () {
+    final String? testLocationHint = null;
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return null;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Edge.setLocationHint(testLocationHint);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'setLocationHint',
+          arguments: testLocationHint,
+        ),
+      ]);
+    });
+  });
+
+  group('getLocationHint', () {
+    final String testGetLocationHint = "ind1";
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return testGetLocationHint;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Edge.locationHint;
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'getLocationHint',
+          arguments: null,
+        ),
+      ]);
+    });
+
+    test('returns correct result', () async {
+      String? getLocationHintResult = await Edge.locationHint;
+      expect(getLocationHintResult, testGetLocationHint);
+    });
+  });
+
+  group('getLocationHint is null', () {
+    final String? testGetLocationHint = null;
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return testGetLocationHint;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Edge.locationHint;
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'getLocationHint',
+          arguments: null,
+        ),
+      ]);
+    });
+
+    test('returns correct result', () async {
+      String? getLocationHintResult = await Edge.locationHint;
+      expect(getLocationHintResult, testGetLocationHint);
+    });
+  });
 }

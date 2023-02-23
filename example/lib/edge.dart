@@ -30,7 +30,8 @@ class _MyAppState extends State<EdgePage> {
     initPlatformState();
   }
 
-  String? _edgeLocationHint = 'Unknown';
+  String? _edgeLocationHint = 'null';
+
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     late String edgeVersion;
@@ -107,8 +108,8 @@ class _MyAppState extends State<EdgePage> {
           getRichText(
               'Response event handles: = ', '$_edgeEventHandleResponse\n'),
           ElevatedButton(
-            child: Text("Edge.setLocationHint(null)"),
-            onPressed: () => Edge.setLocationHint(null),
+            child: Text("Edge.setLocationHint(empty)"),
+            onPressed: () => Edge.setLocationHint(""),
           ),
           ElevatedButton(
             child: Text("Edge.setLocationHint(va6)"),
