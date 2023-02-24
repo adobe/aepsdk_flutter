@@ -98,25 +98,25 @@ class _MyAppState extends State<EdgePage> {
         child: ListView(shrinkWrap: true, children: <Widget>[
           getRichText('AEPEdge extension version: ', '$_edgeVersion\n'),
           ElevatedButton(
-            child: Text("Edge.sentEvent(...)"),
+            child: Text("sentEvent(...)"),
             onPressed: () => sendEvent(),
           ),
           ElevatedButton(
-            child: Text("Edge.sentEvent to Dataset"),
+            child: Text("sentEvent to Dataset"),
             onPressed: () => sendEvent('datasetIdExample'),
           ),
           getRichText(
               'Response event handles: = ', '$_edgeEventHandleResponse\n'),
           ElevatedButton(
-            child: Text("Edge.setLocationHint(empty)"),
+            child: Text("setLocationHint(empty)"),
             onPressed: () => Edge.setLocationHint(""),
           ),
           ElevatedButton(
-            child: Text("Edge.setLocationHint(va6)"),
+            child: Text("setLocationHint(va6)"),
             onPressed: () => Edge.setLocationHint("va6"),
           ),
           ElevatedButton(
-            child: Text("Edge.getLocationHint"),
+            child: Text("getLocationHint"),
             onPressed: () => getLocationHint(),
           ),
           getRichText('Get Location hint: = ', '$_edgeLocationHint\n'),

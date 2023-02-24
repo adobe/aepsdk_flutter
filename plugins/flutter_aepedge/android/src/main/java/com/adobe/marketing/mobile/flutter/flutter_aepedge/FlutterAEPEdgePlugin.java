@@ -64,6 +64,7 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
         handleGetLocationHint(result);
     } else if ("setLocationHint".equals(call.method)) {
         handleSetLocationHint(call.arguments);
+        result.success(null);
     } else {
         result.notImplemented();
     }
@@ -101,13 +102,13 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
         Edge.getLocationHint(new AdobeCallbackWithError<String>() {
             @Override
             public void call(final String hint) {
-                com.adobe.marketing.mobile.flutter.flutter_aepedge.AndroidUtil.runOnUIThread(() -> result.success(hint));
+                AndroidUtil.runOnUIThread(result.success(hint));
             }
 
             @Override
             public void fail(final AdobeError adobeError) {
                 final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
-                com.adobe.marketing.mobile.flutter.flutter_aepedge.AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getLocationHint - Failed to retrieve location hint",error.getErrorName()));
+                AndroidUtil.runOnUIThread(result.error(Integer.toString(error.getErrorCode()),"getLocationHint - Failed to retrieve location hint",error.getErrorName()));
             }
         });
     }

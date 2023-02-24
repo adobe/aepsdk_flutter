@@ -33,8 +33,8 @@ governing permissions and limitations under the License.
         [self handleGetLocationHint:call result:result];
     } else if ([@"setLocationHint" isEqualToString:call.method]) {
     NSString *hint = call.arguments;
-        [AEPMobileEdge setLocationHint:hint];
-        result(nil);
+    [AEPMobileEdge setLocationHint:hint];
+    result(nil);
     } else {
         result(FlutterMethodNotImplemented);
     }
@@ -43,20 +43,32 @@ governing permissions and limitations under the License.
 - (void)handleSendEvent:(FlutterMethodCall *) call result:(FlutterResult)result {
     NSDictionary *experienceEventDict = (NSDictionary *) call.arguments;
     AEPExperienceEvent *experienceEvent = [FlutterAEPEdgeDataBridge experienceEventFromDictionary:experienceEventDict];
-    NSString* eventExperienceError = @"Dispatch Experience Event failed because experience event is null.";
+
     if (!experienceEvent) {
-        NSLog(@"FlutterAEPEdgePlugin - %@", eventExperienceError);
-        return;
+       Log.e(TAG, "Dispatch Experience Event failed because experience event is null.");
+       result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
+       return;
     }
 
     [AEPMobileEdge sendExperienceEvent:experienceEvent completion:^(NSArray<AEPEdgeEventHandle *> * _Nonnull handles) {
-        result([FlutterAEPEdgeDataBridge dictionaryFromEdgeEventHandler:handles]);
+       result([FlutterAEPEdgeDataBridge dictionaryFromEdgeEventHandler:handles]);
     }];
-    }
+}
 
 - (void)handleGetLocationHint:(FlutterMethodCall *) call result:(FlutterResult)result {
     [AEPMobileEdge getLocationHint:^(NSString * _Nullable hint, NSError * _Nullable error) {
-        result(hint);
+         if (error != nil) {
+            result([self flutterErrorFromNSError:error]);
+            return;
+        } else {
+            result(hint);
+        }
     }];
-    }
+}
+
+- (FlutterError *)flutterErrorFromNSError:(NSError *) error {
+    return [FlutterError errorWithCode:[NSString stringWithFormat:@"%ld", (long)error.code]
+                         message:error.localizedDescription
+                         details:error.domain];
+}
 @end
