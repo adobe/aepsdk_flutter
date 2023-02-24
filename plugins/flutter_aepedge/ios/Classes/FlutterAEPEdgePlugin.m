@@ -62,7 +62,6 @@ governing permissions and limitations under the License.
     [AEPMobileEdge getLocationHint:^(NSString * _Nullable hint, NSError * _Nullable error) {
          if (error != nil) {
             result([self flutterErrorFromNSError:error]);
-            return;
         } else {
             result(hint);
         }
