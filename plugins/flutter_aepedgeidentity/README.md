@@ -83,15 +83,14 @@ public class MainApplication extends FlutterApplication {
     ...
     MobileCore.setApplication(this);
     MobileCore.setWrapperType(WrapperType.FLUTTER);
+    MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
 
-    Edge.registerExtension();
-    Identity.registerExtension();
-    MobileCore.start(new AdobeCallback () {
-        @Override
-        public void call(Object o) {
-          MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
-        }
-   });
+    MobileCore.registerExtensions(
+         Arrays.asList(Edge.EXTENSION, Identity.EXTENSION),
+         o -> Log.d("MainApp", "Adobe Experience Platform Mobile SDK was initialized.")
+    );
+  }
+}
 ```
 ------
 ### Importing the extension
