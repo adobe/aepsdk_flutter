@@ -40,5 +40,10 @@ public final class GeneratedPluginRegistrant {
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepedgeidentity, com.adobe.marketing.mobile.flutter.flutter_aepedgeidentity.FlutterAEPEdgeIdentityPlugin", e);
     }
+    try {
+      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepuserprofile.FlutterAEPUserProfilePlugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin flutter_aepuserprofile, com.adobe.marketing.mobile.flutter.flutter_aepuserprofile.FlutterAEPUserProfilePlugin", e);
+    }
   }
 }

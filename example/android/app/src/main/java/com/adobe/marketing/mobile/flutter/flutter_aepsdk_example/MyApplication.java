@@ -21,6 +21,7 @@ import com.adobe.marketing.mobile.Lifecycle;
 import com.adobe.marketing.mobile.LoggingMode;
 import com.adobe.marketing.mobile.MobileCore;
 import com.adobe.marketing.mobile.Signal;
+import com.adobe.marketing.mobile.UserProfile;
 import com.adobe.marketing.mobile.WrapperType;
 import com.adobe.marketing.mobile.edge.consent.Consent;
 
@@ -43,13 +44,14 @@ public class MyApplication extends FlutterApplication {
         MobileCore.setWrapperType(WrapperType.FLUTTER);
 
         List<Class<? extends Extension>> extensions = Arrays.asList(
+                com.adobe.marketing.mobile.edge.identity.Identity.EXTENSION,
+                com.adobe.marketing.mobile.Identity.EXTENSION,
                 Lifecycle.EXTENSION,
                 Signal.EXTENSION,
                 Edge.EXTENSION,
                 Assurance.EXTENSION,
                 Consent.EXTENSION,
-                com.adobe.marketing.mobile.edge.identity.Identity.EXTENSION,
-                com.adobe.marketing.mobile.Identity.EXTENSION
+                UserProfile.EXTENSION
         );
         MobileCore.registerExtensions(extensions, o -> MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID));
 

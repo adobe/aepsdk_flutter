@@ -278,6 +278,7 @@
 				"${BUILT_PRODUCTS_DIR}/AEPRulesEngine/AEPRulesEngine.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPServices/AEPServices.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPSignal/AEPSignal.framework",
+				"${BUILT_PRODUCTS_DIR}/AEPUserProfile/AEPUserProfile.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -291,6 +292,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPRulesEngine.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPSignal.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPUserProfile.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

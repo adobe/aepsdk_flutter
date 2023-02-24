@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/flutter_aepedgeconsent.svg)](https://pub.dartlang.org/packages/flutter_aepedgeconsent) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepedgeconsent` is a flutter plugin for the iOS and Android [AEPEdgeConsent SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network) to allow for integration with Flutter applications. Functionality to enable the Consent for Edge Network extension is provided entirely through Dart documented below.
+`flutter_aepedgeconsent` is a flutter plugin for the iOS and Android [Adobe Experience Platform Edge Consent SDK](https://developer.adobe.com/client-sdks/documentation/consent-for-edge-network/) to allow for integration with Flutter applications. Functionality to enable the Consent for Edge Network extension is provided entirely through Dart documented below.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ flutter test
 
 ## Usage
 
-For more detailed information on the Consent APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/foundation-extensions/consent-for-edge-network)
+For more detailed information on the Consent APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/consent-for-edge-network/)
 
 ### Registering the extension with AEPCore:
 

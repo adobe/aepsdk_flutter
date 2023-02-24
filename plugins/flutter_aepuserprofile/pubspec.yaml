@@ -1,13 +1,13 @@
-name: flutter_aepedgeconsent
-
-description: Official Adobe Experience Platform support for Flutter apps. The AEP Consent Collection plugin enables consent preferences collection from your Flutter app when using the Adobe Experience Platform Mobile SDK and the Edge Network extension.
-version: 2.0.0
+name: flutter_aepuserprofile
+description: Official Adobe Experience Platform support for Flutter apps. The UserProfile extension represents the Adobe Experience Platform SDK's Profile extension which helps manage profile attributes in the client.
+version: 1.0.0
 homepage: https://developer.adobe.com/client-sdks
-repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedgeconsent
+repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepuserprofile
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
   flutter: ">=2.0.0"
+
 
 dependencies:
   flutter:
@@ -17,10 +17,11 @@ dependencies:
 dependency_overrides:
   flutter_aepcore:
     path: ../flutter_aepcore
- 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -34,7 +35,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.adobe.marketing.mobile.flutter.flutter_aepedgeconsent
-        pluginClass: FlutterAEPEdgeConsentPlugin
+        package: com.adobe.marketing.mobile.flutter.flutter_aepuserprofile
+        pluginClass: FlutterAEPUserProfilePlugin
       ios:
-        pluginClass: FlutterAEPEdgeConsentPlugin
+        pluginClass: FlutterAEPUserProfilePlugin
