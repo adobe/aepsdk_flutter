@@ -44,10 +44,13 @@ governing permissions and limitations under the License.
     NSDictionary *experienceEventDict = (NSDictionary *) call.arguments;
     AEPExperienceEvent *experienceEvent = [FlutterAEPEdgeDataBridge experienceEventFromDictionary:experienceEventDict];
 
-    if (!experienceEvent) {
-       Log.e(TAG, "Dispatch Experience Event failed because experience event is null.");
-       result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
-       return;
+        if (!experienceEvent) {
+           NSString* eventExperienceError = @"Dispatch Experience Event failed because experience event is null.";
+           NSLog(@"FlutterAEPEdgePlugin - %@", eventExperienceError);
+           FlutterError* error = [FlutterError errorWithCode:[NSString stringWithFormat:@"%ld", AEPErrorUnexpected] message:@"Unexpected error" details:nil];
+           result(error);
+           return;
+    
     }
 
     [AEPMobileEdge sendExperienceEvent:experienceEvent completion:^(NSArray<AEPEdgeEventHandle *> * _Nonnull handles) {
