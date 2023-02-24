@@ -11,6 +11,7 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 | [Edge](plugins/flutter_aepedge/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedge.svg)](https://pub.dartlang.org/packages/flutter_aepedge) |
 | [Consent](plugins/flutter_aepedgeconsent/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedgeconsent.svg)](https://pub.dartlang.org/packages/flutter_aepedgeconsent) |
 | [EdgeIdentity](plugins/flutter_aepedgeidentity/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedgeidentity.svg)](https://pub.dartlang.org/packages/flutter_aepedgeidentity) |
+| [UserProfile](plugins/flutter_aepuserprofile/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepuserprofile.svg)](https://pub.dartlang.org/packages/flutter_aepuserprofile) |
 
 ## Installation
 
@@ -42,7 +43,7 @@ Install instructions for each respective plugin can be found in each plugin's re
 
 ### Initializing
 
-Initializing the SDK should be done in native code (AppDelegate / SceneDelegate for iOS and Application class for Android). Documentation for initializing the SDK can be found [here](https://aep-sdks.gitbook.io/docs/getting-started/get-the-sdk#2-add-initialization-code). The linked documentation initalizes the User Profile extension which is not required or supported in Flutter.
+Initializing the SDK should be done in native code (AppDelegate / SceneDelegate for iOS and Application class for Android). Documentation for initializing the SDK can be found [here](https://developer.adobe.com/client-sdks/documentation/getting-started/get-the-sdk/#2-add-initialization-code). The linked documentation initalizes the User Profile extension which is not required or supported in Flutter.
 
 As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
 
