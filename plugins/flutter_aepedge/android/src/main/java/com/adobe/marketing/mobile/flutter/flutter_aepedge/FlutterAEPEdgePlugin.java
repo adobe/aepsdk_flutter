@@ -71,22 +71,22 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
   }
 
   private void handleSentEvent(final MethodChannel.Result result, final Object arguments) {
-     if (!(arguments instanceof Map)) {
+    if (!(arguments instanceof Map)) {
        Log.e(TAG, "Dispatch sendEvent failed because arguments were invalid");
        result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
        return;
-     }
-
-     Map experienceEventMap = (Map) arguments;
-     ExperienceEvent experienceEvent = FlutterAEPEdgeDataBridge.eventFromMap(experienceEventMap);
-
-      if (experienceEvent == null) {
-      Log.e(TAG, "Dispatch Experience Event failed because experience event is null.");
-      result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
-      return;
     }
 
-     Edge.sendEvent(experienceEvent, handles -> {
+    Map experienceEventMap = (Map) arguments;
+    ExperienceEvent experienceEvent = FlutterAEPEdgeDataBridge.eventFromMap(experienceEventMap);
+
+    if (experienceEvent == null) {
+       Log.e(TAG, "Dispatch Experience Event failed because experience event is null.");
+       result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
+       return;
+    }
+
+    Edge.sendEvent(experienceEvent, handles -> {
         final List<Map> arr = new ArrayList();
         if (handles != null) {
             for (EdgeEventHandle handle: handles) {
@@ -95,31 +95,31 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
         }
 
         AndroidUtil.runOnUIThread(() -> result.success(arr));
-      });
+    });
   }
 
-    private void handleGetLocationHint(final MethodChannel.Result result) {
-        Edge.getLocationHint(new AdobeCallbackWithError<String>() {
-            @Override
-            public void call(final String hint) {
-                AndroidUtil.runOnUIThread(() -> result.success(hint));
-            }
+  private void handleGetLocationHint(final MethodChannel.Result result) {
+    Edge.getLocationHint(new AdobeCallbackWithError<String>() {
+        @Override
+        public void call(final String hint) {
+            AndroidUtil.runOnUIThread(() -> result.success(hint));
+        }
 
-            @Override
-            public void fail(final AdobeError adobeError) {
-                final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
-                AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getLocationHint - Failed to retrieve location hint",error.getErrorName()));
-            }
-        });
-    }
-
+        @Override
+        public void fail(final AdobeError adobeError) {
+            final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+            AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getLocationHint - Failed to retrieve location hint",error.getErrorName()));
+        }
+    });
+  }
+ 
   private void handleSetLocationHint(final Object arguments) {
-    if (arguments == null) {
+     if (arguments == null) {
         Edge.setLocationHint(null);
-    }
+     }
 
-    if (arguments instanceof String) {
+     if (arguments instanceof String) {
         Edge.setLocationHint((String) arguments);
-    }
- }
+     }
+   }
 }

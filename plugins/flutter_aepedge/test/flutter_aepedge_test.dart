@@ -184,8 +184,8 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
+      log.clear();
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
-        log.clear();
         log.add(methodCall);
         return null;
       });
@@ -221,7 +221,6 @@ void main() {
 
     setUp(() {
       channel.setMockMethodCallHandler((MethodCall methodCall) async {
-        log.clear();
         log.add(methodCall);
         return testGetLocationHint;
       });
