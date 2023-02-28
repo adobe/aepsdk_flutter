@@ -115,6 +115,45 @@ static Future<String> get extensionVersion
 String version = await Edge.extensionVersion;
  ```
 ------
+### getLocationHint
+Gets the Edge Network location hint used in requests to the Adobe Experience Platform Edge Network. The Edge Network location hint may be used when building the URL for Adobe Experience Platform Edge Network requests to hint at the server cluster to use.
+
+**Syntax**
+```dart
+static Future<String?> get locationHint
+```
+
+**Example**
+```dart
+String? result = null;
+
+try {
+  result = await Edge.locationHint;
+} on PlatformException {
+  log("Failed to get location hint");
+}
+```
+------
+### resetIdentity
+Resets current state of the AEP Edge extension and clears previously cached content related to current identity, if any.
+See [MobileCore.resetIdentities](./../flutter_aepcore/README.md) for more details.
+
+------
+### setLocationHint
+Sets the Edge Network location hint used in requests to the Adobe Experience Platform Edge Network. Passing null or an empty string clears the existing location hint. Edge Network responses may overwrite the location hint to a new value when necessary to manage network traffic.
+
+>Warning: Use caution when setting the location hint. Only use location hints for the "EdgeNetwork" scope. An incorrect location hint value will cause all Edge Network requests to fail with 404 response code.
+
+**Syntax**
+```dart
+static Future<void> setLocationHint([String? hint])
+```
+
+**Example**
+```dart
+Edge.setLocationHint('va6');
+```
+------
 ### sendEvent
 Sends an Experience event to Adobe Experience Platform Edge Network.
 
