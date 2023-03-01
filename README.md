@@ -87,6 +87,10 @@ If you are creating a plugin for an AEP-prefix (Swift) library, please follow th
 
 For all other information on contributing see [Contributing](CONTRIBUTING.md)
 
+## Documentation
+
+Additional documentation about migrating from older Flutter libraries (ACP-prefixed Flutter libraries) to the latest Flutter libraries (AEP-prefixed libraries) can be found [here](./docs/migration.md)
+
 ## License
 
 See [License](LICENSE)
