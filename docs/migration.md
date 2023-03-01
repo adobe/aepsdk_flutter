@@ -163,13 +163,13 @@ import 'package:flutter_aepcore/flutter_aepcore.dart';
 
 ##### Getting Core version:
 - (ACP)
- ```dart
+```dart
 String version = await FlutterACPCore.extensionVersion;
- ```
+```
 - (AEP)
- ```dart
+```dart
 String version = await MobileCore.extensionVersion;
- ```
+```
 
 ##### Updating the SDK configuration:
 - (ACP)
@@ -617,12 +617,12 @@ Assurance.startSession(url);
 
 ### UserProfile
  
- ##### Importing the SDK:
- - (ACP)
- ```dart
+##### Importing the SDK:
+- (ACP)
+```dart
 import 'package:flutter_acpuserprofile/flutter_acpuserprofile.dart';
 ```
- - (AEP)
+- (AEP)
 ```dart
 import 'package:flutter_aepuserprofile/flutter_aepuserprofile.dart';
 ```
@@ -631,31 +631,29 @@ import 'package:flutter_aepuserprofile/flutter_aepuserprofile.dart';
 - (ACP)
  ```dart
 String version = await FlutterACPUserProfile.extensionVersion;
- ```
+```
 - (AEP)
- ```dart
+```dart
 String version = await UserProfile.extensionVersion;
- ```
+```
 
 ##### Get user profile attributes which match the provided keys:
 - (ACP)
 ```dart
-String userAttributes;
-
 try {
-   trackingId = await FlutterACPUserProfile.getUserAttributes(["attrNameTest", "mapKey"]);
+  String userAttributes = await FlutterACPUserProfile.getUserAttributes(["attr1", "attr2"]);
 } on PlatformException {
    log("Failed to get the user attributes");
 }
 ```
 - (AEP)
- ```dart
+```dart
 try {
 	String userAttributes = await UserProfile.getUserAttributes(["attr1", "attr2"]);
 } on PlatformException {
 	log("Failed to get the user attributes");
 }
- ```
+```
 
 ##### Remove provided user profile attributes if they exist:
 - (ACP)
