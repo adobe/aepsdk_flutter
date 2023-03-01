@@ -28,7 +28,7 @@ This will add a line like this to your package's pubspec.yaml (and run an implic
 
 ```
 dependencies:
-  flutter_{plugin_name}: ^1.0.0
+  flutter_{plugin_name}: ^{latest_version}
 ```
 
 Now import the plugin in your Dart code as follows:
@@ -82,8 +82,6 @@ $ flutter test
 ```
 
 ## Contributing
-
-If you are migrating a plugin for an ACP-prefixed (Objective-C) library to an AEP-prefixed (Swift) library, or need help with publishing, please follow the steps [outlined here](https://wiki.corp.adobe.com/display/adms/Migrating+ACP+Flutter+Wrapper+to+AEP).
 
 If you are creating a plugin for an AEP-prefix (Swift) library, please follow the steps [outlined here](docs/creating_new_plugins.md)
 
