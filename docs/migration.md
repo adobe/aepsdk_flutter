@@ -66,7 +66,7 @@ public class MyApplication extends FlutterApplication {
 -    } catch (InvalidInitException e) {
 
   List<Class<? extends Extension>> extensions = Arrays.asList(
-      com.adobe.marketing.mobile.Identity.EXTENSION,
+      Identity.EXTENSION,
       Lifecycle.EXTENSION,
       Signal.EXTENSION,
       Assurance.EXTENSION,
