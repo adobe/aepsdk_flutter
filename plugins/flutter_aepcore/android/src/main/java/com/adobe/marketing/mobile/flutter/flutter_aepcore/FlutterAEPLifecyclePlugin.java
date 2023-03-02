@@ -9,9 +9,9 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-package com.adobe.marketing.mobile.flutter;
+package com.adobe.marketing.mobile.flutter.flutter_aepcore;
 
-import com.adobe.marketing.mobile.Signal;
+import com.adobe.marketing.mobile.Lifecycle;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -19,14 +19,14 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.PluginRegistry;
 
-public class FlutterAEPSignalPlugin implements FlutterPlugin, MethodChannel.MethodCallHandler {
+public class FlutterAEPLifecyclePlugin implements FlutterPlugin, MethodChannel.MethodCallHandler {
 
     private MethodChannel channel;
 
     @Override
     public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
-        channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepsignal");
-        channel.setMethodCallHandler(new FlutterAEPSignalPlugin());
+        channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aeplifecycle");
+        channel.setMethodCallHandler(new FlutterAEPLifecyclePlugin());
     }
 
     @Override
@@ -37,9 +37,9 @@ public class FlutterAEPSignalPlugin implements FlutterPlugin, MethodChannel.Meth
     }
 
     @Override
-    public void onMethodCall(MethodCall call,MethodChannel.Result result) {
+    public void onMethodCall(MethodCall call, MethodChannel.Result result) {
         if ("extensionVersion".equals(call.method)) {
-            result.success(Signal.extensionVersion());
+            result.success(Lifecycle.extensionVersion());
         } else {
             result.notImplemented();
         }

@@ -177,4 +177,79 @@ void main() {
       expect(actualEventHandleResponse[1].type, expectedResponse[1].type);
     });
   });
+
+  group('setLocationHint', () {
+    final String testLocationHint = "irl1";
+    final String? testLocationHintNull = null;
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      log.clear();
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return null;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Edge.setLocationHint(testLocationHint);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'setLocationHint',
+          arguments: testLocationHint,
+        ),
+      ]);
+    });
+
+    test('invokes correct method with null', () async {
+      await Edge.setLocationHint(testLocationHintNull);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'setLocationHint',
+          arguments: testLocationHintNull,
+        ),
+      ]);
+    });
+  });
+
+  group('getLocationHint', () {
+    final String testGetLocationHint = "va6";
+    final String? testGetLocationHintNull = null;
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.add(methodCall);
+        return testGetLocationHint;
+      });
+    });
+
+    test('invokes correct method', () async {
+      await Edge.locationHint;
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'getLocationHint',
+          arguments: null,
+        ),
+      ]);
+    });
+
+    test('returns correct result', () async {
+      String? getLocationHintResult = await Edge.locationHint;
+      expect(getLocationHintResult, testGetLocationHint);
+    });
+
+    test('returns correct result null', () async {
+      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+        log.clear();
+        return testGetLocationHintNull;
+      });
+
+      String? getLocationHintResultNull = await Edge.locationHint;
+      expect(getLocationHintResultNull, testGetLocationHintNull);
+    });
+  });
 }

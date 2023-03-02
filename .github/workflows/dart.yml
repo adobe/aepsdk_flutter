@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - staging
+      - android_2x 
     paths:
       - 'plugins/**'
       - 'example/**'
@@ -11,6 +12,7 @@ on:
     branches:
       - main
       - staging
+      - android_2x 
     paths:
       - 'plugins/**'
       - 'example/**'
@@ -163,4 +165,24 @@ jobs:
 
       - name: Unit test
         working-directory: ./plugins/flutter_aepedgeidentity
+        run: flutter test
+  job8:
+    name: UserProfile unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '2.x'
+
+      - name: Install dependencies
+        working-directory: ./plugins/flutter_aepuserprofile
+        run: flutter pub get
+
+      - name: Unit test
+        working-directory: ./plugins/flutter_aepuserprofile
         run: flutter test
