@@ -32,7 +32,7 @@ class IdentityMap {
       if (index != -1) {
         this.identityMap[namespace]![index] = itemCopy;
       } else
-        [this.identityMap[namespace]!.add(itemCopy)];
+        this.identityMap[namespace]!.add(itemCopy);
     } else {
       this.identityMap[namespace] = [itemCopy];
     }
