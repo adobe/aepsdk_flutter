@@ -14,19 +14,40 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
+  flutter_aepcore: ">= 2.0.0 <3.0.0"
+
+  flutter_aepassurance: ">= 2.0.0 <3.0.0"
+
+  flutter_aepedge: ">= 2.0.0 <3.0.0"
+
+  flutter_aepedgeconsent: ">= 2.0.0 <3.0.0"
+
+  flutter_aepedgeidentity: ">= 2.0.0 <3.0.0"  
+
+  flutter_aepuserprofile: ">= 1.0.0 <2.0.0"  
+
+dependency_overrides:
+  flutter_aepcore:
+    path: ../plugins/flutter_aepcore
+
+  flutter_aepassurance:
+    path: ../plugins/flutter_aepassurance
+
+  flutter_aepedge:
+    path: ../plugins/flutter_aepedge
+
+  flutter_aepedgeconsent:
+    path: ../plugins/flutter_aepedgeconsent
+
+  flutter_aepedgeidentity:
+    path: ../plugins/flutter_aepedgeidentity
+
+  flutter_aepuserprofile:
+    path: ../plugins/flutter_aepuserprofile
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_aepcore: ">= 1.0.0 <2.0.0"
-
-  flutter_aepassurance: ">= 1.0.0 <2.0.0"
-  
-  flutter_aepedge: ">= 1.0.0 <2.0.0"
-
-  flutter_aepedgeconsent: ">= 1.0.0 <2.0.0"
-
-  flutter_aepedgeidentity: ">= 1.0.0 <2.0.0"  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

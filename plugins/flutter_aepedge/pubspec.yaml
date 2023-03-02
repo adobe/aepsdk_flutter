@@ -1,8 +1,8 @@
 name: flutter_aepedge
 
 description: Official Adobe Experience Platform support for Flutter apps. The Experience Platform Edge extension enables sending data to the Adobe Experience Edge from a mobile device.
-version: 1.0.0
-homepage: https://aep-sdks.gitbook.io/docs/
+version: 2.0.0
+homepage: https://developer.adobe.com/client-sdks
 repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedge
 
 environment:
@@ -12,9 +12,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_aepcore: ">= 1.0.0 <2.0.0"
-  flutter_aepedgeidentity: ">= 1.0.0 <2.0.0"
- 
+  flutter_aepcore: ">= 2.0.0 <3.0.0"
+  flutter_aepedgeidentity: ">= 2.0.0 <3.0.0"
+
+dependency_overrides:
+  flutter_aepcore:
+    path: ../flutter_aepcore
+  flutter_aepedgeidentity:
+    path: ../flutter_aepedgeidentity
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

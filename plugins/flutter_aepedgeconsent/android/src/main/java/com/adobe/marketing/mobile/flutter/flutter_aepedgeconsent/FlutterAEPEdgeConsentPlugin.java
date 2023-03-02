@@ -49,24 +49,14 @@ public class FlutterAEPEdgeConsentPlugin implements FlutterPlugin, MethodCallHan
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if ("extensionVersion".equals(call.method)) {
-      AndroidUtil.runOnUIThread(new Runnable() {
-        @Override
-        public void run() {
-          result.success(Consent.extensionVersion());
-        }
-      });
+        result.success(Consent.extensionVersion());
     } else if("getConsents".equals(call.method)) {
-            handleGetConsents(result);
+        handleGetConsents(result);
     } else if("updateConsents".equals(call.method)) {
-            handleUpdateConsents(call.arguments);
-            result.success(null);
+        handleUpdateConsents(call.arguments);
+        result.success(null);
     } else {
-      AndroidUtil.runOnUIThread(new Runnable() {
-        @Override
-        public void run() {
-          result.notImplemented();
-        }
-      });
+        result.notImplemented();
     }
   }
 
@@ -74,23 +64,13 @@ public class FlutterAEPEdgeConsentPlugin implements FlutterPlugin, MethodCallHan
       Consent.getConsents(new AdobeCallbackWithError<Map<String, Object>>() {
           @Override
           public void call(final Map<String, Object> consents) {
-              AndroidUtil.runOnUIThread(new Runnable() {
-                  @Override
-                  public void run() {
-                      result.success(consents);
-                  }
-              });
+              AndroidUtil.runOnUIThread(() -> result.success(consents));
           }
 
           @Override
           public void fail(final AdobeError adobeError) {
             final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
-            AndroidUtil.runOnUIThread(new Runnable() {
-              @Override
-              public void run() {
-                result.error(Integer.toString(error.getErrorCode()),"getConsents - Failed to retrieve consents",error.getErrorName());
-              }
-            });
+            AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getConsents - Failed to retrieve consents",error.getErrorName()));
           }
       });
   }

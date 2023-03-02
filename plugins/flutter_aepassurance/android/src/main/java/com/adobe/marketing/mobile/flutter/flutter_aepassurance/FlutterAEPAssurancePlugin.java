@@ -9,10 +9,11 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-package com.adobe.marketing.mobile.flutter;
+package com.adobe.marketing.mobile.flutter.flutter_aepassurance;
 
 import android.util.Log;
 
+import com.adobe.marketing.mobile.AdobeError;
 import com.adobe.marketing.mobile.Assurance;
 
 import androidx.annotation.NonNull;
@@ -50,10 +51,11 @@ public class FlutterAEPAssurancePlugin implements FlutterPlugin, MethodCallHandl
       String url = (String) call.arguments;
       if (url.isEmpty()) {
         Log.e(TAG, "Unable to start assurance session, argument parsing failed");
-        return;
+        result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
+      } else {
+        Assurance.startSession(url);
+        result.success(null);
       }
-      Assurance.startSession(url);
-      result.success(null);
     } else {
       result.notImplemented();
     }

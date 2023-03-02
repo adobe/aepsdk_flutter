@@ -10,11 +10,13 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-package com.adobe.marketing.mobile.flutter;
+package com.adobe.marketing.mobile.flutter.flutter_aepcore;
 
 import android.util.Log;
 
 import com.adobe.marketing.mobile.AdobeCallback;
+import com.adobe.marketing.mobile.AdobeCallbackWithError;
+import com.adobe.marketing.mobile.AdobeError;
 import com.adobe.marketing.mobile.Identity;
 import com.adobe.marketing.mobile.VisitorID;
 
@@ -65,6 +67,7 @@ public class FlutterAEPIdentityPlugin implements FlutterPlugin, MethodChannel.Me
             result.success(null);
         } else if("syncIdentifiersWithAuthState".equals(call.method)) {
             handleSyncIdentifiersWithAuthState(call.arguments);
+            result.success(null);
         } else if("urlVariables".equals(call.method)) {
             handleUrlVariables(result);
         } else {
@@ -73,52 +76,54 @@ public class FlutterAEPIdentityPlugin implements FlutterPlugin, MethodChannel.Me
     }
 
     private void handleAppendToUrl(final MethodChannel.Result result, final Object arguments) {
-        if (arguments instanceof String) {
-            Identity.appendVisitorInfoForURL((String) arguments, new AdobeCallback<String>() {
-                @Override
-                public void call(final String url) {
-                    AndroidUtil.runOnUIThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            result.success(url);
-                        }
-                    });
-                }
-            });
-        } else {
+        if (!(arguments instanceof String)) {
             Log.e(TAG, "Failed to handle append to url, url is not string");
+            result.error(Integer.toString(AdobeError.UNEXPECTED_ERROR.getErrorCode()),AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
+            return;
         }
+        Identity.appendVisitorInfoForURL((String) arguments, new AdobeCallbackWithError<String>() {
+            @Override
+            public void call(final String url) {
+                AndroidUtil.runOnUIThread(() -> result.success(url));
+            }
+            @Override
+            public void fail(AdobeError adobeError) {
+                final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+                AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getIdentifiers - Failed to retrieve Identifiers",error.getErrorName()));
+            }
+        });
     }
 
     private void handleGetIdentifiers(final MethodChannel.Result result) {
-        Identity.getIdentifiers(new AdobeCallback<List<VisitorID>>() {
-
+        Identity.getIdentifiers(new AdobeCallbackWithError<List<VisitorID>>() {
             @Override
             public void call(List<VisitorID> visitorIDS) {
                 final List<Map> ids = new ArrayList<>();
                 for (VisitorID visitor: visitorIDS) {
                     ids.add(FlutterAEPIdentityDataBridge.mapFromVisitorIdentifier(visitor));
                 }
-                AndroidUtil.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        result.success(ids);
-                    }
-                });
+                AndroidUtil.runOnUIThread(() -> result.success(ids));
+            }
+
+            @Override
+            public void fail(AdobeError adobeError) {
+                final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+                AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getIdentifiers - Failed to retrieve Identifiers",error.getErrorName()));
             }
         });
     }
 
     private void handleGetExperienceCloudId(final MethodChannel.Result result) {
-        Identity.getExperienceCloudId(new AdobeCallback<String>() {
+        Identity.getExperienceCloudId(new AdobeCallbackWithError<String>() {
             @Override
-            public void call(final String couldId) {
-                AndroidUtil.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        result.success(couldId);
-                    }
-                });
+            public void call(final String experienceCloudId) {
+                AndroidUtil.runOnUIThread(() -> result.success(experienceCloudId));
+            }
+
+            @Override
+            public void fail(final AdobeError adobeError) {
+                final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+                AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getExperienceCloudId - Failed to retrieve Experience Cloud Id",error.getErrorName()));
             }
         });
     }
@@ -132,6 +137,7 @@ public class FlutterAEPIdentityPlugin implements FlutterPlugin, MethodChannel.Me
         Map<String, Object> params = (Map<String, Object>) arguments;
         if (!(params.get("identifierType") instanceof String) || !(params.get("identifier") instanceof String) || !(params.get("authState") instanceof String)) {
             Log.e(TAG, "Sync identifier failed because arguments were invalid");
+            return;
         }
 
         String identifierType = (String) params.get("identifierType");
@@ -159,22 +165,25 @@ public class FlutterAEPIdentityPlugin implements FlutterPlugin, MethodChannel.Me
         Map params = (Map) arguments;
         if (!(params.get("identifiers") instanceof Map) && !(params.get("authState") instanceof String)) {
             Log.e(TAG, "Sync identifier failed because arguments were invalid");
+            return;
         }
+
         Map identifiers = (Map) params.get("identifiers");
         VisitorID.AuthenticationState authenticationState = FlutterAEPIdentityDataBridge.authenticationStateFromString((String) params.get("authState"));
         Identity.syncIdentifiers(identifiers, authenticationState);
     }
 
     private void handleUrlVariables(final MethodChannel.Result result) {
-        Identity.getUrlVariables(new AdobeCallback<String>() {
+        Identity.getUrlVariables(new AdobeCallbackWithError<String>() {
             @Override
             public void call(final String urlVariables) {
-                AndroidUtil.runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        result.success(urlVariables);
-                    }
-                });
+                AndroidUtil.runOnUIThread(() -> result.success(urlVariables));
+            }
+
+            @Override
+            public void fail(final AdobeError adobeError) {
+                final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+                AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getUrlVariables - failed to retrieve the URL variables",error.getErrorName()));
             }
         });
     }

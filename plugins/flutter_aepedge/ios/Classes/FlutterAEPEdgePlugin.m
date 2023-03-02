@@ -16,35 +16,61 @@ governing permissions and limitations under the License.
 #import "FlutterAEPEdgeDataBridge.h"
 
 @implementation FlutterAEPEdgePlugin
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FlutterMethodChannel* channel = [FlutterMethodChannel
-      methodChannelWithName:@"flutter_aepedge"
+    + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
+    FlutterMethodChannel* channel = [FlutterMethodChannel
+        methodChannelWithName:@"flutter_aepedge"
             binaryMessenger:[registrar messenger]];
-  FlutterAEPEdgePlugin* instance = [[FlutterAEPEdgePlugin alloc] init];
-  [registrar addMethodCallDelegate:instance channel:channel];
+    FlutterAEPEdgePlugin* instance = [[FlutterAEPEdgePlugin alloc] init];
+    [registrar addMethodCallDelegate:instance channel:channel];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"extensionVersion" isEqualToString:call.method]) {
-      result([AEPMobileEdge extensionVersion]);
-  } else if ([@"sendEvent" isEqualToString:call.method]) {
-     [self handleSendEvent:call result:result];
-  } else {
-      result(FlutterMethodNotImplemented);
-  }
+    if ([@"extensionVersion" isEqualToString:call.method]) {
+        result([AEPMobileEdge extensionVersion]);
+    } else if ([@"sendEvent" isEqualToString:call.method]) {
+        [self handleSendEvent:call result:result];
+    } else if ([@"getLocationHint" isEqualToString:call.method]) {
+        [self handleGetLocationHint:call result:result];
+    } else if ([@"setLocationHint" isEqualToString:call.method]) {
+    NSString *hint = call.arguments;
+    [AEPMobileEdge setLocationHint:hint];
+    result(nil);
+    } else {
+        result(FlutterMethodNotImplemented);
+    }
 }
-    
+
 - (void)handleSendEvent:(FlutterMethodCall *) call result:(FlutterResult)result {
     NSDictionary *experienceEventDict = (NSDictionary *) call.arguments;
     AEPExperienceEvent *experienceEvent = [FlutterAEPEdgeDataBridge experienceEventFromDictionary:experienceEventDict];
-    NSString* eventExperienceError = @"Dispatch Experience Event failed because experience event is null.";
-    if (!experienceEvent) {
-        NSLog(@"FlutterAEPEdgePlugin - %@", eventExperienceError);
-        return;
-    }
+
+        if (!experienceEvent) {
+           NSString* eventExperienceError = @"Dispatch Experience Event failed because experience event is null.";
+           NSLog(@"FlutterAEPEdgePlugin - %@", eventExperienceError);
+           FlutterError* error = [FlutterError errorWithCode:[NSString stringWithFormat:@"%ld", AEPErrorUnexpected] message:@"Unexpected error" details:nil];
+           result(error);
+           return;
     
-    [AEPMobileEdge sendExperienceEvent:experienceEvent completion:^(NSArray<AEPEdgeEventHandle *> * _Nonnull handles) {
-        result([FlutterAEPEdgeDataBridge dictionaryFromEdgeEventHandler:handles]);
-    }];
     }
+
+    [AEPMobileEdge sendExperienceEvent:experienceEvent completion:^(NSArray<AEPEdgeEventHandle *> * _Nonnull handles) {
+       result([FlutterAEPEdgeDataBridge dictionaryFromEdgeEventHandler:handles]);
+    }];
+}
+
+- (void)handleGetLocationHint:(FlutterMethodCall *) call result:(FlutterResult)result {
+    [AEPMobileEdge getLocationHint:^(NSString * _Nullable hint, NSError * _Nullable error) {
+         if (error != nil) {
+            result([self flutterErrorFromNSError:error]);
+        } else {
+            result(hint);
+        }
+    }];
+}
+
+- (FlutterError *)flutterErrorFromNSError:(NSError *) error {
+    return [FlutterError errorWithCode:[NSString stringWithFormat:@"%ld", (long)error.code]
+                         message:error.localizedDescription
+                         details:error.domain];
+}
 @end
