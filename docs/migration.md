@@ -128,6 +128,9 @@ public class MyApplication extends FlutterApplication {
 
     [AEPMobileCore setLogLevel: AEPLogLevelDebug];
     [AEPMobileCore configureWithAppId:@"yourAppID"];
+
+    const UIApplicationState appState = application.applicationState;
+
     [AEPMobileCore registerExtensions: @[
         AEPMobileLifecycle.class,
         AEPMobileSignal.class,
@@ -135,9 +138,10 @@ public class MyApplication extends FlutterApplication {
         AEPMobileUserProfile.class,
         AEPMobileAssurance.class,
     ] completion:^{
-    [AEPMobileCore lifecycleStart:@{@"contextDataKey": @"contextDataVal"}];
-  }
-  ];
+    if (appState != UIApplicationStateBackground) {
+       [AEPMobileCore lifecycleStart:nil}];
+    }
+  }];
   //  --- 4. end ----
 
     ...
