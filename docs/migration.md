@@ -138,10 +138,10 @@ public class MyApplication extends FlutterApplication {
         AEPMobileUserProfile.class,
         AEPMobileAssurance.class,
     ] completion:^{
-    if (appState != UIApplicationStateBackground) {
-       [AEPMobileCore lifecycleStart:nil}];
-    }
-  }];
+      if (appState != UIApplicationStateBackground) {
+        [AEPMobileCore lifecycleStart:nil}];
+      }
+    }];
   //  --- 4. end ----
 
     ...
