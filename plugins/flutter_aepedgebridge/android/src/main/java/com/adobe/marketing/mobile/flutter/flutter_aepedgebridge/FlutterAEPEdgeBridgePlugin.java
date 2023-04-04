@@ -23,8 +23,6 @@ import io.flutter.plugin.common.MethodChannel.Result;
 /** FlutterAEPEdgeBridgePlugin */
 public class FlutterAEPEdgeBridgePlugin implements FlutterPlugin, MethodCallHandler {
 
-  private static final String TAG = "FlutterAEPEdgeBridgePlugin";
-
   private MethodChannel channel;
 
   @Override

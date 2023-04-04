@@ -4,10 +4,10 @@
 
 `flutter_aepedgebridge` is a flutter plugin for the iOS and Android Adobe Experience Platform Edge Bridge to allow for integration with flutter applications.
 
-The Edge Bridge mobile extension provides seamless routing of data to the Adobe Experience Platform Edge Network for existing SDK implementations. For applications which already make use of the [MobileCore.trackAction](../core/README.md#trackaction) and/or [MobileCore.trackState](../core/README.md#trackstate) APIs to send data to Adobe Analytics, this extension will automatically route those API calls to the Edge Network, making the data available for mapping to a user's XDM schema using the [Data Prep for Data Collection](https://experienceleague.adobe.com/docs/experience-platform/data-prep/home.html).
+The Edge Bridge mobile extension provides seamless routing of data to the Adobe Experience Platform Edge Network for existing SDK implementations. For applications which already make use of the [MobileCore.trackAction](../flutter_aepcore/README.md#track-app-actions) and/or [MobileCore.trackState](../flutter_aepcore/README.md#track-app-states) APIs to send data to Adobe Analytics, this extension will automatically route those API calls to the Edge Network, making the data available for mapping to a user's XDM schema using the [Data Prep for Data Collection](https://experienceleague.adobe.com/docs/experience-platform/data-prep/home.html).
 
 > **Note**  
-> For new implementations of the Adobe Experience Platform SDK, it's highly recommended to send event data that is already XDM formatted using the [`Edge.sendEvent`](../edge/README.md#api-reference) API instead of converting events from the `MobileCore.trackState` and `MobileCore.trackAction` APIs using Edge Bridge. 
+> For new implementations of the Adobe Experience Platform SDK, it's highly recommended to send event data that is already XDM formatted using the [`Edge.sendEvent`](../flutter_aepedge/README.md#sendevent) API instead of converting events from the `MobileCore.trackState` and `MobileCore.trackAction` APIs using Edge Bridge. 
 > 
 > However, in cases where it is not easy to refactor an existing application, the Edge Bridge extension exists as a drop-in solution to send converted `trackState` and `trackAction` events to the Edge Network.
 
@@ -76,7 +76,7 @@ iOS
                                       ];
 
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
-    [AEPMobileCore configureWithAppId: ENVIRONMENT_FILE_ID];
+      [AEPMobileCore configureWithAppId: ENVIRONMENT_FILE_ID];
     }];
     return YES;   
  } 

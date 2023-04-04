@@ -11,7 +11,6 @@ governing permissions and limitations under the License.
 
 #import "FlutterAEPEdgeBridgePlugin.h"
 @import AEPEdgeBridge;
-@import AEPCore;
 
 @implementation FlutterAEPEdgeBridgePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
