@@ -24,6 +24,7 @@ import com.adobe.marketing.mobile.Signal;
 import com.adobe.marketing.mobile.UserProfile;
 import com.adobe.marketing.mobile.WrapperType;
 import com.adobe.marketing.mobile.edge.consent.Consent;
+import com.adobe.marketing.mobile.edge.bridge.EdgeBridge;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,6 +47,7 @@ public class MyApplication extends FlutterApplication {
         List<Class<? extends Extension>> extensions = Arrays.asList(
                 com.adobe.marketing.mobile.edge.identity.Identity.EXTENSION,
                 com.adobe.marketing.mobile.Identity.EXTENSION,
+                EdgeBridge.EXTENSION,
                 Lifecycle.EXTENSION,
                 Signal.EXTENSION,
                 Edge.EXTENSION,
