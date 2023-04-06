@@ -83,6 +83,13 @@ packages:
       relative: true
     source: path
     version: "2.0.0"
+  flutter_aepedgebridge:
+    dependency: "direct main"
+    description:
+      path: "../plugins/flutter_aepedgebridge"
+      relative: true
+    source: path
+    version: "1.0.0"
   flutter_aepedgeconsent:
     dependency: "direct main"
     description:

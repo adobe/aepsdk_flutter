@@ -9,6 +9,7 @@
 @import AEPEdge;
 @import AEPEdgeIdentity;
 @import AEPEdgeConsent;
+@import AEPEdgeBridge;
 @import AEPUserProfile;
 
 @interface AppDelegate : FlutterAppDelegate

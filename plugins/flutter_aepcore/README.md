@@ -138,6 +138,16 @@ final Event event = Event({
 ```dart
 MobileCore.resetIdentities()
 ```
+
+##### Track app actions
+```dart
+MobileCore.trackAction("myAction",  data: {"key1": "value1"});
+```
+##### Track app states
+```dart
+MobileCore.trackState("myState",  data: {"key1": "value1"});
+```
+
 ### Identity
 
 For more information on the Core Identity APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/identity/).

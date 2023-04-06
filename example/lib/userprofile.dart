@@ -87,10 +87,11 @@ class _MyAppState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text("Edge Screen")),
+      appBar: AppBar(title: Text("User Profile Screen")),
       body: Center(
         child: ListView(shrinkWrap: true, children: <Widget>[
-          getRichText('AEPUserProfile extension version: ', '$_userProfileVersion\n'),
+          getRichText(
+              'AEPUserProfile extension version: ', '$_userProfileVersion\n'),
           getRichText('Profile data: ', '$_userProfileData\n'),
           ElevatedButton(
             child: Text("UserProfile.getUserAttributes(...)"),
