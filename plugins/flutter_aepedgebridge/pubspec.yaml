@@ -1,0 +1,35 @@
+name: flutter_aepedgebridge
+description: Official Adobe Experience Platform support for Flutter apps. The AEP Edge Bridge mobile extension provides seamless routing of data to the Adobe Experience Platform Edge Network for existing SDK implementations.
+version: 1.0.0
+homepage: https://developer.adobe.com/client-sdks
+repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedgebridge
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_aepcore: ">= 2.0.0 <3.0.0"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+  # This section identifies this Flutter project as a plugin project.
+  # The androidPackage and pluginClass identifiers should not ordinarily
+  # be modified. They are used by the tooling to maintain consistency when
+  # adding or updating assets for this project.
+  plugin:
+    platforms:
+      android:
+        package: com.adobe.marketing.mobile.flutter.flutter_aepedgebridge
+        pluginClass: FlutterAEPEdgeBridgePlugin
+      ios:
+        pluginClass: FlutterAEPEdgeBridgePlugin
