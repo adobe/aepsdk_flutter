@@ -16,7 +16,7 @@ import 'edge.dart';
 import 'consent.dart';
 import 'identity.dart';
 import 'edgeIdentity.dart';
-import 'edgeBridge.dart';
+import 'edgebridge.dart';
 import 'userprofile.dart';
 
 void main() {
