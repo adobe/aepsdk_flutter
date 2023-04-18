@@ -10,6 +10,7 @@ governing permissions and limitations under the License.
 */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_aepsdk_example/messaging.dart';
 import 'core.dart';
 import 'assurance.dart';
 import 'edge.dart';
@@ -93,6 +94,13 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => UserProfilePage()));
+              },
+            ),
+            ElevatedButton(
+              child: const Text('MESSAGING'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MessagingPage()));
               },
             ),
           ]),

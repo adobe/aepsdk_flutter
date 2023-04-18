@@ -26,6 +26,8 @@ dependencies:
 
   flutter_aepedgebridge: ">= 1.0.0 <2.0.0"  
 
+  flutter_aepmessaging: ">= 1.0.0 <2.0.0"  
+
   flutter_aepuserprofile: ">= 1.0.0 <2.0.0"  
 
 dependency_overrides:
@@ -46,6 +48,9 @@ dependency_overrides:
 
   flutter_aepedgebridge:
     path: ../plugins/flutter_aepedgebridge
+
+  flutter_aepmessaging:
+    path: ../plugins/flutter_aepmessaging
 
   flutter_aepuserprofile:
     path: ../plugins/flutter_aepuserprofile

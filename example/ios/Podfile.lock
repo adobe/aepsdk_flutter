@@ -19,6 +19,11 @@ PODS:
     - AEPCore (>= 3.7.4)
   - AEPLifecycle (3.7.4):
     - AEPCore (>= 3.7.4)
+  - AEPMessaging (1.1.1):
+    - AEPCore (>= 3.7.4)
+    - AEPEdge (>= 1.5.0)
+    - AEPEdgeIdentity (>= 1.1.0)
+    - AEPServices (>= 3.7.4)
   - AEPRulesEngine (1.2.0)
   - AEPServices (3.7.4)
   - AEPSignal (3.7.4):
@@ -47,6 +52,10 @@ PODS:
   - flutter_aepedgeidentity (2.0.0):
     - AEPEdgeIdentity (~> 1.0)
     - Flutter
+  - flutter_aepmessaging (1.0.0):
+    - AEPCore (~> 3.0)
+    - AEPMessaging (~> 1.1)
+    - Flutter
   - flutter_aepuserprofile (1.0.0):
     - AEPUserProfile (~> 3.0)
     - Flutter
@@ -59,6 +68,7 @@ DEPENDENCIES:
   - flutter_aepedgebridge (from `.symlinks/plugins/flutter_aepedgebridge/ios`)
   - flutter_aepedgeconsent (from `.symlinks/plugins/flutter_aepedgeconsent/ios`)
   - flutter_aepedgeidentity (from `.symlinks/plugins/flutter_aepedgeidentity/ios`)
+  - flutter_aepmessaging (from `.symlinks/plugins/flutter_aepmessaging/ios`)
   - flutter_aepuserprofile (from `.symlinks/plugins/flutter_aepuserprofile/ios`)
 
 SPEC REPOS:
@@ -71,6 +81,7 @@ SPEC REPOS:
     - AEPEdgeIdentity
     - AEPIdentity
     - AEPLifecycle
+    - AEPMessaging
     - AEPRulesEngine
     - AEPServices
     - AEPSignal
@@ -91,6 +102,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_aepedgeconsent/ios"
   flutter_aepedgeidentity:
     :path: ".symlinks/plugins/flutter_aepedgeidentity/ios"
+  flutter_aepmessaging:
+    :path: ".symlinks/plugins/flutter_aepmessaging/ios"
   flutter_aepuserprofile:
     :path: ".symlinks/plugins/flutter_aepuserprofile/ios"
 
@@ -103,6 +116,7 @@ SPEC CHECKSUMS:
   AEPEdgeIdentity: 47f0c6ecbec5857b2a8cb9b7bf717c2424c6bae0
   AEPIdentity: 4e298be480b327dd1fbb89e74210001bbbbb1c81
   AEPLifecycle: 64107400233d9add603a87d2a4b36002bccb0129
+  AEPMessaging: 622f4d45f21729b357452a79c67d0f3bc36045a8
   AEPRulesEngine: 71228dfdac24c9ded09be13e3257a7eb22468ccc
   AEPServices: 1c66ce125f9b3bbd46e42687b6929cd584bffdf4
   AEPSignal: d6473de3410183f1f0754b92b2938a571332362e
@@ -114,6 +128,7 @@ SPEC CHECKSUMS:
   flutter_aepedgebridge: c670ee367e9de93bfa5d7c090c72df7d0aa785c7
   flutter_aepedgeconsent: bb1b650a4378e2da1b34ba875fa410e95f6af037
   flutter_aepedgeidentity: 89fb5d4b70b9251fa49a8530f60653f6c0eed625
+  flutter_aepmessaging: 211dfeba014d1c22f5e658bd9c293352646e4dfd
   flutter_aepuserprofile: 95d28442c7ba16b14b275812ad489376ef8c8b47
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
