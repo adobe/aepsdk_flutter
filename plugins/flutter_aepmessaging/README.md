@@ -124,6 +124,18 @@ String version = await Messaging.extensionVersion;
 
 ---
 
+### getCachedMessages
+
+Returns a list of messages that have currently been cached in-memory using `Messaging.saveMessage()`
+
+**Syntax**
+
+```dart
+List<Message> messages = await Messaging.getCachedMessages();
+```
+
+---
+
 ### refreshInAppMessages
 
 This API retrieves the Experience Cloud ID (ECID) that was generated when the app was initially launched. This ID is preserved between app upgrades, is saved and restored during the standard application backup process, and is removed at uninstall.
@@ -140,6 +152,17 @@ static Future<void> refreshInAppMessages
 await Messaging.refreshInAppMessages();
 ```
 
+---
+
+### saveMessage
+
+Caches a message in-memory. This method must be called prior to calling any functions on the message.
+
+**Syntax**
+
+```dart
+Messaging.saveMessage(message);
+```
 
 ## Contributing
 

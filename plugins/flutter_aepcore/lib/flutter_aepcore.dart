@@ -14,7 +14,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/src/aepextension_event.dart';
 import 'package:flutter_aepcore/src/aepmobile_logging_level.dart';
+import 'package:flutter_aepcore/src/aepmobile_messaging_delegate.dart';
 import 'package:flutter_aepcore/src/aepmobile_privacy_status.dart';
+export 'package:flutter_aepcore/flutter_aepcore_data.dart';
 
 /// Adobe Experience Platform Core API.
 class MobileCore {
@@ -57,8 +59,8 @@ class MobileCore {
       _channel.invokeMethod<void>('setAdvertisingIdentifier', aid);
 
   ///  Called by the extension public API to dispatch an event for other extensions or the internal SDK to consume. Any events dispatched by this call will not be processed until after `start` has been called.
-  static Future<void> dispatchEvent(Event event) => _channel
-      .invokeMethod<void>('dispatchEvent', event.data);
+  static Future<void> dispatchEvent(Event event) =>
+      _channel.invokeMethod<void>('dispatchEvent', event.data);
 
   /// You should use this method when the Event being passed is a request and you expect an event in response. Any events dispatched by this call will not be processed until after `start` has been called.
   static Future<Event> dispatchEventWithResponseCallback(
@@ -124,4 +126,8 @@ class MobileCore {
   /// Clears all identifiers from Edge extensions and generates a new Experience Cloud ID (ECID).
   static Future<void> resetIdentities() =>
       _channel.invokeMethod('resetIdentities');
+
+  /// Sets
+  static void setMessagingDelegate(MessagingDelegate delegate) =>
+      _channel.invokeMethod('setMessagingDelegate', delegate);
 }

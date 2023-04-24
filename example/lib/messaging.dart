@@ -1,5 +1,5 @@
 /*
-Copyright 2022 Adobe. All rights reserved.
+Copyright 2023 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License. You may obtain a copy
 of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,7 +13,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-import 'package:flutter_aepmessaging/flutter_aepmessaging.dart';
+import 'package:flutter_aepmessaging/flutter_aepmessaging.dart' as AEPMessaging;
 import 'util.dart';
 
 class MessagingPage extends StatefulWidget {
@@ -21,8 +21,36 @@ class MessagingPage extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
+class CustomMessagingDelegate implements AEPMessaging.MessagingDelegate {
+  @override
+  void onDismiss(Showable message) {
+    log('$message');
+  }
+
+  @override
+  onShow(Showable message) {
+    log('$message');
+  }
+
+  @override
+  bool shouldSaveMessage(Showable message) {
+    return true;
+  }
+
+  @override
+  bool shouldShowMessage(Showable message) {
+    return true;
+  }
+
+  @override
+  void urlLoaded(String url, Showable message) {
+    return;
+  }
+}
+
 class _MyAppState extends State<MessagingPage> {
   String _messagingVersion = 'Unknown';
+  List<AEPMessaging.Message> _cachedMessages = [];
 
   @override
   void initState() {
@@ -34,7 +62,8 @@ class _MyAppState extends State<MessagingPage> {
   Future<void> initPlatformState() async {
     late String messagingVersion;
 
-    messagingVersion = await Messaging.extensionVersion;
+    messagingVersion = await AEPMessaging.Messaging.extensionVersion;
+    AEPMessaging.Messaging.setMessagingDelegate(CustomMessagingDelegate());
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -48,8 +77,17 @@ class _MyAppState extends State<MessagingPage> {
     });
   }
 
+  getCachedMessages() async {
+    var messages = await AEPMessaging.Messaging.getCachedMessages();
+    print('$messages');
+
+    setState(() {
+      _cachedMessages = messages;
+    });
+  }
+
   Future<void> refreshMessages() async {
-    Messaging.refreshInAppMessages();
+    AEPMessaging.Messaging.refreshInAppMessages();
   }
 
   @override
@@ -59,6 +97,11 @@ class _MyAppState extends State<MessagingPage> {
           child: ListView(shrinkWrap: true, children: <Widget>[
             getRichText(
                 'AEPMessaging extension version: ', '$_messagingVersion\n'),
+            getRichText('Current Cached Messages: ', '$_cachedMessages\n'),
+            ElevatedButton(
+              child: Text("Messaging.getCachedMessages(...)"),
+              onPressed: () => getCachedMessages(),
+            ),
             ElevatedButton(
               child: Text("Messaging.refreshMessages(...)"),
               onPressed: () => refreshMessages(),
