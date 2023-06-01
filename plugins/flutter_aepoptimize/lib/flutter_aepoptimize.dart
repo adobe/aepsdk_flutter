@@ -22,8 +22,12 @@ class Optimize {
       List<DecisionScope> decisionScopes) {
     return _channel.invokeListMethod<Map<String, dynamic>>('getPropositions', {
       'decisionScopes': decisionScopes.map((ds) => ds.asMap).toList()
-    }).then((value) =>
-        (value ?? []).map<Proposition>((data) => Proposition(data)).toList());
+    }).then((value) {
+      log(value.toString());
+      return (value ?? [])
+          .map<Proposition>((data) => Proposition(data))
+          .toList();
+    });
   }
 
   static Future<void> onPropositionsUpdate() {

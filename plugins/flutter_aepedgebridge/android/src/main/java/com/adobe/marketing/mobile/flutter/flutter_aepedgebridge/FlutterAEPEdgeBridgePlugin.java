@@ -1,5 +1,5 @@
 /*
-Copyright 2020 Adobe. All rights reserved.
+Copyright 2023 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License. You may obtain a copy
 of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -9,11 +9,9 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-package com.adobe.marketing.mobile.flutter;
+package com.adobe.marketing.mobile.flutter.flutter_aepedgebridge;
 
-import android.util.Log;
-
-import com.adobe.marketing.mobile.Assurance;
+import com.adobe.marketing.mobile.edge.bridge.EdgeBridge;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -22,17 +20,15 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-/** FlutterAEPAssurancePlugin */
-public class FlutterAEPAssurancePlugin implements FlutterPlugin, MethodCallHandler {
-
-  private static final String TAG = "FlutterAEPAssurancePlugin";
+/** FlutterAEPEdgeBridgePlugin */
+public class FlutterAEPEdgeBridgePlugin implements FlutterPlugin, MethodCallHandler {
 
   private MethodChannel channel;
 
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
-    channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepassurance");
-    channel.setMethodCallHandler(new FlutterAEPAssurancePlugin());
+    channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepedgebridge");
+    channel.setMethodCallHandler(new FlutterAEPEdgeBridgePlugin());
   }
 
   @Override
@@ -45,19 +41,9 @@ public class FlutterAEPAssurancePlugin implements FlutterPlugin, MethodCallHandl
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if ("extensionVersion".equals(call.method)) {
-      result.success(Assurance.extensionVersion());
-    } else if ("startSession".equals(call.method)) {
-      String url = (String) call.arguments;
-      if (url.isEmpty()) {
-        Log.e(TAG, "Unable to start assurance session, argument parsing failed");
-        return;
-      }
-      Assurance.startSession(url);
-      result.success(null);
+        result.success(EdgeBridge.extensionVersion());
     } else {
-      result.notImplemented();
+        result.notImplemented();
     }
   }
-
-
 }

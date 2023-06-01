@@ -59,6 +59,8 @@ class _MyAppState extends State<OptimizePage> {
       List<Proposition> propositions =
           await Optimize.getPropositions([decisionScope]);
 
+      log(propositions.toString());
+
       if (!mounted) {
         log('Failed to setState, widget is not mounted');
         return;

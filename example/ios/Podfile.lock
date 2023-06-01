@@ -1,29 +1,29 @@
 PODS:
-  - AEPAssurance (3.0.1):
+  - AEPAssurance (3.1.1):
     - AEPCore (>= 3.1.0)
     - AEPServices (>= 3.1.0)
-  - AEPCore (3.7.1):
-    - AEPRulesEngine (>= 1.1.0)
-    - AEPServices (>= 3.7.1)
-  - AEPEdge (1.4.1):
-    - AEPCore (>= 3.5.0)
-    - AEPEdgeIdentity
-  - AEPEdgeConsent (1.0.1):
-    - AEPCore (>= 3.5.0)
-    - AEPEdge (>= 1.4.0)
-  - AEPEdgeIdentity (1.1.0):
-    - AEPCore (>= 3.6.0)
-  - AEPIdentity (3.7.1):
-    - AEPCore (>= 3.7.1)
-  - AEPLifecycle (3.7.1):
-    - AEPCore (>= 3.7.1)
+  - AEPCore (3.8.2):
+    - AEPRulesEngine (>= 1.2.2)
+    - AEPServices (>= 3.8.2)
+  - AEPEdge (1.6.0):
+    - AEPCore (>= 3.7.0)
+    - AEPEdgeIdentity (>= 1.2.0)
+  - AEPEdgeConsent (1.1.0):
+    - AEPCore (>= 3.7.0)
+    - AEPEdge (>= 1.6.0)
+  - AEPEdgeIdentity (1.2.0):
+    - AEPCore (>= 3.7.0)
+  - AEPIdentity (3.8.2):
+    - AEPCore (>= 3.8.2)
+  - AEPLifecycle (3.8.2):
+    - AEPCore (>= 3.8.2)
   - AEPOptimize (1.0.0):
     - AEPCore (>= 3.2.0)
     - AEPEdge (>= 1.2.0)
-  - AEPRulesEngine (1.2.0)
-  - AEPServices (3.7.1)
-  - AEPSignal (3.7.1):
-    - AEPCore (>= 3.7.1)
+  - AEPRulesEngine (1.2.3)
+  - AEPServices (3.8.2)
+  - AEPSignal (3.8.2):
+    - AEPCore (>= 3.8.2)
   - Flutter (1.0.0)
   - flutter_aepassurance (1.0.0):
     - AEPAssurance (~> 3.0)
@@ -87,17 +87,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_aepoptimize/ios"
 
 SPEC CHECKSUMS:
-  AEPAssurance: b25880cd4b14f22c61a1dce19807bd0ca0fe9b17
-  AEPCore: 412fe933382892ab6c6af958d2f69ebcbca11216
-  AEPEdge: 6faf60328f9e5ae7a107fd61f9a968f46ebf2928
-  AEPEdgeConsent: a23b35ab331d2aa2013fcef49c9d6b80085d5597
-  AEPEdgeIdentity: 47f0c6ecbec5857b2a8cb9b7bf717c2424c6bae0
-  AEPIdentity: 7cd5a51d8012aeaeee769e99597db016ad68b0d1
-  AEPLifecycle: 94c36a54f7e5466c5274bc822c53eaa410b74888
+  AEPAssurance: 92645b36b3295ebefefaf0465ceae750a6307edd
+  AEPCore: 52249635f856d5ee4b1042059cd5d55656f368d1
+  AEPEdge: e4364a56d358c517f7d4cef87570ac4e7652d3a2
+  AEPEdgeConsent: d10d4232615b880d484050edf47b2e3fbfb787bb
+  AEPEdgeIdentity: 6bb2c1e62d48cdc988b4d492e8e6d563f0ced73d
+  AEPIdentity: fc074644d0b5e9561a05b3881159aacacb25b944
+  AEPLifecycle: 7392d3df030bfbd81166334e88e0b1160d05a43f
   AEPOptimize: 413690f88cb8ae574153a94081331788ca740a91
-  AEPRulesEngine: 71228dfdac24c9ded09be13e3257a7eb22468ccc
-  AEPServices: 7284c30359c789cd16bf366b4ea81094a66d21ab
-  AEPSignal: c9b3c239120190fae8e8479d584d54b60af37d99
+  AEPRulesEngine: f8d6eb0fa5a83d791f57867ed02f25fdf99894ec
+  AEPServices: 46df834256a392e67f5a24c894eff770bb05d678
+  AEPSignal: b3982205017270366d19765d68ca9e9eebb24f67
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   flutter_aepassurance: 13c97bbe7545b5b556b3b967b42fb9c8cd72bdcd
   flutter_aepcore: 1287c8a6b88fdb967432b0080cc923b58260f1df
@@ -108,4 +108,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

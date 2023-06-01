@@ -17,6 +17,8 @@ import 'edge.dart';
 import 'consent.dart';
 import 'identity.dart';
 import 'edgeIdentity.dart';
+import 'edgebridge.dart';
+import 'userprofile.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -81,10 +83,23 @@ class HomePage extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              child: const Text('OPTIMIZE'),
+                child: const Text('OPTIMIZE'),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => OptimizePage()));
+                }),
+            ElevatedButton(
+              child: const Text('EDGE BRIDGE'),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => OptimizePage()));
+                    MaterialPageRoute(builder: (context) => EdgeBridgePage()));
+              },
+            ),
+            ElevatedButton(
+              child: const Text('USER PROFILE'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UserProfilePage()));
               },
             ),
           ]),

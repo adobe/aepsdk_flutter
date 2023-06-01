@@ -50,5 +50,5 @@ android {
 }
 
 dependencies {
-    api 'com.adobe.marketing.mobile:optimize:1+'
+    api 'com.adobe.marketing.mobile:optimize:2+'
 }

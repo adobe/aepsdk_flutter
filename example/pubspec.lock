@@ -63,49 +63,58 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_aepassurance:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
-      name: flutter_aepassurance
-      sha256: a71fad59efc7f0de3380050e0e8db1c268036be32ebafdee6de7e0b08706fe95
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
+      path: "../plugins/flutter_aepassurance"
+      relative: true
+    source: path
+    version: "2.0.0"
   flutter_aepcore:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
-      name: flutter_aepcore
-      sha256: "706f0ab953703072c92d9de932ce5bbc291e0562bb590001f47cb20d4afb911a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
+      path: "../plugins/flutter_aepcore"
+      relative: true
+    source: path
+    version: "2.0.0"
   flutter_aepedge:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
-      name: flutter_aepedge
-      sha256: "6e69144a90cc63fec2a605348e2499535492d5a142384fbfd9036694c450ae88"
-      url: "https://pub.dev"
-    source: hosted
+      path: "../plugins/flutter_aepedge"
+      relative: true
+    source: path
+    version: "2.0.0"
+  flutter_aepedgebridge:
+    dependency: "direct main"
+    description:
+      path: "../plugins/flutter_aepedgebridge"
+      relative: true
+    source: path
     version: "1.0.0"
   flutter_aepedgeconsent:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
-      name: flutter_aepedgeconsent
-      sha256: "880ef8df5b6eb5ebe34db6870dfe9f5e0da0007cf0b9324bd7d6a208d935221c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
+      path: "../plugins/flutter_aepedgeconsent"
+      relative: true
+    source: path
+    version: "2.0.0"
   flutter_aepedgeidentity:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
-      name: flutter_aepedgeidentity
-      sha256: d474d452cb0047c8b93bd5b64c6f17783ce59cdf6c6ccc65bb667372b0238010
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
+      path: "../plugins/flutter_aepedgeidentity"
+      relative: true
+    source: path
+    version: "2.0.0"
   flutter_aepoptimize:
     dependency: "direct dev"
     description:
       path: "../plugins/flutter_aepoptimize"
+      relative: true
+    source: path
+    version: "1.0.0"
+  flutter_aepuserprofile:
+    dependency: "direct main"
+    description:
+      path: "../plugins/flutter_aepuserprofile"
       relative: true
     source: path
     version: "1.0.0"
@@ -158,10 +167,10 @@ packages:
     dependency: transitive
     description:
       name: plugin_platform_interface
-      sha256: dbf0f707c78beedc9200146ad3cb0ab4d5da13c246336987be6940f026500d3a
+      sha256: "6a2128648c854906c53fa8e33986fc0247a1116122f9534dd20e3ab9e16a32bc"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.3"
+    version: "2.1.4"
   sky_engine:
     dependency: transitive
     description: flutter

@@ -11,6 +11,8 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 | [Edge](plugins/flutter_aepedge/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedge.svg)](https://pub.dartlang.org/packages/flutter_aepedge) |
 | [Consent](plugins/flutter_aepedgeconsent/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedgeconsent.svg)](https://pub.dartlang.org/packages/flutter_aepedgeconsent) |
 | [EdgeIdentity](plugins/flutter_aepedgeidentity/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedgeidentity.svg)](https://pub.dartlang.org/packages/flutter_aepedgeidentity) |
+| [EdgeBridge](plugins/flutter_aepedgebridge/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedgebridge.svg)](https://pub.dartlang.org/packages/flutter_aepedgebridge) |
+| [UserProfile](plugins/flutter_aepuserprofile/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepuserprofile.svg)](https://pub.dartlang.org/packages/flutter_aepuserprofile) |
 
 ## Installation
 
@@ -27,7 +29,7 @@ This will add a line like this to your package's pubspec.yaml (and run an implic
 
 ```
 dependencies:
-  flutter_{plugin_name}: ^1.0.0
+  flutter_{plugin_name}: ^{latest_version}
 ```
 
 Now import the plugin in your Dart code as follows:
@@ -42,7 +44,7 @@ Install instructions for each respective plugin can be found in each plugin's re
 
 ### Initializing
 
-Initializing the SDK should be done in native code (AppDelegate / SceneDelegate for iOS and Application class for Android). Documentation for initializing the SDK can be found [here](https://aep-sdks.gitbook.io/docs/getting-started/get-the-sdk#2-add-initialization-code). The linked documentation initalizes the User Profile extension which is not required or supported in Flutter.
+Initializing the SDK should be done in native code (AppDelegate / SceneDelegate for iOS and Application class for Android). Documentation for initializing the SDK can be found [here](https://developer.adobe.com/client-sdks/documentation/getting-started/get-the-sdk/#2-add-initialization-code). The linked documentation initalizes the User Profile extension which is not required or supported in Flutter.
 
 As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
 
@@ -82,11 +84,13 @@ $ flutter test
 
 ## Contributing
 
-If you are migrating a plugin for an ACP-prefixed (Objective-C) library to an AEP-prefixed (Swift) library, or need help with publishing, please follow the steps [outlined here](https://wiki.corp.adobe.com/display/adms/Migrating+ACP+Flutter+Wrapper+to+AEP).
-
 If you are creating a plugin for an AEP-prefix (Swift) library, please follow the steps [outlined here](docs/creating_new_plugins.md)
 
 For all other information on contributing see [Contributing](CONTRIBUTING.md)
+
+## Documentation
+
+Additional documentation about migrating from older Flutter libraries (ACP-prefixed Flutter libraries) to the latest Flutter libraries (AEP-prefixed libraries) can be found [here](./docs/migration.md)
 
 ## License
 

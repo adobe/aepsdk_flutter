@@ -53,18 +53,13 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
   @Override
   public void onMethodCall(MethodCall call, Result result) {
     if ("extensionVersion".equals(call.method)) {
-      AndroidUtil.runOnUIThread(new Runnable() {
-        @Override
-        public void run() {
-           result.success(Identity.extensionVersion());
-        }
-      });
+        result.success(Identity.extensionVersion());
     } else if ("getExperienceCloudId".equals(call.method)) {
          handleGetExperienceCloudId(result);
     } else if ("getUrlVariables".equals(call.method)) {
          handleGetUrlVariables(result);
     } else if ("getIdentities".equals(call.method)) {
-          handleGetIdentities(result);
+         handleGetIdentities(result);
     } else if ("updateIdentities".equals(call.method)) {
          handleUpdateIdentities(call.arguments);
          result.success(null);
@@ -73,14 +68,9 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
          String namespace = call.argument("namespace");
          handleRemoveIdentity(item, namespace);
          result.success(null);
-  }
+    }
     else {
-      AndroidUtil.runOnUIThread(new Runnable() {
-        @Override
-        public void run() {
-           result.notImplemented();
-        }
-      });
+        result.notImplemented();
     }
   }
 
@@ -88,23 +78,13 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
     Identity.getExperienceCloudId(new AdobeCallbackWithError<String>() {
         @Override
         public void call(final String experienceCloudId) {
-            AndroidUtil.runOnUIThread(new Runnable() {
-                @Override
-                public void run() {
-                    result.success(experienceCloudId);
-                }
-            });
+            AndroidUtil.runOnUIThread(() -> result.success(experienceCloudId));
         }
 
         @Override
         public void fail(final AdobeError adobeError) {
           final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
-          AndroidUtil.runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-              result.error(Integer.toString(error.getErrorCode()),"getExperienceCloudId - Failed to retrieve Experience Cloud Id",error.getErrorName());
-            }
-          });
+          AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getExperienceCloudId - Failed to retrieve Experience Cloud Id",error.getErrorName()));
         } 
     });
   }
@@ -113,23 +93,13 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
       Identity.getUrlVariables(new AdobeCallbackWithError<String>() {
           @Override
           public void call(final String urlVariables) {
-              AndroidUtil.runOnUIThread(new Runnable() {
-                  @Override
-                  public void run() {
-                      result.success(urlVariables);
-                  }
-              });
+              AndroidUtil.runOnUIThread(() -> result.success(urlVariables));
           }
 
           @Override
           public void fail(final AdobeError adobeError) {
             final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
-            AndroidUtil.runOnUIThread(new Runnable() {
-              @Override
-              public void run() {
-                result.error(Integer.toString(error.getErrorCode()),"getUrlVariables - failed to retrieve the URL variables",error.getErrorName());
-              }
-            });
+            AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getUrlVariables - failed to retrieve the URL variables",error.getErrorName()));
           }
       });
   }
@@ -138,24 +108,16 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
     Identity.getIdentities(new AdobeCallbackWithError<IdentityMap>() {
         @Override
         public void call(IdentityMap map) {
-            AndroidUtil.runOnUIThread(new Runnable() {
-                @Override
-                public void run() {
-                    Map identityMap = FlutterAEPEdgeIdentityDataBridge.mapFromIdentityMap(map);
-                    result.success(identityMap);
-                }
+            AndroidUtil.runOnUIThread(() -> {
+                Map identityMap = FlutterAEPEdgeIdentityDataBridge.mapFromIdentityMap(map);
+                result.success(identityMap);
             });
         }
 
         @Override
         public void fail(final AdobeError adobeError) {
           final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
-          AndroidUtil.runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-              result.error(Integer.toString(error.getErrorCode()),"getIdentity - Failed to retrieve identities",error.getErrorName());
-            }
-          });
+          AndroidUtil.runOnUIThread(() -> result.error(Integer.toString(error.getErrorCode()),"getIdentity - Failed to retrieve identities",error.getErrorName()));
         }
     });
   }
@@ -163,8 +125,8 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
  @SuppressLint("LongLogTag")
   private void handleUpdateIdentities(final Object arguments) {
     if (!(arguments instanceof Map)) {
-    Log.e(TAG, "Updating Identities failed, passed IdentityMap is invalid");
-    return;
+        Log.e(TAG, "Updating Identities failed, passed IdentityMap is invalid");
+        return;
     }
 
     Map<String,Map<String,List<Map<String,Object>>>> map = (Map) arguments;

@@ -40,7 +40,9 @@ governing permissions and limitations under the License.
                                       AEPMobileEdge.class,
                                       AEPMobileEdgeIdentity.class,
                                       AEPMobileEdgeConsent.class,
-                                      AEPMobileOptimize.class];
+                                      AEPMobileOptimize.class,
+                                      AEPMobileEdgeBridge.class,
+                                      AEPMobileUserProfile.class];
     
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
         if (appState != UIApplicationStateBackground) {

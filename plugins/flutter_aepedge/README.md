@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/flutter_aepedge.svg)](https://pub.dartlang.org/packages/flutter_aepedge) ![Build](https://github.com/adobe/aepsdk_flutter/workflows/Dart%20Unit%20Tests%20+%20Android%20Build%20+%20iOS%20Build/badge.svg) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-`flutter_aepedge` is a flutter plugin for the iOS and Android [AEPEdge SDK](https://aep-sdks.gitbook.io/docs/foundation-extensions/experience-platform-extension) to allow for integration with Flutter applications. Functionality to enable the Edge extension is provided entirely through Dart documented below.
+`flutter_aepedge` is a flutter plugin for the iOS and Android [Adobe Experience Platform Edge SDK](https://developer.adobe.com/client-sdks/documentation/edge-network/) to allow for integration with Flutter applications. Functionality to enable the Edge extension is provided entirely through Dart documented below.
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ flutter test
 
 ## Usage
 
-For more detailed information on the Edge APIs, visit the documentation [here](https://aep-sdks.gitbook.io/docs/foundation-extensions/experience-platform-extension)
+For more detailed information on the Edge APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/edge-network/)
 
 ### Registering the extension with AEPCore:
 
@@ -85,15 +85,14 @@ public class MainApplication extends FlutterApplication {
     ...
     MobileCore.setApplication(this);
     MobileCore.setWrapperType(WrapperType.FLUTTER);
+    MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
 
-    Edge.registerExtension();
-    Identity.registerExtension();
-    MobileCore.start(new AdobeCallback () {
-        @Override
-        public void call(Object o) {
-          MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
-        }
-   });
+    MobileCore.registerExtensions(
+        Arrays.asList(Edge.EXTENSION, Identity.EXTENSION),
+        o -> Log.d("MainApp", "Adobe Experience Platform Mobile SDK was initialized.")
+    );
+  }
+}
 ```
 ------
 ### Importing the extension
@@ -115,6 +114,45 @@ static Future<String> get extensionVersion
  ```dart
 String version = await Edge.extensionVersion;
  ```
+------
+### getLocationHint
+Gets the Edge Network location hint used in requests to the Adobe Experience Platform Edge Network. The Edge Network location hint may be used when building the URL for Adobe Experience Platform Edge Network requests to hint at the server cluster to use.
+
+**Syntax**
+```dart
+static Future<String?> get locationHint
+```
+
+**Example**
+```dart
+String? result = null;
+
+try {
+  result = await Edge.locationHint;
+} on PlatformException {
+  log("Failed to get location hint");
+}
+```
+------
+### resetIdentity
+Resets current state of the AEP Edge extension and clears previously cached content related to current identity, if any.
+See [MobileCore.resetIdentities](./../flutter_aepcore/README.md) for more details.
+
+------
+### setLocationHint
+Sets the Edge Network location hint used in requests to the Adobe Experience Platform Edge Network. Passing null or an empty string clears the existing location hint. Edge Network responses may overwrite the location hint to a new value when necessary to manage network traffic.
+
+>Warning: Use caution when setting the location hint. Only use location hints for the "EdgeNetwork" scope. An incorrect location hint value will cause all Edge Network requests to fail with 404 response code.
+
+**Syntax**
+```dart
+static Future<void> setLocationHint([String? hint])
+```
+
+**Example**
+```dart
+Edge.setLocationHint('va6');
+```
 ------
 ### sendEvent
 Sends an Experience event to Adobe Experience Platform Edge Network.

@@ -40,7 +40,9 @@ class FlutterAEPOptimizePlugin : FlutterPlugin, MethodCallHandler {
     }
 
     private fun getPropositions(call: MethodCall, result: Result) {
-        val decisionScopes = (call.argument("decisionScopes") as List<Map<String, Any>>?)?.map { FlutterAEPOptimizeDataBridge.decisionScopeFromMap(it) }
+        val decisionScopes = (call.argument("decisionScopes") as List<Map<String, Any>>?)?.map { 
+            FlutterAEPOptimizeDataBridge.decisionScopeFromMap(it) 
+        } as List<DecisionScope>
         val callback = object: AdobeCallbackWithError<Map<DecisionScope, Proposition>>{
             override fun fail(adobeError: AdobeError) {
                 result.error(
@@ -54,6 +56,7 @@ class FlutterAEPOptimizePlugin : FlutterPlugin, MethodCallHandler {
                 if (propositionsMap.isNotEmpty()) {
                     result.success(propositionsMap)
                 }
+                result.success(null);
             }
         }
         getPropositions(decisionScopes, callback)

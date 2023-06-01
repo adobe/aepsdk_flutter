@@ -13,18 +13,29 @@ package com.adobe.marketing.mobile.flutter.flutter_aepsdk_example;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.adobe.marketing.mobile.*;
+import com.adobe.marketing.mobile.Assurance;
+import com.adobe.marketing.mobile.Edge;
+import com.adobe.marketing.mobile.Extension;
+import com.adobe.marketing.mobile.Lifecycle;
+import com.adobe.marketing.mobile.LoggingMode;
+import com.adobe.marketing.mobile.MobileCore;
+import com.adobe.marketing.mobile.Signal;
+import com.adobe.marketing.mobile.UserProfile;
+import com.adobe.marketing.mobile.WrapperType;
 import com.adobe.marketing.mobile.edge.consent.Consent;
 import com.adobe.marketing.mobile.optimize.Optimize;
+import com.adobe.marketing.mobile.edge.bridge.EdgeBridge;
+
+import java.util.Arrays;
+import java.util.List;
 
 import io.flutter.app.FlutterApplication;
 
 public class MyApplication extends FlutterApplication {
 
     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-    private final String ENVIRONMENT_FILE_ID = "YOUR-APP-ID";
+    private final String ENVIRONMENT_FILE_ID = "3149c49c3910/6d2dbda51f67/launch-960e4c1812e3-development";
 
     @Override
     public void onCreate() {
@@ -33,25 +44,20 @@ public class MyApplication extends FlutterApplication {
         MobileCore.setApplication(this);
         MobileCore.setLogLevel(LoggingMode.VERBOSE);
         MobileCore.setWrapperType(WrapperType.FLUTTER);
-        
-        try {
-            com.adobe.marketing.mobile.edge.identity.Identity.registerExtension();
-            com.adobe.marketing.mobile.Identity.registerExtension();
-            Lifecycle.registerExtension();
-            Signal.registerExtension();
-            Edge.registerExtension();
-            Assurance.registerExtension();
-            Consent.registerExtension();
-            Optimize.registerExtension();
-            MobileCore.start(new AdobeCallback () {
-                @Override
-                public void call(Object o) {
-                    MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
-                }
-            });
-        } catch (InvalidInitException e) {
-            Log.e("MyApplication", String.format("Error while registering extensions %s", e.getLocalizedMessage()));
-        }
+
+        List<Class<? extends Extension>> extensions = Arrays.asList(
+                com.adobe.marketing.mobile.edge.identity.Identity.EXTENSION,
+                com.adobe.marketing.mobile.Identity.EXTENSION,
+                EdgeBridge.EXTENSION,
+                Lifecycle.EXTENSION,
+                Signal.EXTENSION,
+                Edge.EXTENSION,
+                Assurance.EXTENSION,
+                Consent.EXTENSION,
+                UserProfile.EXTENSION,
+                Optimize.EXTENSION
+        );
+        MobileCore.registerExtensions(extensions, o -> MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID));
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
