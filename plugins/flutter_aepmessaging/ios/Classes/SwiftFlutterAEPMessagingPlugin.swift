@@ -202,29 +202,32 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
 
     // Messaging Delegate Methods
     public func onDismiss(message: Showable) {
+        let fullscreenMessage = message as! FullscreenMessage
         channel.invokeMethod(
             "onDismiss",
             arguments: [
                 "message": dataBridge.transformToFlutterMessage(
-                    message: message as! Message
+                    message: fullscreenMessage.parent as! Message
                 )
             ]
         )
     }
 
     public func onShow(message: Showable) {
+        let fullscreenMessage = message as! FullscreenMessage
         channel.invokeMethod(
             "onShow",
             arguments: [
                 "message": dataBridge.transformToFlutterMessage(
-                    message: message as! Message
+                    message: fullscreenMessage.parent as! Message
                 )
             ]
         )
     }
 
     public func shouldShowMessage(message: Showable) -> Bool {
-        let incomingMessage = message as! Message
+        let fullscreenMessage = message as! FullscreenMessage
+        let incomingMessage = fullscreenMessage.parent as! Message
         var shouldShow = false
         channel.invokeMethod(
             "onShouldSaveMessage",
@@ -257,12 +260,13 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
     }
 
     public func urlLoaded(_ url: URL, byMessage message: Showable) {
+        let fullscreenMessage = message as! FullscreenMessage
         channel.invokeMethod(
             "urlLoaded",
             arguments: [
                 "url": url.standardized,
                 "message": dataBridge.transformToFlutterMessage(
-                    message: message as! Message
+                    message: fullscreenMessage.parent as! Message
                 ),
             ]
         )
