@@ -240,10 +240,15 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
             ],
             result: { (result: Any?) -> Void in
                 if let shouldSaveMessage = result as? Bool {
-                    self.messageCache[incomingMessage.id] = incomingMessage
+                    if shouldSaveMessage {
+                        self.messageCache[incomingMessage.id] = incomingMessage
+                    }
                 }
+                semaphore.signal()
             }
         )
+
+        semaphore.wait()
 
         channel.invokeMethod(
             "shouldShowMessage",

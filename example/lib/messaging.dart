@@ -24,7 +24,7 @@ class MessagingPage extends StatefulWidget {
 
 class _MyAppState extends State<MessagingPage> {
   String _messagingVersion = 'Unknown';
-  List<AEPMessaging.Message> _cachedMessages = [];
+  List<String> _cachedMessages = [];
 
   @override
   void initState() {
@@ -55,7 +55,7 @@ class _MyAppState extends State<MessagingPage> {
     print('$messages');
 
     setState(() {
-      _cachedMessages = messages;
+      _cachedMessages = messages.map((message) => message.id).toList();
     });
   }
 

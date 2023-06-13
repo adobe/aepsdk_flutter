@@ -37,7 +37,9 @@ class Messaging {
         _delegate?.onShow(arguments['message']);
         return null;
       case 'shouldSaveMessage':
-        return _delegate?.shouldSaveMessage(arguments['message'] as Message) ??
+        return _delegate?.shouldSaveMessage(new Message(
+                arguments['message']['id'],
+                arguments['message']['autoTrack'])) ??
             false;
       case 'shouldShowMessage':
         if (_delegate != null) {
@@ -45,7 +47,7 @@ class Messaging {
               arguments['message']['id'], arguments['message']['autoTrack']);
           return _delegate!.shouldShowMessage(msg);
         }
-        return false;
+        return true;
       case 'urlLoaded':
         _delegate?.urlLoaded(arguments['url'], arguments['message']);
         return null;
@@ -62,7 +64,7 @@ class Messaging {
   static Future<List<Message>> getCachedMessages() => _channel
       .invokeListMethod('getCachedMessages')
       .then((result) => (result ?? [])
-          .map((val) => new Message(val.id, val.autoTrack))
+          .map((val) => new Message(val['id'], val['autoTrack']))
           .toList());
 
   /// Initiates a network call to retrieve remote In-App Message definitions.
