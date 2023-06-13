@@ -8,6 +8,7 @@
 /// governing permissions and limitations under the License.
 
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepmessaging/src/aepmesaging_messaging_delegate.dart';
 import 'package:flutter_aepmessaging/src/aepmessaging_message.dart';
@@ -20,14 +21,14 @@ export 'package:flutter_aepmessaging/src/aepmessaging_messaging_edge_event_type.
 class Messaging {
   static const MethodChannel _channel = MethodChannel('flutter_aepmessaging');
 
-  static MessagingDelegate? _delegate;
-
-  static bool _isInitialized = false;
+  static MessagingDelegate? _delegate = null;
 
   static Future<dynamic> Function(MethodCall)? _methodCallHandler =
       (MethodCall call) async {
-    print(call);
     Map<dynamic, dynamic> arguments = call.arguments;
+    print(call.method);
+    print(call.arguments['message']['id']);
+    print(_delegate != null);
     switch (call.method) {
       case 'onDismiss':
         _delegate?.onDismiss(arguments['message']);
@@ -39,8 +40,12 @@ class Messaging {
         return _delegate?.shouldSaveMessage(arguments['message'] as Message) ??
             false;
       case 'shouldShowMessage':
-        return _delegate?.shouldShowMessage(arguments['message'] as Message) ??
-            false;
+        if (_delegate != null) {
+          Message msg = new Message(
+              arguments['message']['id'], arguments['message']['autoTrack']);
+          return _delegate!.shouldShowMessage(msg);
+        }
+        return false;
       case 'urlLoaded':
         _delegate?.urlLoaded(arguments['url'], arguments['message']);
         return null;
@@ -66,9 +71,6 @@ class Messaging {
 
   static void setMessagingDelegate(MessagingDelegate? delegate) {
     _delegate = delegate;
-    if (!_isInitialized) {
-      _channel.setMethodCallHandler(_methodCallHandler);
-      _isInitialized = true;
-    }
+    _channel.setMethodCallHandler(_methodCallHandler);
   }
 }

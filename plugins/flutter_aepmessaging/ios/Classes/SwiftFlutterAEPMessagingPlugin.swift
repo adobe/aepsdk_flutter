@@ -2,6 +2,7 @@ import AEPCore
 import AEPMessaging
 import AEPServices
 import Flutter
+import Foundation
 import UIKit
 import UserNotifications
 import WebKit
@@ -229,33 +230,37 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         let fullscreenMessage = message as! FullscreenMessage
         let incomingMessage = fullscreenMessage.parent as! Message
         var shouldShow = false
+        let semaphore = DispatchSemaphore(value: 0)
         channel.invokeMethod(
-            "onShouldSaveMessage",
+            "shouldSaveMessage",
             arguments: [
                 "message": dataBridge.transformToFlutterMessage(
                     message: incomingMessage
                 )
             ],
             result: { (result: Any?) -> Void in
-                let shouldSaveMessage = result as! Bool
-                if shouldSaveMessage {
+                if let shouldSaveMessage = result as? Bool {
                     self.messageCache[incomingMessage.id] = incomingMessage
                 }
             }
         )
+
         channel.invokeMethod(
-            "flutterShouldShowMessage",
+            "shouldShowMessage",
             arguments: [
-                "message": [
-                    "message": dataBridge.transformToFlutterMessage(
-                        message: incomingMessage
-                    )
-                ]
+                "message": dataBridge.transformToFlutterMessage(
+                    message: incomingMessage
+                )
             ],
             result: { (result: Any?) -> Void in
-                shouldShow = result as! Bool
+                if let shouldShowMessage = result as? Bool {
+                    shouldShow = shouldShowMessage
+                }
+                semaphore.signal()
             }
         )
+
+        semaphore.wait()
         return shouldShow
     }
 
@@ -264,7 +269,7 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         channel.invokeMethod(
             "urlLoaded",
             arguments: [
-                "url": url.standardized,
+                "url": url.absoluteString,
                 "message": dataBridge.transformToFlutterMessage(
                     message: fullscreenMessage.parent as! Message
                 ),

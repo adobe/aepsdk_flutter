@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_aepcore/flutter_aepcore_data.dart';
 import 'package:flutter_aepmessaging/flutter_aepmessaging.dart' as AEPMessaging;
 import 'util.dart';
@@ -19,33 +20,6 @@ import 'util.dart';
 class MessagingPage extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
-}
-
-class CustomMessagingDelegate implements AEPMessaging.MessagingDelegate {
-  @override
-  void onDismiss(Showable message) {
-    log('$message');
-  }
-
-  @override
-  onShow(Showable message) {
-    log('$message');
-  }
-
-  @override
-  bool shouldSaveMessage(Showable message) {
-    return true;
-  }
-
-  @override
-  bool shouldShowMessage(Showable message) {
-    return true;
-  }
-
-  @override
-  void urlLoaded(String url, Showable message) {
-    return;
-  }
 }
 
 class _MyAppState extends State<MessagingPage> {
@@ -63,7 +37,6 @@ class _MyAppState extends State<MessagingPage> {
     late String messagingVersion;
 
     messagingVersion = await AEPMessaging.Messaging.extensionVersion;
-    AEPMessaging.Messaging.setMessagingDelegate(CustomMessagingDelegate());
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -98,6 +71,12 @@ class _MyAppState extends State<MessagingPage> {
             getRichText(
                 'AEPMessaging extension version: ', '$_messagingVersion\n'),
             getRichText('Current Cached Messages: ', '$_cachedMessages\n'),
+            ElevatedButton(
+              child: Text("MobileCore.trackAction"),
+              onPressed: () => MobileCore.trackAction('full', data: {
+                "testFullscreen": "true",
+              }),
+            ),
             ElevatedButton(
               child: Text("Messaging.getCachedMessages(...)"),
               onPressed: () => getCachedMessages(),

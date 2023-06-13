@@ -9,7 +9,9 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_aepsdk_example/messaging.dart';
 import 'core.dart';
 import 'assurance.dart';
@@ -19,6 +21,35 @@ import 'identity.dart';
 import 'edgeIdentity.dart';
 import 'edgebridge.dart';
 import 'userprofile.dart';
+import 'package:flutter_aepmessaging/flutter_aepmessaging.dart' as AEPMessaging;
+
+class CustomMessagingDelegate implements AEPMessaging.MessagingDelegate {
+  @override
+  void onDismiss(Showable message) {
+    log('$message');
+  }
+
+  @override
+  onShow(Showable message) {
+    log('$message');
+  }
+
+  @override
+  bool shouldSaveMessage(Showable message) {
+    return true;
+  }
+
+  @override
+  bool shouldShowMessage(Showable message) {
+    print(message);
+    return true;
+  }
+
+  @override
+  void urlLoaded(String url, Showable message) {
+    return;
+  }
+}
 
 void main() {
   runApp(MaterialApp(
@@ -29,6 +60,8 @@ void main() {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AEPMessaging.Messaging.setMessagingDelegate(CustomMessagingDelegate());
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Flutter AEP SDK'),
