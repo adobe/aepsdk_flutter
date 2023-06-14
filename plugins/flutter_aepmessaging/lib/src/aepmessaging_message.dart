@@ -29,7 +29,7 @@ class Message extends Showable {
 
   /// Clears the message from the cached messages
   void clear() {
-    _channel.invokeMethod('clear', {id: this.id});
+    _channel.invokeMethod('clearMessage', {'id': this.id});
   }
 
   /// Signals to the UIServices that the message should be dismissed.
@@ -44,7 +44,7 @@ class Message extends Showable {
   /// The parameter passed to `handler` will contain the body of the message passed from the webview's Javascript.
   Future<String> handleJavascriptMessage(String name) async {
     return await _channel
-        .invokeMethod('handleJavascriptMessage', {id: this.id, name: name});
+        .invokeMethod('handleJavascriptMessage', {'id': this.id, 'name': name});
   }
 
   /// Sets the value of autoTrack on the message to [shouldAutoTrack]
@@ -53,7 +53,7 @@ class Message extends Showable {
   void setAutoTrack(bool shouldAutoTrack) {
     this.autoTrack = shouldAutoTrack;
     _channel.invokeMethod(
-        'setAutoTrack', {id: this.id, autoTrack: shouldAutoTrack});
+        'setAutoTrack', {'id': this.id, 'autoTrack': shouldAutoTrack});
   }
 
   /// Signals to the UIServices that the message should be shown.
@@ -61,12 +61,15 @@ class Message extends Showable {
   /// If autoTrack is true, calling this method will result in an "inapp.display" Edge Event being dispatched.
   @override
   void show() {
-    _channel.invokeMethod('show', {id: this.id});
+    _channel.invokeMethod('showMessage', {'id': this.id});
   }
 
   /// Generates an Edge Event for the provided [interaction] and [eventType].
   void track(String? interaction, MessagingEdgeEventType eventType) {
-    _channel.invokeMethod(
-        'track', {id: this.id, eventType: eventType, interaction: interaction});
+    _channel.invokeMethod('trackMessage', {
+      'id': this.id,
+      'eventType': eventType.value,
+      'interaction': interaction
+    });
   }
 }

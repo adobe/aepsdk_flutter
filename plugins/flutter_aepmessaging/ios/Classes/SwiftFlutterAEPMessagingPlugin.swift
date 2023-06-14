@@ -69,13 +69,14 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         {
             let msg = messageCache[id]
             if msg != nil {
-                return FlutterError.init(
-                    code: "CACHE MISS",
-                    message: "Message has not been cached",
-                    details: nil
-                )
+                messageCache.removeValue(forKey: msg!.id)
+                return nil
             }
-            messageCache.removeValue(forKey: msg!.id)
+            return FlutterError.init(
+                code: "CACHE MISS",
+                message: "Message has not been cached",
+                details: nil
+            )
         }
         return FlutterError.init(
             code: "BAD ARGUMENTS",
@@ -181,9 +182,10 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         if let args = arguments as? [String: Any],
             let id = args["id"] as? String,
             let interaction = args["interaction"] as? String,
-            let eventType = args["eventType"] as? MessagingEdgeEventType
+           let eventType = args["eventType"] as? Int
         {
             let msg = messageCache[id]
+            let eventType = MessagingEdgeEventType.init(rawValue: eventType) ?? MessagingEdgeEventType.inappDismiss
             if msg != nil {
                 msg!.track(interaction, withEdgeEventType: eventType)
                 return nil

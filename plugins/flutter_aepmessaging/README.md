@@ -152,18 +152,6 @@ static Future<void> refreshInAppMessages
 await Messaging.refreshInAppMessages();
 ```
 
----
-
-### saveMessage
-
-Caches a message in-memory. This method must be called prior to calling any functions on the message.
-
-**Syntax**
-
-```dart
-Messaging.saveMessage(message);
-```
-
 ## Contributing
 
 See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)

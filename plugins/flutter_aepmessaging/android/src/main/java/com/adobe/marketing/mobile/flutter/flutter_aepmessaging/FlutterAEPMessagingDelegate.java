@@ -11,15 +11,16 @@ specific language governing permissions and limitations under the License.
 package com.adobe.marketing.mobile.flutter.flutter_aepmessaging;
 
 import android.util.Log;
-import com.adobe.marketing.mobile.LoggingMode;
+
 import com.adobe.marketing.mobile.Message;
-import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.flutter.flutter_aepmessaging.FlutterAEPMessagingPlugin;
 import com.adobe.marketing.mobile.services.MessagingDelegate;
 import com.adobe.marketing.mobile.services.ui.FullscreenMessage;
-import io.flutter.plugin.common.MethodChannel;
+
 import java.util.HashMap;
 import java.util.Map;
+
+import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.MethodChannel.Result;
 
 public class FlutterAEPMessagingDelegate implements MessagingDelegate {
   private MethodChannel channel;
@@ -35,7 +36,7 @@ public class FlutterAEPMessagingDelegate implements MessagingDelegate {
       Map<String, Object> data = new HashMap<>();
       Map<String, Object> msg = new HashMap<>();
       msg.put("id", message.getId());
-      //      data.put("autoTrack", message.getAutoTrack());
+//      data.put("autoTrack", message.getAutoTrack());
       data.put("message", msg);
       channel.invokeMethod("onDismiss", data);
     }
@@ -48,7 +49,7 @@ public class FlutterAEPMessagingDelegate implements MessagingDelegate {
       Map<String, Object> data = new HashMap<>();
       Map<String, Object> msg = new HashMap<>();
       msg.put("id", message.getId());
-      //      data.put("autoTrack", message.getAutoTrack());
+//      data.put("autoTrack", message.getAutoTrack());
       data.put("message", msg);
       channel.invokeMethod("onShow", data);
     }
@@ -56,58 +57,56 @@ public class FlutterAEPMessagingDelegate implements MessagingDelegate {
 
   @Override
   public boolean shouldShowMessage(FullscreenMessage fullscreenMessage) {
-    Log.d("AEPMessaging", fullscreenMessage.toString());
-    return true;
-    //    final Message message = (Message)fullscreenMessage.getParent();
-    //    final boolean[] shouldShowMessage = {true};
-    //    if (message != null) {
-    //      Map<String, Object> data = new HashMap<>();
-    //      Map<String, Object> msg = new HashMap<>();
-    //      msg.put("id", message.getId());
-    //      //      data.put("autoTrack", message.getAutoTrack());
-    //      data.put("message", msg);
-    //      channel.invokeMethod("shouldSaveMessage", data, new Result() {
-    //        @Override
-    //        public void success(Object o) {
-    //          boolean shouldSaveMessage = (boolean)o;
-    //          // if (shouldSaveMessage) {
-    //          //   messageCache.put(message.getId(), message);
-    //          // }
-    //        }
-    //
-    //        @Override
-    //        public void error(String s, String s1, Object o) {}
-    //
-    //        @Override
-    //        public void notImplemented() {}
-    //      });
-    //
-    //      channel.invokeMethod("shouldShowMessage", data, new Result() {
-    //        @Override
-    //        public void success(Object o) {
-    //          MobileCore.log(VERBOSE, TAG, "success");
-    //          shouldShowMessage[0] = (boolean)o;
-    //          Log.d("AEPMessaging", "success");
-    //          latch.countDown();
-    //        }
-    //
-    //        @Override
-    //        public void error(String s, String s1, Object o) {
-    //          Log.d(s, s1);
-    //        }
-    //
-    //        @Override
-    //        public void notImplemented() {
-    //          Log.d("AEPMessaging", "unimplemented");
-    //        }
-    //      });
-    //    }
-    //    try {
-    //      latch.await();
-    //      return shouldShowMessage[0];
-    //    } catch (final InterruptedException e) {
-    //      return true;
-    //    }
+        final Message message = (Message)fullscreenMessage.getParent();
+        final boolean[] shouldShowMessage = {true};
+        if (message != null) {
+          Map<String, Object> data = new HashMap<>();
+          Map<String, Object> msg = new HashMap<>();
+          msg.put("id", message.getId());
+          //      msg.put("autoTrack", message.getAutoTrack());
+          data.put("message", msg);
+          channel.invokeMethod("shouldSaveMessage", data, new Result() {
+            @Override
+            public void success(Object o) {
+              boolean shouldSaveMessage = (boolean)o;
+              // if (shouldSaveMessage) {
+              //   messageCache.put(message.getId(), message);
+              // }
+            }
+
+            @Override
+            public void error(String s, String s1, Object o) {}
+
+            @Override
+            public void notImplemented() {}
+          });
+
+          channel.invokeMethod("shouldShowMessage", data, new Result() {
+            @Override
+            public void success(Object o) {
+              shouldShowMessage[0] = (boolean)o;
+              Log.d("AEPMessaging", "success");
+//              latch.countDown();
+            }
+
+            @Override
+            public void error(String s, String s1, Object o) {
+              Log.d(s, s1);
+            }
+
+            @Override
+            public void notImplemented() {
+              Log.d("AEPMessaging", "unimplemented");
+            }
+          });
+        }
+    return shouldShowMessage[0];
+//        try {
+////          latch.await();
+//
+//        } catch (final InterruptedException e) {
+//          return true;
+//        }
   }
 
   @Override
@@ -117,7 +116,7 @@ public class FlutterAEPMessagingDelegate implements MessagingDelegate {
       Map<String, Object> data = new HashMap<>();
       Map<String, Object> msg = new HashMap<>();
       msg.put("id", message.getId());
-      //      msg.put("autoTrack", message.getAutoTrack());
+//      msg.put("autoTrack", message.getAutoTrack());
       data.put("message", msg);
       data.put("url", url);
       channel.invokeMethod("urlLoaded", data);

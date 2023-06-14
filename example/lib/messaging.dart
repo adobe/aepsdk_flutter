@@ -24,7 +24,7 @@ class MessagingPage extends StatefulWidget {
 
 class _MyAppState extends State<MessagingPage> {
   String _messagingVersion = 'Unknown';
-  List<String> _cachedMessages = [];
+  List<AEPMessaging.Message> _cachedMessages = [];
 
   @override
   void initState() {
@@ -55,12 +55,39 @@ class _MyAppState extends State<MessagingPage> {
     print('$messages');
 
     setState(() {
-      _cachedMessages = messages.map((message) => message.id).toList();
+      _cachedMessages = messages;
     });
   }
 
   Future<void> refreshMessages() async {
     AEPMessaging.Messaging.refreshInAppMessages();
+  }
+
+  Future<void> show() async {
+    var message = _cachedMessages[0];
+    message.show();
+    message.dismiss();
+  }
+
+  Future<void> dismiss() async {
+    var message = _cachedMessages[0];
+    message.dismiss();
+  }
+
+  Future<void> track() async {
+    var message = _cachedMessages[0];
+    message.track(
+        'interaction', AEPMessaging.MessagingEdgeEventType.IN_APP_TRIGGER);
+  }
+
+  Future<void> setAutoTrack() async {
+    var message = _cachedMessages[0];
+    message.setAutoTrack(false);
+  }
+
+  Future<void> clear() async {
+    var message = _cachedMessages[0];
+    message.clear();
   }
 
   @override
@@ -73,7 +100,7 @@ class _MyAppState extends State<MessagingPage> {
             getRichText('Current Cached Messages: ', '$_cachedMessages\n'),
             ElevatedButton(
               child: Text("MobileCore.trackAction"),
-              onPressed: () => MobileCore.trackAction('full', data: {
+              onPressed: () => MobileCore.trackAction('tues', data: {
                 "testFullscreen": "true",
               }),
             ),
@@ -84,6 +111,26 @@ class _MyAppState extends State<MessagingPage> {
             ElevatedButton(
               child: Text("Messaging.refreshMessages(...)"),
               onPressed: () => refreshMessages(),
+            ),
+            ElevatedButton(
+              child: Text("show"),
+              onPressed: () => show(),
+            ),
+            ElevatedButton(
+              child: Text("dismiss"),
+              onPressed: () => dismiss(),
+            ),
+            ElevatedButton(
+              child: Text("setAutoTrack"),
+              onPressed: () => setAutoTrack(),
+            ),
+            ElevatedButton(
+              child: Text("track"),
+              onPressed: () => track(),
+            ),
+            ElevatedButton(
+              child: Text("clear"),
+              onPressed: () => clear(),
             ),
           ]),
         ),
