@@ -8,12 +8,9 @@
 /// governing permissions and limitations under the License.
 
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/services.dart';
-import 'package:flutter_aepmessaging/src/aepmesaging_messaging_delegate.dart';
+import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_aepmessaging/src/aepmessaging_message.dart';
-import 'package:flutter_aepmessaging/src/aepmessaging_messaging_edge_event_type.dart';
-export 'package:flutter_aepmessaging/src/aepmesaging_messaging_delegate.dart';
 export 'package:flutter_aepmessaging/src/aepmessaging_message.dart';
 export 'package:flutter_aepmessaging/src/aepmessaging_messaging_edge_event_type.dart';
 
@@ -28,23 +25,22 @@ class Messaging {
     Map<dynamic, dynamic> arguments = call.arguments;
     switch (call.method) {
       case 'onDismiss':
-        _delegate?.onDismiss(arguments['message']);
+        _delegate?.onDismiss(Message.fromMap(arguments['message']));
         return null;
       case 'onShow':
-        _delegate?.onShow(arguments['message']);
+        _delegate?.onShow(Message.fromMap(arguments['message']));
         return null;
       case 'shouldSaveMessage':
-        return _delegate?.shouldSaveMessage(
-                new Message(arguments['message']['id'], true)) ??
+        return _delegate
+                ?.shouldSaveMessage(Message.fromMap(arguments['message'])) ??
             false;
       case 'shouldShowMessage':
-        if (_delegate != null) {
-          Message msg = new Message(arguments['message']['id'], true);
-          return _delegate!.shouldShowMessage(msg);
-        }
-        return true;
+        return _delegate
+                ?.shouldShowMessage(Message.fromMap(arguments['message'])) ??
+            true;
       case 'urlLoaded':
-        _delegate?.urlLoaded(arguments['url'], arguments['message']);
+        _delegate?.urlLoaded(
+            arguments['url'], Message.fromMap(arguments['message']));
         return null;
       default:
         throw UnimplementedError('${call.method} has not been implemented');
@@ -58,7 +54,7 @@ class Messaging {
   /// Returns a list of messages currently cached in-memory
   static Future<List<Message>> getCachedMessages() =>
       _channel.invokeListMethod('getCachedMessages').then((result) =>
-          (result ?? []).map((val) => new Message(val['id'], true)).toList());
+          (result ?? []).map((val) => Message.fromMap(val)).toList());
 
   /// Initiates a network call to retrieve remote In-App Message definitions.
   static void refreshInAppMessages() =>

@@ -19,12 +19,13 @@ class Message extends Showable {
   late String id;
   late bool autoTrack;
 
-  Message(
-    final String id,
-    final bool autoTrack,
-  ) {
+  Message({required final String id, final bool autoTrack = true}) {
     this.id = id;
     this.autoTrack = autoTrack;
+  }
+
+  factory Message.fromMap(Map<dynamic, dynamic> map) {
+    return Message(id: map['id'], autoTrack: map['autoTrack']);
   }
 
   /// Clears the message from the cached messages

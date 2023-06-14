@@ -50,5 +50,5 @@ android {
 }
 
 dependencies {
-    api 'com.adobe.marketing.mobile:messaging:2.0+'
+    api 'com.adobe.marketing.mobile:messaging:2.1.4'
 }

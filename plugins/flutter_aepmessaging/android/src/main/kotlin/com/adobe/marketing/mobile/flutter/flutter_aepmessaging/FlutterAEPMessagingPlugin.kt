@@ -1,6 +1,5 @@
 package com.adobe.marketing.mobile.flutter.flutter_aepmessaging
 
-import FlutterAEPMessagingDelegate
 import com.adobe.marketing.mobile.*
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -12,7 +11,7 @@ import io.flutter.plugin.common.MethodChannel.Result
 /** FlutterAEPMessagingPlugin */
 class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
   private lateinit var channel: MethodChannel
-  private var messageCache = mutableMapOf<String, Message>();
+  private var messageCache = mutableMapOf<String, Message>()
 
   override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_aepmessaging")
@@ -45,7 +44,7 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
 
   private fun getCachedMessages(result: Result) {
     val cachedMessages = messageCache.values.map {
-        message -> mapOf("id" to message.id, "autoTrack" to true)
+        message -> mapOf("id" to message.id, "autoTrack" to message.autoTrack)
     }.toList()
     result.success(cachedMessages)
   }
@@ -77,7 +76,7 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
   private fun setAutoTrack(call: MethodCall, result: Result) {
     val id = call.argument<String>("id")
     val shouldAutoTrack = call.argument<Boolean>("autoTrack")
-    messageCache[id]?.setAutoTrack(shouldAutoTrack as Boolean)
+    messageCache[id]?.autoTrack = shouldAutoTrack as Boolean
     result.success(null)
   }
 

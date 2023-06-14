@@ -23,7 +23,7 @@ import 'edgebridge.dart';
 import 'userprofile.dart';
 import 'package:flutter_aepmessaging/flutter_aepmessaging.dart' as AEPMessaging;
 
-class CustomMessagingDelegate implements AEPMessaging.MessagingDelegate {
+class CustomMessagingDelegate implements MessagingDelegate {
   @override
   void onDismiss(Showable message) {
     log('$message');

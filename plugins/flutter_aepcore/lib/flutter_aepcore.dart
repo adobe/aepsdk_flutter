@@ -14,7 +14,6 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/src/aepextension_event.dart';
 import 'package:flutter_aepcore/src/aepmobile_logging_level.dart';
-import 'package:flutter_aepcore/src/aepmobile_messaging_delegate.dart';
 import 'package:flutter_aepcore/src/aepmobile_privacy_status.dart';
 export 'package:flutter_aepcore/flutter_aepcore_data.dart';
 
@@ -126,8 +125,4 @@ class MobileCore {
   /// Clears all identifiers from Edge extensions and generates a new Experience Cloud ID (ECID).
   static Future<void> resetIdentities() =>
       _channel.invokeMethod('resetIdentities');
-
-  /// Sets
-  static void setMessagingDelegate(MessagingDelegate delegate) =>
-      _channel.invokeMethod('setMessagingDelegate', delegate);
 }
