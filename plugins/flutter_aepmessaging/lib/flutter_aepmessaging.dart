@@ -27,7 +27,7 @@ class Messaging {
       (MethodCall call) async {
     Map<dynamic, dynamic> arguments = call.arguments;
     print(call.method);
-    print(call.arguments['message']['id']);
+    print(call.arguments);
     print(_delegate != null);
     switch (call.method) {
       case 'onDismiss':
@@ -37,14 +37,12 @@ class Messaging {
         _delegate?.onShow(arguments['message']);
         return null;
       case 'shouldSaveMessage':
-        return _delegate?.shouldSaveMessage(new Message(
-                arguments['message']['id'],
-                arguments['message']['autoTrack'])) ??
+        return _delegate?.shouldSaveMessage(
+                new Message(arguments['message']['id'], true)) ??
             false;
       case 'shouldShowMessage':
         if (_delegate != null) {
-          Message msg = new Message(
-              arguments['message']['id'], arguments['message']['autoTrack']);
+          Message msg = new Message(arguments['message']['id'], true);
           return _delegate!.shouldShowMessage(msg);
         }
         return true;
@@ -61,11 +59,9 @@ class Messaging {
       _channel.invokeMethod('extensionVersion').then((value) => value!);
 
   /// Returns a list of messages currently cached in-memory
-  static Future<List<Message>> getCachedMessages() => _channel
-      .invokeListMethod('getCachedMessages')
-      .then((result) => (result ?? [])
-          .map((val) => new Message(val['id'], val['autoTrack']))
-          .toList());
+  static Future<List<Message>> getCachedMessages() =>
+      _channel.invokeListMethod('getCachedMessages').then((result) =>
+          (result ?? []).map((val) => new Message(val['id'], true)).toList());
 
   /// Initiates a network call to retrieve remote In-App Message definitions.
   static void refreshInAppMessages() =>
