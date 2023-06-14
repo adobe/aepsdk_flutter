@@ -13,8 +13,8 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'AEPMessaging', '~> 1.1'
-  s.dependency 'AEPCore', '~> 3.0'
+  s.dependency 'AEPMessaging', '~> 4.0'
+  s.dependency 'AEPCore', '~> 4.0'
   s.platform = :ios, '10.0'
 
   # Flutter.framework does not contain a i386 slice.
