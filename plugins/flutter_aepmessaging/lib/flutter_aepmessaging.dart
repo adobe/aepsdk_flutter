@@ -26,9 +26,6 @@ class Messaging {
   static Future<dynamic> Function(MethodCall)? _methodCallHandler =
       (MethodCall call) async {
     Map<dynamic, dynamic> arguments = call.arguments;
-    print(call.method);
-    print(call.arguments);
-    print(_delegate != null);
     switch (call.method) {
       case 'onDismiss':
         _delegate?.onDismiss(arguments['message']);

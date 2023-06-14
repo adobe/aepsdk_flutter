@@ -41,7 +41,6 @@ class CustomMessagingDelegate implements AEPMessaging.MessagingDelegate {
 
   @override
   bool shouldShowMessage(Showable message) {
-    print(message);
     return true;
   }
 
