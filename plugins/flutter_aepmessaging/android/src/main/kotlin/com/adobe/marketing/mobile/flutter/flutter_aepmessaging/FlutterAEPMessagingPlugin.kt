@@ -28,7 +28,7 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
       "refreshInAppMessages" -> result.success(Messaging.refreshInAppMessages())
       // Message Methods
       "clearMessage" -> this.clearMessage(call, result)
-      "dismiss" -> this.dismissMessage(call, result)
+      "dismissMessage" -> this.dismissMessage(call, result)
       "handleJavascriptMessage" -> this.handleJavascriptMessage(call, result)
       "setAutoTrack" -> this.setAutoTrack(call, result)
       "showMessage" -> this.showMessage(call, result)
@@ -47,7 +47,7 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
     val cachedMessages = messageCache.values.map {
         message -> mapOf("id" to message.id, "autoTrack" to true)
     }.toList()
-    return result.success(cachedMessages)
+    result.success(cachedMessages)
   }
 
   // Message Class Functions
@@ -59,7 +59,7 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
 
   private fun dismissMessage(call: MethodCall, result: Result) {
     val messageId = call.argument<String>("messageId")
-    messageCache.get(messageId)?.dismiss(true)
+    messageCache[messageId]?.dismiss(true)
     result.success(null)
   }
 
@@ -77,24 +77,36 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
   private fun setAutoTrack(call: MethodCall, result: Result) {
     val id = call.argument<String>("id")
     val shouldAutoTrack = call.argument<Boolean>("autoTrack")
-    messageCache.get(id)?.setAutoTrack(shouldAutoTrack as Boolean)
+    messageCache[id]?.setAutoTrack(shouldAutoTrack as Boolean)
     result.success(null)
   }
 
   private fun showMessage(call: MethodCall, result: Result) {
     val id = call.argument<String>("id")
-    messageCache.get(id)?.show()
+    messageCache[id]?.show()
     result.success(null)
   }
 
   private fun trackMessage(call: MethodCall, result: Result) {
-    val eventType = call.argument<MessagingEdgeEventType>("eventType")
+    val eventType = call.argument<Int>("eventType")
     val interaction = call.argument<String>("interaction")
     val messageId = call.argument<String>("messageId")
     val message = messageCache[messageId]
     if (message != null) {
-      message.track(interaction, eventType)
+      message.track(interaction, convertToMessagingEventType(eventType as Int))
       result.success(null)
+    }
+  }
+
+  private fun convertToMessagingEventType(value: Int): MessagingEdgeEventType {
+    return when (value) {
+      0 -> MessagingEdgeEventType.IN_APP_DISMISS
+      1 -> MessagingEdgeEventType.IN_APP_INTERACT
+      2 -> MessagingEdgeEventType.IN_APP_TRIGGER
+      3 -> MessagingEdgeEventType.IN_APP_DISPLAY
+      4 -> MessagingEdgeEventType.PUSH_APPLICATION_OPENED
+      5 -> MessagingEdgeEventType.PUSH_CUSTOM_ACTION
+      else -> MessagingEdgeEventType.IN_APP_DISMISS
     }
   }
 }

@@ -36,8 +36,8 @@ class Message extends Showable {
   /// If [autoTrack] is true, calling this method will result in an "inapp.dismiss" Edge Event being dispatched.
   /// If [suppressAutoTrack] set to true, the inapp.dismiss Edge Event will not be sent regardless of the autoTrack setting.
   void dismiss({bool? suppressAutoTrack: false}) {
-    _channel.invokeMethod(
-        'dismiss', {id: this.id, suppressAutoTrack: suppressAutoTrack});
+    _channel.invokeMethod('dismissMessage',
+        {'id': this.id, 'suppressAutoTrack': suppressAutoTrack});
   }
 
   /// Adds a handler for Javascript messages sent from the message's webview specified for [name].

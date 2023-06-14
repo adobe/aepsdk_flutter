@@ -63,31 +63,41 @@ class _MyAppState extends State<MessagingPage> {
     AEPMessaging.Messaging.refreshInAppMessages();
   }
 
-  Future<void> show() async {
-    var message = _cachedMessages[0];
-    message.show();
-    message.dismiss();
+  Future<void> showMessage() async {
+    if (_cachedMessages.isNotEmpty) {
+      var message = _cachedMessages[0];
+      message.show();
+      message.dismiss();
+    }
   }
 
-  Future<void> dismiss() async {
-    var message = _cachedMessages[0];
-    message.dismiss();
+  Future<void> dismissMessage() async {
+    if (_cachedMessages.isNotEmpty) {
+      var message = _cachedMessages[0];
+      message.dismiss();
+    }
   }
 
-  Future<void> track() async {
-    var message = _cachedMessages[0];
-    message.track(
-        'interaction', AEPMessaging.MessagingEdgeEventType.IN_APP_TRIGGER);
+  Future<void> trackMessage() async {
+    if (_cachedMessages.isNotEmpty) {
+      var message = _cachedMessages[0];
+      message.track(
+          'interaction', AEPMessaging.MessagingEdgeEventType.IN_APP_TRIGGER);
+    }
   }
 
   Future<void> setAutoTrack() async {
-    var message = _cachedMessages[0];
-    message.setAutoTrack(false);
+    if (_cachedMessages.isNotEmpty) {
+      var message = _cachedMessages[0];
+      message.setAutoTrack(false);
+    }
   }
 
-  Future<void> clear() async {
-    var message = _cachedMessages[0];
-    message.clear();
+  Future<void> clearMessage() async {
+    if (_cachedMessages.isNotEmpty) {
+      var message = _cachedMessages[0];
+      message.clear();
+    }
   }
 
   @override
@@ -112,25 +122,26 @@ class _MyAppState extends State<MessagingPage> {
               child: Text("Messaging.refreshMessages(...)"),
               onPressed: () => refreshMessages(),
             ),
+            Text("Message functions"),
             ElevatedButton(
-              child: Text("show"),
-              onPressed: () => show(),
+              child: Text("showMessage"),
+              onPressed: () => showMessage(),
             ),
             ElevatedButton(
-              child: Text("dismiss"),
-              onPressed: () => dismiss(),
+              child: Text("dismissMessage"),
+              onPressed: () => dismissMessage(),
             ),
             ElevatedButton(
               child: Text("setAutoTrack"),
               onPressed: () => setAutoTrack(),
             ),
             ElevatedButton(
-              child: Text("track"),
-              onPressed: () => track(),
+              child: Text("trackMessage"),
+              onPressed: () => trackMessage(),
             ),
             ElevatedButton(
-              child: Text("clear"),
-              onPressed: () => clear(),
+              child: Text("clearMessage"),
+              onPressed: () => clearMessage(),
             ),
           ]),
         ),
