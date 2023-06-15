@@ -1,8 +1,7 @@
 group 'com.adobe.marketing.mobile.flutter.flutter_aepmessaging'
-version '1.0'
+version '2.0'
 
 buildscript {
-    ext.kotlin_version = '1.6.10'
     repositories {
         google()
         mavenCentral()
@@ -10,7 +9,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20"
     }
 }
 
@@ -25,7 +24,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -34,6 +33,8 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
+        languageVersion = "1.4"
+        apiVersion = "1.4"
     }
 
     sourceSets {
@@ -41,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
