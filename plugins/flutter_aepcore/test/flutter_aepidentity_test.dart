@@ -11,7 +11,6 @@ governing permissions and limitations under the License.
 
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepidentity.dart';
-import 'package:flutter_aepcore/src/aepmobile_visitor_id.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

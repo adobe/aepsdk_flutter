@@ -1,6 +1,6 @@
 name: flutter_aepcore
 description: Official Adobe Experience Platform support for Flutter apps. The Mobile Core represents the core Adobe Experience Platform SDK that is required for every app implementation.
-version: 2.0.0
+version: 3.0.0
 homepage: https://developer.adobe.com/client-sdks
 repository: https://github.com/adobe/aepsdk-flutter/tree/main/plugins/flutter_aepcore
 
