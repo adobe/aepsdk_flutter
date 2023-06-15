@@ -12,7 +12,7 @@ governing permissions and limitations under the License.
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_aepcore/flutter_aepcore.dart';
-import 'package:flutter_aepsdk_example/messaging.dart';
+import 'messaging.dart';
 import 'core.dart';
 import 'assurance.dart';
 import 'edge.dart';
@@ -26,12 +26,12 @@ import 'package:flutter_aepmessaging/flutter_aepmessaging.dart' as AEPMessaging;
 class CustomMessagingDelegate implements MessagingDelegate {
   @override
   void onDismiss(Showable message) {
-    log('$message');
+    print('$message');
   }
 
   @override
-  onShow(Showable message) {
-    log('$message');
+  onShow(Showable message) async {
+    print('$message');
   }
 
   @override

@@ -156,6 +156,112 @@ static Future<void> refreshInAppMessages
 await Messaging.refreshInAppMessages();
 ```
 
+## Handling In App Messages using Message Object
+
+The `Message` object passed to the `MessagingDelegate` contains the following functions to handle a message:
+
+### show
+
+Signals to the `UIService` that the message should be displayed.
+
+**Syntax**
+
+```dart
+show()
+```
+
+**Example**
+
+```dart
+Message message
+message.show()
+```
+
+### dismiss
+
+Signals to the `UIService` that the message should be dismissed.
+
+**Syntax**
+
+```dart
+dismiss(((suppressAutoTrack: ?boolean) = false))
+```
+
+**Example**
+
+```dart
+Message message
+message.dismiss(true)
+```
+
+### track
+
+Generates an Edge Event for the provided interaction and event type.
+
+**Syntax**
+
+```dart
+track(String interaction, MessagingEdgeEventType eventType)
+```
+
+**Example**
+
+```dart
+Message message;
+message.track("sample text", MessagingEdgeEventType.IN_APP_DISMISS)
+```
+
+### handleJavascriptMessage
+
+Adds a handler for dart messages sent from the message's webview.
+
+**Syntax**
+
+```dart
+handleJavascriptMessage(name: string) : Promise<?any>
+```
+
+**Example**
+
+```dart
+Message message;
+const data = await message.handleJavascriptMessage("test")
+```
+
+### setAutoTrack
+
+Enables/Disables auto-tracking for message events.
+
+**Syntax**
+
+```dart
+setAutoTrack(Bool autoTrack)
+```
+
+**Example**
+
+```dart
+Message message;
+message.setAutoTrack(true)
+```
+
+### clear
+
+Clears the reference to the in-memory cached `Message` object. This function must be called if a message was saved by calling `shouldSaveMessage` but no longer needed. Failure to call this function leads to memory leaks.
+
+**Syntax**
+
+```dart
+clear()
+```
+
+**Example**
+
+```dart
+var message: Message
+message.clear()
+```
+
 ## Contributing
 
 See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)
