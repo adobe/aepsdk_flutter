@@ -11,7 +11,7 @@ Update your `pubspec.yml` file to point to the new plugin as so:
 
 dependencies:
 -  flutter_acpcore: ^2.0.0
-+  flutter_aepcore: ^2.0.0
++  flutter_aepcore: ^3.0.0
 
 ...
 ```

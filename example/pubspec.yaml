@@ -14,21 +14,21 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  flutter_aepcore: ">= 2.0.0 <3.0.0"
+  flutter_aepcore: ">= 3.0.0 <4.0.0"
 
-  flutter_aepassurance: ">= 2.0.0 <3.0.0"
+  flutter_aepassurance: ">= 3.0.0 <4.0.0"
 
-  flutter_aepedge: ">= 2.0.0 <3.0.0"
+  flutter_aepedge: ">= 3.0.0 <4.0.0"
 
-  flutter_aepedgeconsent: ">= 2.0.0 <3.0.0"
+  flutter_aepedgeconsent: ">= 3.0.0 <4.0.0"
 
-  flutter_aepedgeidentity: ">= 2.0.0 <3.0.0" 
+  flutter_aepedgeidentity: ">= 3.0.0 <4.0.0" 
 
-  flutter_aepedgebridge: ">= 1.0.0 <2.0.0"  
+  flutter_aepedgebridge: ">= 3.0.0 <4.0.0"  
 
   flutter_aepmessaging: ">= 1.0.0 <2.0.0"  
 
-  flutter_aepuserprofile: ">= 1.0.0 <2.0.0"  
+  flutter_aepuserprofile: ">= 3.0.0 <4.0.0"
 
 dependency_overrides:
   flutter_aepcore:

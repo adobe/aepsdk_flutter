@@ -58,8 +58,6 @@ MobileCore.clearUpdatedConfiguration();
 
 ##### Controlling the log level of the SDK:
 ```dart
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-
 MobileCore.setLogLevel(LogLevel.error);
 MobileCore.setLogLevel(LogLevel.warning);
 MobileCore.setLogLevel(LogLevel.debug);
@@ -68,8 +66,6 @@ MobileCore.setLogLevel(LogLevel.trace);
 
 ##### Getting the current privacy status:
 ```dart
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-
 PrivacyStatus result;
 
 try {
@@ -81,8 +77,6 @@ try {
 
 ##### Setting the privacy status:
 ```dart
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-
 MobileCore.setPrivacyStatus(PrivacyStatus.opt_in);
 MobileCore.setPrivacyStatus(PrivacyStatus.opt_out);
 MobileCore.setPrivacyStatus(PrivacyStatus.unknown);
@@ -101,8 +95,6 @@ try {
 
 ##### Dispatching an Event Hub event:
 ```dart
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-
 final Event event = Event({
   "eventName": "testEventName",
   "eventType": "testEventType",
@@ -118,8 +110,6 @@ try {
 
 ##### Dispatching an Event Hub event with callback:
 ```dart
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-
 Event result;
 final Event event = Event({
       "eventName": "testEventName",
@@ -164,8 +154,6 @@ String version = await Identity.extensionVersion;
 
 ##### Sync Identifier:
 ```dart
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-
 Identity.syncIdentifier("identifierType", "identifier", MobileVisitorAuthenticationState.authenticated);
 ```
 
@@ -178,8 +166,6 @@ Identity.syncIdentifiers({"idType1":"idValue1",
 
 ##### Sync Identifiers with Authentication State:
 ```dart
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-
 Identity.syncIdentifiersWithAuthState({"idType1":"idValue1", "idType2":"idValue2", "idType3":"idValue3"}, MobileVisitorAuthenticationState.authenticated);
 
 ```
@@ -245,8 +231,6 @@ try {
 
 ##### AEPMobileVisitorId Class:
 ```dart
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-
 class Identifiable {
   String get idOrigin;
   String get idType;
