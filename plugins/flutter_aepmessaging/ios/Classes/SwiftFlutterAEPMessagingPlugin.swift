@@ -182,10 +182,12 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         if let args = arguments as? [String: Any],
             let id = args["id"] as? String,
             let interaction = args["interaction"] as? String,
-           let eventType = args["eventType"] as? Int
+            let eventType = args["eventType"] as? Int
         {
             let msg = messageCache[id]
-            let eventType = MessagingEdgeEventType.init(rawValue: eventType) ?? MessagingEdgeEventType.inappDismiss
+            let eventType =
+                MessagingEdgeEventType.init(rawValue: eventType)
+                ?? MessagingEdgeEventType.inappDismiss
             if msg != nil {
                 msg!.track(interaction, withEdgeEventType: eventType)
                 return nil
@@ -205,82 +207,97 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
 
     // Messaging Delegate Methods
     public func onDismiss(message: Showable) {
-        let fullscreenMessage = message as! FullscreenMessage
-        channel.invokeMethod(
-            "onDismiss",
-            arguments: [
-                "message": dataBridge.transformToFlutterMessage(
-                    message: fullscreenMessage.parent as! Message
+        public func onDismiss(message: Showable) {
+            if let fullscreenMessage = message as? FullscreenMessage,
+                let parentMessage = fullscreenMessage.parent as? Message
+            {
+                channel.invokeMethod(
+                    "onDismiss",
+                    arguments: [
+                        "message": dataBridge.transformToFlutterMessage(
+                            message: parentMessage
+                        )
+                    ]
                 )
-            ]
-        )
+            }
+        }
     }
 
     public func onShow(message: Showable) {
-        let fullscreenMessage = message as! FullscreenMessage
-        channel.invokeMethod(
-            "onShow",
-            arguments: [
-                "message": dataBridge.transformToFlutterMessage(
-                    message: fullscreenMessage.parent as! Message
+        public func onDismiss(message: Showable) {
+            if let fullscreenMessage = message as? FullscreenMessage,
+                let parentMessage = fullscreenMessage.parent as? Message
+            {
+                channel.invokeMethod(
+                    "onShow",
+                    arguments: [
+                        "message": dataBridge.transformToFlutterMessage(
+                            message: parentMessage
+                        )
+                    ]
                 )
-            ]
-        )
+            }
+        }
     }
 
     public func shouldShowMessage(message: Showable) -> Bool {
-        let fullscreenMessage = message as! FullscreenMessage
-        let incomingMessage = fullscreenMessage.parent as! Message
-        var shouldShow = false
-        let semaphore = DispatchSemaphore(value: 0)
-        channel.invokeMethod(
-            "shouldSaveMessage",
-            arguments: [
-                "message": dataBridge.transformToFlutterMessage(
-                    message: incomingMessage
-                )
-            ],
-            result: { (result: Any?) -> Void in
-                if let shouldSaveMessage = result as? Bool {
-                    if shouldSaveMessage {
-                        self.messageCache[incomingMessage.id] = incomingMessage
+        if let fullscreenMessage = message as? FullscreenMessage,
+            let incomingMessage = fullscreenMessage.parent as? Message
+        {
+            var shouldShow = false
+            let semaphore = DispatchSemaphore(value: 0)
+            channel.invokeMethod(
+                "shouldSaveMessage",
+                arguments: [
+                    "message": dataBridge.transformToFlutterMessage(
+                        message: incomingMessage
+                    )
+                ],
+                result: { (result: Any?) -> Void in
+                    if let shouldSaveMessage = result as? Bool {
+                        if shouldSaveMessage {
+                            self.messageCache[incomingMessage.id] = incomingMessage
+                        }
                     }
+                    semaphore.signal()
                 }
-                semaphore.signal()
-            }
-        )
+            )
 
-        semaphore.wait()
+            semaphore.wait()
 
-        channel.invokeMethod(
-            "shouldShowMessage",
-            arguments: [
-                "message": dataBridge.transformToFlutterMessage(
-                    message: incomingMessage
-                )
-            ],
-            result: { (result: Any?) -> Void in
-                if let shouldShowMessage = result as? Bool {
-                    shouldShow = shouldShowMessage
+            channel.invokeMethod(
+                "shouldShowMessage",
+                arguments: [
+                    "message": dataBridge.transformToFlutterMessage(
+                        message: incomingMessage
+                    )
+                ],
+                result: { (result: Any?) -> Void in
+                    if let shouldShowMessage = result as? Bool {
+                        shouldShow = shouldShowMessage
+                    }
+                    semaphore.signal()
                 }
-                semaphore.signal()
-            }
-        )
+            )
 
-        semaphore.wait()
-        return shouldShow
+            semaphore.wait()
+            return shouldShow
+        }
     }
 
     public func urlLoaded(_ url: URL, byMessage message: Showable) {
-        let fullscreenMessage = message as! FullscreenMessage
-        channel.invokeMethod(
-            "urlLoaded",
-            arguments: [
-                "url": url.absoluteString,
-                "message": dataBridge.transformToFlutterMessage(
-                    message: fullscreenMessage.parent as! Message
-                ),
-            ]
-        )
+        if let fullscreenMessage = message as? FullscreenMessage,
+            let parentMessage = fullscreenMessage.parent as? Message
+        {
+            channel.invokeMethod(
+                "urlLoaded",
+                arguments: [
+                    "url": url.absoluteString,
+                    "message": dataBridge.transformToFlutterMessage(
+                        message:
+                    ),
+                ]
+            )
+        }
     }
 }
