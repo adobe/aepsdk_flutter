@@ -11,7 +11,5 @@ governing permissions and limitations under the License.
 
 export 'package:flutter_aepcore/src/aepextension_event.dart';
 export 'package:flutter_aepcore/src/aepmobile_logging_level.dart';
-export 'package:flutter_aepcore/src/aepmobile_messaging_delegate.dart';
 export 'package:flutter_aepcore/src/aepmobile_privacy_status.dart';
-export 'package:flutter_aepcore/src/aepmobile_showable.dart';
 export 'package:flutter_aepcore/src/aepmobile_visitor_id.dart';

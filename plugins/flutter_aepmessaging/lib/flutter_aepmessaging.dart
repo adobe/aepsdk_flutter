@@ -9,10 +9,12 @@
 
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_aepmessaging/src/aepmessaging_message.dart';
+import 'package:flutter_aepmessaging/src/aepmessaging_messaging_delegate.dart';
 export 'package:flutter_aepmessaging/src/aepmessaging_message.dart';
 export 'package:flutter_aepmessaging/src/aepmessaging_messaging_edge_event_type.dart';
+export 'package:flutter_aepmessaging/src/aepmessaging_messaging_delegate.dart';
+export 'package:flutter_aepmessaging/src/aepmessaging_showable.dart';
 
 /// Adobe Experience Platform Messaging
 class Messaging {

@@ -9,7 +9,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'package:flutter_aepcore/src/aepmobile_showable.dart';
+import 'package:flutter_aepmessaging/src/aepmessaging_showable.dart';
 
 /// UI Message delegate which is used to listen for current message lifecycle events
 abstract class MessagingDelegate {

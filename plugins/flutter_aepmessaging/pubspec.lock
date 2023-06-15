@@ -60,7 +60,7 @@ packages:
       path: "../flutter_aepcore"
       relative: true
     source: path
-    version: "2.0.0"
+    version: "3.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

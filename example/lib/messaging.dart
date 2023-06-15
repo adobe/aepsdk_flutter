@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_aepcore/flutter_aepcore_data.dart';
-import 'package:flutter_aepmessaging/flutter_aepmessaging.dart' as AEPMessaging;
+import 'package:flutter_aepmessaging/flutter_aepmessaging.dart';
 import 'util.dart';
 
 class MessagingPage extends StatefulWidget {
@@ -24,7 +24,7 @@ class MessagingPage extends StatefulWidget {
 
 class _MyAppState extends State<MessagingPage> {
   String _messagingVersion = 'Unknown';
-  List<AEPMessaging.Message> _cachedMessages = [];
+  List<Message> _cachedMessages = [];
   final TextEditingController inputController = TextEditingController();
 
   @override
@@ -37,7 +37,7 @@ class _MyAppState extends State<MessagingPage> {
   Future<void> initPlatformState() async {
     late String messagingVersion;
 
-    messagingVersion = await AEPMessaging.Messaging.extensionVersion;
+    messagingVersion = await Messaging.extensionVersion;
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -52,7 +52,7 @@ class _MyAppState extends State<MessagingPage> {
   }
 
   getCachedMessages() async {
-    var messages = await AEPMessaging.Messaging.getCachedMessages();
+    var messages = await Messaging.getCachedMessages();
     print('$messages');
 
     setState(() {
@@ -61,7 +61,7 @@ class _MyAppState extends State<MessagingPage> {
   }
 
   Future<void> refreshMessages() async {
-    AEPMessaging.Messaging.refreshInAppMessages();
+    Messaging.refreshInAppMessages();
   }
 
   Future<void> showMessage() async {
@@ -82,8 +82,7 @@ class _MyAppState extends State<MessagingPage> {
   Future<void> trackMessage() async {
     if (_cachedMessages.isNotEmpty) {
       var message = _cachedMessages[0];
-      message.track(
-          'interaction', AEPMessaging.MessagingEdgeEventType.IN_APP_TRIGGER);
+      message.track('interaction', MessagingEdgeEventType.IN_APP_TRIGGER);
     }
   }
 

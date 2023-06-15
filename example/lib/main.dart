@@ -12,6 +12,7 @@ governing permissions and limitations under the License.
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_aepcore/flutter_aepcore.dart';
+import 'package:flutter_aepmessaging/flutter_aepmessaging.dart';
 import 'messaging.dart';
 import 'core.dart';
 import 'assurance.dart';
@@ -21,7 +22,6 @@ import 'identity.dart';
 import 'edgeIdentity.dart';
 import 'edgebridge.dart';
 import 'userprofile.dart';
-import 'package:flutter_aepmessaging/flutter_aepmessaging.dart' as AEPMessaging;
 
 class CustomMessagingDelegate implements MessagingDelegate {
   @override
@@ -59,7 +59,7 @@ void main() {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AEPMessaging.Messaging.setMessagingDelegate(CustomMessagingDelegate());
+    Messaging.setMessagingDelegate(CustomMessagingDelegate());
 
     return Scaffold(
         appBar: AppBar(
