@@ -219,23 +219,6 @@ Message message;
 message.track("sample text", MessagingEdgeEventType.IN_APP_DISMISS)
 ```
 
-### handleJavascriptMessage
-
-Adds a handler for dart messages sent from the message's webview.
-
-**Syntax**
-
-```dart
-handleJavascriptMessage(name: string) : Promise<?any>
-```
-
-**Example**
-
-```dart
-Message message;
-const data = await message.handleJavascriptMessage("test")
-```
-
 ### setAutoTrack
 
 Enables/Disables auto-tracking for message events.
