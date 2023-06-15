@@ -17,6 +17,34 @@ import 'package:flutter_aepcore/flutter_aepcore_data.dart';
 import 'package:flutter_aepmessaging/flutter_aepmessaging.dart';
 import 'util.dart';
 
+class CustomMessagingDelegate implements MessagingDelegate {
+  @override
+  void onDismiss(Showable message) {
+    print('$message');
+  }
+
+  @override
+  onShow(Showable message) async {
+    print('$message');
+  }
+
+  @override
+  bool shouldSaveMessage(Showable message) {
+    return true;
+  }
+
+  @override
+  bool shouldShowMessage(Showable message) {
+    return true;
+  }
+
+  @override
+  void urlLoaded(String url, Showable message) {
+    print(url);
+    print(message);
+  }
+}
+
 class MessagingPage extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -101,57 +129,61 @@ class _MyAppState extends State<MessagingPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text("Messaging Screen")),
-        body: Center(
-          child: ListView(shrinkWrap: true, children: <Widget>[
-            getRichText(
-                'AEPMessaging extension version: ', '$_messagingVersion\n'),
-            getRichText('Current Cached Messages: ', '$_cachedMessages\n'),
-            TextField(
-              controller: inputController,
-              decoration: InputDecoration(
-                labelText: 'Track action name setup in your in-app campaign',
-              ),
+  Widget build(BuildContext context) {
+    Messaging.setMessagingDelegate(CustomMessagingDelegate());
+
+    return Scaffold(
+      appBar: AppBar(title: Text("Messaging Screen")),
+      body: Center(
+        child: ListView(shrinkWrap: true, children: <Widget>[
+          getRichText(
+              'AEPMessaging extension version: ', '$_messagingVersion\n'),
+          getRichText('Current Cached Messages: ', '$_cachedMessages\n'),
+          TextField(
+            controller: inputController,
+            decoration: InputDecoration(
+              labelText: 'Track action name setup in your in-app campaign',
             ),
-            ElevatedButton(
-              child: Text("MobileCore.trackAction"),
-              onPressed: () =>
-                  MobileCore.trackAction(inputController.text, data: {
-                "testInA": "true",
-              }),
-            ),
-            ElevatedButton(
-              child: Text("Messaging.getCachedMessages(...)"),
-              onPressed: () => getCachedMessages(),
-            ),
-            ElevatedButton(
-              child: Text("Messaging.refreshMessages(...)"),
-              onPressed: () => refreshMessages(),
-            ),
-            Text("Message functions:"),
-            Text("Run after getCachedMessages contains message"),
-            ElevatedButton(
-              child: Text("showMessage"),
-              onPressed: () => showMessage(),
-            ),
-            ElevatedButton(
-              child: Text("dismissMessage"),
-              onPressed: () => dismissMessage(),
-            ),
-            ElevatedButton(
-              child: Text("setAutoTrack"),
-              onPressed: () => setAutoTrack(),
-            ),
-            ElevatedButton(
-              child: Text("trackMessage"),
-              onPressed: () => trackMessage(),
-            ),
-            ElevatedButton(
-              child: Text("clearMessage"),
-              onPressed: () => clearMessage(),
-            ),
-          ]),
-        ),
-      );
+          ),
+          ElevatedButton(
+            child: Text("MobileCore.trackAction"),
+            onPressed: () =>
+                MobileCore.trackAction(inputController.text, data: {
+              "testInA": "true",
+            }),
+          ),
+          ElevatedButton(
+            child: Text("Messaging.getCachedMessages(...)"),
+            onPressed: () => getCachedMessages(),
+          ),
+          ElevatedButton(
+            child: Text("Messaging.refreshMessages(...)"),
+            onPressed: () => refreshMessages(),
+          ),
+          Text("Message functions:"),
+          Text("Run after getCachedMessages contains message"),
+          ElevatedButton(
+            child: Text("showMessage"),
+            onPressed: () => showMessage(),
+          ),
+          ElevatedButton(
+            child: Text("dismissMessage"),
+            onPressed: () => dismissMessage(),
+          ),
+          ElevatedButton(
+            child: Text("setAutoTrack"),
+            onPressed: () => setAutoTrack(),
+          ),
+          ElevatedButton(
+            child: Text("trackMessage"),
+            onPressed: () => trackMessage(),
+          ),
+          ElevatedButton(
+            child: Text("clearMessage"),
+            onPressed: () => clearMessage(),
+          ),
+        ]),
+      ),
+    );
+  }
 }

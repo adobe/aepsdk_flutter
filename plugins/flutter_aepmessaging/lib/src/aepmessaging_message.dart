@@ -8,9 +8,7 @@
 /// governing permissions and limitations under the License.
 
 import 'package:flutter/services.dart';
-import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_aepmessaging/flutter_aepmessaging.dart';
-import 'package:flutter_aepmessaging/src/aepmessaging_showable.dart';
 
 /// Represents a message object retrieved from Adobe Experience Platform
 class Message extends Showable {

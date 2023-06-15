@@ -9,8 +9,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'package:flutter/services.dart';
-
 abstract class Showable {
   /// Removes the object from the in-memory cache
   void clear();

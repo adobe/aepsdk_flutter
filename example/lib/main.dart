@@ -11,8 +11,6 @@ governing permissions and limitations under the License.
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_aepcore/flutter_aepcore.dart';
-import 'package:flutter_aepmessaging/flutter_aepmessaging.dart';
 import 'messaging.dart';
 import 'core.dart';
 import 'assurance.dart';
@@ -23,33 +21,6 @@ import 'edgeIdentity.dart';
 import 'edgebridge.dart';
 import 'userprofile.dart';
 
-class CustomMessagingDelegate implements MessagingDelegate {
-  @override
-  void onDismiss(Showable message) {
-    print('$message');
-  }
-
-  @override
-  onShow(Showable message) async {
-    print('$message');
-  }
-
-  @override
-  bool shouldSaveMessage(Showable message) {
-    return true;
-  }
-
-  @override
-  bool shouldShowMessage(Showable message) {
-    return true;
-  }
-
-  @override
-  void urlLoaded(String url, Showable message) {
-    return;
-  }
-}
-
 void main() {
   runApp(MaterialApp(
     home: HomePage(),
@@ -59,8 +30,6 @@ void main() {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Messaging.setMessagingDelegate(CustomMessagingDelegate());
-
     return Scaffold(
         appBar: AppBar(
           title: const Text('Flutter AEP SDK'),
