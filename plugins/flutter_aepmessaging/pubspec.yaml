@@ -12,7 +12,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_aepcore: '>= 1.0.0 <2.0.0'
+  flutter_aepcore: ">= 3.0.0 <4.0.0"
 
 dependency_overrides:
   flutter_aepcore:
