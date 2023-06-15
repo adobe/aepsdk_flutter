@@ -249,7 +249,7 @@ clear()
 **Example**
 
 ```dart
-var message: Message
+Message message
 message.clear()
 ```
 ## Push Notification Setup
