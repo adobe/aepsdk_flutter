@@ -276,10 +276,12 @@
 				"${BUILT_PRODUCTS_DIR}/AEPEdgeIdentity/AEPEdgeIdentity.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPIdentity/AEPIdentity.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPLifecycle/AEPLifecycle.framework",
+				"${BUILT_PRODUCTS_DIR}/AEPMessaging/AEPMessaging.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPRulesEngine/AEPRulesEngine.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPServices/AEPServices.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPSignal/AEPSignal.framework",
 				"${BUILT_PRODUCTS_DIR}/AEPUserProfile/AEPUserProfile.framework",
+				"${BUILT_PRODUCTS_DIR}/flutter_aepmessaging/flutter_aepmessaging.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -291,10 +293,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPEdgeIdentity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPIdentity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPLifecycle.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPMessaging.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPRulesEngine.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPServices.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPSignal.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AEPUserProfile.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/flutter_aepmessaging.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

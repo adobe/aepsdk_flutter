@@ -68,49 +68,56 @@ packages:
       path: "../plugins/flutter_aepassurance"
       relative: true
     source: path
-    version: "2.0.0"
+    version: "3.0.0"
   flutter_aepcore:
     dependency: "direct main"
     description:
       path: "../plugins/flutter_aepcore"
       relative: true
     source: path
-    version: "2.0.0"
+    version: "3.0.0"
   flutter_aepedge:
     dependency: "direct main"
     description:
       path: "../plugins/flutter_aepedge"
       relative: true
     source: path
-    version: "2.0.0"
+    version: "3.0.0"
   flutter_aepedgebridge:
     dependency: "direct main"
     description:
       path: "../plugins/flutter_aepedgebridge"
       relative: true
     source: path
-    version: "1.0.0"
+    version: "3.0.0"
   flutter_aepedgeconsent:
     dependency: "direct main"
     description:
       path: "../plugins/flutter_aepedgeconsent"
       relative: true
     source: path
-    version: "2.0.0"
+    version: "3.0.0"
   flutter_aepedgeidentity:
     dependency: "direct main"
     description:
       path: "../plugins/flutter_aepedgeidentity"
       relative: true
     source: path
-    version: "2.0.0"
+    version: "3.0.0"
+  flutter_aepmessaging:
+    dependency: "direct main"
+    description:
+      path: "../plugins/flutter_aepmessaging"
+      relative: true
+    source: path
+    version: "3.0.0-beta.1"
   flutter_aepuserprofile:
     dependency: "direct main"
     description:
       path: "../plugins/flutter_aepuserprofile"
       relative: true
     source: path
-    version: "1.0.0"
+    version: "3.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

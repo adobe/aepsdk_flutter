@@ -41,6 +41,7 @@ governing permissions and limitations under the License.
                                       AEPMobileEdgeIdentity.class,
                                       AEPMobileEdgeConsent.class,
                                       AEPMobileEdgeBridge.class,
+                                      AEPMobileMessaging.class,
                                       AEPMobileUserProfile.class];
     
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{

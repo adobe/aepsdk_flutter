@@ -9,7 +9,9 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'messaging.dart';
 import 'core.dart';
 import 'assurance.dart';
 import 'edge.dart';
@@ -93,6 +95,13 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => UserProfilePage()));
+              },
+            ),
+            ElevatedButton(
+              child: const Text('MESSAGING'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MessagingPage()));
               },
             ),
           ]),
