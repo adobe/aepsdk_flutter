@@ -13,6 +13,8 @@ By using the Beta, you hereby acknowledge that the Beta is provided "as is" with
 The Adobe Experience Platform Messaging extension has the following peer dependency, which must be installed prior to installing it:
 
 - [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md)
+- [flutter_aepedge](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepedge/README.md)
+- [flutter_aepedgeidentity](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepedgeidentity/README.md)
 
 ## Installation
 
@@ -48,7 +50,9 @@ iOS
 // AppDelegate.h
 @import AEPCore;
 @import AEPEdge;
+@import AEPEdgeIdentity;
 @import AEPMessaging;
+
 ...
 @implementation AppDelegate
 
@@ -60,7 +64,8 @@ iOS
     NSString* ENVIRONMENT_FILE_ID = @'YOUR-APP-ID';
 
     NSArray *extensionsToRegister = @[AEPMessaging.class,
-                                      AEPMobileEdge.class
+                                      AEPMobileEdge.class,
+                                      AEPMobileEdgeIdentity.class
                                       ];
 
     [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
@@ -89,6 +94,7 @@ public class MainApplication extends FlutterApplication {
       super.onCreate();
       List<Class<? extends Extension>> extensions = Arrays.asList(   
               Edge.EXTENSION,
+              EdgeIdentity.EXTENSION,
               Messaging.EXTENSION
       );
       MobileCore.registerExtensions(extensions, o -> MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID));
@@ -157,6 +163,8 @@ await Messaging.refreshInAppMessages();
 ```
 
 ## Handling In App Messages using Message Object
+
+> Note: In order to use the methods defined in the Message class, use `getCachedMessages` to retrieve the messages that have been cached in-memory, and then use the Message objects returned.
 
 The `Message` object passed to the `MessagingDelegate` contains the following functions to handle a message:
 
@@ -261,6 +269,22 @@ clear()
 var message: Message
 message.clear()
 ```
+## Push Notification Setup
+
+Handling push notifications must be done in native (Android/iOS) code for the Flutter app. To configure push notifications in the native project, follow the instructions provided for their respective platforms:
+
+- [Apple - iOS push notification setup](https://developer.apple.com/documentation/usernotifications/registering_your_app_with_apns)
+- [Google - Android push notification setup](https://firebase.google.com/docs/cloud-messaging/android/client)
+
+## Push Messaging APIs usage
+
+The AEPMessaging extension's push messaging APIs must be called from the native Android/iOS project of Flutter app.
+
+###### [iOS API usage](https://github.com/adobe/aepsdk-messaging-ios/blob/main/Documentation/sources/usage.md)
+
+##### [Android API usage](https://github.com/adobe/aepsdk-messaging-android/blob/main/Documentation/sources/api-usage.md)
+
+In Android, [MessagingPushPayload](https://github.com/adobe/aepsdk-messaging-android/blob/main/Documentation/sources/messaging-push-payload.md#messagingpushpayload-usage) can be used for getting the notification attributes like title, body, and action. These are useful for push notification creation.
 
 ## Contributing
 
