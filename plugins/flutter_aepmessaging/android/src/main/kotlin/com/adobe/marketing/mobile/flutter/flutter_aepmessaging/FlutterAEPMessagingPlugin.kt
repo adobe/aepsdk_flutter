@@ -57,7 +57,7 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
   }
 
   private fun dismissMessage(call: MethodCall, result: Result) {
-    val messageId = call.argument<String>("messageId")
+    val messageId = call.argument<String>("id")
     messageCache[messageId]?.dismiss(true)
     result.success(null)
   }
@@ -89,7 +89,7 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
   private fun trackMessage(call: MethodCall, result: Result) {
     val eventType = call.argument<Int>("eventType")
     val interaction = call.argument<String>("interaction")
-    val messageId = call.argument<String>("messageId")
+    val messageId = call.argument<String>("id")
     val message = messageCache[messageId]
     if (message != null) {
       message.track(interaction, convertToMessagingEventType(eventType as Int))

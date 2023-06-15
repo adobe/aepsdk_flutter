@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepmessaging'
-  s.version          = '1.0.0'
+  s.version          = '3.0.0.beta.1'
   s.summary          = 'Adobe Experience Platform Messaging extension for Flutter apps'
   s.homepage         = 'https://developer.adobe.com/client-sdks/documentation'
   s.license          = { :file => '../LICENSE' }
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.dependency 'Flutter'
   s.dependency 'AEPMessaging', '~> 4.0'
   s.dependency 'AEPCore', '~> 4.0'
-  s.platform = :ios, '10.0'
+  s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }

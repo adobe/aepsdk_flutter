@@ -110,7 +110,7 @@ packages:
       path: "../plugins/flutter_aepmessaging"
       relative: true
     source: path
-    version: "1.0.0-beta.1"
+    version: "3.0.0-beta.1"
   flutter_aepuserprofile:
     dependency: "direct main"
     description:
