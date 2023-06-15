@@ -207,44 +207,40 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
 
     // Messaging Delegate Methods
     public func onDismiss(message: Showable) {
-        public func onDismiss(message: Showable) {
-            if let fullscreenMessage = message as? FullscreenMessage,
-                let parentMessage = fullscreenMessage.parent as? Message
-            {
-                channel.invokeMethod(
-                    "onDismiss",
-                    arguments: [
-                        "message": dataBridge.transformToFlutterMessage(
-                            message: parentMessage
-                        )
-                    ]
-                )
-            }
+        if let fullscreenMessage = message as? FullscreenMessage,
+           let parentMessage = fullscreenMessage.parent
+        {
+            channel.invokeMethod(
+                "onDismiss",
+                arguments: [
+                    "message": dataBridge.transformToFlutterMessage(
+                        message: parentMessage
+                    )
+                ]
+            )
         }
     }
 
     public func onShow(message: Showable) {
-        public func onDismiss(message: Showable) {
-            if let fullscreenMessage = message as? FullscreenMessage,
-                let parentMessage = fullscreenMessage.parent as? Message
-            {
-                channel.invokeMethod(
-                    "onShow",
-                    arguments: [
-                        "message": dataBridge.transformToFlutterMessage(
-                            message: parentMessage
-                        )
-                    ]
-                )
-            }
+        if let fullscreenMessage = message as? FullscreenMessage,
+           let parentMessage = fullscreenMessage.parent
+        {
+            channel.invokeMethod(
+                "onShow",
+                arguments: [
+                    "message": dataBridge.transformToFlutterMessage(
+                        message: parentMessage
+                    )
+                ]
+            )
         }
     }
 
     public func shouldShowMessage(message: Showable) -> Bool {
         if let fullscreenMessage = message as? FullscreenMessage,
-            let incomingMessage = fullscreenMessage.parent as? Message
+           let incomingMessage = fullscreenMessage.parent
         {
-            var shouldShow = false
+            var shouldShow = true
             let semaphore = DispatchSemaphore(value: 0)
             channel.invokeMethod(
                 "shouldSaveMessage",
@@ -283,18 +279,19 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
             semaphore.wait()
             return shouldShow
         }
+        return true
     }
 
     public func urlLoaded(_ url: URL, byMessage message: Showable) {
         if let fullscreenMessage = message as? FullscreenMessage,
-            let parentMessage = fullscreenMessage.parent as? Message
+           let parentMessage = fullscreenMessage.parent
         {
             channel.invokeMethod(
                 "urlLoaded",
                 arguments: [
                     "url": url.absoluteString,
                     "message": dataBridge.transformToFlutterMessage(
-                        message:
+                        message: parentMessage
                     ),
                 ]
             )
