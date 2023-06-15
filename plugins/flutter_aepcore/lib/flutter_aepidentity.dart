@@ -12,7 +12,8 @@ governing permissions and limitations under the License.
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_aepcore/src/aepmobile_visitor_id.dart';
+import 'package:flutter_aepcore/flutter_aepcore_data.dart';
+export 'package:flutter_aepcore/flutter_aepcore_data.dart';
 
 /// Adobe Experience Platform Identity API.
 class Identity {
