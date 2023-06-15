@@ -96,7 +96,6 @@ class _MyAppState extends State<MessagingPage> {
     if (_cachedMessages.isNotEmpty) {
       var message = _cachedMessages[0];
       message.show();
-      message.dismiss();
     }
   }
 
