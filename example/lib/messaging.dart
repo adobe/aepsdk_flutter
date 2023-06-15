@@ -119,7 +119,7 @@ class _MyAppState extends State<MessagingPage> {
               child: Text("MobileCore.trackAction"),
               onPressed: () =>
                   MobileCore.trackAction(inputController.text, data: {
-                "testInAppMessage": "true",
+                "testInA": "true",
               }),
             ),
             ElevatedButton(
@@ -130,7 +130,8 @@ class _MyAppState extends State<MessagingPage> {
               child: Text("Messaging.refreshMessages(...)"),
               onPressed: () => refreshMessages(),
             ),
-            Text("Message functions"),
+            Text("Message functions:"),
+            Text("Run after getCachedMessages contains message"),
             ElevatedButton(
               child: Text("showMessage"),
               onPressed: () => showMessage(),
