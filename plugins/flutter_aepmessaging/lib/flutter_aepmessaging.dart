@@ -20,7 +20,7 @@ export 'package:flutter_aepmessaging/src/aepmessaging_showable.dart';
 class Messaging {
   static const MethodChannel _channel = MethodChannel('flutter_aepmessaging');
 
-  static MessagingDelegate? _delegate = null;
+  static MessagingDelegate? _delegate;
 
   static Future<dynamic> Function(MethodCall)? _methodCallHandler =
       (MethodCall call) async {

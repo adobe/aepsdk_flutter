@@ -35,7 +35,7 @@ class Message extends Showable {
   /// Signals to the UIServices that the message should be dismissed.
   /// If [autoTrack] is true, calling this method will result in an "inapp.dismiss" Edge Event being dispatched.
   /// If [suppressAutoTrack] set to true, the inapp.dismiss Edge Event will not be sent regardless of the autoTrack setting.
-  void dismiss({bool? suppressAutoTrack: false}) {
+  void dismiss({bool? suppressAutoTrack = false}) {
     _channel.invokeMethod('dismissMessage',
         {'id': this.id, 'suppressAutoTrack': suppressAutoTrack});
   }
