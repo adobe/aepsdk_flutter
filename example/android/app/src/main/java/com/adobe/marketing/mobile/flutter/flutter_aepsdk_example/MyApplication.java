@@ -19,6 +19,7 @@ import com.adobe.marketing.mobile.Edge;
 import com.adobe.marketing.mobile.Extension;
 import com.adobe.marketing.mobile.Lifecycle;
 import com.adobe.marketing.mobile.LoggingMode;
+import com.adobe.marketing.mobile.Messaging;
 import com.adobe.marketing.mobile.MobileCore;
 import com.adobe.marketing.mobile.Signal;
 import com.adobe.marketing.mobile.UserProfile;
@@ -53,7 +54,8 @@ public class MyApplication extends FlutterApplication {
                 Edge.EXTENSION,
                 Assurance.EXTENSION,
                 Consent.EXTENSION,
-                UserProfile.EXTENSION
+                UserProfile.EXTENSION,
+                Messaging.EXTENSION
         );
         MobileCore.registerExtensions(extensions, o -> MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID));
 

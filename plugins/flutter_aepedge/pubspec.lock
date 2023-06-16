@@ -58,18 +58,18 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_aepcore
-      sha256: f86c1ab15bd0942922584e4860f583967ecfdaa7b1e9be0085f9d19a2e3ec6d9
+      sha256: "414065152096329fde834e117cd7dced690ea4334a8702fb128400e7b6cb29be"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.0"
   flutter_aepedgeidentity:
     dependency: "direct main"
     description:
       name: flutter_aepedgeidentity
-      sha256: bcf01c6f23b15c8bad5a2894067e63feb487dae804c2c73521bfdee657a53137
+      sha256: "375c6a2eed0472a3d11adbacd695753e6967e4ede6048f3dd13f820ce59e25ab"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "3.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

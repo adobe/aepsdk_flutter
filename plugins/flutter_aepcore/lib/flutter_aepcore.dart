@@ -56,8 +56,8 @@ class MobileCore {
       _channel.invokeMethod<void>('setAdvertisingIdentifier', aid);
 
   ///  Called by the extension public API to dispatch an event for other extensions or the internal SDK to consume. Any events dispatched by this call will not be processed until after `start` has been called.
-  static Future<void> dispatchEvent(Event event) => _channel
-      .invokeMethod<void>('dispatchEvent', event.data);
+  static Future<void> dispatchEvent(Event event) =>
+      _channel.invokeMethod<void>('dispatchEvent', event.data);
 
   /// You should use this method when the Event being passed is a request and you expect an event in response. Any events dispatched by this call will not be processed until after `start` has been called.
   static Future<Event> dispatchEventWithResponseCallback(
