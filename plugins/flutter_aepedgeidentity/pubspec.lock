@@ -58,8 +58,8 @@ packages:
     dependency: "direct main"
     description:
       path: "plugins/flutter_aepcore"
-      ref: "027911d6878f69e4b07c138e04af5b9f281a3e90"
-      resolved-ref: "027911d6878f69e4b07c138e04af5b9f281a3e90"
+      ref: HEAD
+      resolved-ref: "746c0ca4d364b6324e8f6dcaa414f1298cda56d1"
       url: "git@github.com:egonm12/aepsdk_flutter.git"
     source: git
     version: "3.0.0"
