@@ -59,8 +59,8 @@ packages:
     description:
       path: "plugins/flutter_aepcore"
       ref: HEAD
-      resolved-ref: "746c0ca4d364b6324e8f6dcaa414f1298cda56d1"
-      url: "git@github.com:egonm12/aepsdk_flutter.git"
+      resolved-ref: fbee65ba4c0d6eb161712263765c68701997baac
+      url: "https://github.com/egonm12/aepsdk_flutter.git"
     source: git
     version: "3.0.0"
   flutter_test:
