@@ -12,11 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_aepcore:
-    git:
-      url: git@github.com:egonm12/aepsdk_flutter.git
-      path: plugins/flutter_aepcore
-
+  flutter_aepcore: ">= 3.0.0 <4.0.0"
+ 
 dev_dependencies:
   flutter_test:
     sdk: flutter
