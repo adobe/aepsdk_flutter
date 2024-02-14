@@ -16,6 +16,7 @@ dependencies:
     git:
       url: git@github.com:egonm12/aepsdk_flutter.git
       path: plugins/flutter_aepcore
+      ref: 027911d6878f69e4b07c138e04af5b9f281a3e90
 
 dev_dependencies:
   flutter_test:
