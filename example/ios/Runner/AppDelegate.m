@@ -29,7 +29,7 @@ governing permissions and limitations under the License.
     [AEPMobileCore setWrapperType:AEPWrapperTypeFlutter];
 
      // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-    NSString* ENVIRONMENT_FILE_ID = @"YOUR-APP-ID";
+    NSString* ENVIRONMENT_FILE_ID = @"3149c49c3910/1d11c19c8964/launch-534b2e90dcba-development";
     
     const UIApplicationState appState = application.applicationState;
 

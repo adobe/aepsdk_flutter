@@ -1,6 +1,7 @@
 package com.adobe.marketing.mobile.flutter.flutter_aepmessaging
 
 import com.adobe.marketing.mobile.*
+import com.adobe.marketing.mobile.messaging.Surface
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -24,7 +25,9 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
       // Messaging Methods
       "extensionVersion" -> result.success(Messaging.extensionVersion())
       "getCachedMessages" -> this.getCachedMessages(result)
+      "getPropositionsForSurfaces" -> this.getPropositionsForSurfaces(call, result)
       "refreshInAppMessages" -> result.success(Messaging.refreshInAppMessages())
+      "updatePropositionsForSurfaces" -> this.updatePropositionsForSurfaces(call, result)
       // Message Methods
       "clearMessage" -> this.clearMessage(call, result)
       "dismissMessage" -> this.dismissMessage(call, result)
@@ -47,6 +50,23 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
         message -> mapOf("id" to message.id, "autoTrack" to message.autoTrack)
     }.toList()
     result.success(cachedMessages)
+  }
+
+  private fun getPropositionsForSurfaces(call: MethodCall, result: Result) {
+    val surfaces = call.argument<List<String>>("surfaces")?.map {
+      surface ->  Surface(surface)
+    }
+    Messaging.getPropositionsForSurfaces(surfaces as List<Surface>, AdobeCallback {
+        props -> result.success(props)
+    })
+  }
+
+  private fun updatePropositionsForSurfaces(call: MethodCall, result: Result) {
+    val surfaces = call.argument<List<String>>("surfaces")?.map {
+      surface -> Surface(surface)
+    }
+    Messaging.updatePropositionsForSurfaces(surfaces as List<Surface>)
+    result.success(null)
   }
 
   // Message Class Functions

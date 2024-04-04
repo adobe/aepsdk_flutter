@@ -5,6 +5,8 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 
     dependencies {
@@ -17,6 +19,8 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 }
 
@@ -51,5 +55,5 @@ android {
 }
 
 dependencies {
-    api 'com.adobe.marketing.mobile:messaging:2.1.4'
+    api "com.adobe.marketing.mobile:messaging:2.3.0-cbe-beta-SNAPSHOT"
 }

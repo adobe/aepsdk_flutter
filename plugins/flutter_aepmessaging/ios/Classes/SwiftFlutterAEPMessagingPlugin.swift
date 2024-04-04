@@ -34,9 +34,13 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
             return result(Messaging.extensionVersion)
         case "getCachedMessages":
             return result(getCachedMessages())
+        case "getPropositionsForSurfaces":
+            return result(getPropositionsForSurfaces(arguments: call.arguments))
         case "refreshInAppMessages":
             Messaging.refreshInAppMessages()
             return result(nil)
+        case "updatePropositionsForSurfaces":
+            return result(updatePropositionsForSurfaces(arguments: call.arguments))
         // Message Methods
         case "clearMessage":
             return result(clearMessage(arguments: call.arguments))
@@ -60,6 +64,45 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
             dataBridge.transformToFlutterMessage(message: $0)
         }
         return cachedMessages
+    }
+
+    private func getPropositionsForSurfaces(arguments: Any?) -> Any? {
+        if let args = arguments as? [String: Any],
+           let surfaces = args["surfaces"] as? [String] {
+                let surfacePaths = surfaces.map { Surface(path: $0) }
+                var result = nil as Any?
+                let semaphore = DispatchSemaphore(value: 0)
+                Messaging.getPropositionsForSurfaces(surfacePaths) { propositionsDict, error in
+                    guard error == nil else {
+                        semaphore.signal()
+                        return
+                    }
+
+                    result = self.dataBridge.transformPropositionDict(dict: propositionsDict!)
+                    semaphore.signal()
+                }
+            semaphore.wait()
+            return result
+            }
+        return FlutterError.init(
+            code: "BAD ARGUMENTS",
+            message: "No surfaces were specified",
+            details: nil
+        )
+    }
+
+    private func updatePropositionsForSurfaces(arguments: Any?) -> FlutterError? {
+        if let args = arguments as? [String: Any],
+            let surfaces = args["surfaces"] as? [String] {
+                let surfacePaths = surfaces.map { Surface(path: $0) }
+                Messaging.updatePropositionsForSurfaces(surfacePaths)
+                return nil
+            }
+        return FlutterError.init(
+            code: "BAD ARGUMENTS",
+            message: "No surfaces were specified",
+            details: nil
+        )
     }
 
     // Message Class Methods
@@ -117,7 +160,14 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
             let msg = messageCache[id]
             if msg != nil {
                 return nil
-                //          return msg!.handleJavascriptMessage(name)
+                // String? result = nil;
+                // let semaphore = DispatchSemaphore(value: 0)
+                // msg!.handleJavascriptMessage(name, withHandler: (content: String) -> {
+                //     result = content
+                //     semaphore.signal()
+                // }) 
+                // semaphore.wait()
+                // return result;
             }
             return FlutterError.init(
                 code: "CACHE MISS",

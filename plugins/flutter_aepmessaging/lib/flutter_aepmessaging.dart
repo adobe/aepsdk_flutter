@@ -58,9 +58,19 @@ class Messaging {
       _channel.invokeListMethod('getCachedMessages').then((result) =>
           (result ?? []).map((val) => Message.fromMap(val)).toList());
 
+  static Future<dynamic> getPropositionsForSurfaces(List<String> surfaces) =>
+      _channel.invokeMethod<Map<dynamic, dynamic>>(
+          'getPropositionsForSurfaces', {'surfaces': surfaces}).then((result) {
+        print('$result');
+        return result;
+      });
+
   /// Initiates a network call to retrieve remote In-App Message definitions.
   static void refreshInAppMessages() =>
       _channel.invokeMethod('refreshInAppMessages');
+
+  static void updatePropositionsForSurfaces(List<String> surfaces) => _channel
+      .invokeMethod('updatePropositionsForSurfaces', {'surfaces': surfaces});
 
   static void setMessagingDelegate(MessagingDelegate? delegate) {
     _delegate = delegate;

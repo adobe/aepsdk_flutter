@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepmessaging'
-  s.version          = '3.0.0.beta.1'
+  s.version          = '3.0.0.beta.2'
   s.summary          = 'Adobe Experience Platform Messaging extension for Flutter apps'
   s.homepage         = 'https://developer.adobe.com/client-sdks/documentation'
   s.license          = { :file => '../LICENSE' }

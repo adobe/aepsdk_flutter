@@ -53,6 +53,7 @@ class MessagingPage extends StatefulWidget {
 class _MyAppState extends State<MessagingPage> {
   String _messagingVersion = 'Unknown';
   List<Message> _cachedMessages = [];
+  dynamic _propositions = null;
   final TextEditingController inputController = TextEditingController();
 
   @override
@@ -88,8 +89,20 @@ class _MyAppState extends State<MessagingPage> {
     });
   }
 
+  Future<void> getPropositionsForSurfaces() async {
+    var propositions = await Messaging.getPropositionsForSurfaces(['json']);
+    print('$propositions');
+    setState(() {
+      _propositions = propositions;
+    });
+  }
+
   Future<void> refreshMessages() async {
     Messaging.refreshInAppMessages();
+  }
+
+  Future<void> updatePropositionsForSurfaces() async {
+    Messaging.updatePropositionsForSurfaces(['json']);
   }
 
   Future<void> showMessage() async {
@@ -138,6 +151,7 @@ class _MyAppState extends State<MessagingPage> {
           getRichText(
               'AEPMessaging extension version: ', '$_messagingVersion\n'),
           getRichText('Current Cached Messages: ', '$_cachedMessages\n'),
+          getRichText('Current Propositions: ', '$_propositions\n'),
           TextField(
             controller: inputController,
             decoration: InputDecoration(
@@ -156,8 +170,16 @@ class _MyAppState extends State<MessagingPage> {
             onPressed: () => getCachedMessages(),
           ),
           ElevatedButton(
+            child: Text("Messaging.getPropositionsForSurfaces(...)"),
+            onPressed: () => getPropositionsForSurfaces(),
+          ),
+          ElevatedButton(
             child: Text("Messaging.refreshMessages(...)"),
             onPressed: () => refreshMessages(),
+          ),
+          ElevatedButton(
+            child: Text("Messaging.updatePropositionsForSurfaces(...)"),
+            onPressed: () => updatePropositionsForSurfaces(),
           ),
           Text("Message functions:"),
           Text("Run after getCachedMessages contains message"),
