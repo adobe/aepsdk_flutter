@@ -1,63 +1,54 @@
 PODS:
-  - AEPAssurance (4.0.0):
-    - AEPCore (>= 4.0.0)
-    - AEPServices (>= 4.0.0)
-  - AEPCore (4.0.0):
-    - AEPRulesEngine (>= 4.0.0)
-    - AEPServices (>= 4.0.0)
-  - AEPEdge (4.0.0):
-    - AEPCore (>= 4.0.0)
-    - AEPEdgeIdentity (>= 4.0.0)
-  - AEPEdgeBridge (4.0.0):
-    - AEPCore (>= 4.0.0)
-  - AEPEdgeConsent (4.0.0):
-    - AEPCore (>= 4.0.0)
-    - AEPEdge (>= 4.0.0)
-  - AEPEdgeIdentity (4.0.0):
-    - AEPCore (>= 4.0.0)
-  - AEPIdentity (4.0.0):
-    - AEPCore (>= 4.0.0)
-  - AEPLifecycle (4.0.0):
-    - AEPCore (>= 4.0.0)
-  - AEPMessaging (4.0.0):
-    - AEPCore (>= 4.0.0)
-    - AEPEdge (>= 4.0.0)
-    - AEPEdgeIdentity (>= 4.0.0)
-    - AEPServices (>= 4.0.0)
-  - AEPRulesEngine (4.0.0)
-  - AEPServices (4.0.0)
-  - AEPSignal (4.0.0):
-    - AEPCore (>= 4.0.0)
-  - AEPUserProfile (4.0.0):
-    - AEPCore
+  - AEPAssurance (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
+    - AEPServices (< 6.0.0, >= 5.0.0)
+  - AEPCore (5.0.0):
+    - AEPRulesEngine (< 6.0.0, >= 5.0.0)
+    - AEPServices (< 6.0.0, >= 5.0.0)
+  - AEPEdge (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
+    - AEPEdgeIdentity (< 6.0.0, >= 5.0.0)
+  - AEPEdgeBridge (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
+  - AEPEdgeConsent (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
+    - AEPEdge (< 6.0.0, >= 5.0.0)
+  - AEPEdgeIdentity (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
+  - AEPIdentity (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
+  - AEPLifecycle (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
+  - AEPRulesEngine (5.0.0)
+  - AEPServices (5.0.0)
+  - AEPSignal (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
+  - AEPUserProfile (5.0.0):
+    - AEPCore (< 6.0.0, >= 5.0.0)
   - Flutter (1.0.0)
-  - flutter_aepassurance (3.0.0):
-    - AEPAssurance (~> 4.0)
+  - flutter_aepassurance (4.0.0):
+    - AEPAssurance (~> 5.0)
     - Flutter
-  - flutter_aepcore (3.0.0):
-    - AEPCore (~> 4.0)
-    - AEPIdentity (~> 4.0)
-    - AEPLifecycle (~> 4.0)
-    - AEPSignal (~> 4.0)
+  - flutter_aepcore (4.0.0):
+    - AEPCore (~> 5.0)
+    - AEPIdentity (~> 5.0)
+    - AEPLifecycle (~> 5.0)
+    - AEPSignal (~> 5.0)
     - Flutter
-  - flutter_aepedge (3.0.0):
-    - AEPEdge (~> 4.0)
+  - flutter_aepedge (4.0.0):
+    - AEPEdge (~> 5.0)
     - Flutter
-  - flutter_aepedgebridge (3.0.0):
-    - AEPEdgeBridge (~> 4.0)
+  - flutter_aepedgebridge (4.0.0):
+    - AEPEdgeBridge (~> 5.0)
     - Flutter
-  - flutter_aepedgeconsent (3.0.0):
-    - AEPEdgeConsent (~> 4.0)
+  - flutter_aepedgeconsent (4.0.0):
+    - AEPEdgeConsent (~> 5.0)
     - Flutter
-  - flutter_aepedgeidentity (3.0.0):
-    - AEPEdgeIdentity (~> 4.0)
+  - flutter_aepedgeidentity (4.0.0):
+    - AEPEdgeIdentity (~> 5.0)
     - Flutter
-  - flutter_aepmessaging (3.0.0.beta.1):
-    - AEPCore (~> 4.0)
-    - AEPMessaging (~> 4.0)
-    - Flutter
-  - flutter_aepuserprofile (3.0.0):
-    - AEPUserProfile (~> 4.0)
+  - flutter_aepuserprofile (4.0.0):
+    - AEPUserProfile (~> 5.0)
     - Flutter
 
 DEPENDENCIES:
@@ -68,7 +59,6 @@ DEPENDENCIES:
   - flutter_aepedgebridge (from `.symlinks/plugins/flutter_aepedgebridge/ios`)
   - flutter_aepedgeconsent (from `.symlinks/plugins/flutter_aepedgeconsent/ios`)
   - flutter_aepedgeidentity (from `.symlinks/plugins/flutter_aepedgeidentity/ios`)
-  - flutter_aepmessaging (from `.symlinks/plugins/flutter_aepmessaging/ios`)
   - flutter_aepuserprofile (from `.symlinks/plugins/flutter_aepuserprofile/ios`)
 
 SPEC REPOS:
@@ -81,7 +71,6 @@ SPEC REPOS:
     - AEPEdgeIdentity
     - AEPIdentity
     - AEPLifecycle
-    - AEPMessaging
     - AEPRulesEngine
     - AEPServices
     - AEPSignal
@@ -102,35 +91,31 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_aepedgeconsent/ios"
   flutter_aepedgeidentity:
     :path: ".symlinks/plugins/flutter_aepedgeidentity/ios"
-  flutter_aepmessaging:
-    :path: ".symlinks/plugins/flutter_aepmessaging/ios"
   flutter_aepuserprofile:
     :path: ".symlinks/plugins/flutter_aepuserprofile/ios"
 
 SPEC CHECKSUMS:
-  AEPAssurance: 4fa3138ddd7308c1f9923570f4d2b0b8526a916f
-  AEPCore: dd7cd69696c768c610e6adc0307032985a381c7e
-  AEPEdge: ffea1ada1e81c9cb239aac694efa5c8635b50c1f
-  AEPEdgeBridge: 9cf489f2ff34209d18e2ef4df86c74063d575b5b
-  AEPEdgeConsent: 54c1b6a30a3d646e3d4bc4bae1713755422b471e
-  AEPEdgeIdentity: c2396b9119abd6eb530ea11efc58ec019b163bd4
-  AEPIdentity: 45ee1c3717e08ff3ca60930caf4a869d60d7bf08
-  AEPLifecycle: 59be1b5381d8ec4939ece43516ea7d2de4aaba65
-  AEPMessaging: b5693ae07e7bfb27f375a2d86640b60989b8338f
-  AEPRulesEngine: 458450a34922823286ead045a0c2bd8c27e224c6
-  AEPServices: ca493988df250d84fda050124ff7549bcc43c65f
-  AEPSignal: b2b332adf4d8a9af6a1b57f5dd8c2e1ea6d5c112
-  AEPUserProfile: 5c1d90014627cacff99efb193ce9acd287905661
+  AEPAssurance: 7f260ded4df38a70a06efebade8c33a3e3221984
+  AEPCore: f1c3e9238bb12e7e1103f4407c341ebc65aeab5b
+  AEPEdge: 6bc7c3f6573fdf0a12fb3ddfd32420112a89c80b
+  AEPEdgeBridge: be78be4885ae420ef21bda91707d5eff9510ef70
+  AEPEdgeConsent: d7db1d19eb4c1e2146360ed3c8df315f671b26d5
+  AEPEdgeIdentity: 3161ff33434586962946912d6b8e9e8fca1c4d23
+  AEPIdentity: a65c1eba43a06f01b0dab191b27a53a81adada57
+  AEPLifecycle: d4e0e1e86d6225d87203875d67f56c48f7ab7f67
+  AEPRulesEngine: fe5800653a4bee07b1e41e61b4d5551f0dba557b
+  AEPServices: e42e5118128e81c0f797fdfb1dc9c4a714d644b8
+  AEPSignal: b146a3d4e5af51ff588f4f1ffbd40f1541325143
+  AEPUserProfile: cf36305d683d993d528337a46b7a269029b63e5d
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_aepassurance: b233dea439a022f8f3f4ae52cfdf753e04b1b72f
-  flutter_aepcore: 3481b755a03bbc3562681fa4a411ccddf0813156
-  flutter_aepedge: 7b3a586744fe19a325b34e902b5fff7bab26bfdb
-  flutter_aepedgebridge: e46c86eacbfe8333396d42183d872e6df0be9eb5
-  flutter_aepedgeconsent: d196b2a4aba755d479e1954d4f19587e36c0d6f9
-  flutter_aepedgeidentity: e6f6b4ff142c2babc0377639ab179f9743b380c2
-  flutter_aepmessaging: 69cc9b0625a095109feae0a6f796d40b87c0d616
-  flutter_aepuserprofile: f0d6b073500d55bdbd5e3cb0cbb7734c282df5cf
+  flutter_aepassurance: 3b0c0b2d135ea0d8abef3e2a26ec13517658ece0
+  flutter_aepcore: 6e354136a75938fe4670aefb5f4f664ef1ed3b25
+  flutter_aepedge: d23f2b983198c2b7ab52637cd4212952544bed2c
+  flutter_aepedgebridge: 3e8041b694f6267513d6178ffb2abc1a8eba349c
+  flutter_aepedgeconsent: a50a8c90df588d75aef758b0258b7bbdb1906167
+  flutter_aepedgeidentity: 9eed9300833fe225f9f8bcc9d52dbee81a1811ea
+  flutter_aepuserprofile: a2ba9de310969c805158ae7b46497a1746ce3c85
 
 PODFILE CHECKSUM: ef19549a9bc3046e7bb7d2fab4d021637c0c58a3
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

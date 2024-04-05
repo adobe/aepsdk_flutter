@@ -10,7 +10,7 @@
 @import AEPEdgeIdentity;
 @import AEPEdgeConsent;
 @import AEPEdgeBridge;
-@import AEPMessaging;
+//@import AEPMessaging;
 @import AEPUserProfile;
 
 @interface AppDelegate : FlutterAppDelegate
