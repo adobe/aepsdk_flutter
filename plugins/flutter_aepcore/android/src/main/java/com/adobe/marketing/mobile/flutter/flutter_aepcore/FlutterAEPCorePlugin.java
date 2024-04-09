@@ -166,11 +166,7 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         }
 
         Map map = (Map) arguments;
-        if (!(map.get("eventData") instanceof Map)) {
-            Log.e(TAG, "Dispatch event failed because the event data was invalid");
-            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
-            return;
-        }
+
         long timeout;
         try{
             timeout = Long.parseLong(map.get("timeout").toString());
@@ -180,6 +176,12 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             return;
         }
 
+        if (!(map.get("eventData") instanceof Map)) {
+            Log.e(TAG, "Dispatch event failed because the event data was invalid");
+            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
+            return;
+        }
+        
         Map eventData = (Map) map.get("eventData");
         Event event = FlutterAEPCoreDataBridge.eventFromMap(eventData);
 

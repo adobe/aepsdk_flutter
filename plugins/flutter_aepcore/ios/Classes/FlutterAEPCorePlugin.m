@@ -114,10 +114,7 @@ specific language governing permissions and limitations under the License.
                                             result:(FlutterResult)result {
     NSDictionary *eventDict = (NSDictionary *)call.arguments[@"eventData"];
     NSNumber *timeoutNumber = call.arguments[@"timeout"];
-    double timeout = 1;
-    if ([timeoutNumber respondsToSelector:@selector(intValue)]) {
-        timeout = [timeoutNumber doubleValue] / 1000;
-    } else {
+    if (![timeoutNumber respondsToSelector:@selector(intValue)]){
         FlutterError *error = [FlutterError
             errorWithCode:[NSString stringWithFormat:@"%ld", AEPErrorUnexpected]
                 message:@"Invalid timeout value"
@@ -126,6 +123,9 @@ specific language governing permissions and limitations under the License.
         result(error);
         return;
     }
+    
+    double timeout = [timeoutNumber doubleValue] / 1000;
+    
     AEPEvent *event = [AEPEvent eventFromDictionary:eventDict];
     if (event == nil) {
         FlutterError *error = [FlutterError
