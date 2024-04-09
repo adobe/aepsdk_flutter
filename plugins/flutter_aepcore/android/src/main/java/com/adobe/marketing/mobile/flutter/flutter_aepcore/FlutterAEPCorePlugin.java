@@ -24,7 +24,6 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import java.util.Objects;
 
 public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
 
@@ -172,11 +171,11 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
             return;
         }
-        long timeout = 1000;
+        long timeout;
         try{
             timeout = Long.parseLong(map.get("timeout").toString());
         }catch(Exception e){
-            Log.e(TAG, "Dispatch event failed because the timeout was invalid.");
+            Log.e(TAG, "Dispatch event failed because the timeout was invalid. Errors messages: " + e.getMessage());
             result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
             return;
         }
