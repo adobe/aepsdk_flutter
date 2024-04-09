@@ -143,7 +143,7 @@ specific language governing permissions and limitations under the License.
                 if (responseEvent == nil) {
                     FlutterError *error = [FlutterError
                         errorWithCode:[NSString stringWithFormat:@"%ld", AEPErrorCallbackTimeout]
-                            message:@"Request timeout"
+                            message:@"general.callback.timeout"
                             details:nil];
 
                     result(error);
