@@ -24,6 +24,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import java.util.Objects;
 
 public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
 
@@ -165,8 +166,23 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             return;
         }
 
-        Map eventMap = (Map) arguments;
-        Event event = FlutterAEPCoreDataBridge.eventFromMap(eventMap);
+        Map map = (Map) arguments;
+        if (!(map.get("eventData") instanceof Map)) {
+            Log.e(TAG, "Dispatch event failed because the event data was invalid");
+            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
+            return;
+        }
+        long timeout = 1000;
+        try{
+            timeout = Long.parseLong(map.get("timeout").toString());
+        }catch(Exception e){
+            Log.e(TAG, "Dispatch event failed because the timeout was invalid.");
+            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
+            return;
+        }
+
+        Map eventData = (Map) map.get("eventData");
+        Event event = FlutterAEPCoreDataBridge.eventFromMap(eventData);
 
         if (event == null) {
             Log.e(TAG, "Dispatch event failed because event is null");
@@ -174,7 +190,7 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             return;
         }
 
-        MobileCore.dispatchEventWithResponseCallback(event, 1000, new AdobeCallbackWithError<Event>() {
+        MobileCore.dispatchEventWithResponseCallback(event, timeout, new AdobeCallbackWithError<Event>() {
             @Override
             public void fail(AdobeError adobeError) {
                 AndroidUtil.runOnUIThread(() -> result.error(String.valueOf(adobeError.getErrorCode()), adobeError.getErrorName(), null));

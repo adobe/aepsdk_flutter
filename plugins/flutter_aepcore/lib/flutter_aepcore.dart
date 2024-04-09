@@ -61,12 +61,12 @@ class MobileCore {
 
   /// You should use this method when the Event being passed is a request and you expect an event in response. Any events dispatched by this call will not be processed until after `start` has been called.
   static Future<Event> dispatchEventWithResponseCallback(
-    Event event,
-  ) =>
-      _channel
-          .invokeMethod<Map<dynamic, dynamic>>(
-              'dispatchEventWithResponseCallback', event.data)
-          .then((value) => Event(value!));
+          Event event, int timeoutMS) =>
+      _channel.invokeMethod<Map<dynamic, dynamic>>(
+          'dispatchEventWithResponseCallback', {
+        'eventData': event.data,
+        'timeout': timeoutMS,
+      }).then((value) => Event(value!));
 
   /// Calls the provided callback with a JSON string containing all of the user's identities known by the SDK
   ///

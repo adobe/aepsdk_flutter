@@ -112,7 +112,20 @@ specific language governing permissions and limitations under the License.
 
 - (void)handleDispatchEventWithResponseCallback:(FlutterMethodCall *)call
                                             result:(FlutterResult)result {
-    NSDictionary *eventDict = (NSDictionary *)call.arguments;
+    NSDictionary *eventDict = (NSDictionary *)call.arguments[@"eventData"];
+    NSNumber *timeoutNumber = call.arguments[@"timeout"];
+    double timeout = 1;
+    if ([timeoutNumber respondsToSelector:@selector(doubleValue)]) {
+        timeout = [timeoutNumber doubleValue] / 1000;
+    } else {
+        FlutterError *error = [FlutterError
+            errorWithCode:[NSString stringWithFormat:@"%ld", AEPErrorUnexpected]
+                message:@"Unexpected error"
+                details:nil];
+
+        result(error);
+        return;
+    }
     AEPEvent *event = [AEPEvent eventFromDictionary:eventDict];
     if (event == nil) {
         FlutterError *error = [FlutterError
@@ -125,9 +138,18 @@ specific language governing permissions and limitations under the License.
     }
 
     [AEPMobileCore dispatch:event
-                    timeout:1
+                    timeout:timeout
             responseCallback:^(AEPEvent *_Nullable responseEvent) {
-            result([AEPEvent dictionaryFromEvent:responseEvent]);
+                if (responseEvent == nil) {
+                    FlutterError *error = [FlutterError
+                        errorWithCode:[NSString stringWithFormat:@"%ld", AEPErrorCallbackTimeout]
+                            message:@"Request timeout"
+                            details:nil];
+
+                    result(error);
+                } else {
+                    result([AEPEvent dictionaryFromEvent:responseEvent]);
+                }
             }];
 }
 
