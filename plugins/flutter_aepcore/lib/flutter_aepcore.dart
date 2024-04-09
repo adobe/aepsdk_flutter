@@ -60,6 +60,9 @@ class MobileCore {
       _channel.invokeMethod<void>('dispatchEvent', event.data);
 
   /// You should use this method when the Event being passed is a request and you expect an event in response. Any events dispatched by this call will not be processed until after `start` has been called.
+  /// @param event The event to be dispatched
+  /// @param timeoutMS The time in milliseconds to wait for a response
+  /// @return A future that resolves with the response event. If timeout happens, the future will complete with an error.
   static Future<Event> dispatchEventWithResponseCallback(
           Event event, int timeoutMS) =>
       _channel.invokeMethod<Map<dynamic, dynamic>>(
