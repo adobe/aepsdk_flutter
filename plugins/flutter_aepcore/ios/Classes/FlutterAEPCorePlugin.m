@@ -124,7 +124,7 @@ specific language governing permissions and limitations under the License.
         return;
     }
     
-    double timeout = [timeoutNumber doubleValue] / 1000;
+    double timeout = [timeoutNumber intValue] / 1000;
     
     AEPEvent *event = [AEPEvent eventFromDictionary:eventDict];
     if (event == nil) {
