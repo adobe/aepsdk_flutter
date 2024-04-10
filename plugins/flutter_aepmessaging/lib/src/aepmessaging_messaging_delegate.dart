@@ -32,4 +32,7 @@ abstract class MessagingDelegate {
 
   /// Called when [message] loads a [URL]
   void urlLoaded(String url, Showable message);
+
+  /// Called when [message] is loaded
+  void onContentLoad(Showable message);
 }

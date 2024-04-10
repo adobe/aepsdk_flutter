@@ -8,6 +8,7 @@
 /// governing permissions and limitations under the License.
 
 import 'dart:async';
+import 'dart:io' show Platform;
 import 'package:flutter/services.dart';
 import 'package:flutter_aepmessaging/src/aepmessaging_message.dart';
 import 'package:flutter_aepmessaging/src/aepmessaging_messaging_delegate.dart';
@@ -41,8 +42,15 @@ class Messaging {
                 ?.shouldShowMessage(Message.fromMap(arguments['message'])) ??
             true;
       case 'urlLoaded':
-        _delegate?.urlLoaded(
-            arguments['url'], Message.fromMap(arguments['message']));
+        if (Platform.isIOS) {
+          _delegate?.urlLoaded(
+              arguments['url'], Message.fromMap(arguments['message']));
+        }
+        return null;
+      case 'onContentLoad':
+        if (Platform.isIOS) {
+          _delegate?.onContentLoad(Message.fromMap(arguments['message']));
+        }
         return null;
       default:
         throw UnimplementedError('${call.method} has not been implemented');
