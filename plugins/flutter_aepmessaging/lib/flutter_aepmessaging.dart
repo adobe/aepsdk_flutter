@@ -47,9 +47,9 @@ class Messaging {
               arguments['url'], Message.fromMap(arguments['message']));
         }
         return null;
-      case 'onContentLoad':
+      case 'onContentLoaded':
         if (Platform.isIOS) {
-          _delegate?.onContentLoad(Message.fromMap(arguments['message']));
+          _delegate?.onContentLoaded(Message.fromMap(arguments['message']));
         }
         return null;
       default:

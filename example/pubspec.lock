@@ -89,7 +89,7 @@ packages:
       path: "../plugins/flutter_aepedgebridge"
       relative: true
     source: path
-    version: "3.0.0"
+    version: "4.0.0"
   flutter_aepedgeconsent:
     dependency: "direct main"
     description:
@@ -101,6 +101,13 @@ packages:
     dependency: "direct main"
     description:
       path: "../plugins/flutter_aepedgeidentity"
+      relative: true
+    source: path
+    version: "4.0.0"
+  flutter_aepmessaging:
+    dependency: "direct main"
+    description:
+      path: "../plugins/flutter_aepmessaging"
       relative: true
     source: path
     version: "4.0.0"
