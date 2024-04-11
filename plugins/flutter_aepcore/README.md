@@ -130,10 +130,17 @@ MobileCore.resetIdentities()
 ```
 
 ##### Track app actions
+
+> [!IMPORTANT]  
+> trackAction is supported through [Edge Bridge](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedgebridge) and [Edge Network](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedge) extensions. 
+
 ```dart
 MobileCore.trackAction("myAction",  data: {"key1": "value1"});
 ```
 ##### Track app states
+> [!IMPORTANT]  
+> trackState is supported through [Edge Bridge](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedgebridge) and [Edge Network](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedge) extensions. 
+
 ```dart
 MobileCore.trackState("myState",  data: {"key1": "value1"});
 ```

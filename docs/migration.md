@@ -18,6 +18,15 @@ dependencies:
 
 Updated plugins can be found in this repository under [plugins/](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/). If they are not there, they are currently not supported.
 
+| Flutter (ACP) | Flutter (AEP) |
+| :--- | :--- |
+| flutter_acpcore | flutter_aepcore |
+| flutter_assurance | flutter_aepassurance |
+| flutter_acpuserprofile | flutter_aepuserprofile |
+| flutter_acpanalytics | NA, Analytics workflows supported through [Edge Network](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedge) or [Edge Bridge](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedgebridge) extensions. |
+| Place Services| NA |
+| Place Monitor | NA |
+
 ## Update SDK initialization
 
 Remove the deprecated registration code and the extensions that are not supported in AEP Flutter libraries.
@@ -54,9 +63,7 @@ public class MyApplication extends FlutterApplication {
 -     Assurance.registerExtension();
 -     UserProfile.registerExtension();
 -     Analytics.registerExtension();
--     Target.registerExtension();
 -     Places.registerExtension();
--     Campaign.registerExtension();
 -      MobileCore.start(new AdobeCallback () {
 -          @Override
 -         public void call(Object o) {
@@ -114,8 +121,6 @@ public class MyApplication extends FlutterApplication {
     // [ACPLifecycle registerExtension];
     // [ACPSignal registerExtension];
     // [ACPAnalytics registerExtension];
-    // [ACPCampaign registerExtension];
-    // [ACPTarget registerExtension];
     
         // const UIApplicationState appState = application.applicationState;
     // [ACPCore start:^{
