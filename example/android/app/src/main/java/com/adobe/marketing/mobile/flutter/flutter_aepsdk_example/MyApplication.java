@@ -55,7 +55,7 @@ public class MyApplication extends FlutterApplication {
                 Assurance.EXTENSION,
                 Consent.EXTENSION,
                 UserProfile.EXTENSION
-//                Messaging.EXTENSION
+                Messaging.EXTENSION
         );
         MobileCore.registerExtensions(extensions, o -> MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID));
 
