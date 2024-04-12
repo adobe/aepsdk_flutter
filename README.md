@@ -15,6 +15,11 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 | [UserProfile](plugins/flutter_aepuserprofile/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepuserprofile.svg)](https://pub.dartlang.org/packages/flutter_aepuserprofile) |
 | [Messaging](plugins/flutter_aepmessaging/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepmessaging.svg)](https://pub.dartlang.org/packages/flutter_aepmessaging) |
 
+## iOS Privacy Manifest
+
+> [!IMPORTANT]  
+> Adobe Experience Platform Flutter **4.x** plugins now depend on Experience Platform iOS 5.x SDKs, which have been updated to align with Apple's latest guidelines on [privacy manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files). For further details on how Apple's privacy-related announcements affect the Adobe mobile SDK for iOS, please refer to this [document](https://developer.adobe.com/client-sdks/resources/privacy-manifest/).
+
 ## Installation
 
 First, make sure that `Flutter` is [installed](https://docs.flutter.dev/get-started/install).
@@ -49,7 +54,7 @@ Initializing the SDK should be done in native code (AppDelegate / SceneDelegate 
 
 As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
 
-### iOS:
+#### iOS:
 
 Add the initialization code in [AppDelegate.m or AppDelegate.swift](/example/ios/Runner/AppDelegate.m#L9) file of the generated iOS project.
 
