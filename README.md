@@ -15,6 +15,10 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 | [UserProfile](plugins/flutter_aepuserprofile/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepuserprofile.svg)](https://pub.dartlang.org/packages/flutter_aepuserprofile) |
 | [Messaging](plugins/flutter_aepmessaging/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepmessaging.svg)](https://pub.dartlang.org/packages/flutter_aepmessaging) |
 
+## iOS Privacy Manifest
+
+The AEP Flutter plugins `v4.0.0` and above have been updated to align with Apple's latest [guidelines](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files), now using the AEP iOS SDK version 5 which includes the mandatory `privacy manifest`. To learn more details of how Apple's privacy related announcements affect the Adboe mobile SDK for iOS, please read this [document](https://developer.adobe.com/client-sdks/resources/privacy-manifest/).
+
 ## Installation
 
 First, make sure that `Flutter` is [installed](https://docs.flutter.dev/get-started/install).
