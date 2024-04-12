@@ -17,7 +17,7 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 
 ## iOS Privacy Manifest
 
-The AEP Flutter plugins `v4.0.0` and above have been updated to align with Apple's latest [guidelines](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files), now using the AEP iOS SDK version 5 which includes the mandatory `privacy manifest`. To learn more details of how Apple's privacy related announcements affect the Adobe mobile SDK for iOS, please read this [document](https://developer.adobe.com/client-sdks/resources/privacy-manifest/).
+The Adobe Experience Platform Flutter plugins `v4.0.0` and above have been updated to align with Apple's latest [guidelines](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files), now using version 5 of the Experience Platform SDKs for iOS which includes the mandatory `privacy manifest`. To learn more details of how Apple's privacy related announcements affect the Experience Platform SDKs for iOS, please read this [document](https://developer.adobe.com/client-sdks/resources/privacy-manifest/).
 
 ## Installation
 
