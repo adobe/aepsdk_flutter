@@ -25,7 +25,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     lintOptions {
@@ -34,6 +34,5 @@ android {
 }
 
 dependencies {
-    api 'com.adobe.marketing.mobile:assurance:2.+'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
+    api 'com.adobe.marketing.mobile:assurance:3.+'
 }

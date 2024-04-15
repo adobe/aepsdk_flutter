@@ -8,10 +8,10 @@
 /// governing permissions and limitations under the License.
 
 enum MessagingEdgeEventType {
-  IN_APP_DISMISS,
-  IN_APP_INTERACT,
-  IN_APP_TRIGGER,
-  IN_APP_DISPLAY,
+  DISMISS,
+  INTERACT,
+  TRIGGER,
+  DISPLAY,
   PUSH_APPLICATION_OPENED,
   PUSH_CUSTOM_ACTION
 }
@@ -19,13 +19,13 @@ enum MessagingEdgeEventType {
 extension AEPMessagingEdgeEventTypeExt on MessagingEdgeEventType {
   int get value {
     switch (this) {
-      case MessagingEdgeEventType.IN_APP_DISMISS:
+      case MessagingEdgeEventType.DISMISS:
         return 0;
-      case MessagingEdgeEventType.IN_APP_INTERACT:
+      case MessagingEdgeEventType.INTERACT:
         return 1;
-      case MessagingEdgeEventType.IN_APP_TRIGGER:
+      case MessagingEdgeEventType.TRIGGER:
         return 2;
-      case MessagingEdgeEventType.IN_APP_DISPLAY:
+      case MessagingEdgeEventType.DISPLAY:
         return 3;
       case MessagingEdgeEventType.PUSH_APPLICATION_OPENED:
         return 4;
@@ -41,18 +41,18 @@ extension AEPMessagingEdgeEventTypeValueExt on String {
   MessagingEdgeEventType get toMessagingEdgeEventType {
     switch (this) {
       case 'decisioning.propositionDismiss':
-        return MessagingEdgeEventType.IN_APP_DISMISS;
+        return MessagingEdgeEventType.DISMISS;
       case 'decisioning.propositionInteract':
-        return MessagingEdgeEventType.IN_APP_INTERACT;
+        return MessagingEdgeEventType.INTERACT;
       case 'decisioning.propositionTrigger':
-        return MessagingEdgeEventType.IN_APP_TRIGGER;
+        return MessagingEdgeEventType.TRIGGER;
       case 'decisioning.propositionDisplay':
-        return MessagingEdgeEventType.IN_APP_DISPLAY;
+        return MessagingEdgeEventType.DISPLAY;
       case 'pushTracking.applicationOpened':
         return MessagingEdgeEventType.PUSH_APPLICATION_OPENED;
       case 'pushTracking.customAction':
         return MessagingEdgeEventType.PUSH_CUSTOM_ACTION;
     }
-    return MessagingEdgeEventType.IN_APP_DISMISS;
+    return MessagingEdgeEventType.DISMISS;
   }
 }

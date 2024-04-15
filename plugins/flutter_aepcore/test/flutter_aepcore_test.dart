@@ -182,19 +182,19 @@ void main() {
     });
 
     test('invokes correct method', () async {
-      await MobileCore.dispatchEventWithResponseCallback(expectedEvent);
+      await MobileCore.dispatchEventWithResponseCallback(expectedEvent, 1000);
 
       expect(log, <Matcher>[
         isMethodCall(
           'dispatchEventWithResponseCallback',
-          arguments: eventConstructorData,
+          arguments: {"eventData": eventConstructorData, "timeout": 1000},
         ),
       ]);
     });
 
     test('returns correct result', () async {
-      final actualEvent =
-          await MobileCore.dispatchEventWithResponseCallback(expectedEvent);
+      final actualEvent = await MobileCore.dispatchEventWithResponseCallback(
+          expectedEvent, 1000);
       expect(actualEvent.eventName, returnedEvent.eventName);
     });
   });
