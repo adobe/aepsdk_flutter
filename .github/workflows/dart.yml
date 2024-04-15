@@ -87,7 +87,6 @@ jobs:
         run: flutter test
 
   job4:
-    if: false
     name: Assurance unit tests
     runs-on: ubuntu-latest
     steps:
@@ -109,7 +108,6 @@ jobs:
         run: flutter test
 
   job5:
-    if: false
     name: Edge unit tests
     runs-on: ubuntu-latest
     steps:
@@ -131,7 +129,6 @@ jobs:
         run: flutter test
 
   job6:
-    if: false
     name: Consent unit tests
     runs-on: ubuntu-latest
     steps:
@@ -153,7 +150,6 @@ jobs:
         run: flutter test
 
   job7:
-    if: false
     name: EdgeIdentity unit tests
     runs-on: ubuntu-latest
     steps:
@@ -174,7 +170,6 @@ jobs:
         working-directory: ./plugins/flutter_aepedgeidentity
         run: flutter test
   job8:
-    if: false
     name: UserProfile unit tests
     runs-on: ubuntu-latest
     steps:
