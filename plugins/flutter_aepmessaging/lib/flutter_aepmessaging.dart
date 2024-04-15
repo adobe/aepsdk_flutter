@@ -48,7 +48,7 @@ class Messaging {
         }
         return null;
       case 'onContentLoaded':
-        if (Platform.isIOS) {
+        if (Platform.isAndroid) {
           _delegate?.onContentLoaded(Message.fromMap(arguments['message']));
         }
         return null;
