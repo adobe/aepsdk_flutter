@@ -108,7 +108,6 @@ jobs:
         run: flutter test
 
   job5:
-    if: false
     name: Edge unit tests
     runs-on: ubuntu-latest
     steps:
