@@ -30,12 +30,12 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 21
     }
 }
 
 
 dependencies {
-    api 'com.adobe.marketing.mobile:userprofile:2.+'
+    api 'com.adobe.marketing.mobile:userprofile:3.+'
 }
 

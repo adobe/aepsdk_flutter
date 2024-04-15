@@ -42,8 +42,6 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
             return result(clearMessage(arguments: call.arguments))
         case "dismissMessage":
             return result(dismissMessage(arguments: call.arguments))
-        case "handleJavascriptMessage":
-            return result(handleJavascriptMessage(arguments: call.arguments))
         case "setAutoTrack":
             return result(setAutoTrack(arguments: call.arguments))
         case "showMessage":
@@ -109,29 +107,6 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         )
     }
 
-    private func handleJavascriptMessage(arguments: Any?) -> Any? {
-        if let args = arguments as? [String: Any],
-            let id = args["id"] as? String,
-            let name = args["name"] as? String
-        {
-            let msg = messageCache[id]
-            if msg != nil {
-                return nil
-                //          return msg!.handleJavascriptMessage(name)
-            }
-            return FlutterError.init(
-                code: "CACHE MISS",
-                message: "Message has not been cached",
-                details: nil
-            )
-        }
-        return FlutterError.init(
-            code: "BAD ARGUMENTS",
-            message: nil,
-            details: nil
-        )
-    }
-
     private func setAutoTrack(arguments: Any?) -> FlutterError? {
         if let args = arguments as? [String: Any],
             let id = args["id"] as? String,
@@ -187,7 +162,7 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
             let msg = messageCache[id]
             let eventType =
                 MessagingEdgeEventType.init(rawValue: eventType)
-                ?? MessagingEdgeEventType.inappDismiss
+                ?? MessagingEdgeEventType.dismiss
             if msg != nil {
                 msg!.track(interaction, withEdgeEventType: eventType)
                 return nil
