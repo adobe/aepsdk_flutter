@@ -1,12 +1,12 @@
 name: flutter_aepuserprofile
 description: Official Adobe Experience Platform support for Flutter apps. The UserProfile extension represents the Adobe Experience Platform SDK's Profile extension which helps manage profile attributes in the client.
-version: 4.0.0
+version: 4.0.1
 homepage: https://developer.adobe.com/client-sdks
 repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepuserprofile
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0"
+  flutter: ">=2.0.0 <4.0.0"
 
 dependencies:
   flutter:
