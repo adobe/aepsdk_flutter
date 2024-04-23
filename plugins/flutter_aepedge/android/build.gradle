@@ -1,5 +1,5 @@
 group 'com.adobe.marketing.mobile.flutter.flutter_aepedge'
-version '2.0'
+version '3.0'
 
 buildscript {
     repositories {
@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:8.1.2'
     }
 }
 
@@ -22,7 +22,11 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdk 33
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.adobe.marketing.mobile.flutter.flutter_aepedge'
+    }
+    
+    compileSdk 34
 
     defaultConfig {
         minSdkVersion 21
