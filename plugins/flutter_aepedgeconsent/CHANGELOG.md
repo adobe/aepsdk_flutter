@@ -1,3 +1,8 @@
+## 4.0.1
+
+* Add namespace support for Android
+* Update Flutter support version to 3.x
+
 ## 4.0.0
 
 * Adobe Mobile SDK for iOS 5.x support

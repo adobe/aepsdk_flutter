@@ -1,5 +1,5 @@
 group 'com.adobe.marketing.mobile.flutter.flutter_aepmessaging'
-version '2.0'
+version '3.0'
 
 buildscript {
     repositories {
@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:8.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20"
     }
 }
@@ -24,7 +24,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.adobe.marketing.mobile.flutter.flutter_aepmessaging'
+    }
+
+    compileSdk 34
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

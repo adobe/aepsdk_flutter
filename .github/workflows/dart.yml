@@ -22,10 +22,10 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
         with:
-          java-version: "12.x"
+          java-version: "17.x"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.x"
+          flutter-version: "3.x"
 
       - name: Install dependencies
         working-directory: ./example
@@ -48,10 +48,10 @@ jobs:
 
       - uses: actions/setup-java@v1
         with:
-          java-version: "12.x"
+          java-version: "17.x"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.x"
+          flutter-version: "3.x"
 
       - name: Install dependencies
         working-directory: ./example
@@ -73,10 +73,10 @@ jobs:
 
       - uses: actions/setup-java@v1
         with:
-          java-version: "12.x"
+          java-version: "17.x"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.x"
+          flutter-version: "3.x"
 
       - name: Install dependencies
         working-directory: ./plugins/flutter_aepcore
@@ -94,10 +94,10 @@ jobs:
 
       - uses: actions/setup-java@v1
         with:
-          java-version: "12.x"
+          java-version: "17.x"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.x"
+          flutter-version: "3.x"
 
       - name: Install dependencies
         working-directory: ./plugins/flutter_aepassurance
@@ -115,10 +115,10 @@ jobs:
 
       - uses: actions/setup-java@v1
         with:
-          java-version: "12.x"
+          java-version: "17.x"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.x"
+          flutter-version: "3.x"
 
       - name: Install dependencies
         working-directory: ./plugins/flutter_aepedge
@@ -136,10 +136,10 @@ jobs:
 
       - uses: actions/setup-java@v1
         with:
-          java-version: "12.x"
+          java-version: "17.x"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.x"
+          flutter-version: "3.x"
 
       - name: Install dependencies
         working-directory: ./plugins/flutter_aepedgeconsent
@@ -157,10 +157,10 @@ jobs:
 
       - uses: actions/setup-java@v1
         with:
-          java-version: "12.x"
+          java-version: "17.x"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.x"
+          flutter-version: "3.x"
 
       - name: Install dependencies
         working-directory: ./plugins/flutter_aepedgeidentity
@@ -177,10 +177,10 @@ jobs:
 
       - uses: actions/setup-java@v1
         with:
-          java-version: "12.x"
+          java-version: "17.x"
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "2.x"
+          flutter-version: "3.x"
 
       - name: Install dependencies
         working-directory: ./plugins/flutter_aepuserprofile
@@ -189,3 +189,4 @@ jobs:
       - name: Unit test
         working-directory: ./plugins/flutter_aepuserprofile
         run: flutter test
+   
