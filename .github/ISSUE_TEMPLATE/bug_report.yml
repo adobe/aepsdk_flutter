@@ -27,12 +27,11 @@ body:
     label: Environment
     description: |
       Please provide the Platform, OS version, SDK version(s) used, IDE version, and any other specific settings that could help us narrow down the problem.
-      Run `flutter doctor` and paste the output in the enviroment box.
+      Run `flutter doctor` and paste the output here.
       Example:
         [✓] MOBILE SDK VERSION: Flutter_aepcore@4.0.0, Flutter_aepedge@4.0.0
         [✓] Flutter (Channel stable, 3.19.6, on macOS 14.2.1 darwin-arm64)
         • Flutter version 3.19.6 on channel stable at /development/flutter
-        • Upstream repository https://github.com/flutter/flutter.git
         • Dart version 3.3.4
         • DevTools version 2.31.1
         [!] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
