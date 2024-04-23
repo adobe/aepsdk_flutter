@@ -11,7 +11,7 @@ Update your `pubspec.yml` file to point to the new plugin as so:
 
 dependencies:
 -  flutter_acpcore: ^2.0.0
-+  flutter_aepcore: ^3.0.0
++  flutter_aepcore: ^4.0.0
 
 ...
 ```
@@ -344,7 +344,7 @@ final Event event = Event({
       "eventData": {"eventDataKey": "eventDataValue"}
     });
     try {
-      result = await MobileCore.dispatchEventWithResponseCallback(event);
+      result = await MobileCore.dispatchEventWithResponseCallback(event, 1000);
     } on PlatformException catch (e) {
       log("Failed to dispatch event '${e.message}''");
     }
