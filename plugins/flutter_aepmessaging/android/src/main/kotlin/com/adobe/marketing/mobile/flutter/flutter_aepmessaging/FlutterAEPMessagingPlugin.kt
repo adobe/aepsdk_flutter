@@ -1,6 +1,7 @@
 package com.adobe.marketing.mobile.flutter.flutter_aepmessaging
 
 import com.adobe.marketing.mobile.*
+import com.adobe.marketing.mobile.services.ServiceProvider
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -16,7 +17,7 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
   override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_aepmessaging")
     channel.setMethodCallHandler(this)
-    MobileCore.setMessagingDelegate(FlutterAEPMessagingDelegate(messageCache, channel))
+    ServiceProvider.getInstance().uiService.setPresentationDelegate(FlutterAEPMessagingDelegate(messageCache, channel))
   }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
@@ -28,7 +29,6 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
       // Message Methods
       "clearMessage" -> this.clearMessage(call, result)
       "dismissMessage" -> this.dismissMessage(call, result)
-      "handleJavascriptMessage" -> this.handleJavascriptMessage(call, result)
       "setAutoTrack" -> this.setAutoTrack(call, result)
       "showMessage" -> this.showMessage(call, result)
       "trackMessage" -> this.trackMessage(call, result)
@@ -58,18 +58,7 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
 
   private fun dismissMessage(call: MethodCall, result: Result) {
     val messageId = call.argument<String>("id")
-    messageCache[messageId]?.dismiss(true)
-    result.success(null)
-  }
-
-  private fun handleJavascriptMessage(call: MethodCall, result: Result) {
-    val name = call.argument<String>("name")
-    val id = call.argument<String>("id")
-    messageCache[id]?.handleJavascriptMessage(name) { content ->
-      if (content != null) {
-        result.success(content)
-      }
-    }
+    messageCache[messageId]?.dismiss()
     result.success(null)
   }
 
@@ -99,13 +88,13 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
 
   private fun convertToMessagingEventType(value: Int): MessagingEdgeEventType {
     return when (value) {
-      0 -> MessagingEdgeEventType.IN_APP_DISMISS
-      1 -> MessagingEdgeEventType.IN_APP_INTERACT
-      2 -> MessagingEdgeEventType.IN_APP_TRIGGER
-      3 -> MessagingEdgeEventType.IN_APP_DISPLAY
+      0 -> MessagingEdgeEventType.DISMISS
+      1 -> MessagingEdgeEventType.INTERACT
+      2 -> MessagingEdgeEventType.TRIGGER
+      3 -> MessagingEdgeEventType.DISPLAY
       4 -> MessagingEdgeEventType.PUSH_APPLICATION_OPENED
       5 -> MessagingEdgeEventType.PUSH_CUSTOM_ACTION
-      else -> MessagingEdgeEventType.IN_APP_DISMISS
+      else -> MessagingEdgeEventType.DISMISS
     }
   }
 }

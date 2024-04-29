@@ -62,22 +62,22 @@ class _MyAppState extends State<EdgeBridgePage> {
                 'Edge Bridge extension version: ', '$_edgeBridgeVersion\n'),
             ElevatedButton(
               child: Text("MobileCore.trackAction"),
-              onPressed: () => MobileCore.trackAction('add_to_cart', data: {
-                "product.id": "12345",
-                "product.add.event": "1",
-                "product.name": "wide_brim_sunhat",
-                "product.units": "1"
+              onPressed: () => MobileCore.trackAction('purchase', 
+              data: {
+                "&&products": ";Running Shoes;1;69.95;event1|event2=55.99;eVar1=12345,;Running Socks;10;29.99;event2=10.95;eVar1=54321",
+                "&&events": "event5,purchase",
+                "myapp.promotion": "a0138"
               }),
             ),
             ElevatedButton(
               child: Text("MobileCore.trackState"),
               onPressed: () => MobileCore.trackState(
-                  'hats/sunhat/wide_brim_sunhat_id12345',
-                  data: {
-                    "product.name": "wide_brim_sunhat",
-                    "product.id": "12345",
-                    "product.view.event": "1"
-                  }),
+                 'products/189025/runningshoes/12345',
+              data: {
+                "&&products": ";Running Shoes;1;69.95;prodView|event2=55.99;eVar1=12345",
+                "myapp.category": "189025",
+                "myapp.promotion": "a0138"
+              }),
             ),
           ]),
         ),

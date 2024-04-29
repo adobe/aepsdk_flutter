@@ -43,6 +43,11 @@ class CustomMessagingDelegate implements MessagingDelegate {
     print(url);
     print(message);
   }
+
+  @override
+  void onContentLoaded(Showable message) {
+    print(message);
+  }
 }
 
 class MessagingPage extends StatefulWidget {
@@ -109,7 +114,7 @@ class _MyAppState extends State<MessagingPage> {
   Future<void> trackMessage() async {
     if (_cachedMessages.isNotEmpty) {
       var message = _cachedMessages[0];
-      message.track('interaction', MessagingEdgeEventType.IN_APP_TRIGGER);
+      message.track('interaction', MessagingEdgeEventType.TRIGGER);
     }
   }
 

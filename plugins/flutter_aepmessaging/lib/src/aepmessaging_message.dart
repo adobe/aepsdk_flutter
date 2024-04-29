@@ -40,13 +40,6 @@ class Message extends Showable {
         {'id': this.id, 'suppressAutoTrack': suppressAutoTrack});
   }
 
-  /// Adds a handler for Javascript messages sent from the message's webview specified for [name].
-  /// The parameter passed to `handler` will contain the body of the message passed from the webview's Javascript.
-  Future<String> handleJavascriptMessage(String name) async {
-    return await _channel
-        .invokeMethod('handleJavascriptMessage', {'id': this.id, 'name': name});
-  }
-
   /// Sets the value of autoTrack on the message to [shouldAutoTrack]
   ///
   /// Note: This function works only for the Message objects that were saved by calling "MessagingDelegate.shouldSaveMessage"

@@ -30,6 +30,9 @@ abstract class MessagingDelegate {
   /// If the result of the function is true, the [message] will be shown.
   bool shouldShowMessage(Showable message);
 
-  /// Called when [message] loads a [URL]
+  /// iOS Only - Called when [message] loads a [URL]
   void urlLoaded(String url, Showable message);
+
+  /// Android Only - Called when [message] is loaded
+  void onContentLoaded(Showable message);
 }

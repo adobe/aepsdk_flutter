@@ -79,3 +79,6 @@ example/android/GeneratedPluginRegistrant.java
 **/ios/.tags*
 **/ios/Flutter/Generated.xcconfig
 **/ios/flutter_export_environment.sh
+
+# podspec.lock for plugins
+plugins/**/pubspec.lock

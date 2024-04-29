@@ -17,42 +17,42 @@ public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepassurance.FlutterAEPAssurancePlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepassurance, com.adobe.marketing.mobile.flutter.flutter_aepassurance.FlutterAEPAssurancePlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepcore.FlutterAEPCorePlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepcore, com.adobe.marketing.mobile.flutter.flutter_aepcore.FlutterAEPCorePlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepedge.FlutterAEPEdgePlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepedge, com.adobe.marketing.mobile.flutter.flutter_aepedge.FlutterAEPEdgePlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepedgebridge.FlutterAEPEdgeBridgePlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepedgebridge, com.adobe.marketing.mobile.flutter.flutter_aepedgebridge.FlutterAEPEdgeBridgePlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepedgeconsent.FlutterAEPEdgeConsentPlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepedgeconsent, com.adobe.marketing.mobile.flutter.flutter_aepedgeconsent.FlutterAEPEdgeConsentPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepedgeidentity.FlutterAEPEdgeIdentityPlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepedgeidentity, com.adobe.marketing.mobile.flutter.flutter_aepedgeidentity.FlutterAEPEdgeIdentityPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepmessaging.FlutterAEPMessagingPlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepmessaging, com.adobe.marketing.mobile.flutter.flutter_aepmessaging.FlutterAEPMessagingPlugin", e);
     }
     try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepuserprofile.FlutterAEPUserProfilePlugin());
-    } catch(Exception e) {
+    } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepuserprofile, com.adobe.marketing.mobile.flutter.flutter_aepuserprofile.FlutterAEPUserProfilePlugin", e);
     }
   }

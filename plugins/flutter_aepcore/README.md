@@ -118,7 +118,7 @@ final Event event = Event({
       "eventData": {"eventDataKey": "eventDataValue"}
     });
     try {
-      result = await MobileCore.dispatchEventWithResponseCallback(event);
+      result = await MobileCore.dispatchEventWithResponseCallback(event, 1000);
     } on PlatformException catch (e) {
       log("Failed to dispatch event '${e.message}''");
     }
