@@ -14,6 +14,9 @@ class ExperienceEvent {
   static const String _xdmDataKey = 'xdmData';
   static const String _dataKey = 'data';
   static const String _dataIdentifierKey = 'dataIdentifier';
+  static const String _datastreamIdOverrideKey = 'datastreamIdOverride';
+  static const String _datastreamConfigOverrideKey = 'datastreamConfigOverride';
+
 
   ExperienceEvent(this.eventData);
 
@@ -22,7 +25,9 @@ class ExperienceEvent {
     final Map<String, dynamic> experienceEventConstructorData = {
       _xdmDataKey: xdmData,
       _dataKey: data,
-      _dataIdentifierKey: datasetIdentifier
+      _dataIdentifierKey: datasetIdentifier,
+      _datastreamIdOverrideKey: datastreamIdOverride,
+      _datastreamConfigOverrideKey: datastreamConfigOverride
     };
     this.eventData = experienceEventConstructorData;
   }
@@ -38,4 +43,10 @@ class ExperienceEvent {
 
   /// The identifier for the Dataset this event belongs to.
   String? get datasetIdentifier => eventData[_dataIdentifierKey];
+
+  /// The override datastream id for this event.
+  String? get datastreamIdOverride => eventData[_datastreamIdOverrideKey];
+
+  /// The override datastream conf for this event.
+  Map<String, dynamic>? get datastreamConfigOverride => eventData[_datastreamConfigOverrideKey];
 }

@@ -174,23 +174,69 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 });
 List<EventHandle> result = await Edge.sendEvent(experienceEvent);
 ```
+
+**Example with Datastream ID override**
+```dart
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "datastreamIdOverride": "SampleDataStreamId"
+});
+List<EventHandle> result = await Edge.sendEvent(experienceEvent);
+```
+
+**Example with Datastream confg override**
+```dart
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> configOverrides = {"config": {
+      "com_adobe_experience_platform": {
+        "datasets": {
+          "event": {
+            "datasetId": "sampleDatasetID"
+          }
+        }
+      }
+    }};
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "datastreamConfigOverride": configOverrides
+});
+List<EventHandle> result = await Edge.sendEvent(experienceEvent);
+```
 ------
 ### Public classes
 #### ExperienceEvent
 Experience Event is the event to be sent to Adobe Experience Platform Edge Network. The XDM data is required for any Experience Event being sent using the Edge extension.
 
-##### Create Experience Event from Dictionary:
-
+**Usage**
 ```dart
-Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+// set free form data to the Experience event:
 final ExperienceEvent experienceEvent = ExperienceEvent({
-  "xdmData": xdmData
+  "xdmData": xdmData,
+  "data": data
 });
+
+// Set free form data and datastream id override to the current Experience event:
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data,
+  "datastreamIdOverride": "sampleDatastreamID"
+});
+
+// Set free form data and datastream config override to the current Experience event:
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data,
+  "datastreamConfOverride": configOverrides
+});
+
 ```
 
-##### Add free form data to the Experience event:
+**Example**
 
 ```dart
+// example 1
+// set free form data to the Experience event:
 Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
 final ExperienceEvent experienceEvent = ExperienceEvent({
@@ -199,27 +245,36 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 });
 ```
 
-##### Set the destination Dataset identifier to the current Experience event:
-
 ```dart
-Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
-final ExperienceEvent experienceevent = ExperienceEvent({
-  "xdmData": xdmData,
-  "data": null,
-  "datasetIdentifier": "datasetIdExample"
-});
-```
-
-##### Create Experience Event with xdmdata, free form data and the destination Dataset identifier:
-
-```dart
+// example 2
+// Set free form data and datastream id override to the current Experience event:
 Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
-
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
   "data": data,
-  "datasetIdentifier": "datasetIdExample"
+  "datastreamIdOverride": "sampleDatastreamID"
+});
+```
+
+```dart
+// example 3
+// Set datastream config override to the current Experience event:
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> configOverrides = {"config": {
+      "com_adobe_experience_platform": {
+        "datasets": {
+          "event": {
+            "datasetId": "sampleDatasetID"
+          }
+        }
+      }
+   } 
+}
+
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "datastreamConfOverride": configOverrides
 });
 ```
 #### EventHandle
@@ -229,6 +284,8 @@ The EventHandle is a response fragment from Adobe Experience Platform Edge Netwo
 static const String _type = 'type';
 static const String _payload = 'payload';
 ```
+## Next steps - Schemas setup and validation with Assurance
+For examples on XDM schemas and datasets setup and tips on validating with Assurance, refer to the [Edge Network tutorial](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials).
 
 ## Contributing
 See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)

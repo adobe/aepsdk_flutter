@@ -72,6 +72,58 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
+  Future<void> sendEventDataIdOverride() async {
+    late List<EventHandle> result;
+    Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    Map<String, dynamic> data = {"free": "form", "data": "example"};
+
+    final ExperienceEvent experienceEvent = ExperienceEvent(
+        {"xdmData": xdmData, "data": data, "datastreamIdOverride": "sampleDatastreamID"});
+
+    result = await Edge.sendEvent(experienceEvent);
+
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
+    setState(() {
+      _edgeEventHandleResponse = result;
+      print("result info " + result.toString());
+    });
+  }
+
+  Future<void> sendEventDataStreamConfigOverride() async {
+    late List<EventHandle> result;
+    Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    Map<String, dynamic> data = {"free": "form", "data": "example"};
+    Map<String, dynamic> configOverrides = {"config": {
+      "com_adobe_experience_platform": {
+        "datasets": {
+          "event": {
+            "datasetId": "sampleDatasetID"
+          }
+        }
+      }
+    }};
+
+    final ExperienceEvent experienceEvent = ExperienceEvent(
+        {"xdmData": xdmData, "data": data, "datastreamConfOverride": configOverrides});
+
+    result = await Edge.sendEvent(experienceEvent);
+
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
+    setState(() {
+      _edgeEventHandleResponse = result;
+      print("result info " + result.toString());
+    });
+  }
+  
+
   Future<void> getLocationHint() async {
     String? result = null;
 
@@ -96,14 +148,22 @@ class _MyAppState extends State<EdgePage> {
       appBar: AppBar(title: Text("Edge Screen")),
       body: Center(
         child: ListView(shrinkWrap: true, children: <Widget>[
-          getRichText('AEPEdge extension version: ', '$_edgeVersion\n'),
+          getRichText('AEPEdge extension version: ', '$_edgeVersion\n'), 
           ElevatedButton(
             child: Text("sentEvent(...)"),
             onPressed: () => sendEvent(),
           ),
           ElevatedButton(
             child: Text("sentEvent to Dataset"),
-            onPressed: () => sendEvent('datasetIdExample'),
+            onPressed: () => sendEvent('datasetId_example'),
+          ),
+          ElevatedButton(
+            child: Text("sentEvent with datastreamIdOverride"),
+            onPressed: () => sendEventDataStreamIdOverride(),
+          ),
+          ElevatedButton(
+            child: Text("sentEvent with datastreamConfOverride"),
+            onPressed: () => sendEventDataConfigOverride(),
           ),
           getRichText(
               'Response event handles: = ', '$_edgeEventHandleResponse\n'),
@@ -123,3 +183,4 @@ class _MyAppState extends State<EdgePage> {
         ]),
       ));
 }
+
