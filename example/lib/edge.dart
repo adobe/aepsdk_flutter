@@ -72,7 +72,7 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
-  Future<void> sendEventDataIdOverride() async {
+  Future<void> sendEventDataStreamIdOverride() async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
