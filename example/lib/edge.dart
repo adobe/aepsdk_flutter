@@ -183,4 +183,3 @@ class _MyAppState extends State<EdgePage> {
         ]),
       ));
 }
-
