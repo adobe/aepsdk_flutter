@@ -13,27 +13,40 @@ governing permissions and limitations under the License.
 class ExperienceEvent {
   static const String _xdmDataKey = 'xdmData';
   static const String _dataKey = 'data';
-  static const String _dataIdentifierKey = 'dataIdentifier';
+  static const String _dataIdentifierKey = 'datasetIdentifier';
   static const String _datastreamIdOverrideKey = 'datastreamIdOverride';
   static const String _datastreamConfigOverrideKey = 'datastreamConfigOverride';
 
+  /// The data in this experience event.
+  late Map<String, dynamic> eventData;
 
-  ExperienceEvent(this.eventData);
+  ExperienceEvent(this.eventData) {
+    if (eventData[_dataIdentifierKey] != null && (eventData[_datastreamIdOverrideKey] != null || eventData[_datastreamConfigOverrideKey] != null)) {
+      print('Warning: Using both datasetIdentifier and datastreamIdOverride, or datasetIdentifier and datastreamConfigOverride simultaneously is not supported. It defaults to using the input of datastreamIdOverride or datastreamConfigOverride.');
+    }
+  }
 
   ExperienceEvent.createEvent(final Map<String, dynamic> xdmData,
       [final Map<String, dynamic>? data, final String? datasetIdentifier]) {
     final Map<String, dynamic> experienceEventConstructorData = {
       _xdmDataKey: xdmData,
       _dataKey: data,
-      _dataIdentifierKey: datasetIdentifier,
+      _dataIdentifierKey: datasetIdentifier
+    };
+    this.eventData = experienceEventConstructorData;
+  }
+
+   ExperienceEvent.createEventWithOverrides(final Map<String, dynamic> xdmData,
+      [final Map<String, dynamic>? data, final String? datastreamIdOverride, final Map<String, dynamic>? datastreamConfigOverride]) {
+    final Map<String, dynamic> experienceEventConstructorData = {
+      _xdmDataKey: xdmData,
+      _dataKey: data,
       _datastreamIdOverrideKey: datastreamIdOverride,
       _datastreamConfigOverrideKey: datastreamConfigOverride
     };
     this.eventData = experienceEventConstructorData;
   }
 
-  /// The data in this experience event.
-  late Map<String, dynamic> eventData;
 
   /// The XDM data for this event.
   Map<String, dynamic> get xdmData => eventData[_xdmDataKey] ?? {};
