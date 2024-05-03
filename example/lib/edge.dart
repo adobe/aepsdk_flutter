@@ -51,7 +51,8 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
-  Future<void> sendEvent([datasetId]) async {
+  //Using Dictionaries method
+  Future<void> sendEventWithDictionary([datasetId]) async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
@@ -72,13 +73,17 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
-  Future<void> sendEventDataStreamIdOverride() async {
+  Future<void> sendEventWithDictionaryDataStreamIdOverride() async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceEvent = ExperienceEvent(
-        {"xdmData": xdmData, "data": data, "datastreamIdOverride": "sampleDatastreamID"});
+      {
+        "xdmData": xdmData,
+        "data": data,
+        "datastreamIdOverride": "sampleDatastreamID",
+      });
 
     result = await Edge.sendEvent(experienceEvent);
 
@@ -93,7 +98,7 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
-  Future<void> sendEventDataConfigOverride() async {
+  Future<void> sendEventWithDictionaryDataConfigOverride() async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
@@ -108,7 +113,11 @@ class _MyAppState extends State<EdgePage> {
     }};
 
     final ExperienceEvent experienceEvent = ExperienceEvent(
-        {"xdmData": xdmData, "data": data, "datastreamConfOverride": configOverrides});
+      {
+        "xdmData": xdmData,
+        "data": data,
+        "datastreamConfigOverride": configOverrides,
+      });
 
     result = await Edge.sendEvent(experienceEvent);
 
@@ -122,7 +131,76 @@ class _MyAppState extends State<EdgePage> {
       print("result info " + result.toString());
     });
   }
-  
+
+  //Using Constructors
+  Future<void> sendEventWithConstructor([datasetId]) async {
+    late List<EventHandle> result;
+    Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    Map<String, dynamic> data = {"free": "form", "data": "example"};
+
+    final ExperienceEvent experienceEvent = ExperienceEvent.createEvent(xdmData, data, datasetId);
+
+    result = await Edge.sendEvent(experienceEvent);
+
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
+    setState(() {
+      _edgeEventHandleResponse = result;
+      print("result info " + result.toString());
+    });
+  }
+
+  Future<void> sendEventWithConstructorDataStreamIdOverride() async {
+    late List<EventHandle> result;
+    Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    Map<String, dynamic> data = {"free": "form", "data": "example"};
+
+    final ExperienceEvent experienceEvent = ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamID");
+   
+    result = await Edge.sendEvent(experienceEvent);
+
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
+    setState(() {
+      _edgeEventHandleResponse = result;
+      print("result info " + result.toString());
+    });
+  }
+
+  Future<void> sendEventWithConstructorDataConfigOverride() async {
+    late List<EventHandle> result;
+    Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    Map<String, dynamic> data = {"free": "form", "data": "example"};
+    Map<String, dynamic> configOverrides = {"config": {
+      "com_adobe_experience_platform": {
+        "datasets": {
+          "event": {
+            "datasetId": "sampleDatasetID"
+          }
+        }
+      }
+    }};
+
+    final ExperienceEvent experienceEvent = ExperienceEvent.createEventWithOverrides(xdmData, data, null, configOverrides);
+
+    result = await Edge.sendEvent(experienceEvent);
+
+    if (!mounted) {
+      log('Failed to setState, widget is not mounted');
+      return;
+    }
+
+    setState(() {
+      _edgeEventHandleResponse = result;
+      print("result info " + result.toString());
+    });
+  }
 
   Future<void> getLocationHint() async {
     String? result = null;
@@ -150,20 +228,32 @@ class _MyAppState extends State<EdgePage> {
         child: ListView(shrinkWrap: true, children: <Widget>[
           getRichText('AEPEdge extension version: ', '$_edgeVersion\n'), 
           ElevatedButton(
-            child: Text("sentEvent(...)"),
-            onPressed: () => sendEvent(),
+            child: Text("sendEventWithDictionary"),
+            onPressed: () => sendEventWithDictionary(),
           ),
           ElevatedButton(
-            child: Text("sentEvent to Dataset"),
-            onPressed: () => sendEvent('datasetId_example'),
+            child: Text("sendEventWithDictionary to Dataset"),
+            onPressed: () => sendEventWithDictionary('datasetId_example'),
           ),
           ElevatedButton(
-            child: Text("sentEvent with datastreamIdOverride"),
-            onPressed: () => sendEventDataStreamIdOverride(),
+            child: Text("sendEventWithDictionary with datastreamIdOverride"),
+            onPressed: () => sendEventWithDictionaryDataStreamIdOverride(),
           ),
           ElevatedButton(
-            child: Text("sentEvent with datastreamConfOverride"),
-            onPressed: () => sendEventDataConfigOverride(),
+            child: Text("sendEventWithDictionary with datastreamConfigOverride"),
+            onPressed: () => sendEventWithDictionaryDataConfigOverride(),
+          ),
+           ElevatedButton(
+            child: Text("sendEventWithConstructor to Dataset"),
+            onPressed: () => sendEventWithConstructor('datasetId_example'),
+          ),
+          ElevatedButton(
+            child: Text("sendEventWithDictionary with datastreamIdOverride"),
+            onPressed: () => sendEventWithConstructorDataStreamIdOverride(),
+          ),
+          ElevatedButton(
+            child: Text("sendEventWithDictionary with datastreamConfigOverride"),
+            onPressed: () => sendEventWithConstructorDataConfigOverride(),
           ),
           getRichText(
               'Response event handles: = ', '$_edgeEventHandleResponse\n'),
