@@ -231,7 +231,7 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
   "data": data,
-  "datastreamConfOverride": configOverrides
+  "datastreamConfigOverride": configOverrides
 });
 
 //Invoke Experience Event by using constructors
@@ -295,7 +295,7 @@ Map<String, dynamic> configOverrides = {"config": {
 
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
-  "datastreamConfOverride": configOverrides
+  "datastreamConfigOverride": configOverrides
 });
 ```
 #### EventHandle
