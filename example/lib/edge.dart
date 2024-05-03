@@ -236,11 +236,11 @@ class _MyAppState extends State<EdgePage> {
             onPressed: () => sendEventWithDictionary('datasetId_example'),
           ),
           ElevatedButton(
-            child: Text("sendEventWithDictionary with datastreamIdOverride"),
+            child: Text("sendEventWithDictionary datastreamIdOverride"),
             onPressed: () => sendEventWithDictionaryDataStreamIdOverride(),
           ),
           ElevatedButton(
-            child: Text("sendEventWithDictionary with datastreamConfigOverride"),
+            child: Text("sendEventWithDictionary datastreamConfigOverride"),
             onPressed: () => sendEventWithDictionaryDataConfigOverride(),
           ),
            ElevatedButton(
@@ -248,11 +248,11 @@ class _MyAppState extends State<EdgePage> {
             onPressed: () => sendEventWithConstructor('datasetId_example'),
           ),
           ElevatedButton(
-            child: Text("sendEventWithDictionary with datastreamIdOverride"),
+            child: Text("sendEventWithConstructor datastreamIdOverride"),
             onPressed: () => sendEventWithConstructorDataStreamIdOverride(),
           ),
           ElevatedButton(
-            child: Text("sendEventWithDictionary with datastreamConfigOverride"),
+            child: Text("sendEventWithConstructor datastreamConfigOverride"),
             onPressed: () => sendEventWithConstructorDataConfigOverride(),
           ),
           getRichText(
