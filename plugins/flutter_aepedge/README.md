@@ -208,8 +208,12 @@ List<EventHandle> result = await Edge.sendEvent(experienceEvent);
 #### ExperienceEvent
 Experience Event is the event to be sent to Adobe Experience Platform Edge Network. The XDM data is required for any Experience Event being sent using the Edge extension.
 
+You can invoke Experience Event either by using dictionaries or by utilizing convenience constructors.
+
 **Usage**
 ```dart
+//Invoke Experience Event by using dictionaries
+
 // set free form data to the Experience event:
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
@@ -230,9 +234,26 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
   "datastreamConfOverride": configOverrides
 });
 
+//Invoke Experience Event by using constructors
+
+// set free form data to the Experience event:
+final ExperienceEvent experienceEvent =
+      ExperienceEvent.createEventWithOverrides(xdmData, data);
+
+// Set free form data and datastream id override to the current Experience event:
+final ExperienceEvent experienceEvent =
+      ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamID");
+
+// Set free form data and datastream config override to the current Experience event:
+final ExperienceEvent experienceEvent =
+      ExperienceEvent.createEventWithOverrides(xdmData, data, null, configOverrides);
+
+
 ```
 
 **Example**
+
+Examples of Invoking Experience Event Using Dictionaries.
 
 ```dart
 // example 1

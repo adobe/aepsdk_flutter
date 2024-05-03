@@ -45,7 +45,7 @@ void main() {
     });
   });
 
-  group('sendEvent', () {
+  group('sendEventUsingDictionary', () {
     final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     final Map<String, dynamic> data = {"free": "form", "data": "example"};
 
@@ -99,6 +99,101 @@ void main() {
       expect(actualEventHandleResponse[0].type, expectedResponse[0].type);
     });
   });
+
+  group('sendEventUsingDatasetIdentifierConstructor', () {
+    final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    final Map<String, dynamic> data = {"free": "form", "data": "example"};
+
+    //setup experienceEvent
+    final ExperienceEvent experienceEvent =
+        ExperienceEvent.createEvent(xdmData, data, "sampleDatasetID");
+
+    test('returns correct result', () async {
+    expect(experienceEvent.xdmData, equals(xdmData));
+    expect(experienceEvent.data, equals(data));
+    expect(experienceEvent.datasetIdentifier, equals("sampleDatasetID"));
+    });
+ });
+
+ group('sendEventUsingDatastreamIdOverrideConstructor', () {
+    final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    final Map<String, dynamic> data = {"free": "form", "data": "example"};
+
+    //setup experienceEvent
+    final ExperienceEvent experienceEvent =
+        ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamID");
+    
+    test('returns correct result', () async {
+    expect(experienceEvent.xdmData, equals(xdmData));
+    expect(experienceEvent.data, equals(data));
+    expect(experienceEvent.datastreamIdOverride, equals("sampleDatastreamID"));
+    });
+  });
+
+   group('sendEventUsingDatasetConfigConstructor', () {
+    final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    final Map<String, dynamic> data = {"free": "form", "data": "example"};
+    final Map<String, dynamic> configOverrides = {"config": {
+      "com_adobe_experience_platform": {
+        "datasets": {
+          "event": {
+            "datasetId": "sampleDatasetID"
+          }
+        }
+      }
+    }};
+
+    //setup experienceEvent
+    final ExperienceEvent experienceEvent =
+        ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamID", configOverrides);
+    
+    test('returns correct result', () async {
+    expect(experienceEvent.xdmData, equals(xdmData));
+    expect(experienceEvent.data, equals(data));
+    expect(experienceEvent.datastreamIdOverride, equals("sampleDatastreamID"));
+    expect(experienceEvent.datastreamConfigOverride, equals(configOverrides));
+    });
+  });
+
+  group('sendEventUsingDatasetConfigConstructorWithDataAndIdNull', () {
+    final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+    final Map<String, dynamic> configOverrides = {"config": {
+      "com_adobe_experience_platform": {
+        "datasets": {
+          "event": {
+            "datasetId": "sampleDatasetID"
+          }
+        }
+      }
+    }};
+
+    //setup experienceEvent
+    final ExperienceEvent experienceEvent =
+        ExperienceEvent.createEventWithOverrides(xdmData, null, null, configOverrides);
+    
+    test('returns correct result', () async {
+    expect(experienceEvent.xdmData, equals(xdmData));
+    expect(experienceEvent.data, equals({}));
+    expect(experienceEvent.datastreamIdOverride, equals(null));
+    expect(experienceEvent.datastreamConfigOverride, equals(configOverrides));
+    });
+  });
+
+  group('sendEventUsingDatasetConfigConstructorWithNull', () {
+    final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+
+    //setup experienceEvent
+    final ExperienceEvent experienceEvent =
+        ExperienceEvent.createEventWithOverrides(xdmData, null, null, null);
+    
+    test('returns correct result', () async {
+    expect(experienceEvent.xdmData, equals(xdmData));
+    expect(experienceEvent.data, equals({}));
+    expect(experienceEvent.datastreamIdOverride, equals(null));
+    expect(experienceEvent.datastreamConfigOverride, equals(null));
+    });
+  });
+
 
   group('sendEvent with nested data and multiple response handles', () {
     final Map<dynamic, dynamic> mapValue = {"keySample": "keyValue"};
