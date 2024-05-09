@@ -52,13 +52,13 @@ class _MyAppState extends State<EdgePage> {
   }
 
   //Using Dictionaries method
-  Future<void> sendEventWithDictionary([datasetId]) async {
+  Future<void> sendEventWithDictionaryDatasetId([datasetId]) async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceEvent = ExperienceEvent(
-        {"xdmData": xdmData, "data": data, "datasetIdentifier": datasetId});
+        {"xdmData": xdmData, "data": data, "datasetIdentifier": datasetId,"datastreamIdOverride": "sampleDatastreamID",});
 
     result = await Edge.sendEvent(experienceEvent);
 
@@ -73,7 +73,7 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
-  Future<void> sendEventWithDictionaryDataStreamIdOverride() async {
+  Future<void> sendEventWithDictionaryDatastreamIdOverride() async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
@@ -98,7 +98,7 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
-  Future<void> sendEventWithDictionaryDataConfigOverride() async {
+  Future<void> sendEventWithDictionaryDatastreamConfigOverride() async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
@@ -133,7 +133,7 @@ class _MyAppState extends State<EdgePage> {
   }
 
   //Using Constructors
-  Future<void> sendEventWithConstructor([datasetId]) async {
+  Future<void> sendEventWithConstructorDatasetId([datasetId]) async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
@@ -153,7 +153,7 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
-  Future<void> sendEventWithConstructorDataStreamIdOverride() async {
+  Future<void> sendEventWithConstructorDatastreamIdOverride() async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
@@ -173,10 +173,11 @@ class _MyAppState extends State<EdgePage> {
     });
   }
 
-  Future<void> sendEventWithConstructorDataConfigOverride() async {
+  Future<void> sendEventWithConstructorDatastreamConfigOverride() async {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
+    //To override eventDataset using datastream config overrides
     Map<String, dynamic> configOverrides = {"config": {
       "com_adobe_experience_platform": {
         "datasets": {
@@ -229,31 +230,31 @@ class _MyAppState extends State<EdgePage> {
           getRichText('AEPEdge extension version: ', '$_edgeVersion\n'), 
           ElevatedButton(
             child: Text("sendEventWithDictionary"),
-            onPressed: () => sendEventWithDictionary(),
+            onPressed: () => sendEventWithDictionaryDatasetId(),
           ),
           ElevatedButton(
             child: Text("sendEventWithDictionary to Dataset"),
-            onPressed: () => sendEventWithDictionary('datasetId_example'),
+            onPressed: () => sendEventWithDictionaryDatasetId('datasetId_example'),
           ),
           ElevatedButton(
             child: Text("sendEventWithDictionary datastreamIdOverride"),
-            onPressed: () => sendEventWithDictionaryDataStreamIdOverride(),
+            onPressed: () => sendEventWithDictionaryDatastreamIdOverride(),
           ),
           ElevatedButton(
             child: Text("sendEventWithDictionary datastreamConfigOverride"),
-            onPressed: () => sendEventWithDictionaryDataConfigOverride(),
+            onPressed: () => sendEventWithDictionaryDatastreamConfigOverride(),
           ),
            ElevatedButton(
             child: Text("sendEventWithConstructor to Dataset"),
-            onPressed: () => sendEventWithConstructor('datasetId_example'),
+            onPressed: () => sendEventWithConstructorDatasetId('datasetId_example'),
           ),
           ElevatedButton(
             child: Text("sendEventWithConstructor datastreamIdOverride"),
-            onPressed: () => sendEventWithConstructorDataStreamIdOverride(),
+            onPressed: () => sendEventWithConstructorDatastreamIdOverride(),
           ),
           ElevatedButton(
             child: Text("sendEventWithConstructor datastreamConfigOverride"),
-            onPressed: () => sendEventWithConstructorDataConfigOverride(),
+            onPressed: () => sendEventWithConstructorDatastreamConfigOverride(),
           ),
           getRichText(
               'Response event handles: = ', '$_edgeEventHandleResponse\n'),

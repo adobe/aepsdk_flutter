@@ -48,39 +48,36 @@ class FlutterAEPEdgeDataBridge {
      */
     @SuppressLint("LongLogTag")
     protected static ExperienceEvent eventFromMap(final Map map) {
-         if (map == null) {
-             return null;
-         }
-
-        String datasetId = null;
-        String datastreamIdOverride = null;
+        if (map == null) {
+            Log.e(TAG, "eventFromMap() - Cannot create Experience event, passed map is null.");
+            return null;
+        }
 
         Map<String, Object> xdmData = getNullableMap(map, XDM_DATA_KEY);
 
+        if(xdmData == null) {
+            Log.e(TAG, "eventFromMap() - Cannot create Experience event, xdmData is null.");
+            return null;
+        }
 
-        if (xdmData != null) {
-            Map<String, Object> data = getNullableMap(map, DATA_KEY);
-            Map<String, Object> datastreamConfigOverride = getNullableMap(map, DATASTREAM_CONFIG_OVERRIDE_KEY);
+        Map<String, Object> data = getNullableMap(map, DATA_KEY);
 
+        String datasetId = getNullableString(map, DATASET_IDENTIFIER_KEY);
 
-            try {
-                datasetId = getNullableString(map, DATASET_IDENTIFIER_KEY);
-                datastreamIdOverride = getNullableString(map, DATASTREAM_ID_OVERRIDE_KEY);
-            } catch (Exception e) {
-                Log.d(TAG, "experienceEventFromReadableMap: " + e);
-            }
+        String datastreamIdOverride = getNullableString(map, DATASTREAM_ID_OVERRIDE_KEY);
 
-            ExperienceEvent event;
-            if (datastreamIdOverride != null || datastreamConfigOverride != null) {
-                event = new ExperienceEvent.Builder().setXdmSchema(xdmData, datasetId).setData(data).setDatastreamIdOverride(datastreamIdOverride).setDatastreamConfigOverride(datastreamConfigOverride).build();
-            } else {
-                event = new ExperienceEvent.Builder().setXdmSchema(xdmData, datasetId).setData(data).build();
-            }
+        Map<String, Object> datastreamConfigOverride = getNullableMap(map, DATASTREAM_CONFIG_OVERRIDE_KEY);
+
+        if (datastreamIdOverride != null || datastreamConfigOverride != null) {
+            ExperienceEvent event = new ExperienceEvent.Builder().setXdmSchema(xdmData, datasetId).setData(data).setDatastreamIdOverride(datastreamIdOverride).setDatastreamConfigOverride(datastreamConfigOverride).build();
+
+            return event;
+        } else {
+            ExperienceEvent event = new ExperienceEvent.Builder().setXdmSchema(xdmData, datasetId).setData(data).build();
+
             return event;
         }
-        
-        Log.d(TAG, "eventFromMap - XDM data is required, but it is currently null.");   
-        return null;
+
 }
 
     /**
