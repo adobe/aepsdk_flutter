@@ -106,7 +106,7 @@ class _MyAppState extends State<EdgePage> {
       "com_adobe_experience_platform": {
         "datasets": {
           "event": {
-            "datasetId": "sampleDatasetID"
+            "datasetId": "sampleDatasetId"
           }
         }
       }
@@ -182,7 +182,7 @@ class _MyAppState extends State<EdgePage> {
       "com_adobe_experience_platform": {
         "datasets": {
           "event": {
-            "datasetId": "sampleDatasetID"
+            "datasetId": "sampleDatasetId"
           }
         }
       }

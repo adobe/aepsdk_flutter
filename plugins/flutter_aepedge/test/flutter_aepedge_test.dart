@@ -106,12 +106,12 @@ void main() {
 
     //setup experienceEvent
     final ExperienceEvent experienceEvent =
-        ExperienceEvent.createEvent(xdmData, data, "sampleDatasetID");
+        ExperienceEvent.createEvent(xdmData, data, "sampleDatasetId");
 
     test('returns correct result', () async {
     expect(experienceEvent.xdmData, equals(xdmData));
     expect(experienceEvent.data, equals(data));
-    expect(experienceEvent.datasetIdentifier, equals("sampleDatasetID"));
+    expect(experienceEvent.datasetIdentifier, equals("sampleDatasetId"));
     });
  });
 
@@ -137,11 +137,11 @@ void main() {
       "com_adobe_experience_platform": {
         "datasets": {
           "event": {
-            "datasetId": "sampleDatasetID"
+            "datasetId": "sampleDatasetId"
           }
         }
       }
-    }};
+    };
 
     //setup experienceEvent
     final ExperienceEvent experienceEvent =
@@ -161,7 +161,7 @@ void main() {
       "com_adobe_experience_platform": {
         "datasets": {
           "event": {
-            "datasetId": "sampleDatasetID"
+            "datasetId": "sampleDatasetId"
           }
         }
       }
