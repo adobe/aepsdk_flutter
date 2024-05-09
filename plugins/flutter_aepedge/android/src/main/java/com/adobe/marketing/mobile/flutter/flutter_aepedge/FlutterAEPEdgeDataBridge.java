@@ -69,7 +69,7 @@ class FlutterAEPEdgeDataBridge {
         Map<String, Object> datastreamConfigOverride = getNullableMap(map, DATASTREAM_CONFIG_OVERRIDE_KEY);
 
         if (datastreamIdOverride != null || datastreamConfigOverride != null) {
-            ExperienceEvent event = new ExperienceEvent.Builder().setXdmSchema(xdmData, datasetId).setData(data).setDatastreamIdOverride(datastreamIdOverride).setDatastreamConfigOverride(datastreamConfigOverride).build();
+            ExperienceEvent event = new ExperienceEvent.Builder().setXdmSchema(xdmData).setData(data).setDatastreamIdOverride(datastreamIdOverride).setDatastreamConfigOverride(datastreamConfigOverride).build();
 
             return event;
         } else {

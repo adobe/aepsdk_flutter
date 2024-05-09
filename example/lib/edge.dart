@@ -58,7 +58,7 @@ class _MyAppState extends State<EdgePage> {
     Map<String, dynamic> data = {"free": "form", "data": "example"};
 
     final ExperienceEvent experienceEvent = ExperienceEvent(
-        {"xdmData": xdmData, "data": data, "datasetIdentifier": datasetId,"datastreamIdOverride": "sampleDatastreamID",});
+        {"xdmData": xdmData, "data": data, "datasetIdentifier": datasetId,"datastreamIdOverride": "sampleDatastreamId",});
 
     result = await Edge.sendEvent(experienceEvent);
 
@@ -82,7 +82,7 @@ class _MyAppState extends State<EdgePage> {
       {
         "xdmData": xdmData,
         "data": data,
-        "datastreamIdOverride": "sampleDatastreamID",
+        "datastreamIdOverride": "sampleDatastreamId",
       });
 
     result = await Edge.sendEvent(experienceEvent);
@@ -102,7 +102,7 @@ class _MyAppState extends State<EdgePage> {
     late List<EventHandle> result;
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
-    Map<String, dynamic> configOverrides = {"config": {
+    Map<String, dynamic> configOverrides = {
       "com_adobe_experience_platform": {
         "datasets": {
           "event": {
@@ -110,7 +110,7 @@ class _MyAppState extends State<EdgePage> {
           }
         }
       }
-    }};
+    };
 
     final ExperienceEvent experienceEvent = ExperienceEvent(
       {
@@ -158,7 +158,7 @@ class _MyAppState extends State<EdgePage> {
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
 
-    final ExperienceEvent experienceEvent = ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamID");
+    final ExperienceEvent experienceEvent = ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamId");
    
     result = await Edge.sendEvent(experienceEvent);
 
@@ -178,7 +178,7 @@ class _MyAppState extends State<EdgePage> {
     Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     Map<String, dynamic> data = {"free": "form", "data": "example"};
     //To override eventDataset using datastream config overrides
-    Map<String, dynamic> configOverrides = {"config": {
+    Map<String, dynamic> configOverrides = {
       "com_adobe_experience_platform": {
         "datasets": {
           "event": {
@@ -186,7 +186,7 @@ class _MyAppState extends State<EdgePage> {
           }
         }
       }
-    }};
+    };
 
     final ExperienceEvent experienceEvent = ExperienceEvent.createEventWithOverrides(xdmData, data, null, configOverrides);
 

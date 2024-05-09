@@ -121,19 +121,19 @@ void main() {
 
     //setup experienceEvent
     final ExperienceEvent experienceEvent =
-        ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamID");
+        ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamId");
     
     test('returns correct result', () async {
     expect(experienceEvent.xdmData, equals(xdmData));
     expect(experienceEvent.data, equals(data));
-    expect(experienceEvent.datastreamIdOverride, equals("sampleDatastreamID"));
+    expect(experienceEvent.datastreamIdOverride, equals("sampleDatastreamId"));
     });
   });
 
    group('sendEventUsingDatasetConfigConstructor', () {
     final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
     final Map<String, dynamic> data = {"free": "form", "data": "example"};
-    final Map<String, dynamic> configOverrides = {"config": {
+    final Map<String, dynamic> configOverrides = {
       "com_adobe_experience_platform": {
         "datasets": {
           "event": {
@@ -145,19 +145,19 @@ void main() {
 
     //setup experienceEvent
     final ExperienceEvent experienceEvent =
-        ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamID", configOverrides);
+        ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamId", configOverrides);
     
     test('returns correct result', () async {
     expect(experienceEvent.xdmData, equals(xdmData));
     expect(experienceEvent.data, equals(data));
-    expect(experienceEvent.datastreamIdOverride, equals("sampleDatastreamID"));
+    expect(experienceEvent.datastreamIdOverride, equals("sampleDatastreamId"));
     expect(experienceEvent.datastreamConfigOverride, equals(configOverrides));
     });
   });
 
   group('sendEventUsingDatasetConfigConstructorWithDataAndIdNull', () {
     final Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
-    final Map<String, dynamic> configOverrides = {"config": {
+    final Map<String, dynamic> configOverrides = {
       "com_adobe_experience_platform": {
         "datasets": {
           "event": {
@@ -165,7 +165,7 @@ void main() {
           }
         }
       }
-    }};
+    };
 
     //setup experienceEvent
     final ExperienceEvent experienceEvent =
