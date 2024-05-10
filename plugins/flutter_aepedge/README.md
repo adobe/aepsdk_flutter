@@ -185,10 +185,10 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 List<EventHandle> result = await Edge.sendEvent(experienceEvent);
 ```
 
-**Example with Datastream confg override**
+**Example with Datastream config override**
 ```dart
 Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
-Map<String, dynamic> configOverrides = {"config": {
+Map<String, dynamic> configOverrides = {
       "com_adobe_experience_platform": {
         "datasets": {
           "event": {
@@ -196,7 +196,7 @@ Map<String, dynamic> configOverrides = {"config": {
           }
         }
       }
-    }};
+    };
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
   "datastreamConfigOverride": configOverrides
@@ -206,13 +206,13 @@ List<EventHandle> result = await Edge.sendEvent(experienceEvent);
 ------
 ### Public classes
 #### ExperienceEvent
-Experience Event is the event to be sent to Adobe Experience Platform Edge Network. The XDM data is required for any Experience Event being sent using the Edge extension.
+Experience event is the event to be sent to Adobe Experience Platform Edge Network. The XDM data is required for any Experience event being sent using the Edge extension.
 
-You can create Experience Event either by using dictionaries or by utilizing convenience constructors.
+You can create Experience event either by using dictionaries or by utilizing convenience constructors.
 
 **Syntax**
 ```dart
-//Create Experience Event from Dictionary
+//Create Experience event from Dictionary
 ExperienceEvent(this.eventData) 
 
 //Create Experience event using convenience constructor
@@ -222,22 +222,22 @@ ExperienceEvent.createEventWithOverrides(final Map<String, dynamic> xdmData,
 ```
 
 **Usage**
-##### Create Experience Event from Dictionaries:
+##### Create Experience event from Dictionaries:
 ```dart
-// set free form data to the Experience event:
+// Create Experience event with free form data:
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
   "data": data
 });
 
-// Set free form data and datastream id override to the current Experience event:
+// Create Experience event with free form data and datastream ID override:
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
   "data": data,
   "datastreamIdOverride": "sampleDatastreamId"
 });
 
-// Set free form data and datastream config override to the current Experience event:
+// Create Experience event with free form data and datastream config override:
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
   "data": data,
@@ -247,15 +247,15 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 
 ##### Create Experience event using convenience constructors:
 ```dart
-// set free form data to the Experience event:
+// Create Experience event with free form data::
 final ExperienceEvent experienceEvent =
       ExperienceEvent.createEventWithOverrides(xdmData, data);
 
-// Set free form data and datastream id override to the current Experience event:
+// Create Experience event with free form data and datastream ID override:
 final ExperienceEvent experienceEvent =
       ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamId");
 
-// Set free form data and datastream config override to the current Experience event:
+// Create Experience event with free form data and datastream config override:
 final ExperienceEvent experienceEvent =
       ExperienceEvent.createEventWithOverrides(xdmData, data, null, configOverrides);
 
@@ -264,11 +264,11 @@ final ExperienceEvent experienceEvent =
 
 **Example**
 
-Examples of Creating Experience Event Using Dictionaries.
+Create Experience event using dictionaries
 
 ```dart
 // example 1
-// set free form data to the Experience event:
+// Create Experience Event with freeform data:
 Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
 final ExperienceEvent experienceEvent = ExperienceEvent({
@@ -279,7 +279,7 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 
 ```dart
 // example 2
-// Set free form data and datastream id override to the current Experience event:
+// Create Experience event with free form data and datastream ID override:
 Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
 final ExperienceEvent experienceEvent = ExperienceEvent({
@@ -291,18 +291,17 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 
 ```dart
 // example 3
-// Set datastream config override to the current Experience event:
+// Create Experience event with free form data and datastream config override:
 Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
-Map<String, dynamic> configOverrides = {"config": {
-      "com_adobe_experience_platform": {
-        "datasets": {
-          "event": {
-            "datasetId": "sampleDatasetID"
-          }
+Map<String, dynamic> configOverrides = {
+    "com_adobe_experience_platform": {
+      "datasets": {
+        "event": {
+          "datasetId": "sampleDatasetID"
         }
       }
-   } 
-}
+    }
+  }
 
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
