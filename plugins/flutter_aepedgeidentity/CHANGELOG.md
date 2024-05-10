@@ -1,6 +1,6 @@
 ## 4.0.2
 
-* Update enviornment dependencies in pubspec.
+* Update environment dependencies in pubspec.
 
 ## 4.0.1
 

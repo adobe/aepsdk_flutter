@@ -1,7 +1,7 @@
 ## 4.1.0
 
 * Added support to customize datastream configurations on a per-event basis using the sendEvent API
-* Update enviornment dependencies in pubspec.
+* Update environment dependencies in pubspec.
 
 ## 4.0.1
 
