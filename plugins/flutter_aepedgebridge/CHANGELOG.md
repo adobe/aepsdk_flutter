@@ -1,3 +1,7 @@
+## 4.0.2
+
+* Update environment dependencies in pubspec.
+
 ## 4.0.1
 
 * Add namespace support for Android
