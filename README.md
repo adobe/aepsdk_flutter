@@ -15,6 +15,9 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 | [UserProfile](plugins/flutter_aepuserprofile/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepuserprofile.svg)](https://pub.dartlang.org/packages/flutter_aepuserprofile) |
 | [Messaging](plugins/flutter_aepmessaging/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepmessaging.svg)](https://pub.dartlang.org/packages/flutter_aepmessaging) |
 
+> [!NOTE]  
+> The Flutter plugins within this repository are specifically designed to support the Android and iOS platforms only.
+
 ## iOS Privacy Manifest
 
 > [!IMPORTANT]  

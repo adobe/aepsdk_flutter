@@ -174,23 +174,101 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 });
 List<EventHandle> result = await Edge.sendEvent(experienceEvent);
 ```
-------
-### Public classes
-#### ExperienceEvent
-Experience Event is the event to be sent to Adobe Experience Platform Edge Network. The XDM data is required for any Experience Event being sent using the Edge extension.
 
-##### Create Experience Event from Dictionary:
-
+**Example with Datastream ID override**
 ```dart
 Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 final ExperienceEvent experienceEvent = ExperienceEvent({
-  "xdmData": xdmData
+  "xdmData": xdmData,
+  "datastreamIdOverride": "SampleDatastreamId"
+});
+List<EventHandle> result = await Edge.sendEvent(experienceEvent);
+```
+
+**Example with Datastream config override**
+```dart
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> configOverrides = {
+      "com_adobe_experience_platform": {
+        "datasets": {
+          "event": {
+            "datasetId": "sampleDatasetID"
+          }
+        }
+      }
+    };
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "datastreamConfigOverride": configOverrides
+});
+List<EventHandle> result = await Edge.sendEvent(experienceEvent);
+```
+------
+### Public classes
+#### ExperienceEvent
+Experience event is the event to be sent to Adobe Experience Platform Edge Network. The XDM data is required for any Experience event being sent using the Edge extension.
+
+You can create Experience event either by using dictionaries or by utilizing convenience constructors.
+
+**Syntax**
+```dart
+//Create Experience event from Dictionary
+ExperienceEvent(this.eventData) 
+
+//Create Experience event using convenience constructor
+ExperienceEvent.createEventWithOverrides(final Map<String, dynamic> xdmData,
+    [final Map<String, dynamic>? data, final String? datastreamIdOverride, final Map<String, dynamic>? datastreamConfigOverride])
+ 
+```
+
+**Usage**
+##### Create Experience event from Dictionaries:
+```dart
+// Create Experience event with free form data:
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data
+});
+
+// Create Experience event with free form data and datastream ID override:
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data,
+  "datastreamIdOverride": "sampleDatastreamId"
+});
+
+// Create Experience event with free form data and datastream config override:
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "data": data,
+  "datastreamConfigOverride": configOverrides
 });
 ```
 
-##### Add free form data to the Experience event:
+##### Create Experience event using convenience constructors:
+```dart
+// Create Experience event with free form data::
+final ExperienceEvent experienceEvent =
+      ExperienceEvent.createEventWithOverrides(xdmData, data);
+
+// Create Experience event with free form data and datastream ID override:
+final ExperienceEvent experienceEvent =
+      ExperienceEvent.createEventWithOverrides(xdmData, data, "sampleDatastreamId");
+
+// Create Experience event with free form data and datastream config override:
+final ExperienceEvent experienceEvent =
+      ExperienceEvent.createEventWithOverrides(xdmData, data, null, configOverrides);
+
+
+```
+
+**Example**
+
+Create Experience event using dictionaries
 
 ```dart
+// example 1
+// Create Experience Event with freeform data:
 Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
 final ExperienceEvent experienceEvent = ExperienceEvent({
@@ -199,27 +277,35 @@ final ExperienceEvent experienceEvent = ExperienceEvent({
 });
 ```
 
-##### Set the destination Dataset identifier to the current Experience event:
-
 ```dart
-Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
-final ExperienceEvent experienceevent = ExperienceEvent({
-  "xdmData": xdmData,
-  "data": null,
-  "datasetIdentifier": "datasetIdExample"
-});
-```
-
-##### Create Experience Event with xdmdata, free form data and the destination Dataset identifier:
-
-```dart
+// example 2
+// Create Experience event with free form data and datastream ID override:
 Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
 Map<String, dynamic> data = {"free": "form", "data": "example"};
-
 final ExperienceEvent experienceEvent = ExperienceEvent({
   "xdmData": xdmData,
   "data": data,
-  "datasetIdentifier": "datasetIdExample"
+  "datastreamIdOverride": "sampleDatastreamId"
+});
+```
+
+```dart
+// example 3
+// Create Experience event with free form data and datastream config override:
+Map<String, dynamic> xdmData = {"eventType": "SampleEventType"};
+Map<String, dynamic> configOverrides = {
+    "com_adobe_experience_platform": {
+      "datasets": {
+        "event": {
+          "datasetId": "sampleDatasetID"
+        }
+      }
+    }
+  }
+
+final ExperienceEvent experienceEvent = ExperienceEvent({
+  "xdmData": xdmData,
+  "datastreamConfigOverride": configOverrides
 });
 ```
 #### EventHandle
@@ -229,6 +315,8 @@ The EventHandle is a response fragment from Adobe Experience Platform Edge Netwo
 static const String _type = 'type';
 static const String _payload = 'payload';
 ```
+## Next steps - Schemas setup and validation with Assurance
+For examples on XDM schemas and datasets setup and tips on validating with Assurance, refer to the [Edge Network tutorial](https://github.com/adobe/aepsdk-edge-ios/blob/main/Documentation/Tutorials).
 
 ## Contributing
 See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)

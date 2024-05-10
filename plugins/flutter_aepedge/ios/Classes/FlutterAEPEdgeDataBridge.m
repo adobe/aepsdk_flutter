@@ -16,6 +16,8 @@ governing permissions and limitations under the License.
 static NSString* const XDM_DATA_KEY = @"xdmData";
 static NSString* const DATA_KEY = @"data";
 static NSString* const DATASET_IDENTIFIER_KEY = @"datasetIdentifier";
+static NSString* const DATASTREAM_ID_OVERRIDE_KEY = @"datastreamIdOverride";
+static NSString* const DATASTREAM_CONFIG_OVERRIDE_KEY = @"datastreamConfigOverride";
 
 static NSString* const TYPE_KEY = @"type";
 static NSString* const PAYLOAD_KEY = @"payload";
@@ -31,9 +33,14 @@ static NSString* const PAYLOAD_KEY = @"payload";
     
     NSDictionary *data = [[dict objectForKey:DATA_KEY] isKindOfClass:[NSDictionary class]] ? [dict objectForKey:DATA_KEY] : nil;
     NSString *datasetIdentifier = [[dict objectForKey:DATASET_IDENTIFIER_KEY] isKindOfClass:[NSString class]] ? [dict objectForKey:DATASET_IDENTIFIER_KEY] : nil;
+    NSString *datastreamIdOverride = [[dict objectForKey:DATASTREAM_ID_OVERRIDE_KEY] isKindOfClass:[NSString class]] ? [dict objectForKey:DATASTREAM_ID_OVERRIDE_KEY] : nil;
+    NSDictionary *datastreamConfigOverride = [[dict objectForKey:DATASTREAM_CONFIG_OVERRIDE_KEY] isKindOfClass:[NSDictionary class]] ? [dict objectForKey:DATASTREAM_CONFIG_OVERRIDE_KEY] : nil;
         
-    return [[AEPExperienceEvent alloc] initWithXdm:xdmData data:data datasetIdentifier:datasetIdentifier];
-    
+    if (datastreamIdOverride || datastreamConfigOverride) {
+        return [[AEPExperienceEvent alloc] initWithXdm:xdmData data:data datastreamIdOverride:datastreamIdOverride datastreamConfigOverride:datastreamConfigOverride];
+    } else {
+        return [[AEPExperienceEvent alloc] initWithXdm:xdmData data:data datasetIdentifier:datasetIdentifier];
+    }
   }
 
   + (NSArray *)dictionaryFromEdgeEventHandler: (NSArray<AEPEdgeEventHandle *> *) experienceEventHandle {
