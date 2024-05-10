@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepedgeconsent'
-  s.version          = '4.0.0'
+  s.version          = '4.0.2'
   s.summary          = 'Adobe Experience Platform Consent Collection support for Flutter apps.'
   s.homepage         = 'https://developer.adobe.com/client-sdks'
   s.license          = { :file => '../LICENSE' }

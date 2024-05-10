@@ -125,6 +125,11 @@ import 'package:flutter_aepedgebridge/flutter_aepedgebridge.dart';
 For tutorials on implementing Edge Bridge and Data Prep mapping, refer to the [Edge Bridge tutorials](https://github.com/adobe/aepsdk-edgebridge-ios/tree/main/Documentation/tutorials).
 
 
+### Validation
+
+Validating Edge Bridge events through Edge workflow using the [Event Transations](https://developer.adobe.com/client-sdks/edge/edge-network/validation/#use-the-event-transactions-view) view or [Analytics Events 2.0](https://experienceleague.adobe.com/en/docs/experience-platform/assurance/view/adobe-analytics-edge) view in Assurance.
+
+
 
 ## API reference
 ### extensionVersion

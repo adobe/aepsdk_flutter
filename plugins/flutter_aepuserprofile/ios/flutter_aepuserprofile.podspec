@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepuserprofile'
-  s.version          = '4.0.0'
+  s.version          = '4.0.2'
   s.summary          = 'Adobe Experience Platform User Profile support for Flutter apps.'
   s.homepage         = 'https://developer.adobe.com/client-sdks'
   s.license          = { :file => '../LICENSE' }
