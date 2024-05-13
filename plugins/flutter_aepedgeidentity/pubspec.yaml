@@ -1,13 +1,13 @@
 name: flutter_aepedgeidentity
 
 description: Official Adobe Experience Platform support for Flutter apps. The Experience Platform Edge Identity extension enables handling of user identity data from a mobile app when using the Adobe Experience Platform SDK and the Edge Network extension.
-version: 4.0.1
+version: 4.0.2
 homepage: https://developer.adobe.com/client-sdks
 repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedgeidentity
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0 <4.0.0"
+  sdk: ">=2.12.0 <4.0.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
