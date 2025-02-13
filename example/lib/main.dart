@@ -9,8 +9,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'messaging.dart';
 import 'core.dart';
 import 'assurance.dart';
@@ -21,7 +21,18 @@ import 'edgeIdentity.dart';
 import 'edgebridge.dart';
 import 'userprofile.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  InitOptions options = InitOptions(
+    appId: "94f571f308d5/959a617a4a15/launch-de09b8b97921-development",
+    lifecycleAutomaticTracking: true,
+    lifecycleAdditionalContextData: {"key": "value"},
+    appGroupIOS: "group.com.example",
+  );
+
+  await MobileCore.initialize(options);
+
   runApp(MaterialApp(
     home: HomePage(),
   ));

@@ -15,6 +15,7 @@ package com.adobe.marketing.mobile.flutter.flutter_aepcore;
 import com.adobe.marketing.mobile.Event;
 import com.adobe.marketing.mobile.LoggingMode;
 import com.adobe.marketing.mobile.MobilePrivacyStatus;
+import com.adobe.marketing.mobile.InitOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,11 @@ public class FlutterAEPCoreDataBridge {
     public final static String EVENT_TYPE_KEY = "eventType";
     public final static String EVENT_SOURCE_KEY = "eventSource";
     public final static String EVENT_DATA_KEY = "eventData";
+
+    private final static String APPID_KEY = "appId";
+    private final static String FILE_PATH_KEY = "filePath";
+    private final static String LIFECYCLE_AUTOMATION_TRACKING_KEY = "lifecycleAutomaticTracking";
+    private static final String LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY = "lifecycleAdditionalContextData";
 
     /**
      * Converts a {@link Map} into an {@link Event}
@@ -118,6 +124,34 @@ public class FlutterAEPCoreDataBridge {
         return AEP_PRIVACY_STATUS_UNKNOWN;
     }
 
+    static InitOptions initOptionsFromMap(final Map map) {
+        if (map == null) {
+            return null;
+        }
+
+        Map<String, Object> initOptionMap = getNullableMap(map, "initOptions");
+        if (initOptionMap == null) {
+            return null;
+        }
+        String appId = getNullableString(initOptionMap, APPID_KEY);
+        String filePath = getNullableString(initOptionMap, FILE_PATH_KEY);
+        Boolean lifecycleAutomaticTracking = getNullableBoolean(initOptionMap, LIFECYCLE_AUTOMATION_TRACKING_KEY);
+        Map<String, String> lifecycleAdditionalContextData = getNullableMap(initOptionMap, LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY);
+
+        InitOptions options;
+        if (appId != null) {
+            options = InitOptions.configureWithAppID(appId);
+        } else if (filePath != null) {
+            options = InitOptions.configureWithFileInPath(filePath);
+        } else {
+            return null; // Either appId or filePath must be provided
+        }
+        options.setLifecycleAutomaticTrackingEnabled(lifecycleAutomaticTracking != null ? lifecycleAutomaticTracking : true);
+        options.setLifecycleAdditionalContextData(lifecycleAdditionalContextData);
+
+        return options;
+    }
+
     // Helper methods
 
     private static String getNullableString(final Map data, final String key) {
@@ -126,5 +160,9 @@ public class FlutterAEPCoreDataBridge {
 
     private static Map getNullableMap(final Map data, final String key) {
         return data.containsKey(key) && (data.get(key) instanceof Map) ? (Map) data.get(key) : null;
+    }
+
+    private static Boolean getNullableBoolean(final Map data, final String key) {
+        return data.containsKey(key) && (data.get(key) instanceof Boolean) ? (Boolean) data.get(key) : null;
     }
 }

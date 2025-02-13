@@ -23,6 +23,11 @@ class MobileCore {
   static Future<String> get extensionVersion =>
       _channel.invokeMethod<String>('extensionVersion').then((value) => value!);
 
+  /// Initializes the AEP SDK.
+  /// @param initOptions The InitOptions to configure the SDK
+  static Future<void> initialize(InitOptions? initOptions) => _channel
+      .invokeMethod<void>('initialize', {'initOptions': initOptions?.toMap()});
+
   /// This method sends a generic Analytics action tracking hit with context data.
   static Future<void> trackAction(
     String action, {
