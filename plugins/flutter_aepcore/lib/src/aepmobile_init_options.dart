@@ -2,10 +2,13 @@
 class InitOptions {
   /// The App ID for the Adobe SDK configuration.
   String? appId;
+
   /// Flag indicating whether automatic lifecycle tracking is enabled
   bool? lifecycleAutomaticTrackingEnabled;
+
   /// Additional context data to be included in lifecycle start event.
   Map<String, String>? lifecycleAdditionalContextData;
+
   /// App group used to share user defaults and files among containing app and extension apps on iOS
   String? appGroupIOS;
 
@@ -13,7 +16,7 @@ class InitOptions {
   InitOptions({
     this.appId,
     this.lifecycleAutomaticTrackingEnabled = null,
-    this.lifecycleAdditionalContextData = null, 
+    this.lifecycleAdditionalContextData = null,
     this.appGroupIOS = null,
   });
 
@@ -21,7 +24,8 @@ class InitOptions {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> retMap = {};
     retMap['appId'] = appId;
-    retMap['lifecycleAutomaticTrackingEnabled'] = lifecycleAutomaticTrackingEnabled;
+    retMap['lifecycleAutomaticTrackingEnabled'] =
+        lifecycleAutomaticTrackingEnabled;
     retMap['lifecycleAdditionalContextData'] = lifecycleAdditionalContextData;
     retMap['appGroup'] = appGroupIOS;
 

@@ -21,11 +21,10 @@ import 'edgeIdentity.dart';
 import 'edgebridge.dart';
 import 'userprofile.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
-  home: HomePage(),
+    home: HomePage(),
   ));
 }
 
@@ -41,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     _initializeAEPMobileSdk();
   }
 
- Future<void> _initializeAEPMobileSdk() async {
+  Future<void> _initializeAEPMobileSdk() async {
     MobileCore.setLogLevel(LogLevel.trace);
     InitOptions initOptions = InitOptions(
       appId: "YOUR_APP_ID",
@@ -50,14 +49,14 @@ class _HomePageState extends State<HomePage> {
       appGroupIOS: "group.com.example",
     );
 
-   await MobileCore.initialize(initOptions: initOptions);
+    await MobileCore.initialize(initOptions: initOptions);
     //await MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
           title: const Text('Flutter AEP SDK'),
         ),
         body: Center(
