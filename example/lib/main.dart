@@ -23,9 +23,9 @@ import 'userprofile.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  //initialize AEP SDK
   InitOptions options = InitOptions(
-    appId: "94f571f308d5/959a617a4a15/launch-de09b8b97921-development",
+    appId: "yourAppId",
     lifecycleAutomaticTracking: true,
     lifecycleAdditionalContextData: {"key": "value"},
     appGroupIOS: "group.com.example",
