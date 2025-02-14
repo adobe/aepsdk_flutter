@@ -62,6 +62,8 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             result.success(MobileCore.extensionVersion());
         } else if ("initialize".equals(call.method)) {
            handleInitialize(result, call.arguments);
+        } else if ("initializeWithAppId".equals(call.method)) {
+           handleInitializeWithAppId(result, call.arguments);
         } else if ("track".equals(call.method)) {
             handleTrackCall(call.arguments);
             result.success(null);
@@ -127,6 +129,27 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
        }
 
        MobileCore.initialize(application, initOptions, new AdobeCallback() {
+           @Override
+           public void call(Object o) {
+               result.success(null);
+           }
+       });
+   }
+
+   private void handleInitializeWithAppId(Result result, Object arguments) {
+       if (!(arguments instanceof Map) || !((Map) arguments).containsKey("appId")) {
+           result.error("INVALID_ARGUMENT", "InitializeWithAppId failed because arguments are invalid", null);
+           return;
+       }
+
+       if (application == null) {
+           result.error("INITIALIZATION_ERROR", "Application context is null", null);
+           return;
+       }
+
+       String appId = (String) ((Map) arguments).get("appId");
+
+       MobileCore.initialize(application, appId, new AdobeCallback() {
            @Override
            public void call(Object o) {
                result.success(null);

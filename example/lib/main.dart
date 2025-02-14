@@ -24,14 +24,16 @@ import 'userprofile.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //initialize AEP SDK
+  MobileCore.setLogLevel(LogLevel.trace);
   InitOptions options = InitOptions(
-    appId: "yourAppId",
+    appId: "Your_APP_ID",
     lifecycleAutomaticTracking: true,
     lifecycleAdditionalContextData: {"key": "value"},
     appGroupIOS: "group.com.example",
   );
 
-  await MobileCore.initialize(options);
+  await MobileCore.initialize(appId: "Your_APP_ID");
+  //await MobileCore.initialize(initOptions: options);
 
   runApp(MaterialApp(
     home: HomePage(),

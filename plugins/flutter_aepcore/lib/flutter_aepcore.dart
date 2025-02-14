@@ -23,10 +23,20 @@ class MobileCore {
   static Future<String> get extensionVersion =>
       _channel.invokeMethod<String>('extensionVersion').then((value) => value!);
 
-  /// Initializes the AEP SDK.
-  /// @param initOptions The InitOptions to configure the SDK
-  static Future<void> initialize(InitOptions? initOptions) => _channel
-      .invokeMethod<void>('initialize', {'initOptions': initOptions?.toMap()});
+ /// Initializes the SDK with either initialization options or an App ID. 
+ /// You must provide either `initOptions` or `appId`, but not both.
+ /// @param initOptions The [InitOptions] to configure the SDK.
+ /// @param appId The AEP SDK App ID.
+ /// @throws [ArgumentError] if neither `initOptions` nor `appId` is provided, or if both
+  static Future<void> initialize({InitOptions? initOptions, String? appId}) {
+    if (initOptions != null) {
+      return _channel.invokeMethod<void>('initialize', {'initOptions': initOptions.toMap()});
+    } else if (appId != null) {
+      return _channel.invokeMethod<void>('initializeWithAppId', {'appId': appId});
+    } else {
+      throw ArgumentError('Either initOptions or appId must be provided');
+    }
+}
 
   /// This method sends a generic Analytics action tracking hit with context data.
   static Future<void> trackAction(
