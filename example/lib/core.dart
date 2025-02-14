@@ -154,7 +154,7 @@ class _MyAppState extends State<CorePage> {
             ),
             ElevatedButton(
               child: Text("MobileCore.setLogLevel"),
-              onPressed: () => MobileCore.setLogLevel(LogLevel.error),
+              onPressed: () => MobileCore.setLogLevel(LogLevel.trace),
             ),
             ElevatedButton(
               child: Text("MobileCore.setPrivacyStatus(...)"),
