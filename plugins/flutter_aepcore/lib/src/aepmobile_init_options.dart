@@ -1,21 +1,29 @@
+/// Configuration options for initializing the Adobe Mobile SDK.
 class InitOptions {
+  /// The App ID for the Adobe SDK configuration.
   String? appId;
+  /// The file path for the local configuration file
   String? filePath;
-  bool lifecycleAutomaticTracking;
+  /// Flag indicating whether automatic lifecycle tracking is enabled
+  bool? lifecycleAutomaticTracking;
+  /// Additional context data to be included in lifecycle start event.
   Map<String, String>? lifecycleAdditionalContextData;
+  /// App group used to share user defaults and files among containing app and extension apps on iOS
   String? appGroupIOS;
 
-  // Constructor with named optional parameters
+  /// Constructor with named optional parameters.
+  /// 
+  /// Asserts that both `appId` and `filePath` are not set at the same time.
   InitOptions({
     this.appId,
     this.filePath,
-    this.lifecycleAutomaticTracking = true, // Default value set to true
-    this.lifecycleAdditionalContextData = null, // Default value set to null
-    this.appGroupIOS = null, // Default value set to null
-  }) : assert(appId != null || filePath != null,
-            'Either appId or filePath must be provided');
+    this.lifecycleAutomaticTracking = true,
+    this.lifecycleAdditionalContextData = null, 
+    this.appGroupIOS = null,
+  }) : assert(!(appId != null && filePath != null),
+            'Both appId and filePath cannot be set at the same time');
 
-  // Method to convert InitOptions to a Map
+  /// Converts the [InitOptions] instance to a [Map].
   Map<String, dynamic> toMap() {
     Map<String, dynamic> retMap = {};
     retMap['appId'] = appId;

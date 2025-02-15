@@ -26,8 +26,10 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
-
+    
     private final String TAG = "FlutterAEPCorePlugin";
+    private static final String INVALID_ARGUMENT = "INVALID_ARGUMENT";
+    private static final String INITIALIZATION_ERROR = "INITIALIZATION_ERROR";
     private MethodChannel channel;
     private static Application application;
     private final FlutterAEPIdentityPlugin flutterAEPIdentityPlugin = new FlutterAEPIdentityPlugin();
@@ -62,8 +64,6 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             result.success(MobileCore.extensionVersion());
         } else if ("initialize".equals(call.method)) {
            handleInitialize(result, call.arguments);
-        } else if ("initializeWithAppId".equals(call.method)) {
-           handleInitializeWithAppId(result, call.arguments);
         } else if ("track".equals(call.method)) {
             handleTrackCall(call.arguments);
             result.success(null);
@@ -106,50 +106,23 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
 
    private void handleInitialize(Result result, Object arguments) {
        if (!(arguments instanceof Map)) {
-           result.error("INVALID_ARGUMENT", "Initialize failed because arguments is not a Map", null);
+           result.error(INVALID_ARGUMENT, "Initialize failed because arguments is not a Map", null);
            return;
        }
 
        if (application == null) {
-           result.error("INITIALIZATION_ERROR", "Application context is null", null);
+           result.error(INITIALIZATION_ERROR, "Initialize failed because application is null", null);
            return;
        }
 
-       Map initOptionsMap = (Map) arguments;
        InitOptions initOptions = FlutterAEPCoreDataBridge.initOptionsFromMap(initOptionsMap);
 
        if (initOptions == null) {
-           result.error("INVALID_ARGUMENT", "Initialize failed because initOptions is null", null);
-           return;
-       }
-
-       if (application == null) {
-           result.error("APPLICATION_NULL", "Initialize failed because application is null", null);
+           result.error(INITIALIZATION_ERROR, "Initialize failed because initOptions is null", null);
            return;
        }
 
        MobileCore.initialize(application, initOptions, new AdobeCallback() {
-           @Override
-           public void call(Object o) {
-               result.success(null);
-           }
-       });
-   }
-
-   private void handleInitializeWithAppId(Result result, Object arguments) {
-       if (!(arguments instanceof Map) || !((Map) arguments).containsKey("appId")) {
-           result.error("INVALID_ARGUMENT", "InitializeWithAppId failed because arguments are invalid", null);
-           return;
-       }
-
-       if (application == null) {
-           result.error("INITIALIZATION_ERROR", "Application context is null", null);
-           return;
-       }
-
-       String appId = (String) ((Map) arguments).get("appId");
-
-       MobileCore.initialize(application, appId, new AdobeCallback() {
            @Override
            public void call(Object o) {
                result.success(null);

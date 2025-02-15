@@ -25,15 +25,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //initialize AEP SDK
   MobileCore.setLogLevel(LogLevel.trace);
-  InitOptions options = InitOptions(
-    appId: "Your_APP_ID",
-    lifecycleAutomaticTracking: true,
+  InitOptions initOptions = InitOptions(
+    appId: "YOUR_APP_ID",
+    lifecycleAutomaticTracking: false,
     lifecycleAdditionalContextData: {"key": "value"},
     appGroupIOS: "group.com.example",
   );
 
-  await MobileCore.initialize(appId: "Your_APP_ID");
-  //await MobileCore.initialize(initOptions: options);
+  await MobileCore.initialize(initOptions: initOptions);
 
   runApp(MaterialApp(
     home: HomePage(),

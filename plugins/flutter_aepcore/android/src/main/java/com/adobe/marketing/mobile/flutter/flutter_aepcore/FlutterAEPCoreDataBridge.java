@@ -125,7 +125,7 @@ public class FlutterAEPCoreDataBridge {
     }
 
     static InitOptions initOptionsFromMap(final Map map) {
-        if (map == null) {
+        if (!(map instanceof Map)) {
             return null;
         }
 
