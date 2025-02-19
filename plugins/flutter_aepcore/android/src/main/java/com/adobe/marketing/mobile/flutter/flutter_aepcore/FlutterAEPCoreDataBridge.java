@@ -41,7 +41,7 @@ public class FlutterAEPCoreDataBridge {
 
     private final static String APPID_KEY = "appId";
     private final static String FILE_PATH_KEY = "filePath";
-    private final static String LIFECYCLE_AUTOMATION_TRACKING_KEY = "lifecycleAutomaticTrackingEnabled";
+    private final static String LIFECYCLE_AUTOMATIC_TRACKING_KEY = "lifecycleAutomaticTrackingEnabled";
     private static final String LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY = "lifecycleAdditionalContextData";
 
     /**
@@ -137,7 +137,7 @@ public class FlutterAEPCoreDataBridge {
         }
         String appId = getNullableString(initOptionsMap, APPID_KEY);
         String filePath = getNullableString(initOptionsMap, FILE_PATH_KEY);
-        Boolean lifecycleAutomaticTrackingEnabled = getNullableBoolean(initOptionsMap, LIFECYCLE_AUTOMATION_TRACKING_KEY);
+        Boolean lifecycleAutomaticTrackingEnabled = getNullableBoolean(initOptionsMap, LIFECYCLE_AUTOMATIC_TRACKING_KEY);
         Map<String, String> lifecycleAdditionalContextData = getNullableStringMap(initOptionsMap, LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY);
 
         InitOptions options;
