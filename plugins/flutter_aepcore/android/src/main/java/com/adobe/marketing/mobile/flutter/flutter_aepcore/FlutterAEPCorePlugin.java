@@ -24,6 +24,7 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import android.content.Context;
 
 public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     
@@ -40,7 +41,7 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
         channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepcore");
         channel.setMethodCallHandler(new FlutterAEPCorePlugin());
-        Context appContext = binding.getApplicationContext()
+        Context appContext = binding.getApplicationContext();
         if (appContext instanceof Application) {
             application = (Application) appContext;
         }
