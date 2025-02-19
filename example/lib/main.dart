@@ -30,10 +30,10 @@ void main() async {
   //initialize AEP SDK
   MobileCore.setLogLevel(LogLevel.trace);
   InitOptions initOptions = InitOptions(
-    appId: "YOUR_APP_ID",
+    appId: "Your_APP_ID",
     lifecycleAutomaticTrackingEnabled: true,
     lifecycleAdditionalContextData: {"key": "value"},
-    appGroup: "group.com.example",
+    appGroupIOS: "group.com.example",
   );
 
   await MobileCore.initialize(initOptions: initOptions);

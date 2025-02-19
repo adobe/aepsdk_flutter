@@ -40,7 +40,10 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
         channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepcore");
         channel.setMethodCallHandler(new FlutterAEPCorePlugin());
-        application = (Application) binding.getApplicationContext();
+        Context appContext = binding.getApplicationContext()
+        if (appContext instanceof Application) {
+            application = (Application) appContext;
+        }
         flutterAEPIdentityPlugin.onAttachedToEngine(binding);
         flutterAEPLifecyclePlugin.onAttachedToEngine(binding);
         flutterAEPSignalPlugin.onAttachedToEngine(binding);

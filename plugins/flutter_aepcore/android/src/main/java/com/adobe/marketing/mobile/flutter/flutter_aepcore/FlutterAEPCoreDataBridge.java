@@ -124,21 +124,21 @@ public class FlutterAEPCoreDataBridge {
         return AEP_PRIVACY_STATUS_UNKNOWN;
     }
 
-    static InitOptions initOptionsFromMap(final Object option) {
-        if (!(option instanceof Map)) {
+    static InitOptions initOptionsFromMap(final Object arguments) {
+        if (!(arguments instanceof Map)) {
             return null;
         }
 
-        Map optionsAsMap = (Map) option;
+        Map argumentsAsMap = (Map) arguments;
 
-        Map<String, Object> initOptionMap = getNullableMap(optionsAsMap, "initOptions");
-        if (initOptionMap == null) {
+        Map<String, Object> initOptionsMap = getNullableMap(argumentsAsMap, "initOptions");
+        if (initOptionsMap == null) {
             return null;
         }
-        String appId = getNullableString(initOptionMap, APPID_KEY);
-        String filePath = getNullableString(initOptionMap, FILE_PATH_KEY);
-        Boolean lifecycleAutomaticTrackingEnabled = getNullableBoolean(initOptionMap, LIFECYCLE_AUTOMATION_TRACKING_KEY);
-        Map<String, String> lifecycleAdditionalContextData = getNullableMap(initOptionMap, LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY);
+        String appId = getNullableString(initOptionsMap, APPID_KEY);
+        String filePath = getNullableString(initOptionsMap, FILE_PATH_KEY);
+        Boolean lifecycleAutomaticTrackingEnabled = getNullableBoolean(initOptionsMap, LIFECYCLE_AUTOMATION_TRACKING_KEY);
+        Map<String, String> lifecycleAdditionalContextData = getNullableStringMap(initOptionsMap, LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY);
 
         InitOptions options;
         if (appId != null) {
@@ -146,9 +146,12 @@ public class FlutterAEPCoreDataBridge {
         } else if (filePath != null) {
             options = InitOptions.configureWithFileInPath(filePath);
         } else {
-            return null; // Either appId or filePath must be provided
+            options = new InitOptions();
         }
-        options.setLifecycleAutomaticTrackingEnabled(lifecycleAutomaticTrackingEnabled != null ? lifecycleAutomaticTrackingEnabled : true);
+        if (lifecycleAutomaticTrackingEnabled != null) 
+        {  
+          options.setLifecycleAutomaticTrackingEnabled(lifecycleAutomaticTrackingEnabled);
+        }
         options.setLifecycleAdditionalContextData(lifecycleAdditionalContextData);
 
         return options;
@@ -167,4 +170,23 @@ public class FlutterAEPCoreDataBridge {
     private static Boolean getNullableBoolean(final Map data, final String key) {
         return data.containsKey(key) && (data.get(key) instanceof Boolean) ? (Boolean) data.get(key) : null;
     }
+
+    private static Map<String, String> getNullableStringMap(final Map data, final String key) {
+    if (!data.containsKey(key) || !(data.get(key) instanceof Map)) {
+        return null;
+    }
+
+    Map rawMap = (Map) data.get(key);
+    Map<String, String> stringMap = new HashMap<>();
+
+    for (Object entryObj : rawMap.entrySet()) {
+        Map.Entry entry = (Map.Entry) entryObj;
+        if (!(entry.getKey() instanceof String) || !(entry.getValue() instanceof String)) {
+            return null;
+        }
+        stringMap.put((String) entry.getKey(), (String) entry.getValue());
+    }
+
+    return stringMap;
+}
 }

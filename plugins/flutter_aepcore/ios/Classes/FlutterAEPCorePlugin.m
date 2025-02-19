@@ -35,7 +35,6 @@ specific language governing permissions and limitations under the License.
         result([AEPMobileCore extensionVersion]);
     } else if ([@"initialize" isEqualToString:call.method]) {
         [self handleInitialize:call result:result];
-        result(nil);
     } else if ([@"track" isEqualToString:call.method]) {
         [self handleTrackCall:call];
         result(nil);
@@ -87,7 +86,7 @@ specific language governing permissions and limitations under the License.
     AEPInitOptions *initOptions = [FlutterAEPCoreDataBridge initOptionsFromMap:arguments];
     if (!initOptions) {
         result([FlutterError errorWithCode:@"INVALID_ARGUMENT"
-                                   message:@"Initialize failed because initOptions is not a dictionary"
+                                   message:@"Initialize failed because initOptions is not valid"
                                    details:nil]);
         return;
     }
