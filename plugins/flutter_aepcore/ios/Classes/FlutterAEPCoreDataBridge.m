@@ -114,9 +114,9 @@ static NSString* const AEP_PRIVACY_STATUS_UNKNOWN = @"AEP_PRIVACY_STATUS_UNKNOWN
     NSString *appGroup = initOptionsMap[@"appGroup"];
 
     AEPInitOptions *initOptions;
-    if (appId) {
+    if (appId != nil && ![appId isKindOfClass:[NSNull class]]) {
         initOptions = [[AEPInitOptions alloc] initWithAppId:appId];
-    } else if (filePath) {
+    } else if (filePath != nil) {
         initOptions = [[AEPInitOptions alloc] initWithFilePath:filePath];
     } else {
         initOptions = [[AEPInitOptions alloc] init];
