@@ -41,7 +41,7 @@ public class FlutterAEPCoreDataBridge {
 
     private final static String APPID_KEY = "appId";
     private final static String FILE_PATH_KEY = "filePath";
-    private final static String LIFECYCLE_AUTOMATION_TRACKING_KEY = "lifecycleAutomaticTracking";
+    private final static String LIFECYCLE_AUTOMATION_TRACKING_KEY = "lifecycleAutomaticTrackingEnabled";
     private static final String LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY = "lifecycleAdditionalContextData";
 
     /**
@@ -124,18 +124,20 @@ public class FlutterAEPCoreDataBridge {
         return AEP_PRIVACY_STATUS_UNKNOWN;
     }
 
-    static InitOptions initOptionsFromMap(final Map map) {
-        if (!(map instanceof Map)) {
+    static InitOptions initOptionsFromMap(final Object option) {
+        if (!(option instanceof Map)) {
             return null;
         }
 
-        Map<String, Object> initOptionMap = getNullableMap(map, "initOptions");
+        Map optionsAsMap = (Map) option;
+
+        Map<String, Object> initOptionMap = getNullableMap(optionsAsMap, "initOptions");
         if (initOptionMap == null) {
             return null;
         }
         String appId = getNullableString(initOptionMap, APPID_KEY);
         String filePath = getNullableString(initOptionMap, FILE_PATH_KEY);
-        Boolean lifecycleAutomaticTracking = getNullableBoolean(initOptionMap, LIFECYCLE_AUTOMATION_TRACKING_KEY);
+        Boolean lifecycleAutomaticTrackingEnabled = getNullableBoolean(initOptionMap, LIFECYCLE_AUTOMATION_TRACKING_KEY);
         Map<String, String> lifecycleAdditionalContextData = getNullableMap(initOptionMap, LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY);
 
         InitOptions options;
@@ -146,7 +148,7 @@ public class FlutterAEPCoreDataBridge {
         } else {
             return null; // Either appId or filePath must be provided
         }
-        options.setLifecycleAutomaticTrackingEnabled(lifecycleAutomaticTracking != null ? lifecycleAutomaticTracking : true);
+        options.setLifecycleAutomaticTrackingEnabled(lifecycleAutomaticTrackingEnabled != null ? lifecycleAutomaticTrackingEnabled : true);
         options.setLifecycleAdditionalContextData(lifecycleAdditionalContextData);
 
         return options;

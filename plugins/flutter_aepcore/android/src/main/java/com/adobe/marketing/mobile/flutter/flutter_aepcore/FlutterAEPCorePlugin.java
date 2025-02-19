@@ -115,7 +115,7 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
            return;
        }
 
-       InitOptions initOptions = FlutterAEPCoreDataBridge.initOptionsFromMap(initOptionsMap);
+       InitOptions initOptions = FlutterAEPCoreDataBridge.initOptionsFromMap(arguments);
 
        if (initOptions == null) {
            result.error(INITIALIZATION_ERROR, "Initialize failed because initOptions is null", null);

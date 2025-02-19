@@ -11,6 +11,8 @@ governing permissions and limitations under the License.
 */
 
 #import "FlutterAEPCoreDataBridge.h"
+#import <Flutter/Flutter.h>
+
 
 @implementation FlutterAEPCoreDataBridge
 
@@ -87,6 +89,53 @@ static NSString* const AEP_PRIVACY_STATUS_UNKNOWN = @"AEP_PRIVACY_STATUS_UNKNOWN
     }
 
     return sanitizedDict;
+}
+
++ (AEPInitOptions *)initOptionsFromMap:(id)map {
+    if (![map isKindOfClass:[FlutterMethodCall class]]) {
+        return nil;
+    }
+
+    FlutterMethodCall *call = (FlutterMethodCall *)map;
+    NSDictionary *arguments = call.arguments;
+    if (![arguments isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+
+    NSDictionary *initOptionsMap = arguments[@"initOptions"];
+    if (![initOptionsMap isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+
+    NSString *appId = initOptionsMap[@"appId"];
+    NSString *filePath = initOptionsMap[@"filePath"];
+    NSNumber *lifecycleAutomaticTrackingEnabled = initOptionsMap[@"lifecycleAutomaticTrackingEnabled"];
+    NSDictionary *lifecycleAdditionalContextData = initOptionsMap[@"lifecycleAdditionalContextData"];
+    NSString *appGroup = initOptionsMap[@"appGroup"];
+
+    AEPInitOptions *initOptions;
+    if (appId) {
+        initOptions = [[AEPInitOptions alloc] initWithAppId:appId];
+    } else if (filePath) {
+        initOptions = [[AEPInitOptions alloc] initWithFilePath:filePath];
+    } else {
+        initOptions = [[AEPInitOptions alloc] init];
+    }
+    if (lifecycleAutomaticTrackingEnabled != nil) {
+        initOptions.lifecycleAutomaticTrackingEnabled = [lifecycleAutomaticTrackingEnabled boolValue];
+    }
+    if (lifecycleAdditionalContextData != nil && [lifecycleAdditionalContextData isKindOfClass:[NSDictionary class]]) {
+        initOptions.lifecycleAdditionalContextData = lifecycleAdditionalContextData;
+    } else {
+        NSLog(@"lifecycleAdditionalContextData is nil or not a dictionary");
+    }
+    if (appGroup != nil && [appGroup isKindOfClass:[NSString class]]) {
+        initOptions.appGroup = appGroup;
+    } else {
+        NSLog(@"appGroup is nil or not a string");
+    }
+
+    return initOptions;
 }
 
 @end

@@ -26,4 +26,5 @@ governing permissions and limitations under the License.
 
 + (NSDictionary *)sanitizeDictionaryToContainClass: (Class) type WithDictionary:(NSDictionary *)dict;
 
++ (AEPInitOptions *)initOptionsFromMap:(id)map;
 @end

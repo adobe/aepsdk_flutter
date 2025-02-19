@@ -5,11 +5,11 @@ class InitOptions {
   /// The file path for the local configuration file
   String? filePath;
   /// Flag indicating whether automatic lifecycle tracking is enabled
-  bool? lifecycleAutomaticTracking;
+  bool? lifecycleAutomaticTrackingEnabled;
   /// Additional context data to be included in lifecycle start event.
   Map<String, String>? lifecycleAdditionalContextData;
   /// App group used to share user defaults and files among containing app and extension apps on iOS
-  String? appGroupIOS;
+  String? appGroup;
 
   /// Constructor with named optional parameters.
   /// 
@@ -17,9 +17,9 @@ class InitOptions {
   InitOptions({
     this.appId,
     this.filePath,
-    this.lifecycleAutomaticTracking = true,
+    this.lifecycleAutomaticTrackingEnabled = true,
     this.lifecycleAdditionalContextData = null, 
-    this.appGroupIOS = null,
+    this.appGroup = null,
   }) : assert(!(appId != null && filePath != null),
             'Both appId and filePath cannot be set at the same time');
 
@@ -28,9 +28,9 @@ class InitOptions {
     Map<String, dynamic> retMap = {};
     retMap['appId'] = appId;
     retMap['filePath'] = filePath;
-    retMap['lifecycleAutomaticTracking'] = lifecycleAutomaticTracking;
+    retMap['lifecycleAutomaticTrackingEnabled'] = lifecycleAutomaticTrackingEnabled;
     retMap['lifecycleAdditionalContextData'] = lifecycleAdditionalContextData;
-    retMap['appGroupIOS'] = appGroupIOS;
+    retMap['appGroup'] = appGroup;
 
     return retMap;
   }

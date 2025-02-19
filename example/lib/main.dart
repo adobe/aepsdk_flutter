@@ -21,22 +21,23 @@ import 'edgeIdentity.dart';
 import 'edgebridge.dart';
 import 'userprofile.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(
+  home: HomePage(),
+));
   //initialize AEP SDK
   MobileCore.setLogLevel(LogLevel.trace);
   InitOptions initOptions = InitOptions(
     appId: "YOUR_APP_ID",
-    lifecycleAutomaticTracking: false,
+    lifecycleAutomaticTrackingEnabled: true,
     lifecycleAdditionalContextData: {"key": "value"},
-    appGroupIOS: "group.com.example",
+    appGroup: "group.com.example",
   );
 
   await MobileCore.initialize(initOptions: initOptions);
-
-  runApp(MaterialApp(
-    home: HomePage(),
-  ));
+  //await MobileCore.initializeWithAppId(appId: "YOUR_APP_ID");
 }
 
 class HomePage extends StatelessWidget {

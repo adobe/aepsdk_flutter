@@ -33,6 +33,9 @@ specific language governing permissions and limitations under the License.
                     result:(FlutterResult)result {
     if ([@"extensionVersion" isEqualToString:call.method]) {
         result([AEPMobileCore extensionVersion]);
+    } else if ([@"initialize" isEqualToString:call.method]) {
+        [self handleInitialize:call result:result];
+        result(nil);
     } else if ([@"track" isEqualToString:call.method]) {
         [self handleTrackCall:call];
         result(nil);
@@ -78,6 +81,20 @@ specific language governing permissions and limitations under the License.
     } else {
         result(FlutterMethodNotImplemented);
     }
+}
+
+- (void)handleInitialize:(id)arguments result:(FlutterResult)result {
+    AEPInitOptions *initOptions = [FlutterAEPCoreDataBridge initOptionsFromMap:arguments];
+    if (!initOptions) {
+        result([FlutterError errorWithCode:@"INVALID_ARGUMENT"
+                                   message:@"Initialize failed because initOptions is not a dictionary"
+                                   details:nil]);
+        return;
+    }
+    
+    [AEPMobileCore initializeWithOptions:initOptions completion:^{
+        result(nil);
+    }];
 }
 
 - (void)handleTrackCall:(FlutterMethodCall *)call {
