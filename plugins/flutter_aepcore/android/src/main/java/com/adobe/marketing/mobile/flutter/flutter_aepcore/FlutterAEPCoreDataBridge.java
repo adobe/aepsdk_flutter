@@ -173,16 +173,18 @@ public class FlutterAEPCoreDataBridge {
     }
 
     Map rawMap = (Map) data.get(key);
-    Map<String, String> stringMap = new HashMap<>();
 
+    if (rawMap == null || !(rawMap instanceof Map)) {
+       return null;
+    }
+  
     for (Object entryObj : rawMap.entrySet()) {
         Map.Entry entry = (Map.Entry) entryObj;
         if (!(entry.getKey() instanceof String) || !(entry.getValue() instanceof String)) {
             return null;
         }
-        stringMap.put((String) entry.getKey(), (String) entry.getValue());
     }
 
-    return stringMap;
-}
+    return (Map<String, String>) rawMap;
+  }
 }

@@ -27,25 +27,37 @@ void main() async {
   runApp(MaterialApp(
   home: HomePage(),
   ));
-
-  //initialize AEP SDK
-  MobileCore.setLogLevel(LogLevel.trace);
-  InitOptions initOptions = InitOptions(
-    appId: "YOUR_APP_ID",
-    lifecycleAutomaticTrackingEnabled: true,
-    lifecycleAdditionalContextData: {"key": "value"},
-    appGroupIOS: "group.com.example",
-  );
-
-  await MobileCore.initialize(initOptions: initOptions);
-  //await MobileCore.initializeWithAppId(appId: "YOUR_APP_ID");
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    _initializeAEPMobileSdk();
+  }
+
+ Future<void> _initializeAEPMobileSdk() async {
+    MobileCore.setLogLevel(LogLevel.trace);
+    InitOptions initOptions = InitOptions(
+      appId: "YOUR_APP_ID",
+      lifecycleAutomaticTrackingEnabled: true,
+      lifecycleAdditionalContextData: {"key": "value"},
+      appGroupIOS: "group.com.example",
+    );
+
+   await MobileCore.initialize(initOptions: initOptions);
+    //await MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
           title: const Text('Flutter AEP SDK'),
         ),
         body: Center(

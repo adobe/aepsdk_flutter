@@ -45,6 +45,7 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         if (appContext instanceof Application) {
             application = (Application) appContext;
         }
+        MobileCore.setWrapperType(WrapperType.FLUTTER);
         flutterAEPIdentityPlugin.onAttachedToEngine(binding);
         flutterAEPLifecyclePlugin.onAttachedToEngine(binding);
         flutterAEPSignalPlugin.onAttachedToEngine(binding);

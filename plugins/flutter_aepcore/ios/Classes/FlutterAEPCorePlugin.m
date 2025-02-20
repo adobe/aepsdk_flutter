@@ -27,6 +27,7 @@ specific language governing permissions and limitations under the License.
     [FlutterAEPIdentityPlugin registerWithRegistrar:registrar];
     [FlutterAEPLifecyclePlugin registerWithRegistrar:registrar];
     [FlutterAEPSignalPlugin registerWithRegistrar:registrar];
+    [AEPMobileCore setWrapperType:AEPWrapperTypeFlutter];
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)call
