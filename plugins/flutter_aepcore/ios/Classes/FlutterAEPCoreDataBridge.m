@@ -113,7 +113,7 @@ static NSString* const AEP_PRIVACY_STATUS_UNKNOWN = @"AEP_PRIVACY_STATUS_UNKNOWN
     NSString *appGroup = initOptionsMap[@"appGroup"];
 
     AEPInitOptions *initOptions;
-    if (appId != nil && ![appId isKindOfClass:[NSNull class]]) {
+    if (appId != nil && [appId isKindOfClass:[NSString class]]) {
         initOptions = [[AEPInitOptions alloc] initWithAppId:appId];
     } else {
         initOptions = [[AEPInitOptions alloc] init];
@@ -123,13 +123,9 @@ static NSString* const AEP_PRIVACY_STATUS_UNKNOWN = @"AEP_PRIVACY_STATUS_UNKNOWN
     }
     if (lifecycleAdditionalContextData != nil && [lifecycleAdditionalContextData isKindOfClass:[NSDictionary class]]) {
         initOptions.lifecycleAdditionalContextData = lifecycleAdditionalContextData;
-    } else {
-        NSLog(@"lifecycleAdditionalContextData is nil or not a dictionary");
-    }
+    } 
     if (appGroup != nil && [appGroup isKindOfClass:[NSString class]]) {
         initOptions.appGroup = appGroup;
-    } else {
-        NSLog(@"appGroup is nil or not a string");
     }
 
     return initOptions;
