@@ -108,7 +108,6 @@ static NSString* const AEP_PRIVACY_STATUS_UNKNOWN = @"AEP_PRIVACY_STATUS_UNKNOWN
     }
 
     NSString *appId = initOptionsMap[@"appId"];
-    NSString *filePath = initOptionsMap[@"filePath"];
     NSNumber *lifecycleAutomaticTrackingEnabled = initOptionsMap[@"lifecycleAutomaticTrackingEnabled"];
     NSDictionary *lifecycleAdditionalContextData = initOptionsMap[@"lifecycleAdditionalContextData"];
     NSString *appGroup = initOptionsMap[@"appGroup"];
@@ -116,12 +115,10 @@ static NSString* const AEP_PRIVACY_STATUS_UNKNOWN = @"AEP_PRIVACY_STATUS_UNKNOWN
     AEPInitOptions *initOptions;
     if (appId != nil && ![appId isKindOfClass:[NSNull class]]) {
         initOptions = [[AEPInitOptions alloc] initWithAppId:appId];
-    } else if (filePath != nil) {
-        initOptions = [[AEPInitOptions alloc] initWithFilePath:filePath];
     } else {
         initOptions = [[AEPInitOptions alloc] init];
     }
-    if (lifecycleAutomaticTrackingEnabled != nil) {
+    if (lifecycleAutomaticTrackingEnabled != nil && [lifecycleAutomaticTrackingEnabled isKindOfClass:[NSNumber class]] ) {
         initOptions.lifecycleAutomaticTrackingEnabled = [lifecycleAutomaticTrackingEnabled boolValue];
     }
     if (lifecycleAdditionalContextData != nil && [lifecycleAdditionalContextData isKindOfClass:[NSDictionary class]]) {
