@@ -29,41 +29,41 @@ class MobileCore {
     return _channel.invokeMethod<void>('initialize', {'initOptions': initOptions.toMap()});
   }
 
-/// Initializes the AEP Mobile SDK with the provided App ID.
-///
-/// This method creates an [InitOptions] object using the provided App ID and then calls the `initialize` API.
-/// @param appId The AEP SDK App ID.
-static Future<void> initializeWithAppId({required String appId}) {
-  return initialize(initOptions: InitOptions(appId: appId));
-}
+  /// Initializes the AEP Mobile SDK with the provided App ID.
+  ///
+  /// This method creates an [InitOptions] object using the provided App ID and then calls the `initialize` API.
+  /// @param appId The AEP SDK App ID.
+  static Future<void> initializeWithAppId({required String appId}) {
+    return initialize(initOptions: InitOptions(appId: appId));
+  }
 
-/// This method sends a generic Analytics action tracking hit with context data.
-static Future<void> trackAction(
-  String action, {
-  Map<String, String>? data,
-}) =>
-    _channel.invokeMethod(
-      'track',
-      {
-        'type': 'action',
-        'name': action,
-        'data': data ?? {},
-      },
-    );
+  /// This method sends a generic Analytics action tracking hit with context data.
+  static Future<void> trackAction(
+    String action, {
+    Map<String, String>? data,
+  }) =>
+      _channel.invokeMethod(
+        'track',
+        {
+          'type': 'action',
+          'name': action,
+          'data': data ?? {},
+        },
+      );
 
-/// This method sends a generic Analytics state tracking hit with context data.
-static Future<void> trackState(
-  String state, {
-  Map<String, String>? data,
-}) =>
-    _channel.invokeMethod(
-      'track',
-      {
-        'type': 'state',
-        'name': state,
-        'data': data ?? {},
-      },
-    );
+  /// This method sends a generic Analytics state tracking hit with context data.
+  static Future<void> trackState(
+    String state, {
+    Map<String, String>? data,
+  }) =>
+      _channel.invokeMethod(
+        'track',
+        {
+          'type': 'state',
+          'name': state,
+          'data': data ?? {},
+        },
+      );
 
   /// Submits a generic event containing the provided IDFA with event type `generic.identity`.
   static Future<void> setAdvertisingIdentifier(String aid) =>
