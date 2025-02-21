@@ -17,18 +17,22 @@ import com.adobe.marketing.mobile.*;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import android.app.Application;
 import androidx.annotation.NonNull;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
+import android.content.Context;
 
 public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
-
+    
     private final String TAG = "FlutterAEPCorePlugin";
+    private static final String INVALID_ARGUMENT = "INVALID_ARGUMENT";
+    private static final String INITIALIZATION_ERROR = "INITIALIZATION_ERROR";
     private MethodChannel channel;
+    private static Application application;
     private final FlutterAEPIdentityPlugin flutterAEPIdentityPlugin = new FlutterAEPIdentityPlugin();
     private final FlutterAEPLifecyclePlugin flutterAEPLifecyclePlugin = new FlutterAEPLifecyclePlugin();
     private final FlutterAEPSignalPlugin flutterAEPSignalPlugin = new FlutterAEPSignalPlugin();
@@ -37,6 +41,11 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
         channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepcore");
         channel.setMethodCallHandler(new FlutterAEPCorePlugin());
+        Context appContext = binding.getApplicationContext();
+        if (appContext instanceof Application) {
+            application = (Application) appContext;
+        }
+        MobileCore.setWrapperType(WrapperType.FLUTTER);
         flutterAEPIdentityPlugin.onAttachedToEngine(binding);
         flutterAEPLifecyclePlugin.onAttachedToEngine(binding);
         flutterAEPSignalPlugin.onAttachedToEngine(binding);
@@ -47,6 +56,7 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         if (channel != null) {
             channel.setMethodCallHandler(null);
         }
+        application = null;
         flutterAEPIdentityPlugin.onDetachedFromEngine(binding);
         flutterAEPLifecyclePlugin.onDetachedFromEngine(binding);
         flutterAEPSignalPlugin.onDetachedFromEngine(binding);
@@ -57,6 +67,8 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         final String AEPCORE_TAG = "AEPCORE";
         if ("extensionVersion".equals(call.method)) {
             result.success(MobileCore.extensionVersion());
+        } else if ("initialize".equals(call.method)) {
+           handleInitialize(result, call.arguments);
         } else if ("track".equals(call.method)) {
             handleTrackCall(call.arguments);
             result.success(null);
@@ -96,6 +108,32 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
             result.notImplemented();
         }
     }
+
+   private void handleInitialize(Result result, Object arguments) {
+       if (!(arguments instanceof Map)) {
+           result.error(INVALID_ARGUMENT, "Initialize failed because arguments is not a Map", null);
+           return;
+       }
+
+       if (application == null) {
+           result.error(INITIALIZATION_ERROR, "Initialize failed because application is null", null);
+           return;
+       }
+
+       InitOptions initOptions = FlutterAEPCoreDataBridge.initOptionsFromMap(arguments);
+
+       if (initOptions == null) {
+           result.error(INITIALIZATION_ERROR, "Initialize failed because initOptions is null", null);
+           return;
+       }
+
+       MobileCore.initialize(application, initOptions, new AdobeCallback() {
+           @Override
+           public void call(Object o) {
+               result.success(null);
+           }
+       });
+   }
 
     private void handleTrackCall(Object arguments) {
         if (!(arguments instanceof Map) || !((Map) arguments).containsKey("type") || !((Map) arguments).containsKey("name")) {

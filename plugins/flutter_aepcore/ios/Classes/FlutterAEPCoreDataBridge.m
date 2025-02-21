@@ -11,6 +11,8 @@ governing permissions and limitations under the License.
 */
 
 #import "FlutterAEPCoreDataBridge.h"
+#import <Flutter/Flutter.h>
+
 
 @implementation FlutterAEPCoreDataBridge
 
@@ -87,6 +89,46 @@ static NSString* const AEP_PRIVACY_STATUS_UNKNOWN = @"AEP_PRIVACY_STATUS_UNKNOWN
     }
 
     return sanitizedDict;
+}
+
++ (AEPInitOptions *)initOptionsFromMap:(id)map {
+    if (![map isKindOfClass:[FlutterMethodCall class]]) {
+        return nil;
+    }
+
+    FlutterMethodCall *call = (FlutterMethodCall *)map;
+    NSDictionary *arguments = call.arguments;
+    if (![arguments isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+
+    NSDictionary *initOptionsMap = arguments[@"initOptions"];
+    if (![initOptionsMap isKindOfClass:[NSDictionary class]]) {
+        return nil;
+    }
+
+    NSString *appId = initOptionsMap[@"appId"];
+    NSNumber *lifecycleAutomaticTrackingEnabled = initOptionsMap[@"lifecycleAutomaticTrackingEnabled"];
+    NSDictionary *lifecycleAdditionalContextData = initOptionsMap[@"lifecycleAdditionalContextData"];
+    NSString *appGroup = initOptionsMap[@"appGroup"];
+
+    AEPInitOptions *initOptions;
+    if (appId != nil && [appId isKindOfClass:[NSString class]]) {
+        initOptions = [[AEPInitOptions alloc] initWithAppId:appId];
+    } else {
+        initOptions = [[AEPInitOptions alloc] init];
+    }
+    if (lifecycleAutomaticTrackingEnabled != nil && [lifecycleAutomaticTrackingEnabled isKindOfClass:[NSNumber class]] ) {
+        initOptions.lifecycleAutomaticTrackingEnabled = [lifecycleAutomaticTrackingEnabled boolValue];
+    }
+    if (lifecycleAdditionalContextData != nil && [lifecycleAdditionalContextData isKindOfClass:[NSDictionary class]]) {
+        initOptions.lifecycleAdditionalContextData = lifecycleAdditionalContextData;
+    } 
+    if (appGroup != nil && [appGroup isKindOfClass:[NSString class]]) {
+        initOptions.appGroup = appGroup;
+    }
+
+    return initOptions;
 }
 
 @end
