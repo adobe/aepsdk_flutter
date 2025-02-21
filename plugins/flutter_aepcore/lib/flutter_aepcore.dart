@@ -26,8 +26,7 @@ class MobileCore {
   /// Initializes the AEP Mobile SDK with the provided initialization options.
   /// @param initOptions The [InitOptions] to configure the SDK.
   static Future<void> initialize({required InitOptions initOptions}) {
-    return _channel
-        .invokeMethod<void>('initialize', {'initOptions': initOptions.toMap()});
+    return _channel.invokeMethod<void>('initialize', {'initOptions': initOptions.toMap()});
   }
 
   /// Initializes the AEP Mobile SDK with the provided App ID.
