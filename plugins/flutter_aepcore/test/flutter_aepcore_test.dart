@@ -9,7 +9,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'dart:ffi';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore.dart';
@@ -53,15 +52,15 @@ void main() {
 
   group('initialize', () {
     final String appId = "12345";
-    final bool lifecycleAutomaticTracking = true;
+    final bool lifecycleAutomaticTrackingEnabled = true;
     final Map<String, String> lifecycleAdditionalContextData = {"key": "value"};
     final String appGroup = "group.com.example";
 
     InitOptions initOptions = InitOptions(
       appId: appId,
-      lifecycleAutomaticTracking: lifecycleAutomaticTracking,
+      lifecycleAutomaticTrackingEnabled: lifecycleAutomaticTrackingEnabled,
       lifecycleAdditionalContextData: lifecycleAdditionalContextData,
-      appGroup: appGroup,
+      appGroupIOS: appGroup,
     );
 
     final List<MethodCall> log = <MethodCall>[];
@@ -86,10 +85,9 @@ void main() {
           arguments: {
             'initOptions': {
               'appId': appId,
-              'filePath': null,
-              'lifecycleAutomaticTracking': lifecycleAutomaticTracking,
+              'lifecycleAutomaticTrackingEnabled': lifecycleAutomaticTrackingEnabled,
               'lifecycleAdditionalContextData': lifecycleAdditionalContextData,
-              'appGroup': appGroup,
+              'appGroupIOS': appGroup,
             },
           },
         ),
@@ -98,7 +96,7 @@ void main() {
   });
 
   group('initializeWithAppid', () {
-    final String appId = "94f571f308d5/959a617a4a15/launch-de09b8b97921-development";
+    final String appId = "12345";
 
     final List<MethodCall> log = <MethodCall>[];
 
@@ -122,10 +120,9 @@ void main() {
           arguments: {
             'initOptions': {
               'appId': appId,
-              'filePath': null,
-              'lifecycleAutomaticTracking': true,
+              'lifecycleAutomaticTrackingEnabled': null,
               'lifecycleAdditionalContextData': null,
-              'appGroup': null,
+              'appGroupIOS': null,
             },
           },
         ),
