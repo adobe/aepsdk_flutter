@@ -23,10 +23,14 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return testVersion;
       });
+    });
+
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
     });
 
     test('invokes correct method', () async {
@@ -77,11 +81,16 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return [expectedEventHandle];
       });
     });
+
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+    });
+
     test('invokes correct method', () async {
       await Edge.sendEvent(experienceEvent);
 
@@ -248,11 +257,16 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return [expectedEventHandle, expectedEventHandle2];
       });
     });
+
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+    });
+
     test('invokes correct method happy test', () async {
       await Edge.sendEvent(experienceEvent);
 
@@ -280,10 +294,14 @@ void main() {
 
     setUp(() {
       log.clear();
-      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
+    });
+
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
     });
 
     test('invokes correct method', () async {
@@ -315,10 +333,14 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return testGetLocationHint;
       });
+    });
+
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
     });
 
     test('invokes correct method', () async {
@@ -338,7 +360,7 @@ void main() {
     });
 
     test('returns correct result null', () async {
-      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.clear();
         return testGetLocationHintNull;
       });

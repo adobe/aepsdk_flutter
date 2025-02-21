@@ -23,10 +23,14 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      channel.setMockMethodCallHandler((MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return testVersion;
       });
+    });
+
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
     });
 
     test('invokes correct method', () async {

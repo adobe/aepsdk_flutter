@@ -23,19 +23,19 @@ class MobileCore {
   static Future<String> get extensionVersion =>
       _channel.invokeMethod<String>('extensionVersion').then((value) => value!);
 
-/// Initializes the AEP Mobile SDK with the provided initialization options.
-/// @param initOptions The [InitOptions] to configure the SDK.
-static Future<void> initialize({required InitOptions initOptions}) {
-  return _channel.invokeMethod<void>('initialize', {'initOptions': initOptions.toMap()});
-}
+  /// Initializes the AEP Mobile SDK with the provided initialization options.
+  /// @param initOptions The [InitOptions] to configure the SDK.
+  static Future<void> initialize({required InitOptions initOptions}) {
+    return _channel.invokeMethod<void>('initialize', {'initOptions': initOptions.toMap()});
+  }
 
-/// Initializes the AEP Mobile SDK with the provided App ID.
-/// 
-/// This method creates an [InitOptions] object using the provided App ID and then calls the `initialize` API.
-/// @param appId The AEP SDK App ID.
-static Future<void> initializeWithAppId({required String appId}) {
-   return initialize(initOptions: InitOptions(appId: appId));
-}
+  /// Initializes the AEP Mobile SDK with the provided App ID.
+  ///
+  /// This method creates an [InitOptions] object using the provided App ID and then calls the `initialize` API.
+  /// @param appId The AEP SDK App ID.
+  static Future<void> initializeWithAppId({required String appId}) {
+    return initialize(initOptions: InitOptions(appId: appId));
+  }
 
   /// This method sends a generic Analytics action tracking hit with context data.
   static Future<void> trackAction(
