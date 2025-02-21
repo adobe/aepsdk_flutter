@@ -15,6 +15,7 @@ specific language governing permissions and limitations under the License.
 #import "FlutterAEPIdentityPlugin.h"
 #import "FlutterAEPLifecyclePlugin.h"
 #import "FlutterAEPSignalPlugin.h"
+#import "FlutterAEPErrorHelper.h"
 
 @implementation FlutterAEPCorePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {

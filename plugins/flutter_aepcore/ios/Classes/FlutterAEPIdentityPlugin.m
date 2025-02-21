@@ -11,6 +11,7 @@ governing permissions and limitations under the License.
 #import "FlutterAEPIdentityPlugin.h"
 @import AEPIdentity;
 #import "FlutterAEPIdentityDataBridge.h"
+#import "FlutterAEPErrorHelper.h"
 
 @implementation FlutterAEPIdentityPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
