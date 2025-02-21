@@ -110,7 +110,7 @@ static NSString* const AEP_PRIVACY_STATUS_UNKNOWN = @"AEP_PRIVACY_STATUS_UNKNOWN
     NSString *appId = initOptionsMap[@"appId"];
     NSNumber *lifecycleAutomaticTrackingEnabled = initOptionsMap[@"lifecycleAutomaticTrackingEnabled"];
     NSDictionary *lifecycleAdditionalContextData = initOptionsMap[@"lifecycleAdditionalContextData"];
-    NSString *appGroup = initOptionsMap[@"appGroup"];
+    NSString *appGroup = initOptionsMap[@"appGroupIOS"];
 
     AEPInitOptions *initOptions;
     if (appId != nil && [appId isKindOfClass:[NSString class]]) {
