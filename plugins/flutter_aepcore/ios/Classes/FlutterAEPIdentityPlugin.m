@@ -11,6 +11,7 @@ governing permissions and limitations under the License.
 #import "FlutterAEPIdentityPlugin.h"
 @import AEPIdentity;
 #import "FlutterAEPIdentityDataBridge.h"
+#import "FlutterAEPErrorHelper.h"
 
 @implementation FlutterAEPIdentityPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -46,25 +47,28 @@ governing permissions and limitations under the License.
 - (void)handleAppendToUrl:(FlutterMethodCall *) call result:(FlutterResult)result {
     NSURL *url = [NSURL URLWithString:call.arguments];
     [AEPMobileIdentity appendToUrl:url completion:^(NSURL * _Nullable url, NSError * _Nullable error) {
-        result(url.absoluteString);
+        [FlutterAEPErrorHelper handleResult:result error:error success:url.absoluteString];
     }];
 }
 
 - (void)handleGetIdentifiers:(FlutterMethodCall *) call result:(FlutterResult)result {
     [AEPMobileIdentity getIdentifiers:^(NSArray<id<AEPIdentifiable>> * _Nullable visitorIDs, NSError * _Nullable error) {
-        NSMutableArray *visitorIDList = [NSMutableArray array];
-        for (id<AEPIdentifiable> visitorID in visitorIDs) {
-            NSDictionary *visitorIDDict = [FlutterAEPIdentityDataBridge dictionaryFromVisitorId:visitorID];
-            [visitorIDList addObject:visitorIDDict];
+        if (error) {
+            [FlutterAEPErrorHelper handleResult:result error:error success:nil];
+        } else {
+            NSMutableArray *visitorIDList = [NSMutableArray array];
+            for (id<AEPIdentifiable> visitorID in visitorIDs) {
+                NSDictionary *visitorIDDict = [FlutterAEPIdentityDataBridge dictionaryFromVisitorId:visitorID];
+                [visitorIDList addObject:visitorIDDict];
+            }
+            [FlutterAEPErrorHelper handleResult:result error:nil success:visitorIDList];
         }
-        
-        result(visitorIDList);
     }];
 }
 
 - (void)handleGetExperienceCloudId:(FlutterMethodCall *) call result:(FlutterResult)result {
     [AEPMobileIdentity getExperienceCloudId:^(NSString * _Nullable experienceCloudId, NSError * _Nullable error) {
-        result(experienceCloudId);
+        [FlutterAEPErrorHelper handleResult:result error:error success:experienceCloudId];
     }];
 }
 
@@ -90,7 +94,7 @@ governing permissions and limitations under the License.
 
 - (void)handleUrlVariables:(FlutterMethodCall *) call result:(FlutterResult)result {
     [AEPMobileIdentity getUrlVariables:^(NSString * _Nullable urlVariables, NSError * _Nullable error) {
-        result(urlVariables);
+        [FlutterAEPErrorHelper handleResult:result error:error success:urlVariables];
     }];
 }
 

@@ -15,6 +15,7 @@ specific language governing permissions and limitations under the License.
 #import "FlutterAEPIdentityPlugin.h"
 #import "FlutterAEPLifecyclePlugin.h"
 #import "FlutterAEPSignalPlugin.h"
+#import "FlutterAEPErrorHelper.h"
 
 @implementation FlutterAEPCorePlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar> *)registrar {
@@ -172,9 +173,8 @@ specific language governing permissions and limitations under the License.
 
 - (void)handleGetSdkIdentities:(FlutterMethodCall *)call
                         result:(FlutterResult)result {
-    [AEPMobileCore getSdkIdentities:^(NSString *_Nullable content,
-                                        NSError *_Nullable error) {
-        result(content);
+    [AEPMobileCore getSdkIdentities:^(NSString *_Nullable content, NSError *_Nullable error) {
+    [FlutterAEPErrorHelper handleResult:result error:error success:content];           
     }];
 }
 
