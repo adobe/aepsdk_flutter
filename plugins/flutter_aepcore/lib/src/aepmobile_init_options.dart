@@ -10,7 +10,7 @@ class InitOptions {
   Map<String, String>? lifecycleAdditionalContextData;
 
   /// App group used to share user defaults and files among containing app and extension apps on iOS
-  String? appGroupIOS;
+  String? appGroup;
 
   /// Constructor with named optional parameters.
   InitOptions({
