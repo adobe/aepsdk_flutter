@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepcore'
-  s.version          = '4.0.2'
+  s.version          = '5.0.0'
   s.summary          = 'Adobe Experience Platform support for Flutter apps.'
   s.homepage         = 'https://developer.adobe.com/client-sdks'
   s.license          = { :file => '../LICENSE' }
@@ -9,10 +9,10 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'AEPCore', '~> 5.0'
-  s.dependency 'AEPLifecycle', '~> 5.0'
-  s.dependency 'AEPIdentity', '~> 5.0'
-  s.dependency 'AEPSignal', '~> 5.0'
+  s.dependency 'AEPCore', '>= 5.4.0', '< 6.0.0'
+s.dependency 'AEPLifecycle', '>= 5.4.0', '< 6.0.0'
+s.dependency 'AEPIdentity', '>= 5.4.0', '< 6.0.0'
+s.dependency 'AEPSignal', '>= 5.4.0', '< 6.0.0'
   s.platform = :ios, '12.0'
   s.static_framework = true
 
