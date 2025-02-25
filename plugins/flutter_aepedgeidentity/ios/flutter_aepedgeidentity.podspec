@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepedgeidentity'
-  s.version          = '4.0.2'
+  s.version          = '5.0.0'
   s.summary          = 'Adobe Experience Platform Identity for Edge Network extension for Adobe Experience Platform Mobile SDK. Written and maintained by Adobe.'
   s.homepage         = 'https://developer.adobe.com/client-sdks'
   s.license          = { :file => '../LICENSE' }
