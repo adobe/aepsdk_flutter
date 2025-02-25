@@ -39,7 +39,7 @@ public class FlutterAEPIdentityPlugin implements FlutterPlugin, MethodChannel.Me
     @Override
     public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
         channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepidentity");
-        channel.setMethodCallHandler(new FlutterAEPIdentityPlugin());
+        channel.setMethodCallHandler(this);
     }
 
     @Override

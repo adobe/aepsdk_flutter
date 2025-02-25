@@ -44,7 +44,7 @@ public class FlutterAEPEdgePlugin implements FlutterPlugin, MethodCallHandler {
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
     channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepedge");
-    channel.setMethodCallHandler(new FlutterAEPEdgePlugin());
+    channel.setMethodCallHandler(this);
   }
 
   @Override
