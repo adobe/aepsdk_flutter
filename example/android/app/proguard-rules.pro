@@ -1,0 +1,4 @@
+-dontwarn java.awt.event.ActionListener
+-dontwarn javax.swing.SwingUtilities
+-dontwarn javax.swing.Timer
+-dontwarn javax.swing.UIManager
