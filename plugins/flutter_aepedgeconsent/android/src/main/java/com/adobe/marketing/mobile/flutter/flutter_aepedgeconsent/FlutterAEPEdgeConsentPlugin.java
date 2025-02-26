@@ -36,7 +36,7 @@ public class FlutterAEPEdgeConsentPlugin implements FlutterPlugin, MethodCallHan
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
     channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepedgeconsent");
-    channel.setMethodCallHandler(new FlutterAEPEdgeConsentPlugin());
+    channel.setMethodCallHandler(this);
   }
 
   @Override

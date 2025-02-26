@@ -26,7 +26,7 @@ public class FlutterAEPLifecyclePlugin implements FlutterPlugin, MethodChannel.M
     @Override
     public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
         channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aeplifecycle");
-        channel.setMethodCallHandler(new FlutterAEPLifecyclePlugin());
+        channel.setMethodCallHandler(this);
     }
 
     @Override

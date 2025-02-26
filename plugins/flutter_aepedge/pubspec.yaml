@@ -15,6 +15,13 @@ dependencies:
   flutter_aepcore: ">=5.0.0 <6.0.0"
   flutter_aepedgeidentity: ">=5.0.0 <6.0.0"
 
+dependency_overrides:
+  flutter_aepcore:
+    path: ../flutter_aepcore
+
+  flutter_aepedgeidentity:
+    path: ../flutter_aepedgeidentity
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

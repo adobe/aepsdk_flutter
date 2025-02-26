@@ -40,7 +40,7 @@ public class FlutterAEPEdgeIdentityPlugin implements FlutterPlugin, MethodCallHa
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
     channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepedgeidentity");
-    channel.setMethodCallHandler(new FlutterAEPEdgeIdentityPlugin());
+    channel.setMethodCallHandler(this);
   }
 
   @Override

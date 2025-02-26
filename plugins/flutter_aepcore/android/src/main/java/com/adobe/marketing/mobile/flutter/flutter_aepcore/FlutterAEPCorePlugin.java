@@ -28,11 +28,11 @@ import android.content.Context;
 
 public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     
-    private final String TAG = "FlutterAEPCorePlugin";
+    private static final String TAG = "FlutterAEPCorePlugin";
     private static final String INVALID_ARGUMENT = "INVALID_ARGUMENT";
     private static final String INITIALIZATION_ERROR = "INITIALIZATION_ERROR";
     private MethodChannel channel;
-    private static Application application;
+    private Application application;
     private final FlutterAEPIdentityPlugin flutterAEPIdentityPlugin = new FlutterAEPIdentityPlugin();
     private final FlutterAEPLifecyclePlugin flutterAEPLifecyclePlugin = new FlutterAEPLifecyclePlugin();
     private final FlutterAEPSignalPlugin flutterAEPSignalPlugin = new FlutterAEPSignalPlugin();
@@ -40,7 +40,7 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     @Override
     public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
         channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepcore");
-        channel.setMethodCallHandler(new FlutterAEPCorePlugin());
+        channel.setMethodCallHandler(this);
         Context appContext = binding.getApplicationContext();
         if (appContext instanceof Application) {
             application = (Application) appContext;
