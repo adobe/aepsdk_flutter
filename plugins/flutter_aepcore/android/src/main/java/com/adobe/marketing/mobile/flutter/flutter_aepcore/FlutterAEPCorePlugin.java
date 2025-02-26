@@ -167,8 +167,13 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     }
 
     private void handleSetAdvertisingIdentifier(final Object arguments) {
-        String aid = (arguments instanceof String) ? (String) arguments : null;
-        MobileCore.setAdvertisingIdentifier(aid);
+        if (arguments == null) {
+            MobileCore.setAdvertisingIdentifier(null);
+        }
+
+        if (arguments instanceof String) {
+            MobileCore.setAdvertisingIdentifier((String) arguments);
+        }
     }
 
     private void handleDispatchEvent(final Result result, final Object arguments) {
@@ -194,21 +199,11 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
     private void handleDispatchEventWithResponseCallback(final Result result, final Object arguments) {
         if (!(arguments instanceof Map)) {
             Log.e(TAG, "Dispatch event failed because arguments were invalid");
-            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), 
-                        "Unexpected error", 
-                        null);
+            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()), AdobeError.UNEXPECTED_ERROR.getErrorName(), null);
             return;
         }
 
         Map map = (Map) arguments;
-        
-        if (!(map.containsKey("timeout") && map.containsKey("eventData"))) {
-            Log.e(TAG, "Dispatch event failed because required parameters are missing");
-            result.error(String.valueOf(AdobeError.UNEXPECTED_ERROR.getErrorCode()),
-                        "Missing required parameters",
-                        null);
-            return;
-        }
 
         long timeout;
         try{
