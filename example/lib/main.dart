@@ -43,15 +43,17 @@ class _HomePageState extends State<HomePage> {
 
  Future<void> _initializeAEPMobileSdk() async {
     MobileCore.setLogLevel(LogLevel.trace);
-    InitOptions initOptions = InitOptions(
-      appId: "YOUR_APP_ID",
-      lifecycleAutomaticTrackingEnabled: true,
-      lifecycleAdditionalContextData: {"key": "value"},
-      appGroupIOS: "group.com.example",
-    );
+    MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
 
-   await MobileCore.initialize(initOptions: initOptions);
-    //await MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
+    // For more granular control over the initial options, you can use the following sample code:
+    // InitOptions initOptions = InitOptions(
+    //   appId: "YOUR_APP_ID",
+    //   lifecycleAutomaticTrackingEnabled: true,
+    //   lifecycleAdditionalContextData: {"key": "value"},
+    //   appGroupIOS: "group.com.example",
+    // );
+
+    // MobileCore.initialize(initOptions: initOptions);
   }
   
   @override
