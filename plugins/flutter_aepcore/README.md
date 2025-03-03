@@ -450,8 +450,14 @@ try {
 ```
 
 ### Lifecycle
-Refer to `MobileCore.initialize()` method.
 
+For more informationa about Lifecycle for Edge Network, visit the documentation [here](https://developer.adobe.com/client-sdks/edge/lifecycle-for-edge-network/).
+
+Starting from Adobe Experience Platform Flutter **5.x**, lifecycle tracking is enabled automatically with Initialize APIs by default.
+
+Refer to 
+- [MobileCore.initializeWithAppId(appId)](#initializewithappid)
+- [MobileCore.initialize(initOptions)](#initialize)
 
 ### Signal
 
