@@ -25,16 +25,16 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 Import the package in your **Dart** code as follows:
 
 ```dart
-import 'package:flutter_aepcore/flutter_aepcore.dart';
+import 'package:flutter_{extension}/flutter_{plugin_name}.dart'
 ```
 
 ## Initializing
 
-To initialize the SDK, use <br>
-[MobileCore.initializeWithAppId(appId)](#initializewithappid) or <br>
-[MobileCore.initialize(initOptions)](#initialize) methods.
+To initialize the SDK, use the following methods:
+- [MobileCore.initializeWithAppId(appId)](#initializewithappid)
+- [MobileCore.initialize(initOptions)](#initialize)
 
-Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter) for more information about the SDK setup.
+Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter/blob/main/README.md) for more information about the SDK setup.
 
 ## Core
 
@@ -95,6 +95,7 @@ try {
       InitOptions initOptions = InitOptions(
         appId: "YOUR-APP-ID", 
         lifecycleAutomaticTrackingEnabled: true,
+        lifecycleAdditionalContextData: {"key": "value"}
       );
 
       MobileCore.initialize(initOptions: initOptions);

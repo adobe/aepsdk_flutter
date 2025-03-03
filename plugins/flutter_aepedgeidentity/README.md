@@ -20,7 +20,7 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 For more detailed information on the Edge Identity APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/identity-for-edge-network/)
 
-### Importing the extension
+### Importing the extension:
 In your Flutter application, import the Edge Identity extension as follows:
 ```dart
 import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity.dart';
@@ -28,9 +28,9 @@ import 'package:flutter_aepedgeidentity/flutter_aepedgeidentity.dart';
 
 ### Initializing with SDK:
 
-To initialize the SDK use <br>
-[MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initializewithappid) or <br>
-[MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize) methods.
+To initialize the SDK, use the following methods:
+- [MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initializewithappid)
+- [MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize)
 
 Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter/blob/main/README.md) for more information about the SDK setup.
 

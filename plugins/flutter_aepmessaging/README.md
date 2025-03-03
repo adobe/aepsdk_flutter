@@ -22,8 +22,7 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 For more detailed information on the Messaging APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/adobe-journey-optimizer/api-reference/)
 
-
-### Importing the extension
+### Importing the extension:
 
 In your Flutter application, import the Messaging extension as follows:
 
@@ -33,12 +32,11 @@ import 'package:flutter_aepmessaging/flutter_aepmessaging.dart';
 
 ### Initializing with SDK:
 
-To initialize the SDK use <br>
-[MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initializewithappid) or <br>
-[MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize) methods.
+To initialize the SDK, use the following methods:
+- [MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initializewithappid)
+- [MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize)
 
 Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter/blob/main/README.md) for more information about the SDK setup.
-
 
 ## API reference
 
