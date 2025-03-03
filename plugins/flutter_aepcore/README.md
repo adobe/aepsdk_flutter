@@ -24,39 +24,116 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 ### Initializing
 
-Initializing the SDK should be done in native code (AppDelegate / SceneDelegate for iOS and Application class for Android). Documentation for initializing the SDK can be found [here](https://developer.adobe.com/client-sdks/documentation/getting-started/get-the-sdk/#2-add-initialization-code).
-
-As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
+To initialize the SDK, use <br>
+[MobileCore.initializeWithAppId(appId)](#initializewithappid) or <br>
+[MobileCore.initializeWithAppId(initOptions)](#initialize) methods.
 
 Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information about initializing the SDK.
 
-### Core
+---
+
+Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter) for more information about the SDK setup.
+
+---
+
+## Core
 
 For more detailed information on the Core APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/)
 
-##### Importing Core:
+### Importing Core:
+In your Flutter application, import the Core package as follows:
+
 ```dart
 import 'package:flutter_aepcore/flutter_aepcore.dart';
 ```
 
-##### Getting Core version:
- ```dart
+## API reference
+
+### extensionVersion
+Returns the SDK version of the Core extension.
+
+**Syntax**
+```dart
+Future<String> get extensionVersion
+```
+
+**Example**
+```dart
 String version = await MobileCore.extensionVersion;
- ```
+```
+### initializeWithAppId
 
-##### Updating the SDK configuration:
+Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
 
+**Syntax**
+```dart
+ MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
+```
+
+**Example**
+```dart
+String version = await MobileCore.extensionVersion;
+```
+
+### initialize
+
+Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
+
+**Syntax**
+```dart
+ static Future<void> initialize({required InitOptions initOptions}) 
+```
+
+**Example**
+```dart
+try {
+      InitOptions initOptions = InitOptions(
+        appId: "YOUR-APP-ID", 
+        lifecycleAutomaticTrackingEnabled: true,
+      );
+
+      await MobileCore.initialize(initOptions: initOptions);
+      print("Adobe Experience Platform Mobile SDK was initialized");
+    } catch (e) {
+      print("Failed to initialize Adobe Experience Platform Mobile SDK: $e");
+    }
+```
+
+### updateConfiguration
+Update the configuration programmatically by passing configuration keys and values to override the existing configuration.
+
+**Syntax**
+```dart
+static Future<void> updateConfiguration(Map<String, Object> configMap)
+```
+
+**Example**
 ```dart
 MobileCore.updateConfiguration({"key" : "value"});
 ```
 
-##### Clearing configuration updates back to original configuration:
+### clearUpdatedConfiguration
+Clearing configuration updates back to original configuration.
 
+**Syntax**
+```dart
+static Future<void> clearUpdatedConfiguration()
+```
+
+**Example**
 ```dart
 MobileCore.clearUpdatedConfiguration();
 ```
 
-##### Controlling the log level of the SDK:
+### setLogLevel
+Control the log level of the SDK.
+
+**Syntax**
+```dart
+static Future<void> setLogLevel(LogLevel mode)
+```
+
+**Example**
 ```dart
 MobileCore.setLogLevel(LogLevel.error);
 MobileCore.setLogLevel(LogLevel.warning);
@@ -64,7 +141,15 @@ MobileCore.setLogLevel(LogLevel.debug);
 MobileCore.setLogLevel(LogLevel.trace);
 ```
 
-##### Getting the current privacy status:
+### get privacyStatus
+Get the current privacy status.
+
+**Syntax**
+```dart
+static Future<PrivacyStatus> get privacyStatus
+```
+
+**Example**
 ```dart
 PrivacyStatus result;
 
@@ -75,14 +160,30 @@ try {
 }
 ```
 
-##### Setting the privacy status:
+### setPrivacyStatus
+Set the privacy status.
+
+**Syntax**
+```dart
+static Future<void> setPrivacyStatus(PrivacyStatus privacyStatus)
+```
+
+**Example**
 ```dart
 MobileCore.setPrivacyStatus(PrivacyStatus.opt_in);
 MobileCore.setPrivacyStatus(PrivacyStatus.opt_out);
 MobileCore.setPrivacyStatus(PrivacyStatus.unknown);
 ```
 
-##### Getting the SDK identities:
+### get sdkIdentities
+Get the SDK identities.
+
+**Syntax**
+```dart
+static Future<String> get sdkIdentities
+```
+
+**Example**
 ```dart
 String result = "";
 
@@ -93,7 +194,15 @@ try {
 }
 ```
 
-##### Dispatching an Event Hub event:
+### dispatchEvent
+Dispatch an Event Hub event.
+
+**Syntax**
+```dart
+static Future<void> dispatchEvent(Event event)
+```
+
+**Example**
 ```dart
 final Event event = Event({
   "eventName": "testEventName",
@@ -108,7 +217,15 @@ try {
 }
 ```
 
-##### Dispatching an Event Hub event with callback:
+### dispatchEventWithResponseCallback
+Dispatch an Event Hub event with callback.
+
+**Syntax**
+```dart
+static Future<Event> dispatchEventWithResponseCallback
+```
+
+**Example**
 ```dart
 Event result;
 final Event event = Event({
@@ -124,23 +241,47 @@ final Event event = Event({
     }
 ```
 
-##### Reset identities 
+### resetIdentities
+The resetIdentities method requests that each extension resets the identities it owns and each extension responds to this request uniquely.
+
+**Syntax**
+```dart
+static Future<void> resetIdentities()
+```
+
+**Example**
 ```dart
 MobileCore.resetIdentities()
 ```
 
-##### Track app actions
+### trackAction
+Track event actions that occur in your application.
 
 > [!IMPORTANT]  
 > trackAction is supported through [Edge Bridge](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedgebridge) and [Edge Network](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedge) extensions. 
 
+**Syntax**
+```dart
+static Future<void> trackAction
+```
+
+**Example**
 ```dart
 MobileCore.trackAction("myAction",  data: {"key1": "value1"});
 ```
-##### Track app states
+
+### trackState
+Track states that represent screens or views in your application.
+
 > [!IMPORTANT]  
 > trackState is supported through [Edge Bridge](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedgebridge) and [Edge Network](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepedge) extensions. 
 
+**Syntax**
+```dart
+static Future<void> trackState
+```
+
+**Example**
 ```dart
 MobileCore.trackState("myState",  data: {"key1": "value1"});
 ```
@@ -149,32 +290,67 @@ MobileCore.trackState("myState",  data: {"key1": "value1"});
 
 For more information on the Core Identity APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/identity/).
 
-##### Importing Identity:
+### Importing Identity:
+In your Flutter application, import the Identity package as follows:
+
 ```dart
 import 'package:flutter_aepcore/flutter_aepidentity.dart';
 ```
 
-##### Getting Identity version:
+## API reference
+
+### extensionVersion
+Returns the SDK version of the Identity extension.
+
+**Syntax**
+```dart
+Future<String> get extensionVersion
+```
+
+**Example**
 ```dart
 String version = await Identity.extensionVersion;
 ```
 
-##### Sync Identifier:
+### syncIdentifier
+Updates the given customer ID with the Adobe Experience Cloud ID Service.
+
+**Syntax**
+```dart
+static Future<void> syncIdentifier
+```
+
+**Example**
 ```dart
 Identity.syncIdentifier("identifierType", "identifier", MobileVisitorAuthenticationState.authenticated);
 ```
 
-##### Sync Identifiers:
+### syncIdentifiers
+Updates the given customer IDs with the Adobe Experience Cloud ID Service.
+
+**Syntax**
+```dart
+static Future<void> syncIdentifiers(Map<String, String> identifiers)
+```
+
+**Example**
 ```dart
 Identity.syncIdentifiers({"idType1":"idValue1",
                                     "idType2":"idValue2",
                                     "idType3":"idValue3"});
 ```
 
-##### Sync Identifiers with Authentication State:
+### syncIdentifiersWithAuthState
+Updates the given customer IDs with Authentication State using the Adobe Experience Cloud ID Service. 
+
+**Syntax**
+```dart
+static Future<void> syncIdentifiersWithAuthState
+```
+
+**Example**
 ```dart
 Identity.syncIdentifiersWithAuthState({"idType1":"idValue1", "idType2":"idValue2", "idType3":"idValue3"}, MobileVisitorAuthenticationState.authenticated);
-
 ```
 
 Note: `MobileVisitorAuthenticationState` is defined as:
@@ -183,8 +359,15 @@ Note: `MobileVisitorAuthenticationState` is defined as:
 enum MobileVisitorAuthenticationState {unknown, authenticated, logged_out}
 ```
 
-##### Append visitor data to a URL:
+### appendToUrl
+Append visitor data to a URL.
 
+**Syntax**
+```dart
+static Future<String> appendToUrl(String url)
+```
+
+**Example**
 ```dart
 String result = "";
 
@@ -195,14 +378,15 @@ try {
 }
 ```
 
-##### Setting the advertising identifier:
+### get urlVariables
+Get visitor data as URL query parameter string.
 
+**Syntax**
 ```dart
-MobileCore.setAdvertisingIdentifier("ad-id");
+static Future<String> get urlVariables
 ```
 
-##### Get visitor data as URL query parameter string:
-
+**Example**
 ```dart
 String result = "";
 
@@ -213,8 +397,15 @@ try {
 }
 ```
 
-##### Get Identifiers:
+### get identifiers
+Returns all customer identifiers that were previously synced with the Adobe Experience Cloud.
 
+**Syntax**
+```dart
+static Future<List<Identifiable>> get identifiers
+```
+
+**Example**
 ```dart
 List<Identifiable> result;
 
@@ -225,7 +416,15 @@ try {
 }
 ```
 
-##### Get Experience Cloud IDs:
+### getExperienceCloudId
+This API retrieves the Experience Cloud ID (ECID) that was generated when the app was initially launched. This ID is preserved between app upgrades, is saved and restored during the standard application backup process, and is removed at uninstall.
+
+**Syntax**
+```dart
+static Future<String> get experienceCloudId
+```
+
+**Example**
 ```dart
 String result = "";
 
@@ -236,32 +435,32 @@ try {
 }
 ```
 
-##### AEPMobileVisitorId Class:
-```dart
-class Identifiable {
-  String get idOrigin;
-  String get idType;
-  String get identifier;
-  MobileVisitorAuthenticationState get authenticationState;
-}
-```
-
 ### Lifecycle
+Refer to `MobileCore.initialize()` method.
 
-For more information on the Core Lifecycle APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/lifecycle/)
-
-> Note: It is required to implement Lifecycle in native [Android and iOS code](https://developer.adobe.com/client-sdks/documentation/mobile-core/lifecycle/).
 
 ### Signal
 
 For more information on the Core Signal APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/signal/)
 
-##### Importing Signal:
+### Importing Signal:
+In your Flutter application, import the Signal package as follows:
+
 ```dart
 import 'package:flutter_aepcore/flutter_aepsignal.dart';
 ```
 
-##### Getting Signal version:
+## API reference
+
+### extensionVersion
+Returns the SDK version of the Core extension.
+
+**Syntax**
+```
+static Future<String> get extensionVersion
+```
+
+**Example**
  ```dart
 String version = await Signal.extensionVersion;
  ```

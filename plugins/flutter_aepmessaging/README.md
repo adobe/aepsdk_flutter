@@ -18,85 +18,18 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 > Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
 
-## Tests
-
-Run:
-
-```bash
-flutter test
-```
-
 ## Usage
 
 For more detailed information on the Messaging APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/adobe-journey-optimizer/api-reference/)
 
+---
 ### Registering the extension with AEPCore:
 
-> Note: It is required to initialize the SDK via native code inside your AppDelegate (iOS) and MainApplication class (Android).
-
-As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
+To initialize the SDK, use <br>
+[MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#dispatching-an-event-hub-event-with-callback) or <br>
+[MobileCore.initializeWithAppId(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#dispatching-an-event-hub-event-with-callback#initialize) methods.
 
 Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information about initializing the SDK.
-
-**Initialization Example**
-
-iOS
-
-```objc
-// AppDelegate.h
-@import AEPCore;
-@import AEPEdge;
-@import AEPEdgeIdentity;
-@import AEPMessaging;
-
-...
-@implementation AppDelegate
-
-// AppDelegate.m
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [AEPMobileCore setWrapperType:AEPWrapperTypeFlutter];
-
-     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-    NSString* ENVIRONMENT_FILE_ID = @'YOUR-APP-ID';
-
-    NSArray *extensionsToRegister = @[AEPMessaging.class,
-                                      AEPMobileEdge.class,
-                                      AEPMobileEdgeIdentity.class
-                                      ];
-
-    [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
-    [AEPMobileCore configureWithAppId: ENVIRONMENT_FILE_ID];
-    }];
-    return YES;
- }
-```
-
-Android
-
-```java
-import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.Edge;
-import com.adobe.marketing.mobile.messaging.Messaging;
-...
-import io.flutter.app.FlutterApplication;
-...
-public class MainApplication extends FlutterApplication {
-  ...
-  // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-   private final String ENVIRONMENT_FILE_ID = "YOUR-APP-ID";
-
-    @Override
-    public void onCreate() {
-      super.onCreate();
-      List<Class<? extends Extension>> extensions = Arrays.asList(   
-              Edge.EXTENSION,
-              EdgeIdentity.EXTENSION,
-              Messaging.EXTENSION
-      );
-      MobileCore.registerExtensions(extensions, o -> MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID));
-    }
-}
-```
 
 ---
 
@@ -264,6 +197,14 @@ The AEPMessaging extension's push messaging APIs must be called from the native 
 ##### [Android API usage](https://github.com/adobe/aepsdk-messaging-android/blob/main/Documentation/sources/api-usage.md)
 
 In Android, [MessagingPushPayload](https://github.com/adobe/aepsdk-messaging-android/blob/main/Documentation/sources/messaging-push-payload.md#messagingpushpayload-usage) can be used for getting the notification attributes like title, body, and action. These are useful for push notification creation.
+
+## Tests
+
+Run:
+
+```bash
+flutter test
+```
 
 ## Contributing
 
