@@ -27,7 +27,7 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 
 First, make sure that `Flutter` is [installed](https://docs.flutter.dev/get-started/install).
 
-### Using Terminal:
+### Installing using Terminal:
 
 Install the package, run:
 
@@ -38,7 +38,7 @@ flutter pub add flutter_{plugin_name}
 
 This will automatically update your package's pubspec.yaml with the dependency, and run an implicit `flutter pub get`.
 
-### Manually:
+### Installing Manually:
 
 Alternatively, Editing pubspec.yaml manually with dependencies.
 

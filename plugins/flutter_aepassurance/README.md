@@ -4,9 +4,13 @@
 
 `flutter_aepassurance` is a flutter plugin for the iOS and Android [Adobe Experience Platform Assurance SDK](https://developer.adobe.com/client-sdks/documentation/platform-assurance/) to allow for integration with Flutter applications. Functionality to enable the Assurance extension is provided entirely through Dart documented below.
 
-## Installation
+## Prerequisites
 
-First, make sure that the [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md) plugin is installed, as flutter_aepassurance depends on it. 
+The Assurance plugin has the following peer dependency, which must be installed prior to installing it:
+
+- [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md)
+
+## Installation
 
 Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepassurance/install).
 
@@ -20,13 +24,13 @@ For more detailed information on the Assurance APIs, visit the documentation [he
 ```dart
 import 'package:flutter_aepassurance/flutter_aepassurance.dart';
 ```
-### Initializing with AEPCore:
+### Initializing with SDK:
 
 Then initialize the SDK use <br>
-[MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initializewithappid) or <br>
+[MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#giinitializewithappid) or <br>
 [MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize) methods.
 
-Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter) for more information about the SDK setup.
+Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter/blob/main/README.md) for more information about the SDK setup.
 
 ## API reference
 
