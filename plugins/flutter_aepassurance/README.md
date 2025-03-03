@@ -26,7 +26,7 @@ import 'package:flutter_aepassurance/flutter_aepassurance.dart';
 ```
 ### Initializing with SDK:
 
-Then initialize the SDK use <br>
+To initialize the SDK use <br>
 [MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#giinitializewithappid) or <br>
 [MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize) methods.
 
