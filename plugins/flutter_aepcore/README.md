@@ -6,12 +6,12 @@
 
 ## Contents
 - [Installation](#installation)
-- [Usage](#usage)
-	- [Initializing](#initializing)
-	- [Core](#core)
-	- [Identity](#identity)
-	- [Lifecycle](#lifecycle)
-	- [Signal](#signal)
+- [Importing the plugins](#importing-the-plugins)
+- [Initializing](#initializing)
+- [Core](#core)
+- [Identity](#identity)
+- [Lifecycle](#lifecycle)
+- [Signal](#signal)
 - [Tests](#tests)
 
 ## Installation
@@ -20,27 +20,27 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 > Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
 
-## Usage
+## Importing the Plugins
 
-### Initializing
+Import the package in your **Dart** code as follows:
+
+```dart
+import 'package:flutter_aepcore/flutter_aepcore.dart';
+```
+
+## Initializing
 
 To initialize the SDK, use <br>
 [MobileCore.initializeWithAppId(appId)](#initializewithappid) or <br>
-[MobileCore.initializeWithAppId(initOptions)](#initialize) methods.
-
-Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information about initializing the SDK.
-
----
+[MobileCore.initialize(initOptions)](#initialize) methods.
 
 Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter) for more information about the SDK setup.
-
----
 
 ## Core
 
 For more detailed information on the Core APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/)
 
-### Importing Core:
+## Importing Core:
 In your Flutter application, import the Core package as follows:
 
 ```dart
@@ -62,26 +62,31 @@ Future<String> get extensionVersion
 String version = await MobileCore.extensionVersion;
 ```
 ### initializeWithAppId
+It initializes AEP SDKs by automatically registering all extensions bundled with the application and enabling automatic lifecycle tracking by default.
 
-Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
+appId: Configures the SDK with the provided mobile property environment ID configured from the Data Collection UI.
 
 **Syntax**
 ```dart
- MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
+static Future<void> initializeWithAppId({required String appId})
 ```
 
 **Example**
 ```dart
-String version = await MobileCore.extensionVersion;
+MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
 ```
 
-### initialize
+> [!NOTE]  
+> Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
 
-Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
+### initialize
+It initializes AEP SDKs by automatically registering all extensions bundled with the application and enabling automatic lifecycle tracking by default.
+
+InitOptions: Allow customization of the default initialization behavior. Refer [InitOptions](#initoptions).
 
 **Syntax**
 ```dart
- static Future<void> initialize({required InitOptions initOptions}) 
+static Future<void> initialize({required InitOptions initOptions}) 
 ```
 
 **Example**
@@ -92,12 +97,20 @@ try {
         lifecycleAutomaticTrackingEnabled: true,
       );
 
-      await MobileCore.initialize(initOptions: initOptions);
+      MobileCore.initialize(initOptions: initOptions);
       print("Adobe Experience Platform Mobile SDK was initialized");
     } catch (e) {
       print("Failed to initialize Adobe Experience Platform Mobile SDK: $e");
     }
 ```
+
+#### InitOptions
+The InitOptions class defines the options for initializing the AEP SDK. It currently supports the following options:
+
+* appID – The App ID used to retrieve remote configurations from Adobe servers.
+* lifecycleAutomaticTrackingEnabled – A boolean flag to enable or disable automatic lifecycle tracking
+* lifecycleAdditionalContextData – A map containing extra context data to be sent with the lifecycle start event.
+* appGroup (iOS only) – A string representing the App Group identifier for sharing data between app extensions and the main application.
 
 ### updateConfiguration
 Update the configuration programmatically by passing configuration keys and values to override the existing configuration.
