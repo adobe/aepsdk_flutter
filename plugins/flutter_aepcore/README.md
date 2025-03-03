@@ -82,7 +82,7 @@ MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
 ### initialize
 It initializes AEP SDKs by automatically registering all extensions bundled with the application and enabling automatic lifecycle tracking by default.
 
-InitOptions: Allow customization of the default initialization behavior. Refer [InitOptions](#initoptions).
+InitOptions: Allow customization of the default initialization behavior. Refer to the [InitOptions](#initoptions).
 
 **Syntax**
 ```dart

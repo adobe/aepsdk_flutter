@@ -11,7 +11,7 @@ Update your `pubspec.yml` file to point to the new plugin as so:
 
 dependencies:
 -  flutter_acpcore: ^2.0.0
-+  flutter_aepcore: ^4.0.0
++  flutter_aepcore: ^5.0.0
 
 ...
 ```
@@ -28,6 +28,14 @@ Updated plugins can be found in this repository under [plugins/](https://github.
 | Place Monitor | NA |
 
 ## Update SDK initialization
+
+> [!NOTE]  
+> Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
+
+Refer to the initializing info [here](https://github.com/adobe/aepsdk_flutter/tree/main?tab=readme-ov-file#initializing).
+
+---
+Instruction for using AEP Flutter Version 4.x and Earlier.
 
 Remove the deprecated registration code and the extensions that are not supported in AEP Flutter libraries.
 
@@ -155,6 +163,7 @@ public class MyApplication extends FlutterApplication {
 
 @end
 ```
+---
 
 ## Update API usage and references for each extension
 

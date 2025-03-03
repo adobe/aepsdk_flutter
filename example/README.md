@@ -19,7 +19,7 @@ samples, guidance on mobile development, and a full API reference.
 ## How to run the example app:
 
 ### Add your App Id:
-In `lib/main.dart`, find the call to `MobileCore.initializeWithAppId(appId:"YOUR_APP_ID")` and add your app id to replace "YOUR_APP_ID" placeholder.
+In `lib/main.dart`, locate the call to `MobileCore.initializeWithAppId(appId:"YOUR_APP_ID")` and replace `"YOUR_APP_ID"` with your property App Id.
 
 #### Run instructions for Android:
 
