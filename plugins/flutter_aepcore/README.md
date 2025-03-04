@@ -126,8 +126,8 @@ class _HomePageState extends State<HomePage> {
       MobileCore.initialize(initOptions: initOptions);
       print("Adobe Experience Platform Mobile SDK was initialized");
     } catch (e) {
-        print("Failed to initialize Adobe Experience Platform Mobile SDK: $e");
-      }
+      print("Failed to initialize Adobe Experience Platform Mobile SDK: $e");
+    }
   }
 }
 ```
