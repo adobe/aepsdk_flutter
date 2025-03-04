@@ -25,93 +25,12 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 > Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
 
-## Tests
-
-Run:
-
-```bash
-flutter test
-```
-
 ## Usage
-
-### Installing and registering the extension with the AEP Mobile Core
 
 Install the Adobe Experience Platform Edge Network extension in your mobile property and configure the default Datastream ID by following the steps in the [Edge Network extension documentation](https://developer.adobe.com/client-sdks/documentation/edge-network).
 
 > **Note**  
 Experience Platform Edge Bridge does not have a corresponding extension card in the Data Collection UI; no changes to a Data Collection mobile property are required to use Edge Bridge.
-
-### Registering the extension with AEPCore:
-
-> **Note**  
-It is required to initialize the SDK via native code inside your AppDelegate (iOS) and MainApplication class (Android).
-
-As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
-
-Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information about initializing the SDK.
-
-**Initialization Example**
-
-iOS
-```objc
-// AppDelegate.h
-@import AEPCore;
-@import AEPEdge;
-@import AEPEdgeIdentity;
-@import AEPEdgeBridge;
-...
-@implementation AppDelegate
-
-// AppDelegate.m
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [AEPMobileCore setWrapperType:AEPWrapperTypeFlutter];
-
-     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-    NSString* ENVIRONMENT_FILE_ID = @"YOUR-APP-ID";
-    
-    NSArray *extensionsToRegister = @[AEPMobileEdgeIdentity.class, 
-                                      AEPMobileEdge.class,                                              
-                                      AEPMobileEdgeBridge.class
-                                      ];
-
-    [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
-      [AEPMobileCore configureWithAppId: ENVIRONMENT_FILE_ID];
-    }];
-    return YES;   
- } 
-```
-
-Android
-```java
-import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.Edge;
-import com.adobe.marketing.mobile.edge.identity.Identity;
-import com.adobe.marketing.mobile.edge.bridge.EdgeBridge
-  
-...
-import io.flutter.app.FlutterApplication;
-...
-public class MainApplication extends FlutterApplication {
-  ...
-  // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-  private final String ENVIRONMENT_FILE_ID = "YOUR-APP-ID";
-
-  @Override
-  public void on Create(){
-    super.onCreate();
-    ...
-    MobileCore.setApplication(this);
-    MobileCore.setWrapperType(WrapperType.FLUTTER);
-    MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
-
-    MobileCore.registerExtensions(
-      Arrays.asList(Identity.EXTENSION, Edge.EXTENSION, EdgeBridge.EXTENSION),
-      o -> Log.d("MainApp", "Adobe Experience Platform Mobile SDK was initialized")
-    );
-  }
-}
-```
 
 ### Importing the SDK:
 
@@ -119,16 +38,22 @@ public class MainApplication extends FlutterApplication {
 import 'package:flutter_aepedgebridge/flutter_aepedgebridge.dart';
 ```
 
+### Initializing with SDK:
+
+To initialize the SDK, use the following methods:
+- [MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initializewithappid)
+- [MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize)
+
+Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter/blob/main/README.md) for more information about the SDK setup.
 
 ### Edge Bridge tutorials
 
-For tutorials on implementing Edge Bridge and Data Prep mapping, refer to the [Edge Bridge tutorials](https://github.com/adobe/aepsdk-edgebridge-ios/tree/main/Documentation/tutorials).
+For tutorials on implementing Edge Bridge, refer to the [Edge Bridge tutorials](https://github.com/adobe/aepsdk-edgebridge-ios/tree/main/Documentation/tutorials).
 
 
 ### Validation
 
-Validating Edge Bridge events through Edge workflow using the [Event Transations](https://developer.adobe.com/client-sdks/edge/edge-network/validation/#use-the-event-transactions-view) view or [Analytics Events 2.0](https://experienceleague.adobe.com/en/docs/experience-platform/assurance/view/adobe-analytics-edge) view in Assurance.
-
+Validating Edge Bridge events through Edge workflow using the [Event Transations](https://developer.adobe.com/client-sdks/edge/edge-network/validation/validation/#use-the-event-transactions-view) view or [Analytics Events](https://experienceleague.adobe.com/en/docs/experience-platform/assurance/view/adobe-analytics-edge) view in Assurance.
 
 
 ## API reference
@@ -143,4 +68,11 @@ static Future<String> get extensionVersion
 **Example**
 ```dart
 String version = await EdgeBridge.extensionVersion;
+```
+## Tests
+
+Run:
+
+```bash
+flutter test
 ```

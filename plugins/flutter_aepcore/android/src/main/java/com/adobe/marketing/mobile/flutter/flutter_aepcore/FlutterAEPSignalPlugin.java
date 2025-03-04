@@ -26,7 +26,7 @@ public class FlutterAEPSignalPlugin implements FlutterPlugin, MethodChannel.Meth
     @Override
     public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
         channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepsignal");
-        channel.setMethodCallHandler(new FlutterAEPSignalPlugin());
+        channel.setMethodCallHandler(this);
     }
 
     @Override

@@ -15,6 +15,7 @@ package com.adobe.marketing.mobile.flutter.flutter_aepcore;
 import com.adobe.marketing.mobile.Event;
 import com.adobe.marketing.mobile.LoggingMode;
 import com.adobe.marketing.mobile.MobilePrivacyStatus;
+import com.adobe.marketing.mobile.InitOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,10 @@ public class FlutterAEPCoreDataBridge {
     public final static String EVENT_TYPE_KEY = "eventType";
     public final static String EVENT_SOURCE_KEY = "eventSource";
     public final static String EVENT_DATA_KEY = "eventData";
+
+    private final static String APPID_KEY = "appId";
+    private final static String LIFECYCLE_AUTOMATIC_TRACKING_KEY = "lifecycleAutomaticTrackingEnabled";
+    private static final String LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY = "lifecycleAdditionalContextData";
 
     /**
      * Converts a {@link Map} into an {@link Event}
@@ -118,6 +123,36 @@ public class FlutterAEPCoreDataBridge {
         return AEP_PRIVACY_STATUS_UNKNOWN;
     }
 
+    static InitOptions initOptionsFromMap(final Object arguments) {
+        if (!(arguments instanceof Map)) {
+            return null;
+        }
+
+        Map argumentsAsMap = (Map) arguments;
+
+        Map<String, Object> initOptionsMap = getNullableMap(argumentsAsMap, "initOptions");
+        if (initOptionsMap == null) {
+            return null;
+        }
+        String appId = getNullableString(initOptionsMap, APPID_KEY);
+        Boolean lifecycleAutomaticTrackingEnabled = getNullableBoolean(initOptionsMap, LIFECYCLE_AUTOMATIC_TRACKING_KEY);
+        Map<String, String> lifecycleAdditionalContextData = getNullableStringMap(initOptionsMap, LIFECYCLE_ADDITIONAL_CONTEXTDATA_KEY);
+
+        InitOptions options;
+        if (appId != null) {
+            options = InitOptions.configureWithAppID(appId);
+        } else {
+            options = new InitOptions();
+        }
+        if (lifecycleAutomaticTrackingEnabled != null) 
+        {  
+          options.setLifecycleAutomaticTrackingEnabled(lifecycleAutomaticTrackingEnabled);
+        }
+        options.setLifecycleAdditionalContextData(lifecycleAdditionalContextData);
+
+        return options;
+    }
+
     // Helper methods
 
     private static String getNullableString(final Map data, final String key) {
@@ -127,4 +162,29 @@ public class FlutterAEPCoreDataBridge {
     private static Map getNullableMap(final Map data, final String key) {
         return data.containsKey(key) && (data.get(key) instanceof Map) ? (Map) data.get(key) : null;
     }
+
+    private static Boolean getNullableBoolean(final Map data, final String key) {
+        return data.containsKey(key) && (data.get(key) instanceof Boolean) ? (Boolean) data.get(key) : null;
+    }
+
+    private static Map<String, String> getNullableStringMap(final Map data, final String key) {
+    if (!data.containsKey(key) || !(data.get(key) instanceof Map)) {
+        return null;
+    }
+
+    Map rawMap = (Map) data.get(key);
+
+    if (rawMap == null || !(rawMap instanceof Map)) {
+       return null;
+    }
+  
+    for (Object entryObj : rawMap.entrySet()) {
+        Map.Entry entry = (Map.Entry) entryObj;
+        if (!(entry.getKey() instanceof String) || !(entry.getValue() instanceof String)) {
+            return null;
+        }
+    }
+
+    return (Map<String, String>) rawMap;
+  }
 }

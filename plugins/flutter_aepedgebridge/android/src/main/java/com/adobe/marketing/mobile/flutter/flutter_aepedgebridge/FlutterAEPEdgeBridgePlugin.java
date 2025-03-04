@@ -28,7 +28,7 @@ public class FlutterAEPEdgeBridgePlugin implements FlutterPlugin, MethodCallHand
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
     channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepedgebridge");
-    channel.setMethodCallHandler(new FlutterAEPEdgeBridgePlugin());
+    channel.setMethodCallHandler(this);
   }
 
   @Override

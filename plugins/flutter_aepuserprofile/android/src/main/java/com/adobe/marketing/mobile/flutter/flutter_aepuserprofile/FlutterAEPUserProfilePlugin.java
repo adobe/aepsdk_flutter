@@ -46,7 +46,7 @@ public class FlutterAEPUserProfilePlugin implements FlutterPlugin, MethodCallHan
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
     channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepuserprofile");
-    channel.setMethodCallHandler(new FlutterAEPUserProfilePlugin());
+    channel.setMethodCallHandler(this);
   }
 
   @Override

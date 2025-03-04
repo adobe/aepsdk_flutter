@@ -9,8 +9,8 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'messaging.dart';
 import 'core.dart';
 import 'assurance.dart';
@@ -21,17 +21,46 @@ import 'edgeIdentity.dart';
 import 'edgebridge.dart';
 import 'userprofile.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
-    home: HomePage(),
+  home: HomePage(),
   ));
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  /// Initialize the Adobe Experience Platform Mobile SDK inside the initState method.
+  @override
+  void initState() {
+    super.initState();
+    _initializeAEPMobileSdk();
+  }
+
+ Future<void> _initializeAEPMobileSdk() async {
+    MobileCore.setLogLevel(LogLevel.trace);
+    MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
+
+    // For more granular control over the initial options, you can use the following sample code:
+    // InitOptions initOptions = InitOptions(
+    //   appId: "YOUR_APP_ID",
+    //   lifecycleAutomaticTrackingEnabled: true,
+    //   lifecycleAdditionalContextData: {"key": "value"},
+    //   appGroupIOS: "group.com.example",
+    // );
+
+    // MobileCore.initialize(initOptions: initOptions);
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
           title: const Text('Flutter AEP SDK'),
         ),
         body: Center(

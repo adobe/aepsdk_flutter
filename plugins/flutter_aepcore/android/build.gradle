@@ -1,5 +1,4 @@
 group 'com.adobe.marketing.mobile.flutter.flutter_aepcore'
-//do we need to update this version?
 version '3.0'
 
 buildscript {
@@ -39,8 +38,9 @@ android {
 }
 
 dependencies {
-    api 'com.adobe.marketing.mobile:core:3.+'
-    api 'com.adobe.marketing.mobile:identity:3.+'
-    api 'com.adobe.marketing.mobile:lifecycle:3.+'
-    api 'com.adobe.marketing.mobile:signal:3.+'
+    implementation platform("com.adobe.marketing.mobile:sdk-bom:[3.8.0,4.0.0)")
+    api "com.adobe.marketing.mobile:core"
+    api "com.adobe.marketing.mobile:signal"
+    api "com.adobe.marketing.mobile:identity"
+    api "com.adobe.marketing.mobile:lifecycle"
 }
