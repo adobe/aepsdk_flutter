@@ -27,60 +27,59 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 
 First, make sure that `Flutter` is [installed](https://docs.flutter.dev/get-started/install).
 
-Now to install the package, run:
+### Installing using Terminal:
+
+Install the package, run:
 
 ```bash
 cd MyFlutterApp
 flutter pub add flutter_{plugin_name}
 ```
 
-This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):
+This will automatically update your package's pubspec.yaml with the dependency, and run an implicit `flutter pub get`.
+
+### Installing Manually:
+
+Alternatively, Editing pubspec.yaml manually with dependencies.
 
 ```
 dependencies:
   flutter_{plugin_name}: ^{latest_version}
 ```
+Run:
 
-Now import the plugin in your Dart code as follows:
+```
+flutter pub get
+```
+
+#### iOS development
+
+For iOS development, after installing the plugin packages, download the pod dependencies by running the following command to link the libraries to your Xcode project :
+
+```bash
+cd ios && pod install && cd ..
+```
+To update native dependencies to latest available versions, run the following command:
+
+```bash
+cd ios && pod update && cd ..
+```
+## Importing the Plugin
+
+For both installation methods, you need to import the package in your **Dart** code as follows:
 
 ```
 import 'package:flutter_{extension}/flutter_{plugin_name}.dart'
 ```
 
-Install instructions for each respective plugin can be found in each plugin's readme: `/plugins/{plugin_name}/README.md`. Start by installing `flutter_aepcore` which is a dependency for all other extensions.
+## Initializing
 
-## Usage
+Then, initialize the SDK using the following methods:
+- [MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initializewithappid)
+- [MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize)
 
-### Initializing
-
-Initializing the SDK should be done in native code (AppDelegate / SceneDelegate for iOS and Application class for Android). Documentation for initializing the SDK can be found [here](https://developer.adobe.com/client-sdks/documentation/getting-started/get-the-sdk/#2-add-initialization-code). The linked documentation initalizes the User Profile extension which is not required or supported in Flutter.
-
-As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
-
-#### iOS:
-
-Add the initialization code in [AppDelegate.m or AppDelegate.swift](/example/ios/Runner/AppDelegate.m#L9) file of the generated iOS project.
-
-#### Android: 
-Create an [Application class](/example/android/app/src/main/java/com/adobe/marketing/mobile/flutter/flutter_aepsdk_example/MyApplication.java) which extends [FlutterApplication](https://api.flutter.dev/javadoc/io/flutter/app/FlutterApplication.html) and add the initialization code. Change your [AndroidManifest.xml](/example/android/app/src/main/AndroidManifest.xml#L9) to reference this new class. 
-
-Once you have added the initialization code to your app, be sure to set the SDK wrapper type to Flutter before you start the SDK.
-
-###### iOS:
-Swift:
-```swift
-MobileCore.setWrapperType(.flutter)
-```
-
-Objective-C:
-```objective-c
-[AEPMobileCore setWrapperType:AEPWrapperTypeFlutter];
-```
-
-###### Android:
-```java
-MobileCore.setWrapperType(WrapperType.FLUTTER);
-```
+> [!NOTE]  
+> Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
 
 ## Tests
 
