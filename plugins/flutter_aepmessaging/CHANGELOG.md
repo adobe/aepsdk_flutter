@@ -1,3 +1,8 @@
+## 5.0.0
+
+* Update to use BOM (Bill of Materials) for sdk dependecies in Android
+* Update tests to handle the deprecation warning for `setMockMethodCallHandler`
+
 ## 4.0.2
 
 * Update environment dependencies in pubspec.
