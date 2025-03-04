@@ -1,6 +1,6 @@
 ## 5.0.0
 
-* Update to use BOM (Bill of Materials) for Android SDK dependencies.
+* Update to use BOM [(Bill of Materials)](https://central.sonatype.com/artifact/com.adobe.marketing.mobile/sdk-bom) for Android SDK dependencies.
 * Update tests to handle the deprecation warning for `setMockMethodCallHandler`.
 
 ## 4.1.0
