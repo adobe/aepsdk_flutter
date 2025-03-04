@@ -52,7 +52,7 @@ Run:
 flutter pub get
 ```
 
-#### ios development
+#### iOS development
 
 For iOS development, after installing the plugin packages, download the pod dependencies by running the following command to link the libraries to your Xcode project :
 

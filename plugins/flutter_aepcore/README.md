@@ -61,8 +61,9 @@ Future<String> get extensionVersion
 ```dart
 String version = await MobileCore.extensionVersion;
 ```
+
 ### initializeWithAppId
-It initializes AEP SDKs by automatically registering all extensions bundled with the application and enabling automatic lifecycle tracking by default.
+Initialize the AEP SDK by automatically registering all extensions bundled with the application and enabling automatic lifecycle tracking.
 
 appId: Configures the SDK with the provided mobile property environment ID configured from the Data Collection UI.
 
@@ -73,14 +74,26 @@ static Future<void> initializeWithAppId({required String appId})
 
 **Example**
 ```dart
-MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
+class _HomePageState extends State<HomePage> {
+  /// Initialize the Adobe Experience Platform Mobile SDK inside the initState method.
+  @override
+  void initState() {
+    super.initState();
+    _initializeAEPMobileSdk();
+  }
+
+ Future<void> _initializeAEPMobileSdk() async {
+    MobileCore.setLogLevel(LogLevel.trace);
+    MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
+  }
+}
 ```
 
 > [!NOTE]  
 > Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
 
 ### initialize
-It initializes AEP SDKs by automatically registering all extensions bundled with the application and enabling automatic lifecycle tracking by default.
+Initialize the AEP SDK by automatically registering all extensions bundled with the application and enabling automatic lifecycle tracking. This API also allows further customization by accepting InitOptions.
 
 InitOptions: Allow customization of the default initialization behavior. Refer to the [InitOptions](#initoptions).
 
@@ -91,18 +104,32 @@ static Future<void> initialize({required InitOptions initOptions})
 
 **Example**
 ```dart
-try {
+
+class _HomePageState extends State<HomePage> {
+  /// Initialize the Adobe Experience Platform Mobile SDK inside the initState method.
+  @override
+  void initState() {
+    super.initState();
+    _initializeAEPMobileSdk();
+  }
+
+  Future<void> _initializeAEPMobileSdk() async {
+    MobileCore.setLogLevel(LogLevel.trace);
+    
+    try {
       InitOptions initOptions = InitOptions(
-        appId: "YOUR-APP-ID", 
-        lifecycleAutomaticTrackingEnabled: true,
-        lifecycleAdditionalContextData: {"key": "value"}
+      appId: "YOUR-APP-ID", 
+      lifecycleAutomaticTrackingEnabled: true,
+      lifecycleAdditionalContextData: {"key": "value"}
       );
 
       MobileCore.initialize(initOptions: initOptions);
       print("Adobe Experience Platform Mobile SDK was initialized");
     } catch (e) {
-      print("Failed to initialize Adobe Experience Platform Mobile SDK: $e");
-    }
+        print("Failed to initialize Adobe Experience Platform Mobile SDK: $e");
+      }
+  }
+}
 ```
 
 #### InitOptions
@@ -451,7 +478,7 @@ try {
 
 ### Lifecycle
 
-For more informationa about Lifecycle for Edge Network, visit the documentation [here](https://developer.adobe.com/client-sdks/edge/lifecycle-for-edge-network/).
+For more information about Lifecycle for Edge Network, visit the documentation [here](https://developer.adobe.com/client-sdks/edge/lifecycle-for-edge-network/).
 
 Starting from Adobe Experience Platform Flutter **5.x**, lifecycle tracking is enabled automatically with Initialize APIs by default.
 

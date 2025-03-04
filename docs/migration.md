@@ -27,143 +27,52 @@ Updated plugins can be found in this repository under [plugins/](https://github.
 | Place Services| NA |
 | Place Monitor | NA |
 
+## Update import plugins
+```diff
+-  import 'package:flutter_acpcore/flutter_acpcore.dart';
++  import 'package:flutter_aepcore/flutter_aepcore.dart';
+```
+
+
+
+
 ## Update SDK initialization
 
 > [!NOTE]  
-> Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
+ > Starting from Adobe Experience Platform Flutter **5.x**,  there is no longer a need to initialize the SDK on the [native platforms](https://github.com/adobe/aepsdk_flutter/tree/v4.x?tab=readme-ov-file#usage), as was required in earlier versions.
 
-Refer to the initializing info [here](https://github.com/adobe/aepsdk_flutter/tree/main?tab=readme-ov-file#initializing).
+Remove all the ACP registration code and the extensions code on the native `Android` and `iOS` platforms.
 
----
-Instruction for using AEP Flutter Version 4.x and Earlier.
+Initialize AEP SDK in the **Dart** application:
 
-Remove the deprecated registration code and the extensions that are not supported in AEP Flutter libraries.
+**Example**
 
-### Android
-```diff
-import com.adobe.marketing.mobile.AdobeCallback;
-import com.adobe.marketing.mobile.Identity;
-import com.adobe.marketing.mobile.InvalidInitException;
-import com.adobe.marketing.mobile.Lifecycle;
-import com.adobe.marketing.mobile.LoggingMode;
-import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.Signal;
-import com.adobe.marketing.mobile.Assurance;
-import com.adobe.marketing.mobile.UserProfile;
-...
-import android.app.Application;
-import io.flutter.app.FlutterApplication;
-...
-public class MyApplication extends FlutterApplication {
-...
-  @Override
-  public void on Create(){
-    super.onCreate();
-    ...
-    MobileCore.setApplication(this);
-    MobileCore.setLogLevel(LoggingMode.DEBUG);
-    MobileCore.setWrapperType(WrapperType.FLUTTER);
-
--    try {
--     Identity.registerExtension();
--     Lifecycle.registerExtension();
--     Signal.registerExtension();
--     Assurance.registerExtension();
--     UserProfile.registerExtension();
--     Analytics.registerExtension();
--     Places.registerExtension();
--      MobileCore.start(new AdobeCallback () {
--          @Override
--         public void call(Object o) {
--            MobileCore.configureWithAppID("yourAppID");
--         }
--      });
--    } catch (InvalidInitException e) {
-
-  List<Class<? extends Extension>> extensions = Arrays.asList(
-      Identity.EXTENSION,
-      Lifecycle.EXTENSION,
-      Signal.EXTENSION,
-      Assurance.EXTENSION,
-      UserProfile.EXTENSION
-  );
-  MobileCore.registerExtensions(extensions, o -> MobileCore.configureWithAppID("YourEnvironmentFileID"));
-      ...
-    }
+```dart
+class _HomePageState extends State<HomePage> {
+  /// Initialize the Adobe Experience Platform Mobile SDK inside the initState method.
+  @override
+  void initState() {
+    super.initState();
+    _initializeAEPMobileSdk();
   }
-}
+
+ Future<void> _initializeAEPMobileSdk() async {
+    MobileCore.setLogLevel(LogLevel.trace);
+    MobileCore.initializeWithAppId(appId:"YOUR_APP_ID");
+
+    // For more granular control over the initial options, you can use the following sample code:
+    // InitOptions initOptions = InitOptions(
+    //   appId: "YOUR_APP_ID",
+    //   lifecycleAutomaticTrackingEnabled: true,
+    //   lifecycleAdditionalContextData: {"key": "value"},
+    //   appGroupIOS: "group.com.example",
+    // );
+
+    // MobileCore.initialize(initOptions: initOptions);
+  }
 ```
 
-### iOS
-
-> Note: For iOS app, after installing the AEP-prefixed packages, please update native dependecies by running the following command: `cd ios && pod update && cd ..`
-
-```objectivec
-
-// 1. remove the following header files
-//#import "ACPCore.h"
-//#import "ACPUserProfile.h"
-//#import "ACPIdentity.h"
-//#import "ACPLifecycle.h"
-//#import "ACPSignal.h"
-
-// 2. import AEP extensions
-@import AEPCore;
-@import AEPUserProfile;
-@import AEPLifecycle;
-@import AEPIdentity;
-@import AEPServices;
-@import AEPSignal;
-@import AEPAssurance;
-//  --- 2. end ----
-
-...
-@implementation AppDelegate
--(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // 3. remove the following code for initializing ACP SDKs
-
-    // [ACPCore setLogLevel:ACPMobileLogLevelDebug];
-    // [ACPCore configureWithAppId:@"yourAppID"];
-    // [ACPUserProfile registerExtension];
-    // [ACPIdentity registerExtension];
-    // [ACPLifecycle registerExtension];
-    // [ACPSignal registerExtension];
-    // [ACPAnalytics registerExtension];
-    
-        // const UIApplicationState appState = application.applicationState;
-    // [ACPCore start:^{
-    //   if (appState != UIApplicationStateBackground) {
-    //     [ACPCore lifecycleStart:nil];
-    //   }
-    // }];
-
-    // 4. add code to initializing AEP SDKs
-
-    [AEPMobileCore setLogLevel: AEPLogLevelDebug];
-    [AEPMobileCore configureWithAppId:@"yourAppID"];
-
-    const UIApplicationState appState = application.applicationState;
-
-    [AEPMobileCore registerExtensions: @[
-        AEPMobileLifecycle.class,
-        AEPMobileSignal.class,
-        AEPMobileIdentity.class,
-        AEPMobileUserProfile.class,
-        AEPMobileAssurance.class,
-    ] completion:^{
-      if (appState != UIApplicationStateBackground) {
-        [AEPMobileCore lifecycleStart:nil}];
-      }
-    }];
-  //  --- 4. end ----
-
-    ...
-  return YES;
-}
-
-@end
-```
----
+ Refer to the initializing details info [here](https://github.com/adobe/aepsdk_flutter/tree/main?tab=readme-ov-file#initializing).
 
 ## Update API usage and references for each extension
 

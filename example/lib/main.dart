@@ -35,6 +35,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  /// Initialize the Adobe Experience Platform Mobile SDK inside the initState method.
   @override
   void initState() {
     super.initState();
