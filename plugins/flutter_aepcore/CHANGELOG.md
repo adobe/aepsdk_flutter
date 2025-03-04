@@ -1,9 +1,9 @@
 ## 5.0.0
 
-* Add MobileCore.initializeWithAppId and MobileCore.initialize APIs to simplify AEP SDK initialization by enabling automatic extension registration and lifecycle tracking
-* Update to use BOM (Bill of Materials) for sdk dependecies in Android
-* Add Error handling for NSError
-* Update tests to handle the deprecation warning for `setMockMethodCallHandler`
+* Add MobileCore.initializeWithAppId and MobileCore.initialize APIs to simplify AEP SDK initialization by enabling automatic extension registration and lifecycle tracking.
+* Update to use BOM (Bill of Materials) for Android SDK dependencies.
+* Add Error handling for NSError.
+* Update tests to handle the deprecation warning for `setMockMethodCallHandler`.
 
 ## 4.0.2
 
