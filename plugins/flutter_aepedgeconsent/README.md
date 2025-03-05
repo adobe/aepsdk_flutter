@@ -16,94 +16,23 @@ Install instructions for this package can be found [here](https://pub.dev/packag
 
 > Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
 
-## Tests
-
-Run:
-
-```bash
-flutter test
-```
-
 ## Usage
 
 For more detailed information on the Consent APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/consent-for-edge-network/)
 
-### Registering the extension with AEPCore:
-
- > Note: It is required to initialize the SDK via native code inside your AppDelegate (iOS) and MainApplication class (Android).
-
-As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
-
-Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information about initializing the SDK.
-
-**Initialization Example**
-
-iOS
-```objc
-// AppDelegate.h
-@import AEPCore;
-@import AEPEdge;
-@import AEPEdgeIdentity;
-@import AEPEdgeConsent;
-...
-@implementation AppDelegate
-
-// AppDelegate.m
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [AEPMobileCore setWrapperType:AEPWrapperTypeFlutter];
-
-     // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-    NSString* ENVIRONMENT_FILE_ID = @"YOUR-APP-ID";
-    
-    NSArray *extensionsToRegister = @[AEPMobileEdgeIdentity.class, 
-                                      AEPMobileEdge.class,                                              
-                                      AEPMobileEdgeConsent.class
-                                      ];
-
-    [AEPMobileCore registerExtensions:extensionsToRegister completion:^{
-    [AEPMobileCore configureWithAppId: ENVIRONMENT_FILE_ID];
-    }];
-    return YES;   
- } 
-```
-
-Android
-```java
-import com.adobe.marketing.mobile.MobileCore;
-import com.adobe.marketing.mobile.Edge;
-import com.adobe.marketing.mobile.edge.identity.Identity;
-import com.adobe.marketing.mobile.edge.consent.Consent;
-  
-...
-import io.flutter.app.FlutterApplication;
-...
-public class MainApplication extends FlutterApplication {
-  ...
-  // TODO: Set up the preferred Environment File ID from your mobile property configured in Data Collection UI
-  private final String ENVIRONMENT_FILE_ID = "YOUR-APP-ID";
-
-  @Override
-  public void on Create(){
-    super.onCreate();
-    ...
-    MobileCore.setApplication(this);
-    MobileCore.setWrapperType(WrapperType.FLUTTER);
-    MobileCore.configureWithAppID(ENVIRONMENT_FILE_ID);
-
-    MobileCore.registerExtensions(
-      Arrays.asList(Consent.EXTENSION, Identity.EXTENSION, Edge.EXTENSION),
-      o -> Log.d("MainApp", "Adobe Experience Platform Mobile SDK was initialized")
-    );
-  }
-}
-```
-------
 ### Importing the SDK:
 
 ```dart
 import 'package:flutter_aepedgeconsent/flutter_aepedgeconsent.dart';
 ```
-------
+### Initializing with SDK:
+
+To initialize the SDK, use the following methods:
+- [MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initializewithappid)
+- [MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize)
+
+Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter/blob/main/README.md) for more information about the SDK setup.
+
 ## API reference
 ### extensionVersion
 Returns the SDK version of the Consent extension.
@@ -156,6 +85,14 @@ Map<String, dynamic> collectConsents = allowed
 Map<String, dynamic> currentConsents = {"consents": collectConsents};
 
 Consent.update(currentConsents);
+```
+
+## Tests
+
+Run:
+
+```bash
+flutter test
 ```
 
 ## Contributing

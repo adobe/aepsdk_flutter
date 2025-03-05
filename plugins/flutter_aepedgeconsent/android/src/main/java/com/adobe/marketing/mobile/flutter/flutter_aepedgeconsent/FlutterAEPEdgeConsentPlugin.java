@@ -36,7 +36,7 @@ public class FlutterAEPEdgeConsentPlugin implements FlutterPlugin, MethodCallHan
   @Override
   public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
     channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepedgeconsent");
-    channel.setMethodCallHandler(new FlutterAEPEdgeConsentPlugin());
+    channel.setMethodCallHandler(this);
   }
 
   @Override
@@ -75,12 +75,13 @@ public class FlutterAEPEdgeConsentPlugin implements FlutterPlugin, MethodCallHan
       });
   }
 
+  @SuppressWarnings("unchecked")
   private void handleUpdateConsents(final Object arguments) {
         if (!(arguments instanceof Map)) {
             Log.e(TAG, "Update Consent failed because arguments were invalid, expected Map.");
             return;
         }
 
-        Consent.update((Map) arguments);
+        Consent.update((Map<String, Object>) arguments);
     }
 }

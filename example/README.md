@@ -11,7 +11,7 @@ A few resources to get you started if this is your first Flutter project:
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
+For help getting started with Flutter, view the
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
@@ -19,9 +19,7 @@ samples, guidance on mobile development, and a full API reference.
 ## How to run the example app:
 
 ### Add your App Id:
-In `ios/Runner/AppDelegate.m`, find the call to `configureWithAppId` and add your app id.
-
-In `android/**/MyApplication.java`, find the call to `configureWithAppId` and add your app id.
+In `lib/main.dart`, locate the call to `MobileCore.initializeWithAppId(appId:"YOUR_APP_ID")` and replace `"YOUR_APP_ID"` with your property App Id.
 
 #### Run instructions for Android:
 

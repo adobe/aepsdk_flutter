@@ -4,14 +4,93 @@
 
 `flutter_aepuserprofile` is a flutter plugin for the iOS and Android [Adobe Experience Platform UserProfile SDK](https://developer.adobe.com/client-sdks/documentation/profile/) to allow for integration with Flutter applications. Functionality to enable the UserProfile extension is provided entirely through Dart documented below.
 
-## Installation
+## Prerequisites
 
-First, make sure that the [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md) plugin is installed, as flutter_aepuserprofile depends on it. 
+The Userprofile plugin has the following peer dependency, which must be installed prior to installing it:
+
+- [flutter_aepcore](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepcore/README.md)
+
+## Installation
 
 Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepuserprofile/install).
 
 > Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
 
+## Usage
+
+For more detailed information on the UserProfile APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/profile/api-reference/)
+
+### Importing the extension:
+
+In your Flutter application, import the Userprofile package as follows:
+
+```dart
+import 'package:flutter_aepuserprofile/flutter_aepuserprofile.dart';
+```
+### Initializing with SDK:
+
+To initialize the SDK, use the following methods:
+- [MobileCore.initializeWithAppId(appId)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initializewithappid)
+- [MobileCore.initialize(initOptions)](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepcore#initialize)
+
+Refer to the root [Readme](https://github.com/adobe/aepsdk_flutter/blob/main/README.md) for more information about the SDK setup.
+
+## API reference
+
+### extensionVersion
+Returns the SDK version of the User Proilfe extension.
+
+**Syntax**
+```dart
+static Future<String> get extensionVersion
+```
+**Example**
+```dart
+String version = await UserProfile.extensionVersion;
+```
+
+### getUserAttributes
+Get user profile attributes which match the provided keys.
+
+**Syntax**
+```dart
+static Future<String> getUserAttributes(List<String> attributeKeys)
+```
+
+**Example**
+```dart
+try {
+	String userAttributes = await UserProfile.getUserAttributes(["attr1", "attr2"]);
+} on PlatformException {
+	log("Failed to get the user attributes");
+}
+```
+
+### removeUserAttributes
+Remove provided user profile attributes if they exist.
+
+**Syntax**
+```dart
+static Future<void> removeUserAttributes(List<String> attributeName)
+```
+
+**Example**
+ ```dart
+UserProfile.removeUserAttributes(["attr1", "attr2"]);
+ ```
+
+### updateUserAttributes
+Set multiple user profile attributes.
+
+**Syntax**
+```dart
+static Future<void> updateUserAttributes(Map<String, Object> attributeMap)
+```
+
+**Example**
+ ```dart
+UserProfile.updateUserAttributes({"attr1": "attr1Value", "attr2": "attr2Value"});
+ ```
 ## Tests
 
 Run:
@@ -19,51 +98,6 @@ Run:
 ```bash
 flutter test
 ```
-
-## Usage
-### UserProfile
-
-For more detailed information on the UserProfile APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/profile/api-reference/)
-
-##### Registering the extension with AEPCore:
-
- > Note: It is required to initialize the SDK via native code inside your AppDelegate and MainApplication for iOS and Android respectively.
-
-As part of the initialization code, make sure that you set the SDK wrapper type to `Flutter` before you start the SDK.
-
-Refer to the [Initialization](https://github.com/adobe/aepsdk_flutter#initializing) section of the root README for more information about initializing the SDK.
-
-##### Importing the SDK:
-```dart
-import 'package:flutter_aepuserprofile/flutter_aepuserprofile.dart';
-```
-
-##### Getting UserProfile version:
- ```dart
-String version = await UserProfile.extensionVersion;
- ```
-
-##### Get user profile attributes which match the provided keys:
-
- ```dart
-try {
-	String userAttributes = await UserProfile.getUserAttributes(["attr1", "attr2"]);
-} on PlatformException {
-	log("Failed to get the user attributes");
-}
- ```
-
- ##### Remove provided user profile attributes if they exist:
-
- ```dart
-UserProfile.removeUserAttributes(["attr1", "attr2"]);
- ```
-
- ##### Set multiple user profile attributes:
-
- ```dart
-UserProfile.updateUserAttributes({"attr1": "attr1Value", "attr2": "attr2Value"});
- ```
 
 ## Contributing
 See [CONTRIBUTING](https://github.com/adobe/aepsdk_flutter/blob/main/CONTRIBUTING.md)

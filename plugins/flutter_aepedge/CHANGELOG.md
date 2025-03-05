@@ -1,3 +1,8 @@
+## 5.0.0
+
+* Update to use BOM [(Bill of Materials)](https://central.sonatype.com/artifact/com.adobe.marketing.mobile/sdk-bom) for Android SDK dependencies.
+* Update tests to handle the deprecation warning for `setMockMethodCallHandler`.
+
 ## 4.1.0
 
 * Added support to customize datastream configurations on a per-event basis using the sendEvent API
