@@ -185,14 +185,16 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         if let fullscreenMessage = message as? FullscreenMessage,
            let parentMessage = fullscreenMessage.parent
         {
-            channel.invokeMethod(
-                "onDismiss",
-                arguments: [
-                    "message": dataBridge.transformToFlutterMessage(
-                        message: parentMessage
-                    )
-                ]
-            )
+            DispatchQueue.main.async {
+                self.channel.invokeMethod(
+                    "onDismiss",
+                    arguments: [
+                        "message": self.dataBridge.transformToFlutterMessage(
+                            message: parentMessage
+                        )
+                    ]
+                )
+            }
         }
     }
 
@@ -200,14 +202,16 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         if let fullscreenMessage = message as? FullscreenMessage,
            let parentMessage = fullscreenMessage.parent
         {
-            channel.invokeMethod(
-                "onShow",
-                arguments: [
-                    "message": dataBridge.transformToFlutterMessage(
-                        message: parentMessage
-                    )
-                ]
-            )
+            DispatchQueue.main.async {
+                self.channel.invokeMethod(
+                    "onShow",
+                    arguments: [
+                        "message": self.dataBridge.transformToFlutterMessage(
+                            message: parentMessage
+                        )
+                    ]
+                )
+            }
         }
     }
 
@@ -215,43 +219,66 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         if let fullscreenMessage = message as? FullscreenMessage,
            let incomingMessage = fullscreenMessage.parent
         {
-            var shouldShow = true
+            var shouldSave = true  // Default to true for fallback
+            var shouldShow = true  // Default to true for fallback
             let semaphore = DispatchSemaphore(value: 0)
-            channel.invokeMethod(
-                "shouldSaveMessage",
-                arguments: [
-                    "message": dataBridge.transformToFlutterMessage(
-                        message: incomingMessage
-                    )
-                ],
-                result: { (result: Any?) -> Void in
-                    if let shouldSaveMessage = result as? Bool {
-                        if shouldSaveMessage {
-                            self.messageCache[incomingMessage.id] = incomingMessage
+            let timeout = DispatchTime.now() + .milliseconds(500) // 500ms timeout
+            
+            DispatchQueue.main.async {
+                self.channel.invokeMethod(
+                    "shouldSaveMessage",
+                    arguments: [
+                        "message": self.dataBridge.transformToFlutterMessage(
+                            message: incomingMessage
+                        )
+                    ],
+                    result: { (result: Any?) -> Void in
+                        if let shouldSaveMessage = result as? Bool {
+                            shouldSave = shouldSaveMessage
                         }
+                        // If no Flutter handler is registered, result will be FlutterMethodNotImplemented
+                        // In that case, we keep the default shouldSave = true
+                        semaphore.signal()
                     }
-                    semaphore.signal()
-                }
-            )
+                )
+            }
 
-            semaphore.wait()
+            // Wait with timeout - if Flutter handler isn't available, don't wait forever
+            if semaphore.wait(timeout: timeout) == .timedOut {
+                // Timeout occurred - Flutter handler likely not registered, use fallback
+                shouldSave = true
+            }
+            
+            // Cache the message if shouldSave is true (either from Flutter or fallback)
+            if shouldSave {
+                self.messageCache[incomingMessage.id] = incomingMessage
+            }
 
-            channel.invokeMethod(
-                "shouldShowMessage",
-                arguments: [
-                    "message": dataBridge.transformToFlutterMessage(
-                        message: incomingMessage
-                    )
-                ],
-                result: { (result: Any?) -> Void in
-                    if let shouldShowMessage = result as? Bool {
-                        shouldShow = shouldShowMessage
+            let semaphore2 = DispatchSemaphore(value: 0)
+            DispatchQueue.main.async {
+                self.channel.invokeMethod(
+                    "shouldShowMessage",
+                    arguments: [
+                        "message": self.dataBridge.transformToFlutterMessage(
+                            message: incomingMessage
+                        )
+                    ],
+                    result: { (result: Any?) -> Void in
+                        if let shouldShowMessage = result as? Bool {
+                            shouldShow = shouldShowMessage
+                        }
+                        // If no Flutter handler is registered, keep the default shouldShow = true
+                        semaphore2.signal()
                     }
-                    semaphore.signal()
-                }
-            )
+                )
+            }
 
-            semaphore.wait()
+            // Wait with timeout for shouldShowMessage
+            if semaphore2.wait(timeout: timeout) == .timedOut {
+                // Timeout occurred - Flutter handler likely not registered, use fallback
+                shouldShow = true
+            }
+            
             return shouldShow
         }
         return true
@@ -261,15 +288,17 @@ public class SwiftFlutterAEPMessagingPlugin: NSObject, FlutterPlugin, MessagingD
         if let fullscreenMessage = message as? FullscreenMessage,
            let parentMessage = fullscreenMessage.parent
         {
-            channel.invokeMethod(
-                "urlLoaded",
-                arguments: [
-                    "url": url.absoluteString,
-                    "message": dataBridge.transformToFlutterMessage(
-                        message: parentMessage
-                    ),
-                ]
-            )
+            DispatchQueue.main.async {
+                self.channel.invokeMethod(
+                    "urlLoaded",
+                    arguments: [
+                        "url": url.absoluteString,
+                        "message": self.dataBridge.transformToFlutterMessage(
+                            message: parentMessage
+                        ),
+                    ]
+                )
+            }
         }
     }
 }
