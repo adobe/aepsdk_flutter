@@ -1,3 +1,6 @@
+## 5.0.1
+* Added a timeout to the call made from native bridge to custom messaging delegate to allow showing the in-app message if no delegate is provided by the app developer. 
+
 ## 5.0.0
 
 * Update to use BOM [(Bill of Materials)](https://central.sonatype.com/artifact/com.adobe.marketing.mobile/sdk-bom) for Android SDK dependencies.
