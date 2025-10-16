@@ -5,7 +5,6 @@ import android.os.Looper
 import com.adobe.marketing.mobile.Message
 import com.adobe.marketing.mobile.messaging.MessagingUtils
 import com.adobe.marketing.mobile.services.ui.*
-import io.flutter.embedding.android.FlutterActivity
 import io.flutter.plugin.common.MethodChannel
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -13,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class FlutterAEPMessagingDelegate(
   private var cache: MutableMap<String, Message>,
   private var channel: MethodChannel
-) : FlutterActivity(), PresentationDelegate {
+): PresentationDelegate {
 
   override fun onDismiss(presentable: Presentable<*>) {
     if (presentable.getPresentation() !is InAppMessage) return
