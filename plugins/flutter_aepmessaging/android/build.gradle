@@ -37,8 +37,8 @@ android {
 
     kotlinOptions {
         jvmTarget = '1.8'
-        languageVersion = "1.4"
-        apiVersion = "1.4"
+        languageVersion = "1.6"
+        apiVersion = "1.6"
     }
 
     sourceSets {
@@ -49,6 +49,7 @@ android {
         minSdkVersion 21
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    
     lintOptions {
         disable 'InvalidPackage'
     }

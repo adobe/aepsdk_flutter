@@ -1,7 +1,7 @@
 name: flutter_aepmessaging
 
 description: Official Adobe Experience Platform support for Flutter apps. The Experience Platform Messaging extension enables handling of user push an in-app messages from a mobile app when using the Adobe Experience Platform SDK.
-version: 5.0.0
+version: 5.0.1
 homepage: https://aep-sdks.gitbook.io/docs/
 repository: https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepmessaging
 

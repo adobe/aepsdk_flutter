@@ -44,6 +44,21 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         Context appContext = binding.getApplicationContext();
         if (appContext instanceof Application) {
             application = (Application) appContext;
+            // Set the application early to register Activity lifecycle callbacks
+            // This ensures the SDK can track the current Activity for in-app messages
+            // Without this, the following will happen:
+            //1. Application.onCreate()
+            //    ✗ No Activity lifecycle callbacks registered
+            //    2. MainActivity.onCreate()
+            //       ✗ SDK doesn't know about it
+            //    3. MainActivity.onResume()
+            //       ✗ SDK doesn't know this is current Activity
+            //    4. Flutter engine initializes
+            //    5. MobileCore.initialize() called from Flutter
+            //       ↓ Might set Application context, but...
+            //       ✗ MainActivity already went through lifecycle
+            //       ✗ SDK missed the lifecycle events
+            MobileCore.setApplication(application);
         }
         MobileCore.setWrapperType(WrapperType.FLUTTER);
         flutterAEPIdentityPlugin.onAttachedToEngine(binding);
