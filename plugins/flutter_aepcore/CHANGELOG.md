@@ -1,3 +1,7 @@
+## 5.0.1
+
+* Add `MobileCore.setApplication` call in Android FlutterPlugin's `onAttachedToEngine` to accurately register lifecycle callbacks for launcher activity.
+
 ## 5.0.0
 
 * Add `MobileCore.initializeWithAppId` and `MobileCore.initialize` APIs to simplify AEP SDK initialization by enabling automatic extension registration and lifecycle tracking.
