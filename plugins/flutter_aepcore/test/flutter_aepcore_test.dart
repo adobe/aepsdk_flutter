@@ -9,7 +9,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -20,34 +19,36 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('extensionVersion', () {
-  final String testVersion = "2.5.0";
-  final List<MethodCall> log = <MethodCall>[];
+    final String testVersion = "2.5.0";
+    final List<MethodCall> log = <MethodCall>[];
 
-  setUp(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-      log.add(methodCall);
-      return testVersion;
+    setUp(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+        log.add(methodCall);
+        return testVersion;
+      });
     });
-  });
 
-  tearDown(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
-  });
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
+    });
 
-  test('invokes correct method', () async {
-    await MobileCore.extensionVersion;
+    test('invokes correct method', () async {
+      await MobileCore.extensionVersion;
 
-    expect(log, <Matcher>[
-      isMethodCall(
-        'extensionVersion',
-        arguments: null,
-      ),
-    ]);
-  });
+      expect(log, <Matcher>[
+        isMethodCall(
+          'extensionVersion',
+          arguments: null,
+        ),
+      ]);
+    });
 
-  test('returns correct result', () async {
-    expect(await MobileCore.extensionVersion, testVersion);
-  });
+    test('returns correct result', () async {
+      expect(await MobileCore.extensionVersion, testVersion);
+    });
   });
 
   group('initialize', () {
@@ -66,18 +67,20 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
 
     test('invokes correct method', () async {
-      await MobileCore.initialize(initOptions:initOptions);
+      await MobileCore.initialize(initOptions: initOptions);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -85,7 +88,8 @@ void main() {
           arguments: {
             'initOptions': {
               'appId': appId,
-              'lifecycleAutomaticTrackingEnabled': lifecycleAutomaticTrackingEnabled,
+              'lifecycleAutomaticTrackingEnabled':
+                  lifecycleAutomaticTrackingEnabled,
               'lifecycleAdditionalContextData': lifecycleAdditionalContextData,
               'appGroupIOS': appGroup,
             },
@@ -101,18 +105,20 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
 
     test('invokes correct method', () async {
-      await MobileCore.initializeWithAppId(appId:appId);
+      await MobileCore.initializeWithAppId(appId: appId);
 
       expect(log, <Matcher>[
         isMethodCall(
@@ -138,14 +144,16 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
 
     test('invokes correct method', () async {
@@ -163,7 +171,6 @@ void main() {
       ]);
     });
   });
-  
 
   group('trackState', () {
     final String testState = "myTestState";
@@ -173,16 +180,17 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.trackState(testState, data: testContextData);
@@ -204,17 +212,18 @@ void main() {
     final String testAdId = "test-aid";
     final List<MethodCall> log = <MethodCall>[];
 
-   setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+    setUp(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.setAdvertisingIdentifier(testAdId);
@@ -223,6 +232,47 @@ void main() {
         isMethodCall(
           'setAdvertisingIdentifier',
           arguments: testAdId,
+        ),
+      ]);
+    });
+  });
+
+  group('setPushIdentifier', () {
+    final String testPushToken = "test-push-token";
+    final List<MethodCall> log = <MethodCall>[];
+
+    setUp(() {
+      log.clear();
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+        log.add(methodCall);
+        return null;
+      });
+    });
+
+    tearDown(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
+    });
+
+    test('invokes correct method with token', () async {
+      await MobileCore.setPushIdentifier(testPushToken);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'setPushIdentifier',
+          arguments: testPushToken,
+        ),
+      ]);
+    });
+
+    test('invokes correct method with null token', () async {
+      await MobileCore.setPushIdentifier(null);
+
+      expect(log, <Matcher>[
+        isMethodCall(
+          'setPushIdentifier',
+          arguments: null,
         ),
       ]);
     });
@@ -239,16 +289,17 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return true;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.dispatchEvent(expectedEvent);
@@ -280,16 +331,17 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-      log.add(methodCall);
-      return returnedEvent.data;
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+        log.add(methodCall);
+        return returnedEvent.data;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.dispatchEventWithResponseCallback(expectedEvent, 1000);
@@ -337,17 +389,18 @@ void main() {
     final String testSdkIdentities = "sdkIdentities";
     final List<MethodCall> log = <MethodCall>[];
 
-     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+    setUp(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return testSdkIdentities;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.sdkIdentities;
@@ -369,17 +422,18 @@ void main() {
   group('getPrivacyStatus', () {
     final List<MethodCall> log = <MethodCall>[];
 
-     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+    setUp(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return PrivacyStatus.opt_in.value;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.privacyStatus;
@@ -403,16 +457,17 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.setLogLevel(logLevel);
@@ -430,15 +485,17 @@ void main() {
     final PrivacyStatus privacyStatus = PrivacyStatus.opt_in;
     final List<MethodCall> log = <MethodCall>[];
 
-     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+    setUp(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
 
     test('invokes correct method', () async {
@@ -458,16 +515,17 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.updateConfiguration(testConfig);
@@ -485,16 +543,17 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.clearUpdatedConfiguration();
@@ -509,17 +568,18 @@ void main() {
     final Map<String, String> testPiiData = {"testKey": "testValue"};
     final List<MethodCall> log = <MethodCall>[];
 
-     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+    setUp(() {
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.collectPii(testPiiData);
@@ -538,16 +598,17 @@ void main() {
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, (MethodCall methodCall) async { 
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
         log.add(methodCall);
         return null;
       });
     });
 
     tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null);
     });
-
 
     test('invokes correct method', () async {
       await MobileCore.setAppGroup(testAppGroup);

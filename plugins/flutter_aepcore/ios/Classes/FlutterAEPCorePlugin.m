@@ -44,6 +44,9 @@ specific language governing permissions and limitations under the License.
         NSString *aid = call.arguments;
         [AEPMobileCore setAdvertisingIdentifier:aid];
         result(nil);
+    } else if ([@"setPushIdentifier" isEqualToString:call.method]) {
+        [self handleSetPushIdentifier:call];
+        result(nil);
     } else if ([@"dispatchEvent" isEqualToString:call.method]) {
         [self handleDispatchEvent:call result:result];
     } else if ([@"dispatchEventWithResponseCallback"
@@ -196,6 +199,17 @@ specific language governing permissions and limitations under the License.
 
 - (void)handleResetIdentities:(FlutterMethodCall *)call {
     [AEPMobileCore resetIdentities];
+}
+
+- (void)handleSetPushIdentifier:(FlutterMethodCall *)call {
+    if (call.arguments == nil || call.arguments == [NSNull null]) {
+        [AEPMobileCore setPushIdentifier:nil];
+        return;
+    }
+
+    NSString *tokenString = call.arguments;
+    NSData *token = [tokenString dataUsingEncoding:NSUTF8StringEncoding];
+    [AEPMobileCore setPushIdentifier:token];
 }
 
 - (FlutterError *)flutterErrorFromNSError:(NSError *)error {

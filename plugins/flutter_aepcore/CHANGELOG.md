@@ -1,3 +1,7 @@
+## 5.0.2
+
+* Add `MobileCore.setPushIdentifier` API to register a push notification token with the Adobe SDK on Android and iOS.
+
 ## 5.0.1
 
 * Add `MobileCore.setApplication` call in Android FlutterPlugin's `onAttachedToEngine` to accurately register lifecycle callbacks for launcher activity.
