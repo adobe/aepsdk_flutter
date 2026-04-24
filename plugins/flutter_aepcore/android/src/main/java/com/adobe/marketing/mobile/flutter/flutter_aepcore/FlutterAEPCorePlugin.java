@@ -93,6 +93,9 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         } else if ("setPushIdentifier".equals(call.method)) {
             handleSetPushIdentifier(call.arguments);
             result.success(null);
+        } else if ("setPushIdentifierWithData".equals(call.method)) {
+            com.adobe.marketing.mobile.services.Log.debug(TAG, AEPCORE_TAG, "setPushIdentifierWithData() is not supported on Android. Use setPushIdentifier() with the FCM token string.");
+            result.success(null);
         } else if ("dispatchEvent".equals(call.method)) {
             handleDispatchEvent(result, call.arguments);
         } else if ("dispatchEventWithResponseCallback".equals(call.method)) {

@@ -47,6 +47,9 @@ specific language governing permissions and limitations under the License.
     } else if ([@"setPushIdentifier" isEqualToString:call.method]) {
         [self handleSetPushIdentifier:call];
         result(nil);
+    } else if ([@"setPushIdentifierWithData" isEqualToString:call.method]) {
+        [self handleSetPushIdentifierWithData:call];
+        result(nil);
     } else if ([@"dispatchEvent" isEqualToString:call.method]) {
         [self handleDispatchEvent:call result:result];
     } else if ([@"dispatchEventWithResponseCallback"
@@ -210,6 +213,17 @@ specific language governing permissions and limitations under the License.
     NSString *tokenString = call.arguments;
     NSData *token = [tokenString dataUsingEncoding:NSUTF8StringEncoding];
     [AEPMobileCore setPushIdentifier:token];
+}
+
+- (void)handleSetPushIdentifierWithData:(FlutterMethodCall *)call {
+    if (call.arguments == nil || call.arguments == [NSNull null]) {
+        [AEPMobileCore setPushIdentifier:nil];
+        return;
+    }
+
+    // Flutter sends Uint8List as FlutterStandardTypedData; extract NSData directly.
+    FlutterStandardTypedData *typedData = call.arguments;
+    [AEPMobileCore setPushIdentifier:typedData.data];
 }
 
 - (FlutterError *)flutterErrorFromNSError:(NSError *)error {

@@ -10,6 +10,7 @@ governing permissions and limitations under the License.
 */
 
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore_data.dart';
@@ -84,6 +85,23 @@ class MobileCore {
   /// @param token The push notification token. Pass `null` to clear the identifier.
   static Future<void> setPushIdentifier(String? token) =>
       _channel.invokeMethod<void>('setPushIdentifier', token);
+
+  /// Submits a generic event containing the provided push token (as raw bytes) with event type `generic.identity`.
+  ///
+  /// Use this method on **iOS** to pass the raw APNs device token (`Data`) obtained from
+  /// `application(_:didRegisterForRemoteNotificationsWithDeviceToken:)` or from
+  /// `FirebaseMessaging.instance.getAPNSToken()`.
+  ///
+  /// The bytes are passed directly to `[AEPMobileCore setPushIdentifier:]` as `NSData` without
+  /// any encoding conversion, which is the correct behaviour for raw APNs tokens.
+  ///
+  /// On **Android** this method is a no-op — use [setPushIdentifier] with the FCM token string instead.
+  ///
+  /// Pass `null` to clear a previously registered token.
+  ///
+  /// @param tokenData The raw push notification token bytes. Pass `null` to clear the identifier.
+  static Future<void> setPushIdentifierWithData(Uint8List? tokenData) =>
+      _channel.invokeMethod<void>('setPushIdentifierWithData', tokenData);
 
   ///  Called by the extension public API to dispatch an event for other extensions or the internal SDK to consume. Any events dispatched by this call will not be processed until after `start` has been called.
   static Future<void> dispatchEvent(Event event) =>
