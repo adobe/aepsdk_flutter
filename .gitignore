@@ -81,4 +81,5 @@ example/android/GeneratedPluginRegistrant.java
 **/ios/flutter_export_environment.sh
 
 # podspec.lock for plugins
-plugins/**/pubspec.lock
+plugins/**/pubspec.lockplugins/flutter_aepcore/android/.project
+plugins/flutter_aepcore/android/.settings/
