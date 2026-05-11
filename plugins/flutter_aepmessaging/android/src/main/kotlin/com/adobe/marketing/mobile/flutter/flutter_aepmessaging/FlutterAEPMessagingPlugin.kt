@@ -23,9 +23,9 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
   override fun onMethodCall(call: MethodCall, result: Result) {
     when (call.method) {
       // Messaging Methods
-      "extensionVersion" -> result.success(Messaging.extensionVersion())
+      "extensionVersion" -> this.extensionVersion(result)
       "getCachedMessages" -> this.getCachedMessages(result)
-      "refreshInAppMessages" -> result.success(Messaging.refreshInAppMessages())
+      "refreshInAppMessages" -> this.refreshInAppMessages(result)
       // Message Methods
       "clearMessage" -> this.clearMessage(call, result)
       "dismissMessage" -> this.dismissMessage(call, result)
@@ -38,8 +38,18 @@ class FlutterAEPMessagingPlugin : FlutterPlugin, MethodCallHandler {
     }
   }
 
+  private fun extensionVersion(result: Result) {
+    Messaging.extensionVersion()
+    result.success(null)
+  }
+
   override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
     channel.setMethodCallHandler(null)
+  }
+
+  private fun refreshInAppMessages(result: Result) {
+    Messaging.refreshInAppMessages()
+    result.success(null)
   }
 
   private fun getCachedMessages(result: Result) {
