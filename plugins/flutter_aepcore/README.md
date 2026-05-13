@@ -328,10 +328,10 @@ MobileCore.trackState("myState",  data: {"key1": "value1"});
 ```
 
 ### setPushIdentifier
-Register a FCM push token string with the Adobe SDK. Pass `null` to clear a previously registered token.
+Register a push notification token with the Adobe SDK. Pass `null` to clear a previously registered token.
 
-Use this method on **Android** with the FCM token string from `FirebaseMessaging.instance.getToken()`.
-On **iOS**, prefer [setPushIdentifierWithData](#setpushidentifierwithdata) to pass the raw APNs token bytes.
+On **Android**, pass the FCM token string from `FirebaseMessaging.instance.getToken()`.
+On **iOS**, pass the APNs token string from `FirebaseMessaging.instance.getAPNSToken()`. The native bridge converts the hex string to the raw bytes expected by the AEP SDK internally.
 
 **Syntax**
 ```dart
@@ -340,39 +340,18 @@ static Future<void> setPushIdentifier(String? token)
 
 **Example**
 ```dart
-// Android: register FCM token
-final token = await FirebaseMessaging.instance.getToken();
-MobileCore.setPushIdentifier(token);
+import 'dart:io';
+
+if (Platform.isAndroid) {
+  final token = await FirebaseMessaging.instance.getToken();
+  MobileCore.setPushIdentifier(token);
+} else if (Platform.isIOS) {
+  final token = await FirebaseMessaging.instance.getAPNSToken();
+  MobileCore.setPushIdentifier(token);
+}
 
 // Clear the push token
 MobileCore.setPushIdentifier(null);
-```
-
-### setPushIdentifierWithData
-Register a raw APNs push token (`Uint8List`) with the Adobe SDK. The bytes are passed directly to the native iOS SDK without any encoding conversion.
-
-Use this method on **iOS** with the raw APNs device token obtained from
-`FirebaseMessaging.instance.getAPNSToken()` or from the native
-`didRegisterForRemoteNotificationsWithDeviceToken` delegate.
-
-On **Android** this method is a no-op — use [setPushIdentifier](#setpushidentifier) instead.
-
-**Syntax**
-```dart
-static Future<void> setPushIdentifierWithData(Uint8List? tokenData)
-```
-
-**Example**
-```dart
-import 'dart:io';
-
-if (Platform.isIOS) {
-  final apnsToken = await FirebaseMessaging.instance.getAPNSToken();
-  MobileCore.setPushIdentifierWithData(apnsToken);
-} else {
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  MobileCore.setPushIdentifier(fcmToken);
-}
 ```
 
 ### Identity

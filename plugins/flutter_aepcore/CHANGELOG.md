@@ -1,7 +1,6 @@
 ## 5.0.2
 
-* Add `MobileCore.setPushIdentifier` API to register a push notification token string (FCM) with the Adobe SDK on Android and iOS.
-* Add `MobileCore.setPushIdentifierWithData` API to register a raw APNs push token (`Uint8List`) on iOS, passing the bytes directly to the native SDK without encoding conversion.
+* Add `MobileCore.setPushIdentifier` API to register a push notification token with the Adobe SDK. Accepts an FCM token string on Android and an APNs hex token string on iOS. The iOS native bridge converts the hex string to `NSData` internally before forwarding to the AEP SDK.
 
 ## 5.0.1
 

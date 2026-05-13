@@ -9,7 +9,6 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore.dart';
@@ -240,7 +239,7 @@ void main() {
   });
 
   group('setPushIdentifier', () {
-    final String testPushToken = "test-push-token";
+    final String testPushToken = "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4";
     final List<MethodCall> log = <MethodCall>[];
 
     setUp(() {
@@ -274,48 +273,6 @@ void main() {
       expect(log, <Matcher>[
         isMethodCall(
           'setPushIdentifier',
-          arguments: null,
-        ),
-      ]);
-    });
-  });
-
-  group('setPushIdentifierWithData', () {
-    final Uint8List testTokenData =
-        Uint8List.fromList([0x95, 0x16, 0x25, 0x8b, 0x62, 0x30, 0xaf, 0xdd]);
-    final List<MethodCall> log = <MethodCall>[];
-
-    setUp(() {
-      log.clear();
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-          .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-        log.add(methodCall);
-        return null;
-      });
-    });
-
-    tearDown(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-          .setMockMethodCallHandler(channel, null);
-    });
-
-    test('invokes correct method with token data', () async {
-      await MobileCore.setPushIdentifierWithData(testTokenData);
-
-      expect(log, <Matcher>[
-        isMethodCall(
-          'setPushIdentifierWithData',
-          arguments: testTokenData,
-        ),
-      ]);
-    });
-
-    test('invokes correct method with null token data', () async {
-      await MobileCore.setPushIdentifierWithData(null);
-
-      expect(log, <Matcher>[
-        isMethodCall(
-          'setPushIdentifierWithData',
           arguments: null,
         ),
       ]);

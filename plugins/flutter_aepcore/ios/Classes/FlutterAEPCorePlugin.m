@@ -47,9 +47,6 @@ specific language governing permissions and limitations under the License.
     } else if ([@"setPushIdentifier" isEqualToString:call.method]) {
         [self handleSetPushIdentifier:call];
         result(nil);
-    } else if ([@"setPushIdentifierWithData" isEqualToString:call.method]) {
-        [self handleSetPushIdentifierWithData:call];
-        result(nil);
     } else if ([@"dispatchEvent" isEqualToString:call.method]) {
         [self handleDispatchEvent:call result:result];
     } else if ([@"dispatchEventWithResponseCallback"
@@ -210,20 +207,24 @@ specific language governing permissions and limitations under the License.
         return;
     }
 
-    NSString *tokenString = call.arguments;
-    NSData *token = [tokenString dataUsingEncoding:NSUTF8StringEncoding];
-    [AEPMobileCore setPushIdentifier:token];
-}
-
-- (void)handleSetPushIdentifierWithData:(FlutterMethodCall *)call {
-    if (call.arguments == nil || call.arguments == [NSNull null]) {
+    // The Dart layer sends the APNs token as a lowercase hex string (e.g. "a1b2c3d4...").
+    // Convert it back to the original NSData bytes that AEP SDK expects.
+    NSString *hexString = call.arguments;
+    NSUInteger length = hexString.length;
+    if (length % 2 != 0) {
+        // Malformed hex string — clear the identifier rather than registering garbage.
         [AEPMobileCore setPushIdentifier:nil];
         return;
     }
-
-    // Flutter sends Uint8List as FlutterStandardTypedData; extract NSData directly.
-    FlutterStandardTypedData *typedData = call.arguments;
-    [AEPMobileCore setPushIdentifier:typedData.data];
+    NSMutableData *tokenData = [NSMutableData dataWithCapacity:length / 2];
+    for (NSUInteger i = 0; i < length; i += 2) {
+        NSString *byteString = [hexString substringWithRange:NSMakeRange(i, 2)];
+        unsigned int byte = 0;
+        [[NSScanner scannerWithString:byteString] scanHexInt:&byte];
+        uint8_t byteValue = (uint8_t)byte;
+        [tokenData appendBytes:&byteValue length:1];
+    }
+    [AEPMobileCore setPushIdentifier:tokenData];
 }
 
 - (FlutterError *)flutterErrorFromNSError:(NSError *)error {
