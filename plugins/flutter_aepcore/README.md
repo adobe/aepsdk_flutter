@@ -330,8 +330,8 @@ MobileCore.trackState("myState",  data: {"key1": "value1"});
 ### setPushIdentifier
 Register a push notification token with the Adobe SDK. Pass `null` to clear a previously registered token.
 
-On **Android**, pass the FCM token string from `FirebaseMessaging.instance.getToken()`.
-On **iOS**, pass the APNs token string from `FirebaseMessaging.instance.getAPNSToken()`. The native bridge converts the hex string to the raw bytes expected by the AEP SDK internally.
+On **Android**, pass the push token string provided by your push notification service.
+On **iOS**, pass the APNs device token as a lowercase hex string. The native bridge converts it to the raw bytes expected by the AEP SDK internally.
 
 **Syntax**
 ```dart
@@ -340,15 +340,8 @@ static Future<void> setPushIdentifier(String? token)
 
 **Example**
 ```dart
-import 'dart:io';
-
-if (Platform.isAndroid) {
-  final token = await FirebaseMessaging.instance.getToken();
-  MobileCore.setPushIdentifier(token);
-} else if (Platform.isIOS) {
-  final token = await FirebaseMessaging.instance.getAPNSToken();
-  MobileCore.setPushIdentifier(token);
-}
+// Register a push token
+MobileCore.setPushIdentifier(token);
 
 // Clear the push token
 MobileCore.setPushIdentifier(null);

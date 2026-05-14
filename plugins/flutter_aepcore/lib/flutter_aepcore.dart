@@ -72,15 +72,11 @@ class MobileCore {
 
   /// Submits a generic event containing the provided push token with event type `generic.identity`.
   ///
-  /// Pass `null` to clear the push identifier.
+  /// On **Android**, pass the push token string as provided by your push notification service.
+  /// On **iOS**, pass the APNs device token as a lowercase hex string. The native bridge
+  /// converts it to the raw bytes expected by the AEP SDK internally.
   ///
-  /// On **Android**, pass the FCM registration token string obtained from
-  /// `FirebaseMessaging.instance.getToken()`.
-  ///
-  /// On **iOS**, pass the raw APNs device token hex string obtained from
-  /// `FirebaseMessaging.instance.getAPNSToken()`. The native bridge converts
-  /// the hex string to `NSData` internally before forwarding to the AEP SDK,
-  /// so no manual conversion is needed on the Dart side.
+  /// Pass `null` to clear a previously registered token.
   ///
   /// @param token The push notification token string. Pass `null` to clear the identifier.
   static Future<void> setPushIdentifier(String? token) =>
