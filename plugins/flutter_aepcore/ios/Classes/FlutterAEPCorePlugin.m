@@ -212,8 +212,7 @@ specific language governing permissions and limitations under the License.
     NSString *hexString = call.arguments;
     NSUInteger length = hexString.length;
     if (length % 2 != 0) {
-        // Malformed hex string — clear the identifier rather than registering garbage.
-        [AEPMobileCore setPushIdentifier:nil];
+        NSLog(@"[FlutterAEPCore] setPushIdentifier - Invalid APNs token: hex string has odd length (%lu), skipping.", (unsigned long)length);
         return;
     }
     NSMutableData *tokenData = [NSMutableData dataWithCapacity:length / 2];
