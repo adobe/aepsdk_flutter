@@ -218,8 +218,12 @@ specific language governing permissions and limitations under the License.
     NSMutableData *tokenData = [NSMutableData dataWithCapacity:length / 2];
     for (NSUInteger i = 0; i < length; i += 2) {
         NSString *byteString = [hexString substringWithRange:NSMakeRange(i, 2)];
+        NSScanner *scanner = [NSScanner scannerWithString:byteString];
         unsigned int byte = 0;
-        [[NSScanner scannerWithString:byteString] scanHexInt:&byte];
+        if (![scanner scanHexInt:&byte] || !scanner.isAtEnd) {
+            NSLog(@"[FlutterAEPCore] setPushIdentifier - Invalid APNs token: non-hex character found at index %lu, skipping.", (unsigned long)i);
+            return;
+        }
         uint8_t byteValue = (uint8_t)byte;
         [tokenData appendBytes:&byteValue length:1];
     }
