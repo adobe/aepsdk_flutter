@@ -1,7 +1,3 @@
-## 5.0.2
-
-* Add `MobileCore.setPushIdentifier` API to register a push notification token with the Adobe SDK. Accepts a push token string on Android and an APNs hex token string on iOS. The iOS native bridge converts the hex string to `NSData` internally before forwarding to the AEP SDK.
-
 ## 5.0.1
 
 * Add `MobileCore.setApplication` call in Android FlutterPlugin's `onAttachedToEngine` to accurately register lifecycle callbacks for launcher activity.
