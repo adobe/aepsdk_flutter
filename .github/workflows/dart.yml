@@ -37,7 +37,7 @@ jobs:
 
   job2:
     name: Build iOS example app
-    runs-on: macos-13
+    runs-on: macos-15
 
     steps:
       - uses: actions/checkout@v1
