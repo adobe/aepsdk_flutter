@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepcore'
-  s.version          = '5.0.0'
+  s.version          = '5.1.0'
   s.summary          = 'Adobe Experience Platform support for Flutter apps.'
   s.homepage         = 'https://developer.adobe.com/client-sdks'
   s.license          = { :file => '../LICENSE' }

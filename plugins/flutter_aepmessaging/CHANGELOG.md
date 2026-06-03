@@ -1,3 +1,6 @@
+## 5.1.0
+* Fixed Android `refreshInAppMessages` returning `Unit` instead of `null` over the method channel, causing a type mismatch on the Flutter side.
+
 ## 5.0.1
 * Add a timeout to the call made from native bridge to custom messaging delegate to allow showing the in-app message if no delegate is provided by the app developer. 
 
