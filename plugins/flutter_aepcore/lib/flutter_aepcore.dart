@@ -26,7 +26,8 @@ class MobileCore {
   /// Initializes the AEP Mobile SDK with the provided initialization options.
   /// @param initOptions The [InitOptions] to configure the SDK.
   static Future<void> initialize({required InitOptions initOptions}) {
-    return _channel.invokeMethod<void>('initialize', {'initOptions': initOptions.toMap()});
+    return _channel
+        .invokeMethod<void>('initialize', {'initOptions': initOptions.toMap()});
   }
 
   /// Initializes the AEP Mobile SDK with the provided App ID.
@@ -68,6 +69,18 @@ class MobileCore {
   /// Submits a generic event containing the provided IDFA with event type `generic.identity`.
   static Future<void> setAdvertisingIdentifier(String aid) =>
       _channel.invokeMethod<void>('setAdvertisingIdentifier', aid);
+
+  /// Submits a generic event containing the provided push token with event type `generic.identity`.
+  ///
+  /// On **Android**, pass the push token string as provided by your push notification service.
+  /// On **iOS**, pass the APNs device token as a lowercase hex string. The native bridge
+  /// converts it to the raw bytes expected by the AEP SDK internally.
+  ///
+  /// Pass `null` to clear a previously registered token.
+  ///
+  /// @param token The push notification token string. Pass `null` to clear the identifier.
+  static Future<void> setPushIdentifier(String? token) =>
+      _channel.invokeMethod<void>('setPushIdentifier', token);
 
   ///  Called by the extension public API to dispatch an event for other extensions or the internal SDK to consume. Any events dispatched by this call will not be processed until after `start` has been called.
   static Future<void> dispatchEvent(Event event) =>

@@ -327,6 +327,26 @@ static Future<void> trackState
 MobileCore.trackState("myState",  data: {"key1": "value1"});
 ```
 
+### setPushIdentifier
+Register a push notification token with the Adobe SDK. Pass `null` to clear a previously registered token.
+
+On **Android**, pass the push token string provided by your push notification service.
+On **iOS**, pass the APNs device token as a lowercase hex string. The native bridge converts it to the raw bytes expected by the AEP SDK internally.
+
+**Syntax**
+```dart
+static Future<void> setPushIdentifier(String? token)
+```
+
+**Example**
+```dart
+// Register a push token
+MobileCore.setPushIdentifier(token);
+
+// Clear the push token
+MobileCore.setPushIdentifier(null);
+```
+
 ### Identity
 
 For more information on the Core Identity APIs, visit the documentation [here](https://developer.adobe.com/client-sdks/documentation/mobile-core/identity/).

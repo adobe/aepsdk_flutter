@@ -44,6 +44,9 @@ specific language governing permissions and limitations under the License.
         NSString *aid = call.arguments;
         [AEPMobileCore setAdvertisingIdentifier:aid];
         result(nil);
+    } else if ([@"setPushIdentifier" isEqualToString:call.method]) {
+        [self handleSetPushIdentifier:call];
+        result(nil);
     } else if ([@"dispatchEvent" isEqualToString:call.method]) {
         [self handleDispatchEvent:call result:result];
     } else if ([@"dispatchEventWithResponseCallback"
@@ -196,6 +199,35 @@ specific language governing permissions and limitations under the License.
 
 - (void)handleResetIdentities:(FlutterMethodCall *)call {
     [AEPMobileCore resetIdentities];
+}
+
+- (void)handleSetPushIdentifier:(FlutterMethodCall *)call {
+    if (call.arguments == nil || call.arguments == [NSNull null]) {
+        [AEPMobileCore setPushIdentifier:nil];
+        return;
+    }
+
+    // The Dart layer sends the APNs token as a lowercase hex string (e.g. "a1b2c3d4...").
+    // Convert it back to the original NSData bytes that AEP SDK expects.
+    NSString *hexString = call.arguments;
+    NSUInteger length = hexString.length;
+    if (length % 2 != 0) {
+        NSLog(@"[FlutterAEPCore] setPushIdentifier - Invalid APNs token: hex string has odd length (%lu), skipping.", (unsigned long)length);
+        return;
+    }
+    NSMutableData *tokenData = [NSMutableData dataWithCapacity:length / 2];
+    for (NSUInteger i = 0; i < length; i += 2) {
+        NSString *byteString = [hexString substringWithRange:NSMakeRange(i, 2)];
+        NSScanner *scanner = [NSScanner scannerWithString:byteString];
+        unsigned int byte = 0;
+        if (![scanner scanHexInt:&byte] || !scanner.isAtEnd) {
+            NSLog(@"[FlutterAEPCore] setPushIdentifier - Invalid APNs token: non-hex character found at index %lu, skipping.", (unsigned long)i);
+            return;
+        }
+        uint8_t byteValue = (uint8_t)byte;
+        [tokenData appendBytes:&byteValue length:1];
+    }
+    [AEPMobileCore setPushIdentifier:tokenData];
 }
 
 - (FlutterError *)flutterErrorFromNSError:(NSError *)error {
