@@ -12,7 +12,6 @@ governing permissions and limitations under the License.
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
 import 'package:flutter_aepcore/flutter_aepidentity.dart';
 import 'util.dart';
 

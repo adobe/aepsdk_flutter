@@ -1,3 +1,6 @@
+## 5.1.0
+* Added `MobileCore.setPushIdentifier` API to the Flutter wrapper.
+
 ## 5.0.1
 
 * Add `MobileCore.setApplication` call in Android FlutterPlugin's `onAttachedToEngine` to accurately register lifecycle callbacks for launcher activity.

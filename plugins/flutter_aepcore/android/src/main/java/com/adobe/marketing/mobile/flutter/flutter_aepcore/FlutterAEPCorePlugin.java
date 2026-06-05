@@ -90,6 +90,9 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
         } else if ("setAdvertisingIdentifier".equals(call.method)) {
             handleSetAdvertisingIdentifier(call.arguments);
             result.success(null);
+        } else if ("setPushIdentifier".equals(call.method)) {
+            handleSetPushIdentifier(call.arguments);
+            result.success(null);
         } else if ("dispatchEvent".equals(call.method)) {
             handleDispatchEvent(result, call.arguments);
         } else if ("dispatchEventWithResponseCallback".equals(call.method)) {
@@ -188,6 +191,16 @@ public class FlutterAEPCorePlugin implements FlutterPlugin, MethodCallHandler {
 
         if (arguments instanceof String) {
             MobileCore.setAdvertisingIdentifier((String) arguments);
+        }
+    }
+
+    private void handleSetPushIdentifier(final Object arguments) {
+        if (arguments == null) {
+            MobileCore.setPushIdentifier(null);
+        }
+
+        if (arguments instanceof String) {
+            MobileCore.setPushIdentifier((String) arguments);
         }
     }
 
