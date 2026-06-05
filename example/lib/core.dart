@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:flutter/services.dart';
 import 'package:flutter_aepcore/flutter_aepcore.dart';
-import 'package:flutter_aepcore/flutter_aepcore_data.dart';
 import 'package:flutter_aepcore/flutter_aeplifecycle.dart';
 import 'package:flutter_aepcore/flutter_aepsignal.dart';
 import 'util.dart';
