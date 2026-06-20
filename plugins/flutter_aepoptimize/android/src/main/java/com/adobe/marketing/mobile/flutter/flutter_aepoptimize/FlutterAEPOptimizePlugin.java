@@ -1,0 +1,203 @@
+/*
+Copyright 2025 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+
+package com.adobe.marketing.mobile.flutter.flutter_aepoptimize;
+
+import android.util.Log;
+
+import com.adobe.marketing.mobile.AdobeCallback;
+import com.adobe.marketing.mobile.AdobeCallbackWithError;
+import com.adobe.marketing.mobile.AdobeError;
+import com.adobe.marketing.mobile.optimize.DecisionScope;
+import com.adobe.marketing.mobile.optimize.Offer;
+import com.adobe.marketing.mobile.optimize.Optimize;
+import com.adobe.marketing.mobile.optimize.OptimizeProposition;
+
+import androidx.annotation.NonNull;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
+import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
+import io.flutter.plugin.common.MethodChannel.Result;
+
+import java.util.List;
+import java.util.Map;
+
+public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandler {
+
+    private static final String TAG = "FlutterAEPOptimizePlugin";
+
+    private MethodChannel channel;
+
+    @Override
+    public void onAttachedToEngine(@NonNull final FlutterPluginBinding binding) {
+        channel = new MethodChannel(binding.getBinaryMessenger(), "flutter_aepoptimize");
+        channel.setMethodCallHandler(this);
+    }
+
+    @Override
+    public void onDetachedFromEngine(@NonNull final FlutterPluginBinding binding) {
+        if (channel != null) {
+            channel.setMethodCallHandler(null);
+        }
+    }
+
+    @Override
+    public void onMethodCall(MethodCall call, @NonNull Result result) {
+        if ("extensionVersion".equals(call.method)) {
+            result.success(Optimize.extensionVersion());
+        } else if ("updatePropositions".equals(call.method)) {
+            handleUpdatePropositions(call, result);
+        } else if ("getPropositions".equals(call.method)) {
+            handleGetPropositions(call, result);
+        } else if ("registerOnPropositionsUpdate".equals(call.method)) {
+            handleRegisterOnPropositionsUpdate(result);
+        } else if ("clearCachedPropositions".equals(call.method)) {
+            Optimize.clearCachedPropositions();
+            result.success(null);
+        } else if ("offerDisplayed".equals(call.method)) {
+            handleOfferDisplayed(call, result);
+        } else if ("offerTapped".equals(call.method)) {
+            handleOfferTapped(call, result);
+        } else if ("generateDisplayInteractionXdm".equals(call.method)) {
+            handleGenerateDisplayInteractionXdm(call, result);
+        } else if ("generateTapInteractionXdm".equals(call.method)) {
+            handleGenerateTapInteractionXdm(call, result);
+        } else if ("generateReferenceXdm".equals(call.method)) {
+            handleGenerateReferenceXdm(call, result);
+        } else {
+            result.notImplemented();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleUpdatePropositions(MethodCall call, final Result result) {
+        Map<String, Object> arguments = (Map<String, Object>) call.arguments;
+        List<Map<String, Object>> scopesList = (List<Map<String, Object>>) arguments.get("decisionScopes");
+        List<DecisionScope> scopes = FlutterAEPOptimizeDataBridge.decisionScopesFromList(scopesList);
+
+        if (scopes == null || scopes.isEmpty()) {
+            result.error("INVALID_ARGUMENT", "decisionScopes is required", null);
+            return;
+        }
+
+        Map<String, Object> xdm = (Map<String, Object>) arguments.get("xdm");
+        Map<String, Object> data = (Map<String, Object>) arguments.get("data");
+        Double timeout = arguments.containsKey("timeout") && arguments.get("timeout") instanceof Number
+                ? ((Number) arguments.get("timeout")).doubleValue() : null;
+
+        AdobeCallback<Map<DecisionScope, OptimizeProposition>> callback =
+                propositions -> AndroidUtil.runOnUIThread(() ->
+                        result.success(FlutterAEPOptimizeDataBridge.mapFromPropositionsMap(propositions)));
+
+        if (timeout != null) {
+            Optimize.updatePropositions(scopes, xdm, data, timeout, callback);
+        } else {
+            Optimize.updatePropositions(scopes, xdm, data, callback);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleGetPropositions(MethodCall call, final Result result) {
+        Map<String, Object> arguments = (Map<String, Object>) call.arguments;
+        List<Map<String, Object>> scopesList = (List<Map<String, Object>>) arguments.get("decisionScopes");
+        List<DecisionScope> scopes = FlutterAEPOptimizeDataBridge.decisionScopesFromList(scopesList);
+
+        if (scopes == null || scopes.isEmpty()) {
+            result.error("INVALID_ARGUMENT", "decisionScopes is required", null);
+            return;
+        }
+
+        Double timeout = arguments.containsKey("timeout") && arguments.get("timeout") instanceof Number
+                ? ((Number) arguments.get("timeout")).doubleValue() : null;
+
+        AdobeCallbackWithError<Map<DecisionScope, OptimizeProposition>> callback =
+                new AdobeCallbackWithError<Map<DecisionScope, OptimizeProposition>>() {
+                    @Override
+                    public void call(Map<DecisionScope, OptimizeProposition> propositions) {
+                        AndroidUtil.runOnUIThread(() ->
+                                result.success(FlutterAEPOptimizeDataBridge.mapFromPropositionsMap(propositions)));
+                    }
+
+                    @Override
+                    public void fail(AdobeError adobeError) {
+                        final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+                        AndroidUtil.runOnUIThread(() ->
+                                result.error(Integer.toString(error.getErrorCode()),
+                                        "getPropositions failed",
+                                        error.getErrorName()));
+                    }
+                };
+
+        if (timeout != null) {
+            Optimize.getPropositions(scopes, timeout, callback);
+        } else {
+            Optimize.getPropositions(scopes, callback);
+        }
+    }
+
+    private void handleRegisterOnPropositionsUpdate(final Result result) {
+        Optimize.onPropositionsUpdate(propositions -> {
+            final Map<String, Object> encoded = FlutterAEPOptimizeDataBridge.mapFromPropositionsMap(propositions);
+            AndroidUtil.runOnUIThread(() ->
+                    channel.invokeMethod("onPropositionsUpdate", encoded));
+        });
+        result.success(null);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleOfferDisplayed(MethodCall call, Result result) {
+        Offer offer = FlutterAEPOptimizeDataBridge.offerFromMap((Map<String, Object>) call.arguments);
+        if (offer != null) {
+            offer.displayed();
+        }
+        result.success(null);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleOfferTapped(MethodCall call, Result result) {
+        Offer offer = FlutterAEPOptimizeDataBridge.offerFromMap((Map<String, Object>) call.arguments);
+        if (offer != null) {
+            offer.tapped();
+        }
+        result.success(null);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleGenerateDisplayInteractionXdm(MethodCall call, Result result) {
+        Offer offer = FlutterAEPOptimizeDataBridge.offerFromMap((Map<String, Object>) call.arguments);
+        if (offer != null) {
+            result.success(offer.generateDisplayInteractionXdm());
+        } else {
+            result.success(null);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleGenerateTapInteractionXdm(MethodCall call, Result result) {
+        Offer offer = FlutterAEPOptimizeDataBridge.offerFromMap((Map<String, Object>) call.arguments);
+        if (offer != null) {
+            result.success(offer.generateTapInteractionXdm());
+        } else {
+            result.success(null);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleGenerateReferenceXdm(MethodCall call, Result result) {
+        OptimizeProposition proposition = FlutterAEPOptimizeDataBridge.propositionFromMap((Map<String, Object>) call.arguments);
+        if (proposition != null) {
+            result.success(proposition.generateReferenceXdm());
+        } else {
+            result.success(null);
+        }
+    }
+}
