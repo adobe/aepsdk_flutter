@@ -70,34 +70,33 @@ governing permissions and limitations under the License.
         return;
     }
 
-    NSDictionary *xdm = arguments[@"xdm"];
-    NSDictionary *data = arguments[@"data"];
-    NSNumber *timeoutNumber = arguments[@"timeout"];
+    NSDictionary *xdm = [arguments[@"xdm"] isKindOfClass:[NSDictionary class]] ? arguments[@"xdm"] : nil;
+    NSDictionary *data = [arguments[@"data"] isKindOfClass:[NSDictionary class]] ? arguments[@"data"] : nil;
+    NSNumber *timeoutNumber = [arguments[@"timeout"] isKindOfClass:[NSNumber class]] ? arguments[@"timeout"] : nil;
+
+    void (^completionHandler)(NSDictionary<AEPDecisionScope *, AEPOptimizeProposition *> * _Nullable, NSError * _Nullable) =
+        ^(NSDictionary<AEPDecisionScope *, AEPOptimizeProposition *> * _Nullable propositions, NSError * _Nullable error) {
+            if (error) {
+                result([self flutterErrorFromNSError:error]);
+            } else {
+                result([FlutterAEPOptimizeDataBridge dictionaryFromPropositionsMap:propositions]);
+            }
+        };
 
     if (timeoutNumber && ![timeoutNumber isKindOfClass:[NSNull class]]) {
         NSTimeInterval timeout = [timeoutNumber doubleValue];
-        [AEPMobileOptimize updatePropositionsFor:scopes
-                                         withXdm:xdm
-                                         andData:data
-                                         timeout:timeout
-                                                 :^(NSDictionary<AEPDecisionScope *, AEPOptimizeProposition *> * _Nullable propositions, NSError * _Nullable error) {
-            if (error) {
-                result([self flutterErrorFromNSError:error]);
-            } else {
-                result([FlutterAEPOptimizeDataBridge dictionaryFromPropositionsMap:propositions]);
-            }
-        }];
+        // Note: the SDK's generated ObjC header has swapped parameter names for timeout/andData.
+        // The `timeout:` selector slot takes the data dictionary, and `andData:` takes the NSTimeInterval.
+        [AEPMobileOptimize updatePropositions:scopes
+                                      withXdm:xdm
+                                      timeout:data
+                                      andData:timeout
+                                   completion:completionHandler];
     } else {
-        [AEPMobileOptimize updatePropositionsFor:scopes
-                                         withXdm:xdm
-                                         andData:data
-                                                 :^(NSDictionary<AEPDecisionScope *, AEPOptimizeProposition *> * _Nullable propositions, NSError * _Nullable error) {
-            if (error) {
-                result([self flutterErrorFromNSError:error]);
-            } else {
-                result([FlutterAEPOptimizeDataBridge dictionaryFromPropositionsMap:propositions]);
-            }
-        }];
+        [AEPMobileOptimize updatePropositions:scopes
+                                      withXdm:xdm
+                                      andData:data
+                                   completion:completionHandler];
     }
 }
 
@@ -112,7 +111,7 @@ governing permissions and limitations under the License.
         return;
     }
 
-    NSNumber *timeoutNumber = arguments[@"timeout"];
+    NSNumber *timeoutNumber = [arguments[@"timeout"] isKindOfClass:[NSNumber class]] ? arguments[@"timeout"] : nil;
 
     void (^completionHandler)(NSDictionary<AEPDecisionScope *, AEPOptimizeProposition *> * _Nullable, NSError * _Nullable) =
         ^(NSDictionary<AEPDecisionScope *, AEPOptimizeProposition *> * _Nullable propositions, NSError * _Nullable error) {
@@ -123,15 +122,15 @@ governing permissions and limitations under the License.
             }
         };
 
-    if (timeoutNumber && ![timeoutNumber isKindOfClass:[NSNull class]]) {
-        [AEPMobileOptimize getPropositionsFor:scopes timeout:[timeoutNumber doubleValue] :completionHandler];
+    if (timeoutNumber) {
+        [AEPMobileOptimize getPropositions:scopes timeout:[timeoutNumber doubleValue] completion:completionHandler];
     } else {
-        [AEPMobileOptimize getPropositionsFor:scopes :completionHandler];
+        [AEPMobileOptimize getPropositions:scopes completion:completionHandler];
     }
 }
 
 - (void)handleRegisterOnPropositionsUpdate:(FlutterResult)result {
-    [AEPMobileOptimize onPropositionsUpdateWithPerform:^(NSDictionary<AEPDecisionScope *, AEPOptimizeProposition *> * _Nonnull propositions) {
+    [AEPMobileOptimize onPropositionsUpdate:^(NSDictionary<AEPDecisionScope *, AEPOptimizeProposition *> * _Nonnull propositions) {
         NSDictionary *encoded = [FlutterAEPOptimizeDataBridge dictionaryFromPropositionsMap:propositions];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.channel invokeMethod:@"onPropositionsUpdate" arguments:encoded];
