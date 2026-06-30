@@ -18,6 +18,7 @@ import com.adobe.marketing.mobile.AdobeCallbackWithError;
 import com.adobe.marketing.mobile.AdobeError;
 import com.adobe.marketing.mobile.optimize.DecisionScope;
 import com.adobe.marketing.mobile.optimize.Offer;
+import com.adobe.marketing.mobile.optimize.OfferUtils;
 import com.adobe.marketing.mobile.optimize.Optimize;
 import com.adobe.marketing.mobile.optimize.OptimizeProposition;
 
@@ -73,6 +74,10 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
             handleGenerateTapInteractionXdm(call, result);
         } else if ("generateReferenceXdm".equals(call.method)) {
             handleGenerateReferenceXdm(call, result);
+        } else if ("batchDisplayed".equals(call.method)) {
+            handleBatchDisplayed(call, result);
+        } else if ("batchGenerateDisplayInteractionXdm".equals(call.method)) {
+            handleBatchGenerateDisplayInteractionXdm(call, result);
         } else {
             result.notImplemented();
         }
@@ -196,6 +201,25 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
         OptimizeProposition proposition = FlutterAEPOptimizeDataBridge.propositionFromMap((Map<String, Object>) call.arguments);
         if (proposition != null) {
             result.success(proposition.generateReferenceXdm());
+        } else {
+            result.success(null);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleBatchDisplayed(MethodCall call, Result result) {
+        List<Offer> offers = FlutterAEPOptimizeDataBridge.offersFromList((List<Map<String, Object>>) call.arguments);
+        if (offers != null && !offers.isEmpty()) {
+            OfferUtils.displayed(offers);
+        }
+        result.success(null);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void handleBatchGenerateDisplayInteractionXdm(MethodCall call, Result result) {
+        List<Offer> offers = FlutterAEPOptimizeDataBridge.offersFromList((List<Map<String, Object>>) call.arguments);
+        if (offers != null && !offers.isEmpty()) {
+            result.success(OfferUtils.generateDisplayInteractionXdm(offers));
         } else {
             result.success(null);
         }

@@ -92,6 +92,24 @@ class Optimize {
     return _channel.invokeMethod<void>('clearCachedPropositions');
   }
 
+  /// Tracks display events for the given [offers] in a single batch.
+  ///
+  /// Offers can belong to different propositions; the SDK de-duplicates
+  /// them into unique propositions before dispatching the tracking event.
+  static Future<void> displayed(List<Offer> offers) {
+    return _channel.invokeMethod<void>(
+        'batchDisplayed', offers.map((o) => o.toTrackingMap()).toList());
+  }
+
+  /// Generates XDM-formatted data for display interactions of the given
+  /// [offers] in a single batch.
+  static Future<Map<String, dynamic>?> generateDisplayInteractionXdm(
+      List<Offer> offers) {
+    return _channel.invokeMapMethod<String, dynamic>(
+        'batchGenerateDisplayInteractionXdm',
+        offers.map((o) => o.toTrackingMap()).toList());
+  }
+
   static Map<DecisionScope, OptimizeProposition> _decodePropositionsMap(
     Map<dynamic, dynamic> rawMap,
   ) {

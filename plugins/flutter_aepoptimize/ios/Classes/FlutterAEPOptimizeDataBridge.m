@@ -97,22 +97,25 @@ governing permissions and limitations under the License.
         return nil;
     }
 
-    // Reconstruct the offer via the proposition data path so tracking context is preserved
+    NSString *propositionId = [dict[@"propositionId"] isKindOfClass:[NSString class]] ? dict[@"propositionId"] : @"";
+    NSString *propositionScope = [dict[@"propositionScope"] isKindOfClass:[NSString class]] ? dict[@"propositionScope"] : @"";
+    NSDictionary *scopeDetails = [dict[@"propositionScopeDetails"] isKindOfClass:[NSDictionary class]] ? dict[@"propositionScopeDetails"] : @{};
+
     NSDictionary *propositionData = @{
-        @"id": @"",
-        @"scope": @"",
-        @"scopeDetails": @{},
+        @"id": propositionId,
+        @"scope": propositionScope,
+        @"scopeDetails": scopeDetails,
         @"items": @[@{
             @"id": dict[@"id"] ?: @"",
             @"etag": dict[@"etag"] ?: @"",
             @"score": dict[@"score"] ?: @(0),
             @"schema": dict[@"schema"] ?: @"",
-            @"meta": dict[@"meta"] ?: @{},
+            @"meta": [dict[@"meta"] isKindOfClass:[NSDictionary class]] ? dict[@"meta"] : @{},
             @"data": @{
                 @"type": [self mimeTypeFromOfferType:dict[@"type"]],
                 @"content": dict[@"content"] ?: @"",
-                @"language": dict[@"language"] ?: @[],
-                @"characteristics": dict[@"characteristics"] ?: @{}
+                @"language": [dict[@"language"] isKindOfClass:[NSArray class]] ? dict[@"language"] : @[],
+                @"characteristics": [dict[@"characteristics"] isKindOfClass:[NSDictionary class]] ? dict[@"characteristics"] : @{}
             }
         }]
     };
@@ -122,6 +125,21 @@ governing permissions and limitations under the License.
         return proposition.offers[0];
     }
     return nil;
+}
+
++ (NSArray<AEPOffer *> *)offersFromArray:(NSArray *)array {
+    if (!array || ![array isKindOfClass:[NSArray class]]) {
+        return nil;
+    }
+
+    NSMutableArray<AEPOffer *> *offers = [NSMutableArray array];
+    for (NSDictionary *dict in array) {
+        AEPOffer *offer = [self offerFromDictionary:dict];
+        if (offer) {
+            [offers addObject:offer];
+        }
+    }
+    return offers;
 }
 
 #pragma mark - OfferType

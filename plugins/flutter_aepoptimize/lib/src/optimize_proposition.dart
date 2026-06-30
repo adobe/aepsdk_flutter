@@ -30,18 +30,26 @@ class OptimizeProposition {
   });
 
   factory OptimizeProposition.fromMap(Map<dynamic, dynamic> map) {
+    final propId = map['id'] as String? ?? '';
+    final propScope = map['scope'] as String? ?? '';
+    final propScopeDetails = map['scopeDetails'] != null
+        ? Map<String, dynamic>.from(map['scopeDetails'] as Map)
+        : <String, dynamic>{};
+
     final offersList = (map['offers'] as List<dynamic>?)
             ?.map((o) => Offer.fromMap(Map<dynamic, dynamic>.from(o as Map)))
             .toList() ??
         [];
 
+    for (final offer in offersList) {
+      offer.setPropositionContext(propId, propScope, propScopeDetails);
+    }
+
     return OptimizeProposition(
-      id: map['id'] as String? ?? '',
+      id: propId,
       offers: offersList,
-      scope: map['scope'] as String? ?? '',
-      scopeDetails: map['scopeDetails'] != null
-          ? Map<String, dynamic>.from(map['scopeDetails'] as Map)
-          : {},
+      scope: propScope,
+      scopeDetails: propScopeDetails,
     );
   }
 

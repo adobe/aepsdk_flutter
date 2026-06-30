@@ -26,6 +26,10 @@ class Offer {
   final String content;
   final Map<String, String>? characteristics;
 
+  String _propositionId = '';
+  String _propositionScope = '';
+  Map<String, dynamic> _propositionScopeDetails = {};
+
   Offer({
     required this.id,
     this.etag = '',
@@ -58,6 +62,12 @@ class Offer {
     );
   }
 
+  void setPropositionContext(String propositionId, String scope, Map<String, dynamic> scopeDetails) {
+    _propositionId = propositionId;
+    _propositionScope = scope;
+    _propositionScopeDetails = scopeDetails;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -72,25 +82,34 @@ class Offer {
     };
   }
 
+  Map<String, dynamic> toTrackingMap() {
+    return {
+      ...toMap(),
+      'propositionId': _propositionId,
+      'propositionScope': _propositionScope,
+      'propositionScopeDetails': _propositionScopeDetails,
+    };
+  }
+
   Future<void> displayed() {
-    return _channel.invokeMethod<void>('offerDisplayed', toMap());
+    return _channel.invokeMethod<void>('offerDisplayed', toTrackingMap());
   }
 
   Future<void> tapped() {
-    return _channel.invokeMethod<void>('offerTapped', toMap());
+    return _channel.invokeMethod<void>('offerTapped', toTrackingMap());
   }
 
   Future<Map<String, dynamic>?> generateDisplayInteractionXdm() {
     return _channel
         .invokeMapMethod<String, dynamic>(
-            'generateDisplayInteractionXdm', toMap())
+            'generateDisplayInteractionXdm', toTrackingMap())
         .then((value) => value);
   }
 
   Future<Map<String, dynamic>?> generateTapInteractionXdm() {
     return _channel
         .invokeMapMethod<String, dynamic>(
-            'generateTapInteractionXdm', toMap())
+            'generateTapInteractionXdm', toTrackingMap())
         .then((value) => value);
   }
 

@@ -94,47 +94,73 @@ class FlutterAEPOptimizeDataBridge {
             return null;
         }
 
-        String id = getNullableString(map, "id");
+        String propositionId = getNullableString(map, "propositionId");
+        String propositionScope = getNullableString(map, "propositionScope");
+        Map<String, Object> scopeDetails = getNullableMap(map, "propositionScopeDetails");
+
+        Map<String, Object> offerItemData = new HashMap<>();
+        offerItemData.put("id", map.get("id") != null ? map.get("id") : "");
+        offerItemData.put("etag", map.get("etag") != null ? map.get("etag") : "");
+        offerItemData.put("score", map.get("score") != null ? map.get("score") : 0);
+        offerItemData.put("schema", map.get("schema") != null ? map.get("schema") : "");
+
+        Map<String, Object> dataPayload = new HashMap<>();
         int typeInt = map.containsKey("type") && map.get("type") instanceof Number
                 ? ((Number) map.get("type")).intValue() : 0;
-        String content = getNullableString(map, "content");
+        dataPayload.put("type", mimeTypeFromOfferType(typeInt));
+        dataPayload.put("content", map.get("content") != null ? map.get("content") : "");
+        if (map.get("language") instanceof List) {
+            dataPayload.put("language", map.get("language"));
+        }
+        if (map.get("characteristics") instanceof Map) {
+            dataPayload.put("characteristics", map.get("characteristics"));
+        }
+        offerItemData.put("data", dataPayload);
 
-        Offer.Builder builder = new Offer.Builder(
-                id != null ? id : "",
-                intToOfferType(typeInt),
-                content != null ? content : "");
-
-        String etag = getNullableString(map, "etag");
-        if (etag != null) {
-            builder.setEtag(etag);
+        if (map.get("meta") instanceof Map) {
+            offerItemData.put("meta", map.get("meta"));
         }
 
-        if (map.containsKey("score") && map.get("score") instanceof Number) {
-            builder.setScore(((Number) map.get("score")).doubleValue());
+        List<Map<String, Object>> items = new ArrayList<>();
+        items.add(offerItemData);
+
+        Map<String, Object> propositionData = new HashMap<>();
+        propositionData.put("id", propositionId != null ? propositionId : "");
+        propositionData.put("scope", propositionScope != null ? propositionScope : "");
+        propositionData.put("scopeDetails", scopeDetails != null ? scopeDetails : new HashMap<>());
+        propositionData.put("items", items);
+
+        OptimizeProposition proposition = OptimizeProposition.fromEventData(propositionData);
+        if (proposition != null && proposition.getOffers() != null && !proposition.getOffers().isEmpty()) {
+            return proposition.getOffers().get(0);
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    static List<Offer> offersFromList(List<Map<String, Object>> list) {
+        if (list == null) {
+            return null;
         }
 
-        String schema = getNullableString(map, "schema");
-        if (schema != null) {
-            builder.setSchema(schema);
+        List<Offer> offers = new ArrayList<>();
+        for (Map<String, Object> item : list) {
+            Offer offer = offerFromMap(item);
+            if (offer != null) {
+                offers.add(offer);
+            }
         }
+        return offers;
+    }
 
-        Map<String, Object> meta = getNullableMap(map, "meta");
-        if (meta != null) {
-            builder.setMeta(meta);
+    static String mimeTypeFromOfferType(int typeValue) {
+        switch (typeValue) {
+            case 1: return "application/json";
+            case 2: return "text/plain";
+            case 3: return "text/html";
+            case 4: return "image/*";
+            default: return "";
         }
-
-        List<String> language = (List<String>) map.get("language");
-        if (language != null) {
-            builder.setLanguage(language);
-        }
-
-        Map<String, String> characteristics = map.containsKey("characteristics") && map.get("characteristics") instanceof Map
-                ? (Map<String, String>) map.get("characteristics") : null;
-        if (characteristics != null) {
-            builder.setCharacteristics(characteristics);
-        }
-
-        return builder.build();
     }
 
     @SuppressWarnings("unchecked")

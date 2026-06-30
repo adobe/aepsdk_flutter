@@ -52,6 +52,10 @@ governing permissions and limitations under the License.
         [self handleGenerateTapInteractionXdm:call result:result];
     } else if ([@"generateReferenceXdm" isEqualToString:call.method]) {
         [self handleGenerateReferenceXdm:call result:result];
+    } else if ([@"batchDisplayed" isEqualToString:call.method]) {
+        [self handleBatchDisplayed:call result:result];
+    } else if ([@"batchGenerateDisplayInteractionXdm" isEqualToString:call.method]) {
+        [self handleBatchGenerateDisplayInteractionXdm:call result:result];
     } else {
         result(FlutterMethodNotImplemented);
     }
@@ -177,6 +181,23 @@ governing permissions and limitations under the License.
     AEPOptimizeProposition *proposition = [FlutterAEPOptimizeDataBridge propositionFromDictionary:call.arguments];
     if (proposition) {
         result([proposition generateReferenceXdm]);
+    } else {
+        result(nil);
+    }
+}
+
+- (void)handleBatchDisplayed:(FlutterMethodCall *)call result:(FlutterResult)result {
+    NSArray<AEPOffer *> *offers = [FlutterAEPOptimizeDataBridge offersFromArray:call.arguments];
+    if (offers && offers.count > 0) {
+        [AEPMobileOptimize displayed:offers];
+    }
+    result(nil);
+}
+
+- (void)handleBatchGenerateDisplayInteractionXdm:(FlutterMethodCall *)call result:(FlutterResult)result {
+    NSArray<AEPOffer *> *offers = [FlutterAEPOptimizeDataBridge offersFromArray:call.arguments];
+    if (offers && offers.count > 0) {
+        result([AEPMobileOptimize generateDisplayInteractionXdm:offers]);
     } else {
         result(nil);
     }

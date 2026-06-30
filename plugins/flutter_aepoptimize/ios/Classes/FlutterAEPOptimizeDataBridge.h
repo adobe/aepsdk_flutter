@@ -18,6 +18,7 @@ governing permissions and limitations under the License.
 + (NSArray<AEPDecisionScope *> *_Nullable)decisionScopesFromArray:(NSArray *_Nullable)array;
 + (NSDictionary *_Nullable)dictionaryFromPropositionsMap:(NSDictionary<AEPDecisionScope *, AEPOptimizeProposition *> *_Nullable)propositions;
 + (AEPOffer *_Nullable)offerFromDictionary:(NSDictionary *_Nullable)dict;
++ (NSArray<AEPOffer *> *_Nullable)offersFromArray:(NSArray *_Nullable)array;
 + (AEPOptimizeProposition *_Nullable)propositionFromDictionary:(NSDictionary *_Nullable)dict;
 
 @end
