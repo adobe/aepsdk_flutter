@@ -29,6 +29,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -160,27 +161,27 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
 
     @SuppressWarnings("unchecked")
     private void handleOfferDisplayed(MethodCall call, Result result) {
-        Offer offer = FlutterAEPOptimizeDataBridge.offerFromMap((Map<String, Object>) call.arguments);
-        if (offer != null) {
-            offer.displayed();
+        OptimizeProposition proposition = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap((Map<String, Object>) call.arguments);
+        if (proposition != null && proposition.getOffers() != null && !proposition.getOffers().isEmpty()) {
+            proposition.getOffers().get(0).displayed();
         }
         result.success(null);
     }
 
     @SuppressWarnings("unchecked")
     private void handleOfferTapped(MethodCall call, Result result) {
-        Offer offer = FlutterAEPOptimizeDataBridge.offerFromMap((Map<String, Object>) call.arguments);
-        if (offer != null) {
-            offer.tapped();
+        OptimizeProposition proposition = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap((Map<String, Object>) call.arguments);
+        if (proposition != null && proposition.getOffers() != null && !proposition.getOffers().isEmpty()) {
+            proposition.getOffers().get(0).tapped();
         }
         result.success(null);
     }
 
     @SuppressWarnings("unchecked")
     private void handleGenerateDisplayInteractionXdm(MethodCall call, Result result) {
-        Offer offer = FlutterAEPOptimizeDataBridge.offerFromMap((Map<String, Object>) call.arguments);
-        if (offer != null) {
-            result.success(offer.generateDisplayInteractionXdm());
+        OptimizeProposition proposition = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap((Map<String, Object>) call.arguments);
+        if (proposition != null && proposition.getOffers() != null && !proposition.getOffers().isEmpty()) {
+            result.success(proposition.getOffers().get(0).generateDisplayInteractionXdm());
         } else {
             result.success(null);
         }
@@ -188,9 +189,9 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
 
     @SuppressWarnings("unchecked")
     private void handleGenerateTapInteractionXdm(MethodCall call, Result result) {
-        Offer offer = FlutterAEPOptimizeDataBridge.offerFromMap((Map<String, Object>) call.arguments);
-        if (offer != null) {
-            result.success(offer.generateTapInteractionXdm());
+        OptimizeProposition proposition = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap((Map<String, Object>) call.arguments);
+        if (proposition != null && proposition.getOffers() != null && !proposition.getOffers().isEmpty()) {
+            result.success(proposition.getOffers().get(0).generateTapInteractionXdm());
         } else {
             result.success(null);
         }
@@ -208,8 +209,17 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
 
     @SuppressWarnings("unchecked")
     private void handleBatchDisplayed(MethodCall call, Result result) {
-        List<Offer> offers = FlutterAEPOptimizeDataBridge.offersFromList((List<Map<String, Object>>) call.arguments);
-        if (offers != null && !offers.isEmpty()) {
+        List<Map<String, Object>> items = (List<Map<String, Object>>) call.arguments;
+        List<OptimizeProposition> propositions = new ArrayList<>();
+        List<Offer> offers = new ArrayList<>();
+        for (Map<String, Object> item : items) {
+            OptimizeProposition prop = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap(item);
+            if (prop != null && prop.getOffers() != null && !prop.getOffers().isEmpty()) {
+                propositions.add(prop);
+                offers.add(prop.getOffers().get(0));
+            }
+        }
+        if (!offers.isEmpty()) {
             OfferUtils.displayed(offers);
         }
         result.success(null);
@@ -217,8 +227,17 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
 
     @SuppressWarnings("unchecked")
     private void handleBatchGenerateDisplayInteractionXdm(MethodCall call, Result result) {
-        List<Offer> offers = FlutterAEPOptimizeDataBridge.offersFromList((List<Map<String, Object>>) call.arguments);
-        if (offers != null && !offers.isEmpty()) {
+        List<Map<String, Object>> items = (List<Map<String, Object>>) call.arguments;
+        List<OptimizeProposition> propositions = new ArrayList<>();
+        List<Offer> offers = new ArrayList<>();
+        for (Map<String, Object> item : items) {
+            OptimizeProposition prop = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap(item);
+            if (prop != null && prop.getOffers() != null && !prop.getOffers().isEmpty()) {
+                propositions.add(prop);
+                offers.add(prop.getOffers().get(0));
+            }
+        }
+        if (!offers.isEmpty()) {
             result.success(OfferUtils.generateDisplayInteractionXdm(offers));
         } else {
             result.success(null);

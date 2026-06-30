@@ -92,7 +92,7 @@ governing permissions and limitations under the License.
     return dict;
 }
 
-+ (AEPOffer *)offerFromDictionary:(NSDictionary *)dict {
++ (AEPOptimizeProposition *)propositionFromOfferTrackingDictionary:(NSDictionary *)dict {
     if (!dict || ![dict isKindOfClass:[NSDictionary class]]) {
         return nil;
     }
@@ -112,7 +112,8 @@ governing permissions and limitations under the License.
             @"schema": dict[@"schema"] ?: @"",
             @"meta": [dict[@"meta"] isKindOfClass:[NSDictionary class]] ? dict[@"meta"] : @{},
             @"data": @{
-                @"type": [self mimeTypeFromOfferType:dict[@"type"]],
+                @"id": dict[@"id"] ?: @"",
+                @"format": [self mimeTypeFromOfferType:dict[@"type"]],
                 @"content": dict[@"content"] ?: @"",
                 @"language": [dict[@"language"] isKindOfClass:[NSArray class]] ? dict[@"language"] : @[],
                 @"characteristics": [dict[@"characteristics"] isKindOfClass:[NSDictionary class]] ? dict[@"characteristics"] : @{}
@@ -121,25 +122,11 @@ governing permissions and limitations under the License.
     };
 
     AEPOptimizeProposition *proposition = [AEPOptimizeProposition initFromData:propositionData];
-    if (proposition && proposition.offers.count > 0) {
-        return proposition.offers[0];
+    if (proposition) {
+        // Access offers to trigger lazy property that sets offer.proposition = self
+        (void)proposition.offers;
     }
-    return nil;
-}
-
-+ (NSArray<AEPOffer *> *)offersFromArray:(NSArray *)array {
-    if (!array || ![array isKindOfClass:[NSArray class]]) {
-        return nil;
-    }
-
-    NSMutableArray<AEPOffer *> *offers = [NSMutableArray array];
-    for (NSDictionary *dict in array) {
-        AEPOffer *offer = [self offerFromDictionary:dict];
-        if (offer) {
-            [offers addObject:offer];
-        }
-    }
-    return offers;
+    return proposition;
 }
 
 #pragma mark - OfferType

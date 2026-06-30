@@ -144,7 +144,8 @@ governing permissions and limitations under the License.
 }
 
 - (void)handleOfferDisplayed:(FlutterMethodCall *)call result:(FlutterResult)result {
-    AEPOffer *offer = [FlutterAEPOptimizeDataBridge offerFromDictionary:call.arguments];
+    AEPOptimizeProposition *proposition = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:call.arguments];
+    AEPOffer *offer = proposition.offers.firstObject;
     if (offer) {
         [offer displayed];
     }
@@ -152,7 +153,8 @@ governing permissions and limitations under the License.
 }
 
 - (void)handleOfferTapped:(FlutterMethodCall *)call result:(FlutterResult)result {
-    AEPOffer *offer = [FlutterAEPOptimizeDataBridge offerFromDictionary:call.arguments];
+    AEPOptimizeProposition *proposition = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:call.arguments];
+    AEPOffer *offer = proposition.offers.firstObject;
     if (offer) {
         [offer tapped];
     }
@@ -160,7 +162,8 @@ governing permissions and limitations under the License.
 }
 
 - (void)handleGenerateDisplayInteractionXdm:(FlutterMethodCall *)call result:(FlutterResult)result {
-    AEPOffer *offer = [FlutterAEPOptimizeDataBridge offerFromDictionary:call.arguments];
+    AEPOptimizeProposition *proposition = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:call.arguments];
+    AEPOffer *offer = proposition.offers.firstObject;
     if (offer) {
         result([offer generateDisplayInteractionXdm]);
     } else {
@@ -169,7 +172,8 @@ governing permissions and limitations under the License.
 }
 
 - (void)handleGenerateTapInteractionXdm:(FlutterMethodCall *)call result:(FlutterResult)result {
-    AEPOffer *offer = [FlutterAEPOptimizeDataBridge offerFromDictionary:call.arguments];
+    AEPOptimizeProposition *proposition = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:call.arguments];
+    AEPOffer *offer = proposition.offers.firstObject;
     if (offer) {
         result([offer generateTapInteractionXdm]);
     } else {
@@ -187,16 +191,32 @@ governing permissions and limitations under the License.
 }
 
 - (void)handleBatchDisplayed:(FlutterMethodCall *)call result:(FlutterResult)result {
-    NSArray<AEPOffer *> *offers = [FlutterAEPOptimizeDataBridge offersFromArray:call.arguments];
-    if (offers && offers.count > 0) {
+    NSMutableArray<AEPOptimizeProposition *> *propositions = [NSMutableArray array];
+    NSMutableArray<AEPOffer *> *offers = [NSMutableArray array];
+    for (NSDictionary *dict in call.arguments) {
+        AEPOptimizeProposition *prop = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:dict];
+        if (prop && prop.offers.count > 0) {
+            [propositions addObject:prop];
+            [offers addObject:prop.offers[0]];
+        }
+    }
+    if (offers.count > 0) {
         [AEPMobileOptimize displayed:offers];
     }
     result(nil);
 }
 
 - (void)handleBatchGenerateDisplayInteractionXdm:(FlutterMethodCall *)call result:(FlutterResult)result {
-    NSArray<AEPOffer *> *offers = [FlutterAEPOptimizeDataBridge offersFromArray:call.arguments];
-    if (offers && offers.count > 0) {
+    NSMutableArray<AEPOptimizeProposition *> *propositions = [NSMutableArray array];
+    NSMutableArray<AEPOffer *> *offers = [NSMutableArray array];
+    for (NSDictionary *dict in call.arguments) {
+        AEPOptimizeProposition *prop = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:dict];
+        if (prop && prop.offers.count > 0) {
+            [propositions addObject:prop];
+            [offers addObject:prop.offers[0]];
+        }
+    }
+    if (offers.count > 0) {
         result([AEPMobileOptimize generateDisplayInteractionXdm:offers]);
     } else {
         result(nil);

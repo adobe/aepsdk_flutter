@@ -89,7 +89,7 @@ class FlutterAEPOptimizeDataBridge {
     }
 
     @SuppressWarnings("unchecked")
-    static Offer offerFromMap(Map<String, Object> map) {
+    static OptimizeProposition propositionFromOfferTrackingMap(Map<String, Object> map) {
         if (map == null) {
             return null;
         }
@@ -105,9 +105,10 @@ class FlutterAEPOptimizeDataBridge {
         offerItemData.put("schema", map.get("schema") != null ? map.get("schema") : "");
 
         Map<String, Object> dataPayload = new HashMap<>();
+        dataPayload.put("id", map.get("id") != null ? map.get("id") : "");
         int typeInt = map.containsKey("type") && map.get("type") instanceof Number
                 ? ((Number) map.get("type")).intValue() : 0;
-        dataPayload.put("type", mimeTypeFromOfferType(typeInt));
+        dataPayload.put("format", mimeTypeFromOfferType(typeInt));
         dataPayload.put("content", map.get("content") != null ? map.get("content") : "");
         if (map.get("language") instanceof List) {
             dataPayload.put("language", map.get("language"));
@@ -130,27 +131,7 @@ class FlutterAEPOptimizeDataBridge {
         propositionData.put("scopeDetails", scopeDetails != null ? scopeDetails : new HashMap<>());
         propositionData.put("items", items);
 
-        OptimizeProposition proposition = OptimizeProposition.fromEventData(propositionData);
-        if (proposition != null && proposition.getOffers() != null && !proposition.getOffers().isEmpty()) {
-            return proposition.getOffers().get(0);
-        }
-        return null;
-    }
-
-    @SuppressWarnings("unchecked")
-    static List<Offer> offersFromList(List<Map<String, Object>> list) {
-        if (list == null) {
-            return null;
-        }
-
-        List<Offer> offers = new ArrayList<>();
-        for (Map<String, Object> item : list) {
-            Offer offer = offerFromMap(item);
-            if (offer != null) {
-                offers.add(offer);
-            }
-        }
-        return offers;
+        return OptimizeProposition.fromEventData(propositionData);
     }
 
     static String mimeTypeFromOfferType(int typeValue) {
@@ -180,16 +161,6 @@ class FlutterAEPOptimizeDataBridge {
             case HTML: return 3;
             case IMAGE: return 4;
             default: return 0;
-        }
-    }
-
-    static OfferType intToOfferType(int value) {
-        switch (value) {
-            case 1: return OfferType.JSON;
-            case 2: return OfferType.TEXT;
-            case 3: return OfferType.HTML;
-            case 4: return OfferType.IMAGE;
-            default: return OfferType.UNKNOWN;
         }
     }
 
