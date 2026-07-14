@@ -20,6 +20,7 @@ import 'identity.dart';
 import 'edgeIdentity.dart';
 import 'edgebridge.dart';
 import 'userprofile.dart';
+import 'optimize.dart';
 
 
 void main() async {
@@ -131,6 +132,13 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MessagingPage()));
+              },
+            ),
+            ElevatedButton(
+              child: const Text('OPTIMIZE'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => OptimizePage()));
               },
             ),
           ]),

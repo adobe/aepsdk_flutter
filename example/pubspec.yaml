@@ -30,6 +30,8 @@ dependencies:
 
   flutter_aepuserprofile: ">=5.0.0 <6.0.0"
 
+  flutter_aepoptimize: ">=5.0.0 <6.0.0"
+
 dependency_overrides:
   flutter_aepcore:
     path: ../plugins/flutter_aepcore
@@ -54,6 +56,9 @@ dependency_overrides:
 
   flutter_aepuserprofile:
     path: ../plugins/flutter_aepuserprofile
+
+  flutter_aepoptimize:
+    path: ../plugins/flutter_aepoptimize
 
 dev_dependencies:
   flutter_test:
