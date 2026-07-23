@@ -1,0 +1,43 @@
+group 'com.adobe.marketing.mobile.flutter.flutter_aepoptimize'
+version '3.0'
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.2'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.adobe.marketing.mobile.flutter.flutter_aepoptimize'
+    }
+
+    compileSdk 34
+
+    defaultConfig {
+        minSdkVersion 21
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+    implementation platform("com.adobe.marketing.mobile:sdk-bom:3.+")
+    api "com.adobe.marketing.mobile:optimize"
+}
