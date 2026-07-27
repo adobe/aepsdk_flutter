@@ -14,6 +14,7 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 | [EdgeBridge](plugins/flutter_aepedgebridge/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepedgebridge.svg)](https://pub.dartlang.org/packages/flutter_aepedgebridge) |
 | [UserProfile](plugins/flutter_aepuserprofile/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepuserprofile.svg)](https://pub.dartlang.org/packages/flutter_aepuserprofile) |
 | [Messaging](plugins/flutter_aepmessaging/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepmessaging.svg)](https://pub.dartlang.org/packages/flutter_aepmessaging) |
+| [Optimize](plugins/flutter_aepoptimize/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepoptimize.svg)](https://pub.dartlang.org/packages/flutter_aepoptimize) |
 
 > [!NOTE]  
 > The Flutter plugins within this repository are specifically designed to support the Android and iOS platforms only.
