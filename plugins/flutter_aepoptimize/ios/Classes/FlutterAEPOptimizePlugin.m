@@ -192,6 +192,8 @@ governing permissions and limitations under the License.
 
 - (void)handleBatchDisplayed:(FlutterMethodCall *)call result:(FlutterResult)result {
     NSMutableArray<AEPOffer *> *offers = [NSMutableArray array];
+    // Keep propositions alive — Offer.proposition is weak and becomes nil once the loop-scoped
+    // `prop` goes out of scope, resulting in empty tracking payloads.
     NSMutableArray<AEPOptimizeProposition *> *propositions = [NSMutableArray array];
     for (NSDictionary *dict in call.arguments) {
         AEPOptimizeProposition *prop = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:dict];
@@ -208,6 +210,8 @@ governing permissions and limitations under the License.
 
 - (void)handleBatchGenerateDisplayInteractionXdm:(FlutterMethodCall *)call result:(FlutterResult)result {
     NSMutableArray<AEPOffer *> *offers = [NSMutableArray array];
+    // Keep propositions alive — Offer.proposition is weak and becomes nil once the loop-scoped
+    // `prop` goes out of scope, resulting in empty tracking payloads.
     NSMutableArray<AEPOptimizeProposition *> *propositions = [NSMutableArray array];
     for (NSDictionary *dict in call.arguments) {
         AEPOptimizeProposition *prop = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:dict];
