@@ -192,9 +192,11 @@ governing permissions and limitations under the License.
 
 - (void)handleBatchDisplayed:(FlutterMethodCall *)call result:(FlutterResult)result {
     NSMutableArray<AEPOffer *> *offers = [NSMutableArray array];
+    NSMutableArray<AEPOptimizeProposition *> *propositions = [NSMutableArray array];
     for (NSDictionary *dict in call.arguments) {
         AEPOptimizeProposition *prop = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:dict];
         if (prop && prop.offers.count > 0) {
+            [propositions addObject:prop];
             [offers addObject:prop.offers[0]];
         }
     }
@@ -206,9 +208,11 @@ governing permissions and limitations under the License.
 
 - (void)handleBatchGenerateDisplayInteractionXdm:(FlutterMethodCall *)call result:(FlutterResult)result {
     NSMutableArray<AEPOffer *> *offers = [NSMutableArray array];
+    NSMutableArray<AEPOptimizeProposition *> *propositions = [NSMutableArray array];
     for (NSDictionary *dict in call.arguments) {
         AEPOptimizeProposition *prop = [FlutterAEPOptimizeDataBridge propositionFromOfferTrackingDictionary:dict];
         if (prop && prop.offers.count > 0) {
+            [propositions addObject:prop];
             [offers addObject:prop.offers[0]];
         }
     }
