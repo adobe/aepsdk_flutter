@@ -61,6 +61,8 @@ governing permissions and limitations under the License.
     dict[@"offers"] = offersArray;
     dict[@"scope"] = proposition.scope;
     dict[@"scopeDetails"] = proposition.scopeDetails ?: @{};
+    dict[@"activity"] = proposition.activity ?: @{};
+    dict[@"placement"] = proposition.placement ?: @{};
     return dict;
 }
 
@@ -100,11 +102,15 @@ governing permissions and limitations under the License.
     NSString *propositionId = [dict[@"propositionId"] isKindOfClass:[NSString class]] ? dict[@"propositionId"] : @"";
     NSString *propositionScope = [dict[@"propositionScope"] isKindOfClass:[NSString class]] ? dict[@"propositionScope"] : @"";
     NSDictionary *scopeDetails = [dict[@"propositionScopeDetails"] isKindOfClass:[NSDictionary class]] ? dict[@"propositionScopeDetails"] : @{};
+    NSDictionary *activity = [dict[@"propositionActivity"] isKindOfClass:[NSDictionary class]] ? dict[@"propositionActivity"] : @{};
+    NSDictionary *placement = [dict[@"propositionPlacement"] isKindOfClass:[NSDictionary class]] ? dict[@"propositionPlacement"] : @{};
 
     NSDictionary *propositionData = @{
         @"id": propositionId,
         @"scope": propositionScope,
         @"scopeDetails": scopeDetails,
+        @"activity": activity,
+        @"placement": placement,
         @"items": @[@{
             @"id": dict[@"id"] ?: @"",
             @"etag": dict[@"etag"] ?: @"",

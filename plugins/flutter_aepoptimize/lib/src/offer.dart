@@ -29,6 +29,8 @@ class Offer {
   String _propositionId = '';
   String _propositionScope = '';
   Map<String, dynamic> _propositionScopeDetails = {};
+  Map<String, dynamic> _propositionActivity = {};
+  Map<String, dynamic> _propositionPlacement = {};
 
   Offer({
     required this.id,
@@ -62,10 +64,14 @@ class Offer {
     );
   }
 
-  void setPropositionContext(String propositionId, String scope, Map<String, dynamic> scopeDetails) {
+  void setPropositionContext(String propositionId, String scope,
+      Map<String, dynamic> scopeDetails, Map<String, dynamic> activity,
+      Map<String, dynamic> placement) {
     _propositionId = propositionId;
     _propositionScope = scope;
     _propositionScopeDetails = scopeDetails;
+    _propositionActivity = activity;
+    _propositionPlacement = placement;
   }
 
   Map<String, dynamic> toMap() {
@@ -88,6 +94,8 @@ class Offer {
       'propositionId': _propositionId,
       'propositionScope': _propositionScope,
       'propositionScopeDetails': _propositionScopeDetails,
+      'propositionActivity': _propositionActivity,
+      'propositionPlacement': _propositionPlacement,
     };
   }
 

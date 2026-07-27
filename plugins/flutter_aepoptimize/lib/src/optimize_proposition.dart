@@ -21,12 +21,16 @@ class OptimizeProposition {
   final List<Offer> offers;
   final String scope;
   final Map<String, dynamic> scopeDetails;
+  final Map<String, dynamic> activity;
+  final Map<String, dynamic> placement;
 
   OptimizeProposition({
     required this.id,
     required this.offers,
     required this.scope,
     this.scopeDetails = const {},
+    this.activity = const {},
+    this.placement = const {},
   });
 
   factory OptimizeProposition.fromMap(Map<dynamic, dynamic> map) {
@@ -35,6 +39,12 @@ class OptimizeProposition {
     final propScopeDetails = map['scopeDetails'] != null
         ? Map<String, dynamic>.from(map['scopeDetails'] as Map)
         : <String, dynamic>{};
+    final propActivity = map['activity'] != null
+        ? Map<String, dynamic>.from(map['activity'] as Map)
+        : <String, dynamic>{};
+    final propPlacement = map['placement'] != null
+        ? Map<String, dynamic>.from(map['placement'] as Map)
+        : <String, dynamic>{};
 
     final offersList = (map['offers'] as List<dynamic>?)
             ?.map((o) => Offer.fromMap(Map<dynamic, dynamic>.from(o as Map)))
@@ -42,7 +52,8 @@ class OptimizeProposition {
         [];
 
     for (final offer in offersList) {
-      offer.setPropositionContext(propId, propScope, propScopeDetails);
+      offer.setPropositionContext(
+          propId, propScope, propScopeDetails, propActivity, propPlacement);
     }
 
     return OptimizeProposition(
@@ -50,6 +61,8 @@ class OptimizeProposition {
       offers: offersList,
       scope: propScope,
       scopeDetails: propScopeDetails,
+      activity: propActivity,
+      placement: propPlacement,
     );
   }
 
@@ -59,6 +72,8 @@ class OptimizeProposition {
       'offers': offers.map((o) => o.toMap()).toList(),
       'scope': scope,
       'scopeDetails': scopeDetails,
+      'activity': activity,
+      'placement': placement,
     };
   }
 
