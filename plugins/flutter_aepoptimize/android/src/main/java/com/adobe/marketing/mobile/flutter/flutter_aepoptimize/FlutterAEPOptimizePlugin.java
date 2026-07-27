@@ -220,9 +220,13 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
     private void handleBatchDisplayed(MethodCall call, Result result) {
         List<Map<String, Object>> items = (List<Map<String, Object>>) call.arguments;
         List<Offer> offers = new ArrayList<>();
+        // Keep propositions alive — Offer uses a SoftReference to its proposition, which GC can
+        // clear once the loop-scoped `prop` goes out of scope, resulting in empty tracking payloads.
+        List<OptimizeProposition> propositions = new ArrayList<>();
         for (Map<String, Object> item : items) {
             OptimizeProposition prop = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap(item);
             if (prop != null && prop.getOffers() != null && !prop.getOffers().isEmpty()) {
+                propositions.add(prop);
                 offers.add(prop.getOffers().get(0));
             }
         }
@@ -236,9 +240,13 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
     private void handleBatchGenerateDisplayInteractionXdm(MethodCall call, Result result) {
         List<Map<String, Object>> items = (List<Map<String, Object>>) call.arguments;
         List<Offer> offers = new ArrayList<>();
+        // Keep propositions alive — Offer uses a SoftReference to its proposition, which GC can
+        // clear once the loop-scoped `prop` goes out of scope, resulting in empty tracking payloads.
+        List<OptimizeProposition> propositions = new ArrayList<>();
         for (Map<String, Object> item : items) {
             OptimizeProposition prop = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap(item);
             if (prop != null && prop.getOffers() != null && !prop.getOffers().isEmpty()) {
+                propositions.add(prop);
                 offers.add(prop.getOffers().get(0));
             }
         }
