@@ -576,12 +576,14 @@ void main() {
         'generateDisplayInteractionXdm',
         'generateTapInteractionXdm',
         'generateReferenceXdm',
+        'batchDisplayed',
+        'batchGenerateDisplayInteractionXdm',
       ];
 
       // Ensure list is complete - this test fails if we add a method
       // to the Dart API but forget to add it here as a reminder to
       // also add it to the native bridges
-      expect(expectedMethods.length, 10);
+      expect(expectedMethods.length, 12);
     });
   });
 

@@ -20,8 +20,11 @@ class DecisionScope {
     required String activityId,
     required String placementId,
     int itemCount = 1,
-  }) : name = base64Encode(utf8.encode(
-            '{"activityId":"$activityId","placementId":"$placementId","itemCount":$itemCount}'));
+  }) : name = base64Encode(utf8.encode(jsonEncode({
+            'activityId': activityId,
+            'placementId': placementId,
+            'itemCount': itemCount,
+          })));
 
   Map<String, dynamic> toMap() {
     return {'name': name};
