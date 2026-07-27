@@ -11,9 +11,6 @@ governing permissions and limitations under the License.
 
 package com.adobe.marketing.mobile.flutter.flutter_aepoptimize;
 
-import android.util.Log;
-
-import com.adobe.marketing.mobile.AdobeCallback;
 import com.adobe.marketing.mobile.AdobeCallbackWithError;
 import com.adobe.marketing.mobile.AdobeError;
 import com.adobe.marketing.mobile.optimize.DecisionScope;
@@ -34,8 +31,6 @@ import java.util.List;
 import java.util.Map;
 
 public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandler {
-
-    private static final String TAG = "FlutterAEPOptimizePlugin";
 
     private MethodChannel channel;
 
@@ -100,9 +95,23 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
         Double timeout = arguments.containsKey("timeout") && arguments.get("timeout") instanceof Number
                 ? ((Number) arguments.get("timeout")).doubleValue() : null;
 
-        AdobeCallback<Map<DecisionScope, OptimizeProposition>> callback =
-                propositions -> AndroidUtil.runOnUIThread(() ->
-                        result.success(FlutterAEPOptimizeDataBridge.mapFromPropositionsMap(propositions)));
+        AdobeCallbackWithError<Map<DecisionScope, OptimizeProposition>> callback =
+                new AdobeCallbackWithError<Map<DecisionScope, OptimizeProposition>>() {
+                    @Override
+                    public void call(Map<DecisionScope, OptimizeProposition> propositions) {
+                        AndroidUtil.runOnUIThread(() ->
+                                result.success(FlutterAEPOptimizeDataBridge.mapFromPropositionsMap(propositions)));
+                    }
+
+                    @Override
+                    public void fail(AdobeError adobeError) {
+                        final AdobeError error = adobeError != null ? adobeError : AdobeError.UNEXPECTED_ERROR;
+                        AndroidUtil.runOnUIThread(() ->
+                                result.error(Integer.toString(error.getErrorCode()),
+                                        "updatePropositions failed",
+                                        error.getErrorName()));
+                    }
+                };
 
         if (timeout != null) {
             Optimize.updatePropositions(scopes, xdm, data, timeout, callback);
@@ -210,12 +219,10 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
     @SuppressWarnings("unchecked")
     private void handleBatchDisplayed(MethodCall call, Result result) {
         List<Map<String, Object>> items = (List<Map<String, Object>>) call.arguments;
-        List<OptimizeProposition> propositions = new ArrayList<>();
         List<Offer> offers = new ArrayList<>();
         for (Map<String, Object> item : items) {
             OptimizeProposition prop = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap(item);
             if (prop != null && prop.getOffers() != null && !prop.getOffers().isEmpty()) {
-                propositions.add(prop);
                 offers.add(prop.getOffers().get(0));
             }
         }
@@ -228,12 +235,10 @@ public class FlutterAEPOptimizePlugin implements FlutterPlugin, MethodCallHandle
     @SuppressWarnings("unchecked")
     private void handleBatchGenerateDisplayInteractionXdm(MethodCall call, Result result) {
         List<Map<String, Object>> items = (List<Map<String, Object>>) call.arguments;
-        List<OptimizeProposition> propositions = new ArrayList<>();
         List<Offer> offers = new ArrayList<>();
         for (Map<String, Object> item : items) {
             OptimizeProposition prop = FlutterAEPOptimizeDataBridge.propositionFromOfferTrackingMap(item);
             if (prop != null && prop.getOffers() != null && !prop.getOffers().isEmpty()) {
-                propositions.add(prop);
                 offers.add(prop.getOffers().get(0));
             }
         }
