@@ -59,6 +59,8 @@ class FlutterAEPOptimizeDataBridge {
         map.put("id", proposition.getId());
         map.put("scope", proposition.getScope());
         map.put("scopeDetails", proposition.getScopeDetails() != null ? proposition.getScopeDetails() : new HashMap<>());
+        map.put("activity", proposition.getActivity() != null ? proposition.getActivity() : new HashMap<>());
+        map.put("placement", proposition.getPlacement() != null ? proposition.getPlacement() : new HashMap<>());
 
         List<Map<String, Object>> offersArray = new ArrayList<>();
         if (proposition.getOffers() != null) {
@@ -97,6 +99,8 @@ class FlutterAEPOptimizeDataBridge {
         String propositionId = getNullableString(map, "propositionId");
         String propositionScope = getNullableString(map, "propositionScope");
         Map<String, Object> scopeDetails = getNullableMap(map, "propositionScopeDetails");
+        Map<String, Object> activity = getNullableMap(map, "propositionActivity");
+        Map<String, Object> placement = getNullableMap(map, "propositionPlacement");
 
         Map<String, Object> offerItemData = new HashMap<>();
         offerItemData.put("id", map.get("id") != null ? map.get("id") : "");
@@ -129,6 +133,8 @@ class FlutterAEPOptimizeDataBridge {
         propositionData.put("id", propositionId != null ? propositionId : "");
         propositionData.put("scope", propositionScope != null ? propositionScope : "");
         propositionData.put("scopeDetails", scopeDetails != null ? scopeDetails : new HashMap<>());
+        propositionData.put("activity", activity != null ? activity : new HashMap<>());
+        propositionData.put("placement", placement != null ? placement : new HashMap<>());
         propositionData.put("items", items);
 
         return OptimizeProposition.fromEventData(propositionData);
