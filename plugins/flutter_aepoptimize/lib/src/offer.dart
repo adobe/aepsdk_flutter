@@ -12,18 +12,37 @@ governing permissions and limitations under the License.
 import 'package:flutter/services.dart';
 import 'package:flutter_aepoptimize/src/offer_type.dart';
 
+/// Represents a decision option (offer) contained within an
+/// [OptimizeProposition].
 class Offer {
   static const MethodChannel _channel =
       const MethodChannel('flutter_aepoptimize');
 
+  /// Unique offer identifier.
   final String id;
+
+  /// Offer revision detail at the time of the request.
   final String etag;
+
+  /// Offer priority score.
   final double score;
+
+  /// The schema string describing the offer content.
   final String schema;
+
+  /// Optional offer metadata.
   final Map<String, dynamic>? meta;
+
+  /// The type of the offer content, see [OfferType].
   final OfferType type;
+
+  /// Optional list of language codes for the offer content.
   final List<String>? language;
+
+  /// The offer content string.
   final String content;
+
+  /// Optional offer characteristics.
   final Map<String, String>? characteristics;
 
   String _propositionId = '';
@@ -44,6 +63,7 @@ class Offer {
     this.characteristics,
   });
 
+  /// Creates an offer from a platform channel [map].
   factory Offer.fromMap(Map<dynamic, dynamic> map) {
     return Offer(
       id: map['id'] as String? ?? '',
@@ -64,6 +84,9 @@ class Offer {
     );
   }
 
+  /// Stores the parent proposition context on this offer so it can be sent
+  /// back to the native SDK when tracking. Set internally when a proposition
+  /// is decoded; not intended to be called directly.
   void setPropositionContext(String propositionId, String scope,
       Map<String, dynamic> scopeDetails, Map<String, dynamic> activity,
       Map<String, dynamic> placement) {
@@ -74,6 +97,7 @@ class Offer {
     _propositionPlacement = placement;
   }
 
+  /// Converts this offer into a map for the platform channel.
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -88,6 +112,8 @@ class Offer {
     };
   }
 
+  /// Converts this offer, along with its parent proposition context, into a
+  /// map used by the native SDK for tracking.
   Map<String, dynamic> toTrackingMap() {
     return {
       ...toMap(),
@@ -99,14 +125,17 @@ class Offer {
     };
   }
 
+  /// Tracks a display interaction for this offer with the Edge Network.
   Future<void> displayed() {
     return _channel.invokeMethod<void>('offerDisplayed', toTrackingMap());
   }
 
+  /// Tracks a tap interaction for this offer with the Edge Network.
   Future<void> tapped() {
     return _channel.invokeMethod<void>('offerTapped', toTrackingMap());
   }
 
+  /// Generates XDM-formatted data for a display interaction of this offer.
   Future<Map<String, dynamic>?> generateDisplayInteractionXdm() {
     return _channel
         .invokeMapMethod<String, dynamic>(
@@ -114,6 +143,7 @@ class Offer {
         .then((value) => value);
   }
 
+  /// Generates XDM-formatted data for a tap interaction of this offer.
   Future<Map<String, dynamic>?> generateTapInteractionXdm() {
     return _channel
         .invokeMapMethod<String, dynamic>(

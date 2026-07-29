@@ -11,11 +11,17 @@ governing permissions and limitations under the License.
 
 import 'dart:convert';
 
+/// Represents a scope used to fetch personalization decisions (propositions)
+/// from the Edge Network.
 class DecisionScope {
+  /// The encoded scope name.
   final String name;
 
+  /// Creates a decision scope from an already-encoded scope [name].
   DecisionScope(this.name);
 
+  /// Creates a decision scope by base64-encoding the given [activityId],
+  /// [placementId], and optional [itemCount].
   DecisionScope.fromActivityAndPlacement({
     required String activityId,
     required String placementId,
@@ -26,10 +32,12 @@ class DecisionScope {
             'itemCount': itemCount,
           })));
 
+  /// Converts this decision scope into a map for the platform channel.
   Map<String, dynamic> toMap() {
     return {'name': name};
   }
 
+  /// Creates a decision scope from a platform channel [map].
   factory DecisionScope.fromMap(Map<dynamic, dynamic> map) {
     return DecisionScope(map['name'] as String);
   }

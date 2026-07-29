@@ -9,9 +9,14 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+/// Enum representing the type of an [Offer]'s content.
 enum OfferType { unknown, json, text, html, image }
 
+/// Convenience accessors that map an [OfferType] to the values used by the
+/// native SDK.
 extension OfferTypeExtension on OfferType {
+  /// The integer value used to represent this [OfferType] across the platform
+  /// channel.
   int get rawValue {
     switch (this) {
       case OfferType.unknown:
@@ -27,6 +32,7 @@ extension OfferTypeExtension on OfferType {
     }
   }
 
+  /// The MIME type string corresponding to this [OfferType].
   String get mimeType {
     switch (this) {
       case OfferType.unknown:
@@ -43,7 +49,10 @@ extension OfferTypeExtension on OfferType {
   }
 }
 
+/// Maps an integer received from the native SDK back to an [OfferType].
 extension OfferTypeFromInt on int {
+  /// Converts this integer value into the matching [OfferType], defaulting to
+  /// [OfferType.unknown] for unrecognized values.
   OfferType toOfferType() {
     switch (this) {
       case 0:

@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_aepoptimize/flutter_aepoptimize_data.dart';
 export 'package:flutter_aepoptimize/flutter_aepoptimize_data.dart';
 
+/// Adobe Experience Platform Optimize API.
 class Optimize {
   static const MethodChannel _channel =
       const MethodChannel('flutter_aepoptimize');
@@ -35,6 +36,7 @@ class Optimize {
     }
   };
 
+  /// Returns the version of the AEPOptimize extension.
   static Future<String> get extensionVersion =>
       _channel.invokeMethod<String>('extensionVersion').then((value) => value!);
 
