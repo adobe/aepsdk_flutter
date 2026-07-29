@@ -162,7 +162,7 @@ void main() {
         'id': 'prop-1',
         'scope': 'myScope',
         'scopeDetails': {'activity': {'id': 'act-1'}},
-        'offers': [
+        'items': [
           {
             'id': 'offer-1',
             'type': 2,
@@ -204,7 +204,7 @@ void main() {
         'id': 'prop-1',
         'scope': 'myScope',
         'scopeDetails': {},
-        'offers': [
+        'items': [
           {'id': 'offer-1', 'type': 2, 'content': 'Hello'},
         ],
       }
@@ -272,7 +272,7 @@ void main() {
         'id': 'prop-cached',
         'scope': 'cachedScope',
         'scopeDetails': {},
-        'offers': [
+        'items': [
           {'id': 'offer-cached', 'type': 1, 'content': '{"cached": true}'},
         ],
       }
@@ -536,7 +536,7 @@ void main() {
           'id': 'prop-live',
           'scope': 'listenerScope',
           'scopeDetails': {},
-          'offers': [
+          'items': [
             {'id': 'offer-live', 'type': 3, 'content': '<b>Live</b>'},
           ],
         }
