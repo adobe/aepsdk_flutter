@@ -51,6 +51,11 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin flutter_aepmessaging, com.adobe.marketing.mobile.flutter.flutter_aepmessaging.FlutterAEPMessagingPlugin", e);
     }
     try {
+      flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepoptimize.FlutterAEPOptimizePlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin flutter_aepoptimize, com.adobe.marketing.mobile.flutter.flutter_aepoptimize.FlutterAEPOptimizePlugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new com.adobe.marketing.mobile.flutter.flutter_aepuserprofile.FlutterAEPUserProfilePlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_aepuserprofile, com.adobe.marketing.mobile.flutter.flutter_aepuserprofile.FlutterAEPUserProfilePlugin", e);
