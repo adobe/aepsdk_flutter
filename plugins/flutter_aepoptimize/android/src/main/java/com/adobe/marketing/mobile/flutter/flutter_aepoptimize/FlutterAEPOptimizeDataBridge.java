@@ -68,7 +68,7 @@ class FlutterAEPOptimizeDataBridge {
                 offersArray.add(mapFromOffer(offer));
             }
         }
-        map.put("offers", offersArray);
+        map.put("items", offersArray);
         return map;
     }
 

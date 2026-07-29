@@ -58,7 +58,7 @@ governing permissions and limitations under the License.
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"id"] = proposition.id;
-    dict[@"offers"] = offersArray;
+    dict[@"items"] = offersArray;
     dict[@"scope"] = proposition.scope;
     dict[@"scopeDetails"] = proposition.scopeDetails ?: @{};
     dict[@"activity"] = proposition.activity ?: @{};

@@ -46,7 +46,7 @@ class OptimizeProposition {
         ? Map<String, dynamic>.from(map['placement'] as Map)
         : <String, dynamic>{};
 
-    final offersList = (map['offers'] as List<dynamic>?)
+    final offersList = (map['items'] as List<dynamic>?)
             ?.map((o) => Offer.fromMap(Map<dynamic, dynamic>.from(o as Map)))
             .toList() ??
         [];
@@ -69,7 +69,7 @@ class OptimizeProposition {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'offers': offers.map((o) => o.toMap()).toList(),
+      'items': offers.map((o) => o.toMap()).toList(),
       'scope': scope,
       'scopeDetails': scopeDetails,
       'activity': activity,
