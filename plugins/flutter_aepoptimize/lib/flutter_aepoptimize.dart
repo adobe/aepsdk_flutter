@@ -1,5 +1,5 @@
 /*
-Copyright 2025 Adobe. All rights reserved.
+Copyright 2026 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License. You may obtain a copy
 of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -14,6 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_aepoptimize/flutter_aepoptimize_data.dart';
 export 'package:flutter_aepoptimize/flutter_aepoptimize_data.dart';
 
+/// Adobe Experience Platform Optimize API.
 class Optimize {
   static const MethodChannel _channel =
       const MethodChannel('flutter_aepoptimize');
@@ -35,6 +36,7 @@ class Optimize {
     }
   };
 
+  /// Returns the version of the AEPOptimize extension.
   static Future<String> get extensionVersion =>
       _channel.invokeMethod<String>('extensionVersion').then((value) => value!);
 

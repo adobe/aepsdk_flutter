@@ -1,5 +1,5 @@
 /*
-Copyright 2025 Adobe. All rights reserved.
+Copyright 2026 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License. You may obtain a copy
 of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -13,15 +13,28 @@ import 'package:flutter/services.dart';
 import 'package:flutter_aepoptimize/src/decision_scope.dart';
 import 'package:flutter_aepoptimize/src/offer.dart';
 
+/// Represents the propositions received from the Edge Network for a given
+/// [DecisionScope].
 class OptimizeProposition {
   static const MethodChannel _channel =
       const MethodChannel('flutter_aepoptimize');
 
+  /// Unique proposition identifier.
   final String id;
+
+  /// The list of offers contained in this proposition.
   final List<Offer> offers;
+
+  /// The decision scope string this proposition was returned for.
   final String scope;
+
+  /// Scope details used for tracking this proposition.
   final Map<String, dynamic> scopeDetails;
+
+  /// Activity details associated with this proposition.
   final Map<String, dynamic> activity;
+
+  /// Placement details associated with this proposition.
   final Map<String, dynamic> placement;
 
   OptimizeProposition({
@@ -33,6 +46,7 @@ class OptimizeProposition {
     this.placement = const {},
   });
 
+  /// Creates a proposition from a platform channel [map].
   factory OptimizeProposition.fromMap(Map<dynamic, dynamic> map) {
     final propId = map['id'] as String? ?? '';
     final propScope = map['scope'] as String? ?? '';
@@ -66,6 +80,7 @@ class OptimizeProposition {
     );
   }
 
+  /// Converts this proposition into a map for the platform channel.
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -77,6 +92,8 @@ class OptimizeProposition {
     };
   }
 
+  /// Generates XDM-formatted data for the `Experience Event - Proposition
+  /// Reference` field group for this proposition.
   Future<Map<String, dynamic>?> generateReferenceXdm() {
     return _channel
         .invokeMapMethod<String, dynamic>('generateReferenceXdm', toMap())
