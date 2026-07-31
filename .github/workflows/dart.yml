@@ -189,4 +189,24 @@ jobs:
       - name: Unit test
         working-directory: ./plugins/flutter_aepuserprofile
         run: flutter test
-   
+
+  job9:
+    name: Optimize unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-java@v1
+        with:
+          java-version: "17.x"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.x"
+
+      - name: Install dependencies
+        working-directory: ./plugins/flutter_aepoptimize
+        run: flutter pub get
+
+      - name: Unit test
+        working-directory: ./plugins/flutter_aepoptimize
+        run: flutter test
