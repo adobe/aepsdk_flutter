@@ -1,3 +1,6 @@
+## 6.0.0
+* Add SPM support (#156) - remove Cocoapods
+
 ## 5.1.0
 * Fixed Android `refreshInAppMessages` returning `Unit` instead of `null` over the method channel, causing a type mismatch on the Flutter side.
 
