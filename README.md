@@ -55,16 +55,13 @@ flutter pub get
 
 #### iOS development
 
-For iOS development, after installing the plugin packages, download the pod dependencies by running the following command to link the libraries to your Xcode project :
+After installing the plugin packages via `flutter pub get`, native iOS dependencies are managed via Swift Package Manager (SPM).
 
-```bash
-cd ios && pod install && cd ..
-```
-To update native dependencies to latest available versions, run the following command:
+1.  **Add `AdobeFlutterSDK` to Xcode**: In your Xcode project (`ios/Runner.xcodeproj`), add the local `AdobeFlutterSDK` package. Go to `File > Add Packages...`, select "Add Local...", and navigate to the `AdobeLibrary/aepsdk_flutter` folder. Select the `AdobeFlutterSDK` product to be added to your `Runner` target.
+2.  **Xcode handles dependency resolution**: Xcode will automatically fetch and manage the external Adobe SDKs (e.g., AEPCore) defined in `AdobeLibrary/aepsdk_flutter/Package.swift`.
+3.  **Clean and Build**: Ensure a clean build in Xcode (`Product > Clean Build Folder`) before building (`Product > Build`) or running your application.
 
-```bash
-cd ios && pod update && cd ..
-```
+
 ## Importing the Plugin
 
 For both installation methods, you need to import the package in your **Dart** code as follows:
@@ -104,3 +101,35 @@ Additional documentation about migrating from older Flutter libraries (ACP-prefi
 ## License
 
 See [License](LICENSE)
+
+# Swift Package Manager (SPM) Integration Guide
+
+This section outlines the process of migrating the Adobe Flutter SDK plugins from CocoaPods to Swift Package Manager (SPM) for iOS integration.
+
+## Migration from CocoaPods to SPM (iOS)
+
+To switch the native iOS dependency management for these plugins from CocoaPods to SPM, the following steps were performed:
+
+1.  **SPM-Compatible Plugin Structure**:
+    *   Each `flutter_aep*` plugin (`flutter_aepcore`, `flutter_aepassurance`, etc.) within `plugins/` was configured with a `Package.swift` file in its `ios/` directory (e.g., `plugins/flutter_aepcore/ios/Package.swift`).
+    *   These individual `Package.swift` files defined the plugin's native code target(s), declared dependencies on external Adobe iOS SDKs (e.g., `AEPCore`, `AEPAssurance`), and specified `publicHeadersPath: "."` for Objective-C headers.
+    *   Mixed-language targets (e.g., `flutter_aepmessaging` which had Swift and Objective-C files) were split into separate Objective-C and Swift targets within their `Package.swift`, requiring manual segregation of source files into `ObjC` and `Swift` subdirectories.
+
+2.  **Consolidated `Package.swift` for Local Integration**:
+    *   To simplify integration into the main Flutter project, a single, consolidated `Package.swift` was created at the root of `AdobeLibrary/aepsdk_flutter/Package.swift`.
+    *   This root `Package.swift` defines a top-level product (`AdobeFlutterSDK`) that includes all `flutter_aep*` targets. It also declares all external Adobe iOS SDKs as its own package dependencies. This allows the main Xcode project to add just *one* local package (`AdobeFlutterSDK`) instead of each individual plugin.
+
+3.  **Flutter `pubspec.yaml` Configuration**:
+    *   The main Flutter project's `pubspec.yaml` was updated to use `path` dependencies for all `flutter_aep*` plugins, pointing to their local directories within `AdobeLibrary/aepsdk_flutter/plugins/`. This ensures Flutter's Dart side correctly resolves the plugins.
+    *   Inter-plugin dependencies (e.g., `flutter_aepassurance` depending on `flutter_aepcore`) were also updated to `path` dependencies within their respective `pubspec.yaml` files.
+    *   The `config: enable-swift-package-manager: true` flag was **removed** from the main `pubspec.yaml` to prevent Flutter from attempting its own problematic SPM wrapper generation (`FlutterGeneratedPluginRegistrant`), relying instead on manual Xcode integration.
+
+4.  **Xcode Integration Steps (Manual)**:
+    *   **Remove CocoaPods remnants**: Delete `ios/Podfile`, `ios/Podfile.lock`, `ios/Gemfile`, `ios/Gemfile.lock`, and `ios/Runner.xcworkspace`. Clean up "Pods"-related entries in `ios/.gitignore` and `ios/Flutter/*.xcconfig`.
+    *   **Clear Xcode Caches**: Remove all existing Swift Package Dependencies, clear Xcode's SPM caches (`File > Packages > Reset Package Caches`), and delete Derived Data (`File > Project Settings... > Derived Data > Delete`).
+    *   **Add Local Package**: In Xcode, `File > Add Packages...`, then "Add Local..." and select the `AdobeLibrary/aepsdk_flutter` directory.
+    *   **Select Product(s)**: In the "Choose Package Products" dialog, select the `AdobeFlutterSDK` product (or individual `flutter_aep*` products if not using the consolidated approach) and add it to the `Runner` target.
+    *   **GitHub Authentication**: Ensure Xcode is correctly authenticated to GitHub (e.g., via SSH keys or PATs in Xcode's Accounts) to fetch external Adobe SDK dependencies.
+    *   **Clean and Build**: Perform `Product > Clean Build Folder` and `Product > Build`.
+
+By following these steps, the Adobe Flutter SDK plugins can be successfully integrated into an iOS Flutter project using Swift Package Manager, completely replacing CocoaPods for their native dependencies.

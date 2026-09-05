@@ -82,3 +82,6 @@ example/android/GeneratedPluginRegistrant.java
 
 # podspec.lock for plugins
 plugins/**/pubspec.lock
+
+# Swift Package Manager
+**/.swiftpm/xcode/xcuserdata/

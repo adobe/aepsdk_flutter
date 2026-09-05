@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.0.0
+* Add SPM support (#156) - remove Cocoapods
+
 ## 5.0.0
 
 * Initial release of flutter_aepoptimize.
