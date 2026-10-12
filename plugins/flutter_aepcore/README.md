@@ -18,7 +18,21 @@
 
 Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepcore/install).
 
-> Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
+### iOS
+
+This plugin supports both **Swift Package Manager (SPM)** and **CocoaPods** for managing native iOS dependencies.
+
+#### Swift Package Manager (SPM)
+
+In Flutter projects configured with Swift Package Manager (Flutter 3.24+), native dependencies are resolved automatically by Flutter and Xcode during build (`flutter build ios` or `flutter run`). No additional step is required.
+
+#### CocoaPods
+
+If your project is using CocoaPods, run `pod install` in your `ios` directory after installing the plugin to link the libraries to your Xcode project:
+
+```bash
+cd ios && pod install && cd ..
+```
 
 ## Importing the Plugins
 

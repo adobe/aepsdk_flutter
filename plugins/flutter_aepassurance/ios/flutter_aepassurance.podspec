@@ -3,14 +3,14 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepassurance'
-  s.version          = '5.0.0'
+  s.version          = '5.1.0'
   s.summary          = 'Adobe Experience Platform support for Flutter apps.'
   s.homepage         = 'https://developer.adobe.com/client-sdks'
   s.license          = { :file => '../LICENSE' }
   s.author           = 'Adobe Mobile SDK Team'
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'flutter_aepassurance/Sources/flutter_aepassurance/**/*.{h,m}'
+  s.public_header_files = 'flutter_aepassurance/Sources/flutter_aepassurance/include/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'AEPAssurance', '~> 5.0'
   s.platform = :ios, '12.0'

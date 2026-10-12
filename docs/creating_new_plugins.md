@@ -17,6 +17,8 @@
 
 1. iOS: Add the dependency for the AEP extension you are writing a wrapper for in your podspec file found under `{yourPluginName}/ios/{flutter_wrapper_name}.podspec`. Follow the pattern shown in the other podspec files found in any of the other [respective plugin directories.](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepassurance/ios/flutter_aepassurance.podspec)
 
+    The plugins support both CocoaPods and Swift Package Manager (SPM), so the dependency must also be added to the `Package.swift` file found under `{yourPluginName}/ios/{flutter_wrapper_name}/Package.swift`. Follow the pattern shown in the other [Package.swift files.](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepassurance/ios/flutter_aepassurance/Package.swift) Keep the dependencies in the podspec and `Package.swift` in sync.
+
 2. Android: Add the depdendency for the AEP extension you are writing a wrapper for in your build.gradle file found under `{yourPluginName}/android/build.gradle`. Follow the pattern shown in the other build.gradle files found in any of the other [respective plugin directories.](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepassurance/android/build.gradle)
 
 3. Flutter: Add the dependency for the AEP extension you are writing a wrapper for in your pubspec.yml. Follow the pattern shown in the other pubspec files found in any of the other [respective plugin directories](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepassurance/pubspec.yaml)
@@ -27,9 +29,11 @@
 
 1. In order to write native code, it will be easier to use the workspace generated under the `{yourPluginName}/example/ios/Runner.xcworkspace`. This will open the Workspace in Xcode and allow you to have code completion and the other benefits of the IDE.
 
-2. Navigate to the `{yourPluginName}Plugin.m` and import the Extension you are writing a wrapper for plus any additional dependencies. e.g: `@import AEPEdge;`
+2. Native iOS sources are shared by CocoaPods and SPM and live under `{yourPluginName}/ios/{flutter_wrapper_name}/Sources/{flutter_wrapper_name}/`. Place Objective-C headers under `Sources/{flutter_wrapper_name}/include/{flutter_wrapper_name}/`. The `source_files` and `public_header_files` entries in the podspec must point to these folders.
 
-3. Implement your bridge. The two main functions to implement are the `(void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar` and the `(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result`. Implementations will look different for everyone, but make sure that you implement these two functions to properly register your plugin with the registrar, and handle the method calls.
+3. Navigate to the `{yourPluginName}Plugin.m` and import the Extension you are writing a wrapper for plus any additional dependencies. e.g: `@import AEPEdge;`
+
+4. Implement your bridge. The two main functions to implement are the `(void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar` and the `(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result`. Implementations will look different for everyone, but make sure that you implement these two functions to properly register your plugin with the registrar, and handle the method calls.
 
 ### Android
 

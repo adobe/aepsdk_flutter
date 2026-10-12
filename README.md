@@ -17,7 +17,7 @@ This repository is a monorepo. It contains a collection of Adobe Experience Plat
 | [Optimize](plugins/flutter_aepoptimize/README.md) | [![pub package](https://img.shields.io/pub/v/flutter_aepoptimize.svg)](https://pub.dartlang.org/packages/flutter_aepoptimize) |
 
 > [!NOTE]  
-> The Flutter plugins within this repository are specifically designed to support the Android and iOS platforms only.
+> The Flutter plugins within this repository are specifically designed to support the Android and iOS platforms only. On iOS, both Swift Package Manager (SPM) and CocoaPods are supported.
 
 ## iOS Privacy Manifest
 
@@ -55,12 +55,24 @@ flutter pub get
 
 #### iOS development
 
-For iOS development, after installing the plugin packages, download the pod dependencies by running the following command to link the libraries to your Xcode project :
+All plugins in this repository support both **Swift Package Manager (SPM)** and **CocoaPods** for managing native iOS dependencies.
+
+##### Swift Package Manager (SPM)
+
+All plugins include native `Package.swift` manifests. In Flutter projects configured with Swift Package Manager (Flutter 3.24+):
+
+- Native dependencies will be automatically resolved by Flutter and Xcode during build (`flutter build ios` or `flutter run`).
+- To update SPM dependencies in Xcode, navigate to **File > Packages > Update to Latest Package Versions**.
+
+##### CocoaPods
+
+If your project is using CocoaPods, download the pod dependencies after installing the plugin packages by running:
 
 ```bash
 cd ios && pod install && cd ..
 ```
-To update native dependencies to latest available versions, run the following command:
+
+To update native pod dependencies to the latest available versions, run:
 
 ```bash
 cd ios && pod update && cd ..

@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepcore'
-  s.version          = '5.1.0'
+  s.version          = '5.2.0'
   s.summary          = 'Adobe Experience Platform support for Flutter apps.'
   s.homepage         = 'https://developer.adobe.com/client-sdks'
   s.license          = { :file => '../LICENSE' }
   s.author           = 'Adobe Mobile SDK Team'
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'flutter_aepcore/Sources/flutter_aepcore/**/*.{h,m}'
+  s.public_header_files = 'flutter_aepcore/Sources/flutter_aepcore/include/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'AEPCore', '>= 5.4.0', '< 6.0.0'
   s.dependency 'AEPLifecycle', '>= 5.4.0', '< 6.0.0'

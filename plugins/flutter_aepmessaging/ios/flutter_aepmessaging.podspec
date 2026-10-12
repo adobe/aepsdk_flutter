@@ -4,14 +4,13 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_aepmessaging'
-  s.version          = '5.1.0'
+  s.version          = '5.2.0'
   s.summary          = 'Adobe Experience Platform Messaging extension for Flutter apps'
   s.homepage         = 'https://developer.adobe.com/client-sdks/documentation'
   s.license          = { :file => '../LICENSE' }
   s.author           = 'Adobe Mobile SDK Team'
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'flutter_aepmessaging/Sources/flutter_aepmessaging/**/*.swift'
   s.dependency 'Flutter'
   s.dependency 'AEPMessaging', '~> 5.0'
   s.dependency 'AEPCore', '~> 5.0'

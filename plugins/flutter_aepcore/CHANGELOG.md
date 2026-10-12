@@ -1,3 +1,7 @@
+## 5.2.0
+
+* Added SPM Support next to CocoaPods support (#156)
+
 ## 5.1.0
 * Added `MobileCore.setPushIdentifier` API to the Flutter wrapper.
 

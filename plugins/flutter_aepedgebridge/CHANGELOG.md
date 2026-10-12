@@ -1,3 +1,7 @@
+## 5.1.0
+
+* Added SPM Support next to CocoaPods support (#156)
+
 ## 5.0.0
 
 * Update to use BOM [(Bill of Materials)](https://central.sonatype.com/artifact/com.adobe.marketing.mobile/sdk-bom) for Android SDK dependencies.

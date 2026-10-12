@@ -1,3 +1,8 @@
+## 5.2.0
+
+* Added SPM Support next to CocoaPods support (#156)
+* Renamed iOS plugin class `SwiftFlutterAEPMessagingPlugin` to `FlutterAEPMessagingPlugin` (old name kept as alias) (#156)
+
 ## 5.1.0
 * Fixed Android `refreshInAppMessages` returning `Unit` instead of `null` over the method channel, causing a type mismatch on the Flutter side.
 
