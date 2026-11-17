@@ -80,5 +80,11 @@ example/android/GeneratedPluginRegistrant.java
 **/ios/Flutter/Generated.xcconfig
 **/ios/flutter_export_environment.sh
 
+# Swift Package Manager
+**/.build/
+**/.swiftpm/
+**/ios/Flutter/ephemeral/
+**/xcshareddata/swiftpm/Package.resolved
+
 # podspec.lock for plugins
 plugins/**/pubspec.lock

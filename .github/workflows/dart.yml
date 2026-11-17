@@ -57,13 +57,13 @@ jobs:
         working-directory: ./example
         run: flutter pub get
 
-      - name: Install pods
-        working-directory: ./example/ios
-        run: pod update
-
-      - name: Build iOS app
+      - name: Build iOS app with Swift Package Manager
         working-directory: ./example
         run: flutter build ios --no-codesign --debug
+
+      - name: Verify CocoaPods was not used
+        working-directory: ./example/ios
+        run: test ! -f Podfile && test ! -d Pods
 
   job3:
     name: Core unit tests

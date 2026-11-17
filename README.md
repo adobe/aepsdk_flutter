@@ -55,16 +55,16 @@ flutter pub get
 
 #### iOS development
 
-For iOS development, after installing the plugin packages, download the pod dependencies by running the following command to link the libraries to your Xcode project :
+Starting with version 6.0.0, the iOS plugins support [Swift Package Manager](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers) only. CocoaPods is no longer supported.
 
-```bash
-cd ios && pod install && cd ..
-```
-To update native dependencies to latest available versions, run the following command:
+Requirements:
+- Flutter 3.47.0 or later (Swift Package Manager is enabled by default).
+- iOS 15.0 or later.
+- Adobe Experience Platform iOS SDKs 6.x (resolved automatically).
 
-```bash
-cd ios && pod update && cd ..
-```
+No extra steps are required: the Adobe Experience Platform iOS SDKs are resolved automatically as Swift packages when you build your app. To update them to the latest compatible versions, use **File > Packages > Update to Latest Package Versions** in Xcode.
+
+If your app uses additional Adobe Experience Platform iOS SDKs from native code (for example, AEPAnalytics), add them with Swift Package Manager too, and remove any `AEP*` pods from your `Podfile`. Integrating the same SDK with both CocoaPods and Swift Package Manager results in duplicate copies of the SDK.
 ## Importing the Plugin
 
 For both installation methods, you need to import the package in your **Dart** code as follows:
