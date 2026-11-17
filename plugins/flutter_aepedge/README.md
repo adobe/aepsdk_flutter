@@ -15,7 +15,7 @@ The Edge Network extension has the following peer dependencies, which must be in
 
 Install instructions for this package can be found [here](https://pub.dev/packages/flutter_aepedge/install).
 
-> Note: After you have installed the SDK, don't forget to run `pod install` in your `ios` directory to link the libraries to your Xcode project.
+> Note: On iOS, this plugin is integrated with [Swift Package Manager](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-app-developers) (Flutter 3.47.0 or later, iOS 15.0 or later). The Adobe Experience Platform iOS SDKs are resolved automatically when you build your app; no `pod install` is required. CocoaPods is not supported.
 
 ## Usage
 

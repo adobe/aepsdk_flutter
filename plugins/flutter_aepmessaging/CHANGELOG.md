@@ -1,3 +1,11 @@
+## 6.0.0
+
+* iOS: Swift Package Manager is now the only supported integration. CocoaPods support (the podspec) is removed.
+* Minimum supported iOS version is 15.0.
+* iOS: Requires Adobe Experience Platform iOS SDKs 6.x.
+* Minimum supported Flutter version is 3.47.0.
+* iOS: The Objective-C `FlutterAEPMessagingPlugin` registration class is replaced by a Swift class with the same name, because a Swift package target cannot mix Swift and Objective-C.
+
 ## 5.1.0
 * Fixed Android `refreshInAppMessages` returning `Unit` instead of `null` over the method channel, causing a type mismatch on the Flutter side.
 

@@ -15,7 +15,11 @@
 
 ## Add Dependencies
 
-1. iOS: Add the dependency for the AEP extension you are writing a wrapper for in your podspec file found under `{yourPluginName}/ios/{flutter_wrapper_name}.podspec`. Follow the pattern shown in the other podspec files found in any of the other [respective plugin directories.](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepassurance/ios/flutter_aepassurance.podspec)
+1. iOS: Plugins are integrated with Swift Package Manager only. Follow the [Flutter guide for plugin authors](https://docs.flutter.dev/packages-and-plugins/swift-package-manager/for-plugin-authors) and the layout used by the other plugins, e.g. [flutter_aepassurance](https://github.com/adobe/aepsdk_flutter/tree/main/plugins/flutter_aepassurance/ios):
+    - Native sources live in `{yourPluginName}/ios/{yourPluginName}/Sources/{yourPluginName}/`, and Objective-C headers live in `{yourPluginName}/ios/{yourPluginName}/Sources/{yourPluginName}/include/{yourPluginName}/`.
+    - Add the AEP extension as a Swift package dependency in `{yourPluginName}/ios/{yourPluginName}/Package.swift`, with a minimum of `.iOS("15.0")`.
+    - Do not add a podspec. CocoaPods is not supported.
+    - A Swift Package Manager target cannot mix Swift and Objective-C sources, so write the iOS plugin in a single language.
 
 2. Android: Add the depdendency for the AEP extension you are writing a wrapper for in your build.gradle file found under `{yourPluginName}/android/build.gradle`. Follow the pattern shown in the other build.gradle files found in any of the other [respective plugin directories.](https://github.com/adobe/aepsdk_flutter/blob/main/plugins/flutter_aepassurance/android/build.gradle)
 
@@ -27,7 +31,7 @@
 
 1. In order to write native code, it will be easier to use the workspace generated under the `{yourPluginName}/example/ios/Runner.xcworkspace`. This will open the Workspace in Xcode and allow you to have code completion and the other benefits of the IDE.
 
-2. Navigate to the `{yourPluginName}Plugin.m` and import the Extension you are writing a wrapper for plus any additional dependencies. e.g: `@import AEPEdge;`
+2. Navigate to the `{yourPluginName}/ios/{yourPluginName}/Sources/{yourPluginName}/{yourPluginName}Plugin.m` and import the Extension you are writing a wrapper for plus any additional dependencies. e.g: `@import AEPEdge;`
 
 3. Implement your bridge. The two main functions to implement are the `(void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar` and the `(void)handleMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result`. Implementations will look different for everyone, but make sure that you implement these two functions to properly register your plugin with the registrar, and handle the method calls.
 
@@ -77,13 +81,13 @@ your_plugin_name:
 
     b. For Android, update the MyApplication.java to register the new extension. If your extension requires native code support to work, add it now.
 
-5. To make sure the iOS project is configured correctly, run "flutter pub get" from the "example" directory. Then run a "pod install" from the iOS directory. Now open the Runner.xcworkspace and make sure it builds correctly.
+5. To make sure the iOS project is configured correctly, run "flutter pub get" from the "example" directory, then run "flutter build ios --simulator". Open example/ios/Runner.xcworkspace and make sure **Package Dependencies** lists the plugin and its AEP SDK.
 
 6. To make sure the Android project is configured correctly, open the Android directory in Android Studio and make sure the automated gradle scripts work properly. 
 
 ## Testing:
 
-1. You may now test your plugin. Make sure that you have run `flutter pub get` from the example directory, followed by `pod install` from the iOS directory.
+1. You may now test your plugin. Make sure that you have run `flutter pub get` from the example directory.
 
 2. Set up a launch property and add the app id to the native code for both Android and ios. 
 
@@ -91,7 +95,7 @@ your_plugin_name:
 
 4. Android testing may be done via Android Studio. Open the "example/android/" directory in Android Studio and run the app. This should work, seamlessly, as Flutter is integrated with Android Studio. 
 
-5. Testing iOS is done by running `flutter pub get` from the example directory, then `pod install` from the example/ios directory. Then, make sure that you have an xcode simulator running (only an iOS simulator, close out any Android ones). Now from the command line run `flutter run`. 
+5. Testing iOS is done by running `flutter pub get` from the example directory. Then, make sure that you have an xcode simulator running (only an iOS simulator, close out any Android ones). Now from the command line run `flutter run`. 
 
 6. Once the Android/iOS Flutter app is running, simply connect your assurance session using the assurance field and begin testing.
 

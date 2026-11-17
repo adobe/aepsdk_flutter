@@ -38,7 +38,6 @@ Ensure you have an iOS simulator/device connected.
 ```
 cd example
 flutter pub get
-cd ios && pod install && cd ../
 flutter run
 ```
 
